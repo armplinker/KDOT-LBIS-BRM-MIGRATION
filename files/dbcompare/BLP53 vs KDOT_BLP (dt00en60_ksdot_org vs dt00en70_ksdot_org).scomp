@@ -1,0 +1,463 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Devart (www.devart.com), compare document file -->
+<!-- Modifying this generated file will probably render it invalid -->
+<CompareDocument>
+  <Properties>
+    <DatabaseProvider>a8c9171f-1f52-4698-85d8-8f58f0b59e75</DatabaseProvider>
+    <ProviderVersion>4.4.65.0</ProviderVersion>
+    <SchemaVersion>1.5</SchemaVersion>
+  </Properties>
+  <Source Type="Database">
+    <DataConnection>blp53@dt00en60.ksdot.org:ESOADEV.WORLD</DataConnection>
+    <ConnectionString>User Id=blp53;Server=dt00en60.ksdot.org;Unicode=True;Direct=True;Service Name=ESOADEV.WORLD</ConnectionString>
+    <Category>94fedffc-a6a4-47c7-a71f-b6c138dd4ff1</Category>
+    <Schema />
+  </Source>
+  <Target Type="Database">
+    <DataConnection>KDOT_BLP@dt00en70.ksdot.org:ESOATEST.WORLD</DataConnection>
+    <ConnectionString>User Id=KDOT_BLP;Server=dt00en70.ksdot.org;Unicode=True;Direct=True;Service Name=ESOATEST.WORLD</ConnectionString>
+    <Category>00000000-0000-0000-0000-000000000000</Category>
+    <Schema />
+  </Target>
+  <GroupType Value="Status" />
+  <Filter Value="0" />
+  <ComparisonOptions>
+    <IgnoreForeignKeys>false</IgnoreForeignKeys>
+    <IgnoreColumnOrderInIndexes>false</IgnoreColumnOrderInIndexes>
+    <QuoteObjectNames>false</QuoteObjectNames>
+    <DisableDependencyAnalysis>false</DisableDependencyAnalysis>
+    <IgnorePermissions>false</IgnorePermissions>
+    <RebuildingTable>false</RebuildingTable>
+    <CountColumnsToDropUK>true</CountColumnsToDropUK>
+    <MappingIgnoreSpaces>false</MappingIgnoreSpaces>
+    <MappingIgnoreCase>false</MappingIgnoreCase>
+    <MappingSimilar>false</MappingSimilar>
+    <MappingSimilarPercent xml:space="preserve">80</MappingSimilarPercent>
+    <IgnoreConstraintsNames>false</IgnoreConstraintsNames>
+    <ForceColumnOrder>true</ForceColumnOrder>
+    <IgnoreParserErrors>false</IgnoreParserErrors>
+    <IgnoreCase>false</IgnoreCase>
+    <IgnoreComments>false</IgnoreComments>
+    <IgnoreWhiteSpace>true</IgnoreWhiteSpace>
+    <IgnoreDataTypesInColumn>false</IgnoreDataTypesInColumn>
+    <HideSystemSchemas>true</HideSystemSchemas>
+    <IgnoreCommentObjects>false</IgnoreCommentObjects>
+    <IgnoreInvalidObjectsFromSource>false</IgnoreInvalidObjectsFromSource>
+    <IgnoreSchemaName>false</IgnoreSchemaName>
+    <IgnoreLoggingNologgingClause>false</IgnoreLoggingNologgingClause>
+    <IgnoreDataTypesInVirtualColumn>false</IgnoreDataTypesInVirtualColumn>
+    <IgnoreSequencesInitials>true</IgnoreSequencesInitials>
+    <IgnoreSequencesMaxValue>false</IgnoreSequencesMaxValue>
+    <IgnoreSequencesMinValue>false</IgnoreSequencesMinValue>
+    <IgnoreSequencesIncrementBy>false</IgnoreSequencesIncrementBy>
+    <IgnoreSequencesCycle>false</IgnoreSequencesCycle>
+    <IgnoreSequencesCache>false</IgnoreSequencesCache>
+    <IgnoreDependantObjectsInOtherSchemas>false</IgnoreDependantObjectsInOtherSchemas>
+    <IgnoreCollations>false</IgnoreCollations>
+    <IgnoreMaterializedViewsInitials>false</IgnoreMaterializedViewsInitials>
+    <IgnorePartitions>false</IgnorePartitions>
+    <IgnoreTablespaces>true</IgnoreTablespaces>
+    <IgnorePhysicalAttributes>false</IgnorePhysicalAttributes>
+    <IgnoreTablesCompressions>false</IgnoreTablesCompressions>
+    <IgnoreStorageClause>false</IgnoreStorageClause>
+    <IgnoreConstraintClauseValidateNovalidate>false</IgnoreConstraintClauseValidateNovalidate>
+    <IgnoreConstraintClauseEnableDisable>false</IgnoreConstraintClauseEnableDisable>
+    <IgnoreColumnDefaultValues>false</IgnoreColumnDefaultValues>
+    <IgnoreNotNullConstraints>false</IgnoreNotNullConstraints>
+    <IgnoreIndexes>false</IgnoreIndexes>
+    <IgnoreIndexesNames>false</IgnoreIndexesNames>
+    <IgnorePrimaryKeys>false</IgnorePrimaryKeys>
+    <IgnoreUniqueConstraints>false</IgnoreUniqueConstraints>
+    <IgnoreSupplementalLog>false</IgnoreSupplementalLog>
+    <IgnoreCharSemantics>false</IgnoreCharSemantics>
+    <IgnoreParallelClause>false</IgnoreParallelClause>
+    <IgnoreIlmPolicies>false</IgnoreIlmPolicies>
+    <IgnoreExternalTableLocation>false</IgnoreExternalTableLocation>
+    <IgnoreFlashbackArchive>false</IgnoreFlashbackArchive>
+    <IgnoreTableDMLTriggers>false</IgnoreTableDMLTriggers>
+    <IgnoreInsteadOfTriggers>false</IgnoreInsteadOfTriggers>
+    <IgnoreTriggerFireOrder>false</IgnoreTriggerFireOrder>
+    <IgnoreForeignKeyActions>false</IgnoreForeignKeyActions>
+    <IgnoreCheckConstraints>false</IgnoreCheckConstraints>
+    <IsCompareWrappedVsUnwrapped>true</IsCompareWrappedVsUnwrapped>
+    <IgnoreDoubleQuotesInPlSqlBlocks>false</IgnoreDoubleQuotesInPlSqlBlocks>
+    <IgnoreDropIndexes>false</IgnoreDropIndexes>
+    <RebuildTableIfDataLoss>true</RebuildTableIfDataLoss>
+    <IncludePartitionClause>true</IncludePartitionClause>
+    <IncludeIndexPartitionTablespace>true</IncludeIndexPartitionTablespace>
+    <IncludePartitionTablespace>true</IncludePartitionTablespace>
+    <ListIndividualHashPartitions>true</ListIndividualHashPartitions>
+    <IncludeBodies>true</IncludeBodies>
+    <UseCreateOrReplace>false</UseCreateOrReplace>
+    <IncludeAllSupportedObjects>true</IncludeAllSupportedObjects>
+    <CompareAditionalEditorObjects>false</CompareAditionalEditorObjects>
+    <CheckInconsistency>false</CheckInconsistency>
+    <SetDelimiter>true</SetDelimiter>
+    <UseDelimiter>true</UseDelimiter>
+    <TargetDatabaseName xml:space="preserve" />
+    <TargetChangeTracking>false</TargetChangeTracking>
+    <IsTarget>false</IsTarget>
+    <OmitIgnoreOptions>false</OmitIgnoreOptions>
+    <IncludeFilesAndFilegroups>false</IncludeFilesAndFilegroups>
+    <IgnoreMemoryOptimizedProperty>false</IgnoreMemoryOptimizedProperty>
+    <IncludeSetNoExec>true</IncludeSetNoExec>
+    <CompareServerObjects>false</CompareServerObjects>
+    <IgnoreObjectTypeFilter>false</IgnoreObjectTypeFilter>
+  </ComparisonOptions>
+  <ObjectFilter>
+    <Include>Table</Include>
+    <Include>View</Include>
+    <Include>Package</Include>
+    <Include>Procedure</Include>
+    <Include>Function</Include>
+    <Include>Trigger</Include>
+    <Include>ArrayType</Include>
+    <Include>ObjectType</Include>
+    <Include>TableType</Include>
+    <Include>Sequence</Include>
+    <Include>MaterializedView</Include>
+    <Include>Synonym</Include>
+  </ObjectFilter>
+  <ModifiedObjects>
+    <Object Name="ARC_BRIDGE_20200124:KDOT_BLP.ARC_BRIDGE_20200124" Type="Table" Include="False" Operation="None" />
+    <Object Name="ARC_INSPEVNT_20200124:KDOT_BLP.ARC_INSPEVNT_20200124" Type="Table" Include="False" Operation="None" />
+    <Object Name="ARC_KBLP_BRIDGE_20200124:KDOT_BLP.ARC_KBLP_BRIDGE_20200124" Type="Table" Include="False" Operation="None" />
+    <Object Name="ARC_KBLP_DOCS_ARC_20200124:KDOT_BLP.ARC_KBLP_DOCS_ARC_20200124" Type="Table" Include="False" Operation="None" />
+    <Object Name="ARC_KBLP_INSPS_20200124:KDOT_BLP.ARC_KBLP_INSPS_20200124" Type="Table" Include="False" Operation="None" />
+    <Object Name="ARC_KBLP_LOAD_RATG_20200124:KDOT_BLP.ARC_KBLP_LOAD_RATG_20200124" Type="Table" Include="False" Operation="None" />
+    <Object Name="ARC_KDOTBLP_INSPECTIONS_20200305:KDOT_BLP.ARC_KDOTBLP_INSPECTIONS_20200305" Type="Table" Include="False" Operation="None" />
+    <Object Name="ARC_KDOTBLP_INSPECTIONS_20200311:KDOT_BLP.ARC_KDOTBLP_INSPECTIONS_20200311" Type="Table" Include="False" Operation="None" />
+    <Object Name="ARC_KDOTBLP_INSPECTIONS_20200313:KDOT_BLP.ARC_KDOTBLP_INSPECTIONS_20200313" Type="Table" Include="False" Operation="None" />
+    <Object Name="ARC_KDOTBLP_INSPECTIONS_KEEP:KDOT_BLP.ARC_KDOTBLP_INSPECTIONS_KEEP" Type="Table" Include="False" Operation="None" />
+    <Object Name="ARC_P_E_I_ARC_20200124:KDOT_BLP.ARC_P_E_I_ARC_20200124" Type="Table" Include="False" Operation="None" />
+    <Object Name="ARC_ROADWAY_JUNK:KDOT_BLP.ARC_ROADWAY_JUNK" Type="Table" Include="False" Operation="None" />
+    <Object Name="ARC_STRUC_UNIT_JUNK:KDOT_BLP.ARC_STRUC_UNIT_JUNK" Type="Table" Include="False" Operation="None" />
+    <Object Name="ARC_USERRWAY_JUNK:KDOT_BLP.ARC_USERRWAY_JUNK" Type="Table" Include="False" Operation="None" />
+    <Object Name="ARC_USERSTRUNIT_JUNK:KDOT_BLP.ARC_USERSTRUNIT_JUNK" Type="Table" Include="False" Operation="None" />
+    <Object Name="BRIDGE:KDOT_BLP.BRIDGE" Type="Table" Include="False" Operation="None" />
+    <Object Name="INSP_SCRATCH_20200121:KDOT_BLP.INSP_SCRATCH_20200121" Type="Table" Include="False" Operation="None" />
+    <Object Name="INSP_SCRATCH_20200122:KDOT_BLP.INSP_SCRATCH_20200122" Type="Table" Include="False" Operation="None" />
+    <Object Name="INSP_SCRATCH_20200123:KDOT_BLP.INSP_SCRATCH_20200123" Type="Table" Include="False" Operation="None" />
+    <Object Name="INSPEVNT:KDOT_BLP.INSPEVNT" Type="Table" Include="False" Operation="None" />
+    <Object Name="INSPEVNT_BACKUP_20191202:KDOT_BLP.INSPEVNT_BACKUP_20191202" Type="Table" Include="False" Operation="None" />
+    <Object Name="INSPEVNT_BACKUP_20200108:KDOT_BLP.INSPEVNT_BACKUP_20200108" Type="Table" Include="False" Operation="None" />
+    <Object Name="INSPEVNT_BACKUP_20200128:KDOT_BLP.INSPEVNT_BACKUP_20200128" Type="Table" Include="False" Operation="None" />
+    <Object Name="INSPEVNT_BKUP_05162019:KDOT_BLP.INSPEVNT_BKUP_05162019" Type="Table" Include="False" Operation="None" />
+    <Object Name="INSPEVNT_BKUP_11142019:KDOT_BLP.INSPEVNT_BKUP_11142019" Type="Table" Include="False" Operation="None" />
+    <Object Name="INSPEVNT_BKUP_12252019:KDOT_BLP.INSPEVNT_BKUP_12252019" Type="Table" Include="False" Operation="None" />
+    <Object Name="INSPEVNT_TRANSFORM_20191101:KDOT_BLP.INSPEVNT_TRANSFORM_20191101" Type="Table" Include="False" Operation="None" />
+    <Object Name="KDOTBLP_ATTR_DESCR_LOCAL:KDOT_BLP.KDOTBLP_ATTR_DESCR_LOCAL" Type="Table" Include="False" Operation="None" />
+    <Object Name="KDOTBLP_ATTRIBUTE_DESCRIPTOR:KDOT_BLP.KDOTBLP_ATTRIBUTE_DESCRIPTOR" Type="Table" Include="False" Operation="None" />
+    <Object Name="KDOTBLP_ATTRIBUTE_DESCRIPTOR_20201023:KDOT_BLP.KDOTBLP_ATTRIBUTE_DESCRIPTOR_20201023" Type="Table" Include="False" Operation="None" />
+    <Object Name="KDOTBLP_BRIDGE:KDOT_BLP.KDOTBLP_BRIDGE" Type="Table" Include="False" Operation="None" />
+    <Object Name="KDOTBLP_DOCUMENTS:KDOT_BLP.KDOTBLP_DOCUMENTS" Type="Table" Include="False" Operation="None" />
+    <Object Name="KDOTBLP_DOCUMENTS_20201230:KDOT_BLP.KDOTBLP_DOCUMENTS_20201230" Type="Table" Include="False" Operation="None" />
+    <Object Name="KDOTBLP_DOCUMENTS_TEMP_20200701:KDOT_BLP.KDOTBLP_DOCUMENTS_TEMP_20200701" Type="Table" Include="False" Operation="None" />
+    <Object Name="KDOTBLP_EXCLUDED_BRIDGEGROUPS:KDOT_BLP.KDOTBLP_EXCLUDED_BRIDGEGROUPS" Type="Table" Include="False" Operation="None" />
+    <Object Name="KDOTBLP_FORM_TABS:KDOT_BLP.KDOTBLP_FORM_TABS" Type="Table" Include="False" Operation="None" />
+    <Object Name="KDOTBLP_INSP_BACKUP_01152020:KDOT_BLP.KDOTBLP_INSP_BACKUP_01152020" Type="Table" Include="False" Operation="None" />
+    <Object Name="KDOTBLP_INSPECTIONS:KDOT_BLP.KDOTBLP_INSPECTIONS" Type="Table" Include="False" Operation="None" />
+    <Object Name="KDOTBLP_INSPECTIONS_01152020:KDOT_BLP.KDOTBLP_INSPECTIONS_01152020" Type="Table" Include="False" Operation="None" />
+    <Object Name="KDOTBLP_INSPECTIONS_11142019:KDOT_BLP.KDOTBLP_INSPECTIONS_11142019" Type="Table" Include="False" Operation="None" />
+    <Object Name="KDOTBLP_INSPECTIONS_TEMP:KDOT_BLP.KDOTBLP_INSPECTIONS_TEMP" Type="Table" Include="False" Operation="None" />
+    <Object Name="KDOTBLP_INSPS_BACKUP_20191202:KDOT_BLP.KDOTBLP_INSPS_BACKUP_20191202" Type="Table" Include="False" Operation="None" />
+    <Object Name="KDOTBLP_INSPS_BACKUP_20200108:KDOT_BLP.KDOTBLP_INSPS_BACKUP_20200108" Type="Table" Include="False" Operation="None" />
+    <Object Name="KDOTBLP_INSPS_BACKUP_20200128:KDOT_BLP.KDOTBLP_INSPS_BACKUP_20200128" Type="Table" Include="False" Operation="None" />
+    <Object Name="KDOTBLP_INSPS_SCR_20200123:KDOT_BLP.KDOTBLP_INSPS_SCR_20200123" Type="Table" Include="False" Operation="None" />
+    <Object Name="KDOTBLP_LOAD_RATINGS:KDOT_BLP.KDOTBLP_LOAD_RATINGS" Type="Table" Include="False" Operation="None" />
+    <Object Name="KDOTBLP_LOAD_RATINGS_20191212:KDOT_BLP.KDOTBLP_LOAD_RATINGS_20191212" Type="Table" Include="False" Operation="None" />
+    <Object Name="KDOTBLP_PON_APP_GROUP_CONTACTS:KDOT_BLP.KDOTBLP_PON_APP_GROUP_CONTACTS" Type="Table" Include="False" Operation="None" />
+    <Object Name="KDOTBLP_QAQC_REVIEW_FINDINGS:KDOT_BLP.KDOTBLP_QAQC_REVIEW_FINDINGS" Type="Table" Include="False" Operation="None" />
+    <Object Name="KDOTBLP_TODWATSII_20190610:KDOT_BLP.KDOTBLP_TODWATSII_20190610" Type="Table" Include="False" Operation="None" />
+    <Object Name="KDOTBLP_USERS:KDOT_BLP.KDOTBLP_USERS" Type="Table" Include="False" Operation="None" />
+    <Object Name="LOOKUP_MAT_DESIGN_APPR_TYPE:KDOT_BLP.LOOKUP_MAT_DESIGN_APPR_TYPE" Type="Table" Include="False" Operation="None" />
+    <Object Name="LOOKUP_MAT_DESIGN_MAIN_TYPE:KDOT_BLP.LOOKUP_MAT_DESIGN_MAIN_TYPE" Type="Table" Include="False" Operation="None" />
+    <Object Name="MV_ALL_INSPECTIONS_ORDERED:KDOT_BLP.MV_ALL_INSPECTIONS_ORDERED" Type="Table" Include="False" Operation="None" />
+    <Object Name="MV_LATEST_INSPECTION:KDOT_BLP.MV_LATEST_INSPECTION" Type="Table" Include="False" Operation="None" />
+    <Object Name="PARAMTRS:KDOT_BLP.PARAMTRS" Type="Table" Include="False" Operation="None" />
+    <Object Name="PLAN_TABLE:KDOT_BLP.PLAN_TABLE" Type="Table" Include="False" Operation="None" />
+    <Object Name="PON_APP_GROUPS:KDOT_BLP.PON_APP_GROUPS" Type="Table" Include="False" Operation="None" />
+    <Object Name="PON_APP_ROLES:KDOT_BLP.PON_APP_ROLES" Type="Table" Include="False" Operation="None" />
+    <Object Name="PON_APP_USERS:KDOT_BLP.PON_APP_USERS" Type="Table" Include="False" Operation="None" />
+    <Object Name="PON_APP_USERS_ROLES:KDOT_BLP.PON_APP_USERS_ROLES" Type="Table" Include="False" Operation="None" />
+    <Object Name="PON_BATCH_BRKEYS:KDOT_BLP.PON_BATCH_BRKEYS" Type="Table" Include="False" Operation="None" />
+    <Object Name="PON_FILTERS:KDOT_BLP.PON_FILTERS" Type="Table" Include="False" Operation="None" />
+    <Object Name="PON_SESSION_BATCH:KDOT_BLP.PON_SESSION_BATCH" Type="Table" Include="False" Operation="None" />
+    <Object Name="SRC_BRIDGE_20200124:KDOT_BLP.SRC_BRIDGE_20200124" Type="Table" Include="False" Operation="None" />
+    <Object Name="SRC_INSPEVNT_20200124:KDOT_BLP.SRC_INSPEVNT_20200124" Type="Table" Include="False" Operation="None" />
+    <Object Name="SRC_KBLP_BRIDGE_20200124:KDOT_BLP.SRC_KBLP_BRIDGE_20200124" Type="Table" Include="False" Operation="None" />
+    <Object Name="SRC_KBLP_INSPS_20200124:KDOT_BLP.SRC_KBLP_INSPS_20200124" Type="Table" Include="False" Operation="None" />
+    <Object Name="SRC_P_E_I_20200124:KDOT_BLP.SRC_P_E_I_20200124" Type="Table" Include="False" Operation="None" />
+    <Object Name="TEMP_KDOTBLP_DOCUMENTS:KDOT_BLP.TEMP_KDOTBLP_DOCUMENTS" Type="Table" Include="False" Operation="None" />
+    <Object Name="TEST_DATADICT:KDOT_BLP.TEST_DATADICT" Type="Table" Include="False" Operation="None" />
+    <Object Name="TEST_DATADICT_PARMSET_LOOKUP:KDOT_BLP.TEST_DATADICT_PARMSET_LOOKUP" Type="Table" Include="False" Operation="None" />
+    <Object Name="TEST_PARAMETER_SETS:KDOT_BLP.TEST_PARAMETER_SETS" Type="Table" Include="False" Operation="None" />
+    <Object Name="TEST_PARAMETER_SETS_PARAMETERS_LOOKUP:KDOT_BLP.TEST_PARAMETER_SETS_PARAMETERS_LOOKUP" Type="Table" Include="False" Operation="None" />
+    <Object Name="TEST_PARAMETER_VALUES:KDOT_BLP.TEST_PARAMETER_VALUES" Type="Table" Include="False" Operation="None" />
+    <Object Name="ARC_BRIDGE_20200210" Type="Table" Include="False" Operation="None" />
+    <Object Name="ARC_INSPEVNT_20200210" Type="Table" Include="False" Operation="None" />
+    <Object Name="ARC_KBLP_BRIDGE_20200210" Type="Table" Include="False" Operation="None" />
+    <Object Name="ARC_KBLP_DOCS_ARC_20200210" Type="Table" Include="False" Operation="None" />
+    <Object Name="ARC_KBLP_INSPS_20200210" Type="Table" Include="False" Operation="None" />
+    <Object Name="ARC_KBLP_LOAD_RATG_20200210" Type="Table" Include="False" Operation="None" />
+    <Object Name="ARC_P_E_I_ARC_20200210" Type="Table" Include="False" Operation="None" />
+    <Object Name="ARC_ROADWAY_20200210" Type="Table" Include="False" Operation="None" />
+    <Object Name="ARC_STRUC_UNIT_20200210" Type="Table" Include="False" Operation="None" />
+    <Object Name="ARC_USERRWAY_20200210" Type="Table" Include="False" Operation="None" />
+    <Object Name="ARC_USERSTRUNIT_20200210" Type="Table" Include="False" Operation="None" />
+    <Object Name="INSPEVNT_BACKUP_20200210" Type="Table" Include="False" Operation="None" />
+    <Object Name="KDOTBLP_ATTRIBUTE_DESCRIPTOR_20220708" Type="Table" Include="False" Operation="None" />
+    <Object Name="KDOTBLP_BRIDGE_KEEP_ME" Type="Table" Include="False" Operation="None" />
+    <Object Name="KDOTBLP_BRIDGE_OLD" Type="Table" Include="False" Operation="None" />
+    <Object Name="KDOTBLP_INSPECTIONS_BACKUP" Type="Table" Include="False" Operation="None" />
+    <Object Name="KDOTBLP_INSPECTIONS_OLD_20211025" Type="Table" Include="False" Operation="None" />
+    <Object Name="KDOTBLP_INSPS_BACKUP_20200210" Type="Table" Include="False" Operation="None" />
+    <Object Name="MV_NBI_EXPORT_EXCELSHEET_ENGLISH" Type="Table" Include="False" Operation="None" />
+    <Object Name="MV_NBI_EXPORT_EXCELSHEET_NEW" Type="Table" Include="False" Operation="None" />
+    <Object Name="NBI_EXTRACT_2021_BKUP" Type="Table" Include="False" Operation="None" />
+    <Object Name="NBI2021" Type="Table" Include="False" Operation="None" />
+    <Object Name="PON_FILTERS_BKU_20220221" Type="Table" Include="False" Operation="None" />
+    <Object Name="BLB_GENDATADICTCACHEENTRIES:KDOT_BLP.BLB_GENDATADICTCACHEENTRIES" Type="View" Include="False" Operation="None" />
+    <Object Name="GENDATADICTCACHEENTRIES:KDOT_BLP.GENDATADICTCACHEENTRIES" Type="View" Include="False" Operation="None" />
+    <Object Name="GENDOTNETCOLDEFS:KDOT_BLP.GENDOTNETCOLDEFS" Type="View" Include="False" Operation="None" />
+    <Object Name="NBIP_VIEW_ON:KDOT_BLP.NBIP_VIEW_ON" Type="View" Include="False" Operation="None" />
+    <Object Name="TEST_VIEW_DATADICT:KDOT_BLP.TEST_VIEW_DATADICT" Type="View" Include="False" Operation="None" />
+    <Object Name="TEST_VIEW_PARAMETERS_OPT_A:KDOT_BLP.TEST_VIEW_PARAMETERS_OPT_A" Type="View" Include="False" Operation="None" />
+    <Object Name="TEST_VIEW_PARAMETERS_OPT_B:KDOT_BLP.TEST_VIEW_PARAMETERS_OPT_B" Type="View" Include="False" Operation="None" />
+    <Object Name="TEST_VIEW_PARAMTRS:KDOT_BLP.TEST_VIEW_PARAMTRS" Type="View" Include="False" Operation="None" />
+    <Object Name="TEST_VIEW_PARAMTRS_OPT_B:KDOT_BLP.TEST_VIEW_PARAMTRS_OPT_B" Type="View" Include="False" Operation="None" />
+    <Object Name="V_BRIDGE_CREATORS:KDOT_BLP.V_BRIDGE_CREATORS" Type="View" Include="False" Operation="None" />
+    <Object Name="V_BRIDGE_DOCS_COUNT_BY_BRIDGE_DOC_TYPE_SUBTYPE_KEY:KDOT_BLP.V_BRIDGE_DOCS_COUNT_BY_BRIDGE_DOC_TYPE_SUBTYPE_KEY" Type="View" Include="False" Operation="None" />
+    <Object Name="V_BRIDGE_DOCS_COUNT_BY_DOC_TYPE_KEY:KDOT_BLP.V_BRIDGE_DOCS_COUNT_BY_DOC_TYPE_KEY" Type="View" Include="False" Operation="None" />
+    <Object Name="V_BRIDGE_DOCS_COUNT_BY_DOC_TYPE_SUBTYPE_KEY:KDOT_BLP.V_BRIDGE_DOCS_COUNT_BY_DOC_TYPE_SUBTYPE_KEY" Type="View" Include="False" Operation="None" />
+    <Object Name="V_BRIDGES_FOR_FLIP_EVAL:KDOT_BLP.V_BRIDGES_FOR_FLIP_EVAL" Type="View" Include="False" Operation="None" />
+    <Object Name="V_BRIDGES_X_INSPTYPE_MIX:KDOT_BLP.V_BRIDGES_X_INSPTYPE_MIX" Type="View" Include="False" Operation="None" />
+    <Object Name="V_CLOSE_INSPECTION_DATES:KDOT_BLP.V_CLOSE_INSPECTION_DATES" Type="View" Include="False" Operation="None" />
+    <Object Name="V_CREATE_DOCLINK_BUTTONS:KDOT_BLP.V_CREATE_DOCLINK_BUTTONS" Type="View" Include="False" Operation="None" />
+    <Object Name="V_DOCUMENT_IDENTIFIERS_RECODED_KEYS:KDOT_BLP.V_DOCUMENT_IDENTIFIERS_RECODED_KEYS" Type="View" Include="False" Operation="None" />
+    <Object Name="V_GENERATE_RADMENU_ITEMS:KDOT_BLP.V_GENERATE_RADMENU_ITEMS" Type="View" Include="False" Operation="None" />
+    <Object Name="V_GENERATE_RAW_MENU_ITEMS:KDOT_BLP.V_GENERATE_RAW_MENU_ITEMS" Type="View" Include="False" Operation="None" />
+    <Object Name="V_INSP_DATES_ORDERED:KDOT_BLP.V_INSP_DATES_ORDERED" Type="View" Include="False" Operation="None" />
+    <Object Name="V_INSPS_W_FIXED_INSPTYPE:KDOT_BLP.V_INSPS_W_FIXED_INSPTYPE" Type="View" Include="False" Operation="None" />
+    <Object Name="V_LATEST_ROUTINE_INSPECTION:KDOT_BLP.V_LATEST_ROUTINE_INSPECTION" Type="View" Include="False" Operation="None" />
+    <Object Name="V_LOOKUP_COUNTY_PLACECODES:KDOT_BLP.V_LOOKUP_COUNTY_PLACECODES" Type="View" Include="False" Operation="None" />
+    <Object Name="V_NBI_EXPORT_EXCELSHEET:KDOT_BLP.V_NBI_EXPORT_EXCELSHEET" Type="View" Include="False" Operation="None" />
+    <Object Name="V_NBI_EXPORT_EXCELSHEET_10PCT:KDOT_BLP.V_NBI_EXPORT_EXCELSHEET_10PCT" Type="View" Include="False" Operation="None" />
+    <Object Name="V_NBI_EXPORT_EXCELSHEET_1PCT:KDOT_BLP.V_NBI_EXPORT_EXCELSHEET_1PCT" Type="View" Include="False" Operation="None" />
+    <Object Name="V_SIA_KGATE:KDOT_BLP.V_SIA_KGATE" Type="View" Include="False" Operation="None" />
+    <Object Name="GEN_KDOT_MATERIAL_DESIGN_TYPES_PICKLIST" Type="View" Include="False" Operation="None" />
+    <Object Name="V_PUGRP" Type="View" Include="False" Operation="None" />
+    <Object Name="V_SPECIAL_INSPECTION_LABELS" Type="View" Include="False" Operation="None" />
+    <Object Name="KDOT_BLP_BRM_UTIL:KDOT_BLP.KDOT_BLP_BRM_UTIL" Type="Package" Include="False" Operation="None" />
+    <Object Name="KDOT_BLP_ERRORS:KDOT_BLP.KDOT_BLP_ERRORS" Type="Package" Include="False" Operation="None" />
+    <Object Name="KDOT_BLP_ERRPKG:KDOT_BLP.KDOT_BLP_ERRPKG" Type="Package" Include="False" Operation="None" />
+    <Object Name="KDOT_BLP_UTIL:KDOT_BLP.KDOT_BLP_UTIL" Type="Package" Include="False" Operation="None" />
+    <Object Name="P$40685707$TMP:KDOT_BLP.P$40685707$TMP" Type="Package" Include="False" Operation="None" />
+    <Object Name="P$8079607$TMP$:KDOT_BLP.P$8079607$TMP$" Type="Package" Include="False" Operation="None" />
+    <Object Name="P_RECALC_LAST_NEXT_FC_UW_INSPS:KDOT_BLP.P_RECALC_LAST_NEXT_FC_UW_INSPS" Type="Procedure" Include="False" Operation="None" />
+    <Object Name="PMAIL_COORDINATE_CHANGE:KDOT_BLP.PMAIL_COORDINATE_CHANGE" Type="Procedure" Include="False" Operation="None" />
+    <Object Name="PMAIL_WARNING_INSPEVNT_113:KDOT_BLP.PMAIL_WARNING_INSPEVNT_113" Type="Procedure" Include="False" Operation="None" />
+    <Object Name="PMAIL_WARNING_INSPEVNT_COLUMN_CHG:KDOT_BLP.PMAIL_WARNING_INSPEVNT_COLUMN_CHG" Type="Procedure" Include="False" Operation="None" />
+    <Object Name="PROC_GENERATE_NEW_ELEMENT_ROWS:KDOT_BLP.PROC_GENERATE_NEW_ELEMENT_ROWS" Type="Procedure" Include="False" Operation="None" />
+    <Object Name="QRY_UPD_INSPEVNT_FC_SCHEDULE:KDOT_BLP.QRY_UPD_INSPEVNT_FC_SCHEDULE" Type="Procedure" Include="False" Operation="None" />
+    <Object Name="QRY_UPD_INSPEVNT_NBI_SCHEDULE:KDOT_BLP.QRY_UPD_INSPEVNT_NBI_SCHEDULE" Type="Procedure" Include="False" Operation="None" />
+    <Object Name="QRY_UPD_INSPEVNT_UW_SCHEDULE:KDOT_BLP.QRY_UPD_INSPEVNT_UW_SCHEDULE" Type="Procedure" Include="False" Operation="None" />
+    <Object Name="PMAIL_OSINSPFREQ_CHANGE" Type="Procedure" Include="False" Operation="None" />
+    <Object Name="BLB_F_SAFE_DECIMAL:KDOT_BLP.BLB_F_SAFE_DECIMAL" Type="Function" Include="False" Operation="None" />
+    <Object Name="F_CVT_DEC_STRING_LATLONG:KDOT_BLP.F_CVT_DEC_STRING_LATLONG" Type="Function" Include="False" Operation="None" />
+    <Object Name="F_GEN_CS_DICTIONARY_PAIR:KDOT_BLP.F_GEN_CS_DICTIONARY_PAIR" Type="Function" Include="False" Operation="None" />
+    <Object Name="F_GEN_NAVIGATE_URL:KDOT_BLP.F_GEN_NAVIGATE_URL" Type="Function" Include="False" Operation="None" />
+    <Object Name="F_GEN_SORTORDER:KDOT_BLP.F_GEN_SORTORDER" Type="Function" Include="False" Operation="None" />
+    <Object Name="F_GET_BRKEY_FROM_BRIDGE_GD:KDOT_BLP.F_GET_BRKEY_FROM_BRIDGE_GD" Type="Function" Include="False" Operation="None" />
+    <Object Name="F_GET_COPTION_VALUE:KDOT_BLP.F_GET_COPTION_VALUE" Type="Function" Include="False" Operation="None" />
+    <Object Name="F_GET_KDOT_MD_LBL_FR_CODES:KDOT_BLP.F_GET_KDOT_MD_LBL_FR_CODES" Type="Function" Include="False" Operation="None" />
+    <Object Name="F_GET_LATEST_INSP_BY_TYPE:KDOT_BLP.F_GET_LATEST_INSP_BY_TYPE" Type="Function" Include="False" Operation="None" />
+    <Object Name="F_GET_PON_APP_USERID_FOR_GD:KDOT_BLP.F_GET_PON_APP_USERID_FOR_GD" Type="Function" Include="False" Operation="None" />
+    <Object Name="F_IS_BRM_MISSING_VALUE:KDOT_BLP.F_IS_BRM_MISSING_VALUE" Type="Function" Include="False" Operation="None" />
+    <Object Name="F_IS_PRIMARYKEY_COL:KDOT_BLP.F_IS_PRIMARYKEY_COL" Type="Function" Include="False" Operation="None" />
+    <Object Name="F_RECODE_DOC_SUBTYPE_KEYS:KDOT_BLP.F_RECODE_DOC_SUBTYPE_KEYS" Type="Function" Include="False" Operation="None" />
+    <Object Name="F_RECODE_DOC_TYPE_KEY:KDOT_BLP.F_RECODE_DOC_TYPE_KEY" Type="Function" Include="False" Operation="None" />
+    <Object Name="F_SAFE_DECIMAL:KDOT_BLP.F_SAFE_DECIMAL" Type="Function" Include="False" Operation="None" />
+    <Object Name="IS_PRIMARYKEY_COL:KDOT_BLP.IS_PRIMARYKEY_COL" Type="Function" Include="False" Operation="None" />
+    <Object Name="IS_PRIMARYKEYCOL:KDOT_BLP.IS_PRIMARYKEYCOL" Type="Function" Include="False" Operation="None" />
+    <Object Name="F_CHECK_BORDER_BRIDGE_CODING" Type="Function" Include="False" Operation="None" />
+    <Object Name="F_GET_SPECIAL_INSPECTION_CATEGORY" Type="Function" Include="False" Operation="None" />
+    <Object Name="F_GET_USERKEY_FOR_PON_APP_USERS_GD" Type="Function" Include="False" Operation="None" />
+    <Object Name="F_HAS_ANY_SPECIAL_INSPTYPE" Type="Function" Include="False" Operation="None" />
+    <Object Name="F_HAS_SPECIAL_INSPTYPE" Type="Function" Include="False" Operation="None" />
+    <Object Name="TAU_CHANGE_TO_114_OR_115:KDOT_BLP.TAU_CHANGE_TO_114_OR_115" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TAUR_INSPEVNT_DKRATING_WARN:KDOT_BLP.TAUR_INSPEVNT_DKRATING_WARN" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TIB_ROADWAY_GENERATE_DOCREFKEY:KDOT_BLP.TIB_ROADWAY_GENERATE_DOCREFKEY" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TUB_PON_SESSION_BATCH:KDOT_BLP.TUB_PON_SESSION_BATCH" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="FIX_INSPEVNT_BRKEY_INSPKEY_TRG" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="FIX_INSPEVNT_BRKEY_TRG" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="FIX_KDOTBLP_INSPECTIONS_LEGACYKEYS_TRG" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="FIX_ROADWAY_BRKEY_ON_UNDER_TRG" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="FIX_ROADWAY_BRKEY_TRG" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="FIX_STRUNIT_BRKEY_STRUNITKEY_TRG" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="FIX_STRUNIT_BRKEY_TRG" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="LOGON_BINDTRACE_TRIGGER" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="ROADWAY_FIXUPS" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="STATEDFS_DELTRG" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="STRUCTURE_UNIT_DELTRG" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TAD_INSPEVNT_DOCS" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TAI_BRIDGE_GEN_USERBRDG" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TAI_INSPEVNT_GEN_KDOTBLP_INSPECTIONS" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TAI_INSPEVNT_GEN_USERINSP" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TAI_INSPEVNT_INSPECTOR" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TAI_ROADWAY_GEN_USERRWAY" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TAI_STR_UNIT_GEN_USERSTRUNIT" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TAIU_BRIDGE_SET_ALL_LATLONG" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TAU_BRIDGE_COORD_CHANGE_TEST" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TAU_BRIDGE_YEARBUILT_CHANGE" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TAU_CHANGE_TO_LAT_OR_LONG" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TAU_CHANGE_TO_OSINSPFREQ" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TAU_INSPEVNT_113_POA_STAT_CHK" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TAU_INSPEVNT_113_POA_STAT_CHK2" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TAU_INSPVNT_FREQ_NOT_12_24_48" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TAUI_CRITICAL_INSP_FIND_2015" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TAUI_KDOTBLP_QAQC_RF_USERKEY" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TAUI_KDOTBLP_QAQC_STATUS" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TAUI_PON_APP_USERS_EMAIL_ALERT" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TAUI_PON_SESSION" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TAUI_SET_SPEC_INSPTYPES" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TAUI_USERS_GEN_USEROLES" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TAUR_INSPEVNT_FC_INSP_CHANGE" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TAUR_INSPEVNT_POSTING_EQUAL_K" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TBI_BRIDGE_SET_DFLT_LATLONG" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TBIU_BRIDGE_SET_ALL_LATLONG" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TBIU_BRIDGE_SET_BRKEY" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TDB_BUDGSETS" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TDB_COSTSETS" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TDB_FLEXSETS" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TDB_IMPRSETS" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TDB_LKAHDSETS" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TDB_METRIC_ENGLISH" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TDB_MRRMODLS" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TDB_POLSETS" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TDB_PRJ_FUNDSRC" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TDB_PRJ_PROGRAMS" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TDB_REHABSETS" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TDB_SCOPESETS" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TDB_USERS" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TIB_ACTYPDFS" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TIB_CICOCNTL" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TIB_DATADICT" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TIB_ELEMDEFS" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TIB_INSP_WCAND" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TIB_KDOTBLP_DOCUMENTS" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TIB_KDOTBLP_DSN_MAT_LKU" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TIB_KDOTBLP_LOAD_RATINGS" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TIB_KDOTBLP_QAQC_INSPECTION" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TIB_KDOTBLP_USER_CREDS_PK" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TIB_PRJ_WITEMS" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TIB_PROFILING" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TIB_PROJECTS" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TIB_SCENARIO" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TIB_USERPROJ" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TIUB_INSPEVNT_GEN_DOCREFKEY" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TIUB_KD_DOCS_SET_UPDATED_COLS" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TRG_INSPEVNT_BRGCONDITION" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TRG_INSPEVNT_INSPUSRKEY" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TRG_PON_ELEM_INSP_AFTER_DEL" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TRG_PON_ELEM_INSP_BEFORE_DEL" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TRG_PONELEMDEFS_HIX" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TRG_PONELEMINSP_HIX" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TUA_BUDGSETS" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TUA_COSTSETS" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TUA_FLEXSETS" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TUA_IMPRSETS" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TUA_INSPEVNT" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TUA_LKAHDSETS" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TUA_METRIC_ENGLISH" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TUA_MRRMODLS" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TUA_POLSETS" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TUA_PRJ_FUNDSRC" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TUA_PRJ_PROGRAMS" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TUA_REHABSETS" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TUA_SCOPESETS" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TUA_USERS" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TUB_ACTYPDFS" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TUB_CICOCNTL" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TUB_DATADICT" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TUB_DM_COND_STATE_PAIRS" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TUB_DM_ELEM_OBS_PAIRS" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TUB_EDITCHECK_SESSION_LOG" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TUB_ELEMDEFS" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TUB_INSP_WCAND" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TUB_MULTIMEDIA" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TUB_PON_ASSESSMENT" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TUB_PON_BENEFIT_GROUPS" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TUB_PON_BRIDGE_GRPS" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TUB_PON_CONTEXT_JOINS" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TUB_PON_DEFS_ASSESSMENT" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TUB_PON_FLEX_ELEMS" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TUB_PON_FORMULAS" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TUB_PON_INSP_STATUSES" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TUB_PON_SESSION" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TUB_PON_SESSION_LOG" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TUB_PON_UTIL_CRIT_CATEGORY" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TUB_PRJ_WITEMS" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TUB_PROJECTS" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="TUB_SCENARIO" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="UI_OBJ_CLASSES_DELTRG" Type="Trigger" Include="False" Operation="None" />
+    <Object Name="BSRVERBOSE_RECORD" Type="ObjectType" Include="False" Operation="None" />
+    <Object Name="BSRVERBOSE_TABLE" Type="TableType" Include="False" Operation="None" />
+    <Object Name="S_KDOTBLP_LOAD_RATING_EVENTS:KDOT_BLP.S_KDOTBLP_LOAD_RATING_EVENTS" Type="Sequence" Include="False" Operation="None" />
+    <Object Name="BLB_MV_COMBINED_INSPECTION:KDOT_BLP.BLB_MV_COMBINED_INSPECTION" Type="MaterializedView" Include="False" Operation="None" />
+    <Object Name="BLB_MV_COMBINED_INSPECTION_2:KDOT_BLP.BLB_MV_COMBINED_INSPECTION_2" Type="MaterializedView" Include="False" Operation="None" />
+    <Object Name="MV_DATABASE_EXPORT_EXCELSHEET_METRIC:KDOT_BLP.MV_DATABASE_EXPORT_EXCELSHEET_METRIC" Type="MaterializedView" Include="False" Operation="None" />
+    <Object Name="MV_LATEST_INSPECTION_AR:KDOT_BLP.MV_LATEST_INSPECTION_AR" Type="MaterializedView" Include="False" Operation="None" />
+    <Object Name="MV_NBI_EXPORT_EXCELSHEET:KDOT_BLP.MV_NBI_EXPORT_EXCELSHEET" Type="MaterializedView" Include="False" Operation="None" />
+    <Object Name="MV_NBI_EXPORT_EXCELSHEET_ENGLISH:KDOT_BLP.MV_NBI_EXPORT_EXCELSHEET_ENGLISH" Type="MaterializedView" Include="False" Operation="None" />
+    <Object Name="MV_COMBINED_INSPECTION" Type="MaterializedView" Include="False" Operation="None" />
+    <Object Name="MV_DATABASE_EXPORT_EXCELSHEET_ENGLISH" Type="MaterializedView" Include="False" Operation="None" />
+    <Object Name="MV_LATEST_INSPECTION" Type="MaterializedView" Include="False" Operation="None" />
+    <Object Name="MV_NBI_EXPORT_EXCELSHEET_NEW" Type="MaterializedView" Include="False" Operation="None" />
+  </ModifiedObjects>
+  <SynchronizationOptions>
+    <PropertyValue Name="PurgeRecycleBin">false</PropertyValue>
+    <PropertyValue Name="RestoreSessionParameters">false</PropertyValue>
+    <PropertyValue Name="UseSchemaNamePrefix">true</PropertyValue>
+    <PropertyValue Name="ExcludeComments">false</PropertyValue>
+    <PropertyValue Name="UseSqlExtensionCommands">true</PropertyValue>
+    <PropertyValue Name="TreatErrorsAsWarnings">false</PropertyValue>
+    <PropertyValue Name="ErrorsAsWarnings" xml:space="preserve" />
+    <PropertyValue Name="IsForceCreateObjects">false</PropertyValue>
+    <PropertyValue Name="RebuildSequences">false</PropertyValue>
+    <PropertyValue Name="ExecuteAsSingleTransaction">true</PropertyValue>
+    <PropertyValue Name="IncludeIgnoredOption">true</PropertyValue>
+    <PropertyValue Name="GenerateScriptHeader">true</PropertyValue>
+    <PropertyValue Name="UseCommitMode">false</PropertyValue>
+    <PropertyValue Name="AllowDefaultValues">false</PropertyValue>
+    <PropertyValue Name="ExecuteCustomScriptTypeBefore">0</PropertyValue>
+    <PropertyValue Name="EmbeddedScriptBefore" xml:space="preserve" />
+    <PropertyValue Name="ExternalScriptBefore" xml:space="preserve" />
+    <PropertyValue Name="ExecuteCustomScriptTypeAfter">0</PropertyValue>
+    <PropertyValue Name="IncludeStatementUSEBefore">false</PropertyValue>
+    <PropertyValue Name="EmbeddedScriptAfter" xml:space="preserve" />
+    <PropertyValue Name="ExternalScriptAfter" xml:space="preserve" />
+    <PropertyValue Name="IncludeStatementUSEAfter">false</PropertyValue>
+    <PropertyValue Name="EnableNoValidate">false</PropertyValue>
+    <PropertyValue Name="EnableTableLock">false</PropertyValue>
+    <PropertyValue Name="AddRecompileDependantsScript">false</PropertyValue>
+    <PropertyValue Name="DropCreateOnly">false</PropertyValue>
+    <PropertyValue Name="DropCreateOnlyTables">false</PropertyValue>
+    <PropertyValue Name="ExcludeDependencies">false</PropertyValue>
+    <PropertyValue Name="CanSqlExecutorAddError">true</PropertyValue>
+    <PropertyValue Name="SynchronizeType">2</PropertyValue>
+    <PropertyValue Name="SynchronizationFileName" xml:space="preserve" />
+    <PropertyValue Name="SynchronizationEditorFileName" xml:space="preserve" />
+    <PropertyValue Name="OpenScriptInEditor">false</PropertyValue>
+    <PropertyValue Name="RefreshAfterSynchronization">false</PropertyValue>
+    <PropertyValue Name="RemoveControlChars">false</PropertyValue>
+    <PropertyValue Name="PureScript">false</PropertyValue>
+    <PropertyValue Name="IsPartOfScript">false</PropertyValue>
+    <PropertyValue Name="CommitPageLength" xml:space="preserve">0</PropertyValue>
+  </SynchronizationOptions>
+  <Mapping>
+    <Schemas>
+      <Object SourceName="BLP53" TargetName="KDOT_BLP" State="DefaultMapped" Included="True" />
+    </Schemas>
+  </Mapping>
+</CompareDocument>
