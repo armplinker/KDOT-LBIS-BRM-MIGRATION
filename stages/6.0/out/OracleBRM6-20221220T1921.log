@@ -1,0 +1,1550 @@
+﻿Prepared at Bentley Systems, Inc by Chris.Meredith on 9/10/2018 10:35:59 AM.
+Additional changes by Allen R. Marshall, ARM LLC - starting 20220818
+==================================================================================================
+ARM LLC Revision History
+==================================================================================================
+20220818 - ARMarshall, ARM LLC - initial review, added globals to preserve datadict and paramtrs tables for KDOT LBIS 9 (BrM 5.3) database
+20221220 - ARMarshall, ARM LLC - corrected minor typos as encountered
+20221220 - ARMarshall, ARM LLC - changed name of global to SAVEAGENCYSYSTABLES, now just 1 global, more changes near line 390 to backup PARAMTRS, DATADICT,PON_COPTIONS, COPTIONS, and KDOTBLP_ATTRIBUTE_DESCRIPTOR explicitly
+20221220 - ARMarshall, ARM LLC - near line 32,442 declaration for the query string is now V_Q VARCHAR2(2000 CHAR); -- ARMarshall, ARM LLC - 20221220 - error reported string buffer was too small, increased from 300 to 2000
+20221220 - ARMarshall, ARM LLC - near line 40,604 - failing because MV did not exist due to repeated runs (?) reformatted this MV section and added BEGIN EXCEPTION END blocks around each EXECUTE IMMEDIATE
+20221220 - ARMarshall, ARM LLC - added option to print cursor detail for debugging purposes - set to 0 normally 
+==================================================================================================
+
+PL/SQL procedure successfully completed
+
+
+Session altered
+
+
+Session altered
+
+
+System altered
+
+RUNNING AASHTOWare Bridge Management 6.0 GUID upgrade script.
+Run on KDOT_BLP Pontis 5.3 GUID Oracle on WEDNESDAY 12/21/2022 at 4:53 AM.
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+Function created
+
+
+Function created
+
+
+Procedure created
+
+
+Function created
+
+
+Function created
+
+
+Function created
+
+
+Function created
+
+
+Function created
+
+Saving PARAMTRS table
+Saving DATADICT table
+Saving PON_COPTIONS table
+Saving COPTIONS table
+Saving KDOTBLP_ATTRIBUTE_DESCRIPTOR table
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+Procedure created
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+Commit complete
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+0 rows updated
+
+
+2260 rows updated
+
+
+1 row updated
+
+
+131 rows updated
+
+
+163 rows updated
+
+
+2713 rows updated
+
+
+195 rows updated
+
+
+210 rows inserted
+
+
+Commit complete
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+Session altered
+
+
+Session altered
+
+
+System altered
+
+
+PL/SQL procedure successfully completed
+
+Update PON_COPTIONS_T with values from PON_COPTIONS.
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+Table altered
+
+
+Table altered
+
+
+Table altered
+
+
+Table altered
+
+
+Table altered
+
+
+Table altered
+
+
+Table altered
+
+
+4 rows updated
+
+
+30 rows updated
+
+
+11 rows updated
+
+
+4 rows updated
+
+
+Table altered
+
+
+4 rows updated
+
+MERGE INTO PON_DICT T
+    USING (SELECT
+                CASE UPPER(OPTIONNAME)
+                    WHEN 'XTRNBRDGTABLE' THEN 'USERBRDG'
+                    WHEN 'XTRNINSPTABLE' THEN 'USERINSP'
+                    WHEN 'XTRNRWAYTABLE' THEN 'USERRWAY'
+                    WHEN 'XTRNSTRUNITTABLE' THEN 'USERSTRUNIT'
+                    ELSE OPTIONVAL
+                END TABLE_NAME,
+                UPPER(OPTIONVAL) CUSTOM_TABLE_NAME
+            FROM PON_COPTIONS_T
+            WHERE UPPER(OPTIONNAME) IN ('XTRNBRDGTABLE', 'XTRNINSPTABLE', 'XTRNRWAYTABLE', 'XTRNSTRUNITTABLE')
+    ) S
+    ON (T.ORIGINAL_TABLE_NAME = S.TABLE_NAME)
+    WHEN MATCHED THEN UPDATE SET T.TABLE_NAME = S.CUSTOM_TABLE_NAME
+MERGE INTO PON_FK T
+    USING (SELECT
+                CASE UPPER(OPTIONNAME)
+                    WHEN 'XTRNBRDGTABLE' THEN 'USERBRDG'
+                    WHEN 'XTRNINSPTABLE' THEN 'USERINSP'
+                    WHEN 'XTRNRWAYTABLE' THEN 'USERRWAY'
+                    WHEN 'XTRNSTRUNITTABLE' THEN 'USERSTRUNIT'
+                    ELSE OPTIONVAL
+                END TABLE_NAME,
+                UPPER(OPTIONVAL) CUSTOM_TABLE_NAME
+            FROM PON_COPTIONS_T
+            WHERE UPPER(OPTIONNAME) IN ('XTRNBRDGTABLE', 'XTRNINSPTABLE', 'XTRNRWAYTABLE', 'XTRNSTRUNITTABLE')
+    ) S
+    ON (T.ORIGINAL_TABLE_NAME = S.TABLE_NAME)
+    WHEN MATCHED THEN UPDATE SET T.TABLE_NAME = S.CUSTOM_TABLE_NAME
+MERGE INTO PON_INDEX T
+    USING (SELECT
+                CASE UPPER(OPTIONNAME)
+                    WHEN 'XTRNBRDGTABLE' THEN 'USERBRDG'
+                    WHEN 'XTRNINSPTABLE' THEN 'USERINSP'
+                    WHEN 'XTRNRWAYTABLE' THEN 'USERRWAY'
+                    WHEN 'XTRNSTRUNITTABLE' THEN 'USERSTRUNIT'
+                    ELSE OPTIONVAL
+                END TABLE_NAME,
+                UPPER(OPTIONVAL) CUSTOM_TABLE_NAME
+            FROM PON_COPTIONS_T
+            WHERE UPPER(OPTIONNAME) IN ('XTRNBRDGTABLE', 'XTRNINSPTABLE', 'XTRNRWAYTABLE', 'XTRNSTRUNITTABLE')
+    ) S
+    ON (T.ORIGINAL_TABLE_NAME = S.TABLE_NAME)
+    WHEN MATCHED THEN UPDATE SET T.TABLE_NAME = S.CUSTOM_TABLE_NAME
+MERGE INTO PON_TABLE T
+    USING (SELECT
+                CASE UPPER(OPTIONNAME)
+                    WHEN 'XTRNBRDGTABLE' THEN 'USERBRDG'
+                    WHEN 'XTRNINSPTABLE' THEN 'USERINSP'
+                    WHEN 'XTRNRWAYTABLE' THEN 'USERRWAY'
+                    WHEN 'XTRNSTRUNITTABLE' THEN 'USERSTRUNIT'
+                    ELSE OPTIONVAL
+                END TABLE_NAME,
+                UPPER(OPTIONVAL) CUSTOM_TABLE_NAME
+            FROM PON_COPTIONS_T
+            WHERE UPPER(OPTIONNAME) IN ('XTRNBRDGTABLE', 'XTRNINSPTABLE', 'XTRNRWAYTABLE', 'XTRNSTRUNITTABLE')
+    ) S
+    ON (T.ORIGINAL_TABLE_NAME = S.TABLE_NAME)
+    WHEN MATCHED THEN UPDATE SET T.TABLE_NAME = S.CUSTOM_TABLE_NAME
+
+PL/SQL procedure successfully completed
+
+
+Table altered
+
+
+Table altered
+
+
+Table altered
+
+
+0 rows updated
+
+
+0 rows updated
+
+
+Commit complete
+
+
+Session altered
+
+
+PL/SQL procedure successfully completed
+
+
+7 rows updated
+
+
+Commit complete
+
+
+PL/SQL procedure successfully completed
+
+
+Session altered
+
+
+PL/SQL procedure successfully completed
+
+
+Session altered
+
+Error dropping foreign key before adding foreign keys.ORA-06502: PL/SQL: numeric or value error: character string buffer too small
+
+PL/SQL procedure successfully completed
+
+Outer error dropping PKs to be changed and the FKs that relate to themORA-06502: PL/SQL: numeric or value error: character string buffer too small
+
+PL/SQL procedure successfully completed
+
+Drop indexes that are unwanted or changed.
+DROP INDEX PARAMTRS_PARMVALUE
+DROP INDEX UNQ_P_A_G_GROUPKEY
+DROP INDEX FUNC_BR_CREATEDATETIME
+DROP INDEX NRM_CICOCNTL_CICOID
+DROP INDEX NRM_BR_CREATEDATETIME
+DROP INDEX NRM_INSPS_BRIDGE_GD_INSPTYPE
+DROP INDEX UNQ_P_A_G_GROUPNAME
+DROP INDEX NRM_INSPS_BRKEY_INSPTYPE
+
+PL/SQL procedure successfully completed
+
+Reduce length or scale or change data type.
+
+PL/SQL procedure successfully completed
+
+Alter Columns.
+
+PL/SQL procedure successfully completed
+
+
+DECLARE
+    V_CUR SYS_REFCURSOR;
+BEGIN
+    OPEN V_CUR FOR
+    SELECT 'ALTER TABLE ' || D.TABLE_NAME || ' ADD (' ||
+        D.COL_NAME || ' ' || D.DATA_TYPE ||
+        CASE WHEN D.SCALE IS NOT NULL THEN '(' || D.LENGTH || ',' || D.SCALE || ')'
+          WHEN D.LENGTH IS NOT NULL THEN '(' || D.LENGTH || ')'
+        END || ' ' ||
+        CASE WHEN D.DEF_VALUE IS NOT NULL THEN 'DEFAULT (' || D.DEF_VALUE || ') ' END ||
+    ')'
+    FROM PON_DICT D
+    LEFT OUTER JOIN USER_TAB_COLS C ON C.TABLE_NAME = D.TABLE_NAME AND C.COLUMN_NAME = D.COL_NAME
+    LEFT OUTER JOIN USER_TABLES UT ON UT.TABLE_NAME = D.TABLE_NAME
+    WHERE UT.TABLE_NAME IS NOT NULL AND C.TABLE_NAME IS NULL AND GET_VAR('TSC') = 1
+    ORDER BY D.TABLE_NAME, D.COL_ORDER;
+    IF GET_VAR('PRINT_DETAILS') = 1 THEN
+       REV(V_CUR,1);
+    ELSE
+       REV(V_CUR);
+    END IF;
+
+    CLOSE VCUR;
+END;
+
+ORA-06550: line 23, column 11:
+PLS-00201: identifier 'VCUR' must be declared
+ORA-06550: line 23, column 5:
+PL/SQL: SQL Statement ignored
+
+DECLARE
+  V_Q VARCHAR2(4000);
+  V_FIRST BOOLEAN;
+BEGIN
+  FOR t IN (SELECT TABLE_NAME FROM PON_TABLE T WHERE TABLE_NAME NOT IN (SELECT TABLE_NAME FROM USER_TABLES) AND GET_VAR('TSC') = 1 ORDER BY TABLE_NAME)
+  LOOP
+    V_FIRST := true;
+    V_Q := 'CREATE TABLE ' || t.TABLE_NAME || ' (';
+    FOR c IN (SELECT COL_NAME, DATA_TYPE, SCALE, LENGTH, DEF_VALUE, NEW_COL_OLD_TABLE, REPLACEMENT_KEY, REQUIRED FROM PON_DICT WHERE TABLE_NAME = T.TABLE_NAME ORDER BY COL_ORDER)
+    LOOP
+      IF NOT V_FIRST THEN
+        V_Q := V_Q || ', ';
+      ELSE
+        V_FIRST := false;
+      END IF;
+      V_Q := V_Q || c.COL_NAME || ' ' || c.DATA_TYPE ||
+                    CASE WHEN c.SCALE IS NOT NULL THEN '(' || c.LENGTH || ',' || c.SCALE || ')'
+                         WHEN c.LENGTH IS NOT NULL THEN '(' || c.LENGTH || ')'
+                    END || ' ' ||
+                    CASE WHEN c.DEF_VALUE IS NOT NULL THEN 'DEFAULT (' || c.DEF_VALUE || ') ' END ||
+                    CASE
+                        WHEN c.NEW_COL_OLD_TABLE = 1 OR c.REPLACEMENT_KEY = 1 OR c.REQUIRED = 0 THEN 'NULL'
+                        ELSE 'NOT NULL'
+                    END;
+    END LOOP;
+    V_Q := V_Q || ')';
+    EXECUTE IMMEDIATE (V_Q);
+  END LOOP;
+END;
+
+ORA-00955: name is already used by an existing object
+ORA-06512: at line 27
+ORA-06512: at line 27
+
+DECLARE
+    V_CUR SYS_REFCURSOR;
+BEGIN
+    IF (GET_VAR('TSC') = '1') THEN
+
+        DBMS_OUTPUT.PUT_LINE('Update new columns with default values.');
+
+        OPEN V_CUR FOR
+        SELECT 'UPDATE ' || TABLE_NAME || ' SET ' || COL_NAME || ' = ' || DEF_VALUE
+        FROM PON_DICT
+        WHERE NEW_COL_OLD_TABLE = 1
+          AND REPLACEMENT_KEY = 0
+          AND DEF_VALUE IS NOT NULL;
+
+         IF GET_VAR('PRINT_DETAILS') = 1 THEN
+            REV(V_CUR,1);
+        ELSE
+               REV(V_CUR);
+         END IF;
+        CLOSE(V_CUR);
+
+        DBMS_OUTPUT.PUT_LINE('Make new required columns on old tables required.');
+
+        OPEN V_CUR FOR
+        SELECT 'ALTER TABLE ' || TABLE_NAME || ' MODIFY ' || COL_NAME || '  ' || DATA_TYPE ||
+                CASE
+                    WHEN LENGTH IS NOT NULL AND SCALE IS NOT NULL THEN '(' || LENGTH || ', ' || SCALE || ') '
+                    WHEN LENGTH IS NOT NULL THEN '(' || LENGTH || ') '
+                    WHEN SCALE IS NOT NULL THEN '(' || SCALE || ') '
+                    ELSE ' '
+                END
+                || 'NOT NULL'
+        FROM PON_DICT
+        WHERE REQUIRED = 1
+          AND NEW_COL_OLD_TABLE = 1
+          AND REPLACEMENT_KEY = 0
+          AND DEF_VALUE IS NOT NULL;
+
+        IF GET_VAR('PRINT_DETAILS') = 1 THEN
+            REV(V_CUR,1);
+        ELSE
+            REV(V_CUR);
+        END IF;
+        CLOSE V_CUR;
+
+    END IF;
+END;
+
+ORA-06550: line 20, column 14:
+PLS-00103: Encountered the symbol "(" when expecting one of the following:
+
+   <an identifier> <a double-quoted delimited-identifier>
+   <a bind variable> standard
+
+PL/SQL procedure successfully completed
+
+REMOVE ITEMS FROM PRODUCTION DATABASES.
+
+PL/SQL procedure successfully completed
+
+
+0 rows deleted
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+0 rows deleted
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+ERROR D4: Failed Creating Primary Key [ALTER TABLE USERINSP ADD CONSTRAINT PK_USERINSP PRIMARY KEY ("INSPEVNT_GD");ORA-00942: table or view does not exist
+ERROR D4: Failed Creating Primary Key [ALTER TABLE VALIDATION_WARNING ADD CONSTRAINT PK_VALIDATION_WARNING PRIMARY KEY ("VALIDATION_WARNING_GD");ORA-00942: table or view does not exist
+
+PL/SQL procedure successfully completed
+
+ERROR D6: Failed Creating Foreign Key [ALTER TABLE PON_APP_CONTROL_SECURITY ADD CONSTRAINT FK_CTRL_SEC_TO_NAV_CONTROL FOREIGN KEY (PON_NAV_CONTROL_GD) REFERENCES PON_NAV_CONTROL (PON_NAV_CONTROL_GD) ON DELETE CASCADE;ORA-02298: cannot validate (KDOT_BLP.FK_CTRL_SEC_TO_NAV_CONTROL) - parent keys not found
+ERROR D6: Failed Creating Foreign Key [ALTER TABLE USERBRDG ADD CONSTRAINT FK_USERBRDG_14_BRIDGE FOREIGN KEY (BRIDGE_GD) REFERENCES BRIDGE (BRIDGE_GD) ON DELETE CASCADE;ORA-02298: cannot validate (KDOT_BLP.FK_USERBRDG_14_BRIDGE) - parent keys not found
+ERROR D6: Failed Creating Foreign Key [ALTER TABLE USERINSP ADD CONSTRAINT FK_USERINSP_46_INSPEVNT FOREIGN KEY (INSPEVNT_GD) REFERENCES INSPEVNT (INSPEVNT_GD) ON DELETE CASCADE;ORA-00942: table or view does not exist
+ERROR D6: Failed Creating Foreign Key [ALTER TABLE USERSTRUNIT ADD CONSTRAINT FK_USERSTRU_103_STRUCTUR FOREIGN KEY (STRUCTURE_UNIT_GD) REFERENCES STRUCTURE_UNIT (STRUCTURE_UNIT_GD) ON DELETE CASCADE;ORA-02275: such a referential constraint already exists in the table
+ERROR D6: Failed Creating Foreign Key [ALTER TABLE VALIDATION_WARNING ADD CONSTRAINT FK_VALIDATION_WARNING_USERS FOREIGN KEY (PON_APP_USERS_GD) REFERENCES PON_APP_USERS (PON_APP_USERS_GD) ON DELETE CASCADE;ORA-00942: table or view does not exist
+
+PL/SQL procedure successfully completed
+
+
+0 rows updated
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+5 rows merged
+
+
+3626 rows updated
+
+
+3626 rows updated
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+PL/SQL procedure successfully completed
+
+Disable recursive constraints before merging setup data.
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+Merge optional setup data from temp tables.
+
+PL/SQL procedure successfully completed
+
+ERROR : MERGE INTO CICOXCPT T
+				USING CICOXCPT_T S
+				ON (T.CICOXCPT_GD = S.CICOXCPT_GD)
+				WHEN NOT MATCHED THEN INSERT (T.BRKEY, T.IOFLAG, T.IOMOMENT, T.CICOID, T.PDIFNAME, T.RTRIGGER, T.NOTES, T.CICOXCPT_GD, T.BRIDGE_GD, T.BRIDGE_ID)
+				VALUES (S.BRKEY, S.IOFLAG, S.IOMOMENT, S.CICOID, S.PDIFNAME, S.RTRIGGER, S.NOTES, S.CICOXCPT_GD, S.BRIDGE_GD, S.BRIDGE_ID)
+    ORA-00904: "T"."BRIDGE_ID": invalid identifier
+ERROR : MERGE INTO PON_PROGRAM T
+				USING PON_PROGRAM_T S
+				ON (T.PON_PROGRAM_GD = S.PON_PROGRAM_GD)
+				WHEN NOT MATCHED THEN INSERT (T.PON_PROGRAM_GD, T.ALT_ID, T.PON_PROGRAM_LB, T.PROGRAM_OBJECTIVE, T.PROGRAM_STATUS, T.DESCRIPTION, T.NOTES, T.URL, T.START_DATE, T.END_DATE, T.CREATEUSERKEY, T.CREATEDATETIME, T.MODUSERKEY, T.MODTIME, T.PON_PROGRAM_CATEGORY_DEFS_GD, T.PON_UTIL_PROFILE_GD, T.PON_SEGMENT_PROFILE_GD, T.NBI_ESTIMATION_METHOD, T.PON_NBI_PROFILE_GD, T.RESIDUAL_HIX_APPROXIMATION, T.LONG_TERM_LCCA_LENGTH, T.DISCOUNT_RATE, T.INFLATION_METHOD, T.INFLATION_RATE, T.INDIRECT_COST_PCT, T.PON_FILTERS_GD, T.PON_STRUCT_FORMULAS_GD, T.REQUIRED_MIN_COST, T.OVERRIDE_BUDGET, T.INCLUDE_WORK_CANDIDATES)
+				VALUES (S.PON_PROGRAM_GD, S.ALT_ID, S.PON_PROGRAM_LB, S.PROGRAM_OBJECTIVE, S.PROGRAM_STATUS, S.DESCRIPTION, S.NOTES, S.URL, S.START_DATE, S.END_DATE, S.CREATEUSERKEY, S.CREATEDATETIME, S.MODUSERKEY, S.MODTIME, S.PON_PROGRAM_CATEGORY_DEFS_GD, S.PON_UTIL_PROFILE_GD, S.PON_SEGMENT_PROFILE_GD, S.NBI_ESTIMATION_METHOD, S.PON_NBI_PROFILE_GD, S.RESIDUAL_HIX_APPROXIMATION, S.LONG_TERM_LCCA_LENGTH, S.DISCOUNT_RATE, S.INFLATION_METHOD, S.INFLATION_RATE, S.INDIRECT_COST_PCT, S.PON_FILTERS_GD, S.PON_STRUCT_FORMULAS_GD, S.REQUIRED_MIN_COST, S.OVERRIDE_BUDGET, S.INCLUDE_WORK_CANDIDATES)
+    ORA-00904: "T"."INCLUDE_WORK_CANDIDATES": invalid identifier
+ERROR : MERGE INTO VALIDATION_WARNING T
+				USING VALIDATION_WARNING_T S
+				ON (T.VALIDATION_WARNING_GD = S.VALIDATION_WARNING_GD)
+				WHEN NOT MATCHED THEN INSERT (T.VALIDATION_WARNING_GD, T.TABLE_NAME, T.COL_NAME, T.ROW_PK, T.INPUT_VALUE, T.PON_APP_USERS_GD, T.VALIDATION_DATE, T.VALIDATION_SOURCE_GENERIC, T.VALIDATION_SOURCE_SPECIFIC, T.VALIDATION_MESSAGE)
+				VALUES (S.VALIDATION_WARNING_GD, S.TABLE_NAME, S.COL_NAME, S.ROW_PK, S.INPUT_VALUE, S.PON_APP_USERS_GD, S.VALIDATION_DATE, S.VALIDATION_SOURCE_GENERIC, S.VALIDATION_SOURCE_SPECIFIC, S.VALIDATION_MESSAGE)
+    ORA-00942: table or view does not exist
+ERROR : MERGE INTO PON_APP_USERS_ROLES T
+				USING PON_APP_USERS_ROLES_T S
+				ON (T.PON_APP_USERS_GD = S.PON_APP_USERS_GD AND T.PON_APP_ROLES_GD = S.PON_APP_ROLES_GD)
+				WHEN NOT MATCHED THEN INSERT (T.USERKEY, T.ROLEKEY, T.NOTES, T.PON_APP_USERS_GD, T.PON_APP_ROLES_GD, T.ACTIVE_DIRECTORY_ROLE)
+				VALUES (S.USERKEY, S.ROLEKEY, S.NOTES, S.PON_APP_USERS_GD, S.PON_APP_ROLES_GD, S.ACTIVE_DIRECTORY_ROLE)
+    ORA-00904: "T"."ACTIVE_DIRECTORY_ROLE": invalid identifier
+ERROR : MERGE INTO PON_REPORT_REGISTER T
+				USING PON_REPORT_REGISTER_T S
+				ON (T.PON_REPORT_REGISTER_GD = S.PON_REPORT_REGISTER_GD)
+				WHEN NOT MATCHED THEN INSERT (T.REPORT_ID, T.NAME, T.DESCRIPTION, T.REPORT_TYPE, T.CONTEXT, T.REPORT_ORIGIN, T.REPORT_XML_FILE, T.CREATEDATETIME, T.CREATEUSERKEY, T.MODTIME, T.MODUSERKEY, T.PON_REPORT_REGISTER_GD, T.PON_APP_CONTEXTS_GD, T.ISACTIVE, T.ALLOW_ALL_STRUCTURES, T.ALLOW_SELECTED_STRUCTURES, T.ALLOW_FILTERED_STRUCTURES)
+				VALUES (S.REPORT_ID, S.NAME, S.DESCRIPTION, S.REPORT_TYPE, S.CONTEXT, S.REPORT_ORIGIN, S.REPORT_XML_FILE, S.CREATEDATETIME, S.CREATEUSERKEY, S.MODTIME, S.MODUSERKEY, S.PON_REPORT_REGISTER_GD, S.PON_APP_CONTEXTS_GD, S.ISACTIVE, S.ALLOW_ALL_STRUCTURES, S.ALLOW_SELECTED_STRUCTURES, S.ALLOW_FILTERED_STRUCTURES)
+    ORA-00904: "T"."ALLOW_ALL_STRUCTURES": invalid identifier
+
+PL/SQL procedure successfully completed
+
+
+Commit complete
+
+
+Commit complete
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+ERROR : MERGE INTO CICOXCPT T USING CICOXCPT_T S ON (T.CICOXCPT_GD = S.CICOXCPT_GD) WHEN MATCHED THEN UPDATE SET T.BRKEY = S.BRKEY, T.IOFLAG = S.IOFLAG, T.IOMOMENT = S.IOMOMENT, T.CICOID = S.CICOID, T.PDIFNAME = S.PDIFNAME, T.RTRIGGER = S.RTRIGGER, T.NOTES = S.NOTES, T.BRIDGE_GD = S.BRIDGE_GD, T.BRIDGE_ID = S.BRIDGE_ID
+    ORA-00904: "T"."BRIDGE_ID": invalid identifier
+ERROR : MERGE INTO DBDESCRP T USING DBDESCRP_T S ON (T.DB_ID_KEY = S.DB_ID_KEY) WHEN MATCHED THEN UPDATE SET T.ACTDBROW = S.ACTDBROW, T.THISDBDESCR = S.THISDBDESCR, T.THISDBTIME = S.THISDBTIME, T.THISDBTYPE = S.THISDBTYPE, T.OWNER_DB_ID_KEY = S.OWNER_DB_ID_KEY, T.OWNERDESC = S.OWNERDESC, T.OWNERUSER = S.OWNERUSER, T.OWNERTIME = S.OWNERTIME, T.MODTIME = S.MODTIME, T.USERKEY = S.USERKEY, T.USERANALYTICSPROMPTED = S.USERANALYTICSPROMPTED
+    ORA-00904: "T"."USERANALYTICSPROMPTED": invalid identifier
+ERROR : MERGE INTO PON_PROGRAM T USING PON_PROGRAM_T S ON (T.PON_PROGRAM_GD = S.PON_PROGRAM_GD) WHEN MATCHED THEN UPDATE SET T.ALT_ID = S.ALT_ID, T.PON_PROGRAM_LB = S.PON_PROGRAM_LB, T.PROGRAM_OBJECTIVE = S.PROGRAM_OBJECTIVE, T.PROGRAM_STATUS = S.PROGRAM_STATUS, T.DESCRIPTION = S.DESCRIPTION, T.NOTES = S.NOTES, T.URL = S.URL, T.START_DATE = S.START_DATE, T.END_DATE = S.END_DATE, T.CREATEUSERKEY = S.CREATEUSERKEY, T.CREATEDATETIME = S.CREATEDATETIME, T.MODUSERKEY = S.MODUSERKEY, T.MODTIME = S.MODTIME, T.PON_PROGRAM_CATEGORY_DEFS_GD = S.PON_PROGRAM_CATEGORY_DEFS_GD, T.PON_UTIL_PROFILE_GD = S.PON_UTIL_PROFILE_GD, T.PON_SEGMENT_PROFILE_GD = S.PON_SEGMENT_PROFILE_GD, T.NBI_ESTIMATION_METHOD = S.NBI_ESTIMATION_METHOD, T.PON_NBI_PROFILE_GD = S.PON_NBI_PROFILE_GD, T.RESIDUAL_HIX_APPROXIMATION = S.RESIDUAL_HIX_APPROXIMATION, T.LONG_TERM_LCCA_LENGTH = S.LONG_TERM_LCCA_LENGTH, T.DISCOUNT_RATE = S.DISCOUNT_RATE, T.INFLATION_METHOD = S.INFLATION_METHOD, T.INFLATION_RATE = S.INFLATION_RATE, T.INDIRECT_COST_PCT = S.INDIRECT_COST_PCT, T.PON_FILTERS_GD = S.PON_FILTERS_GD, T.PON_STRUCT_FORMULAS_GD = S.PON_STRUCT_FORMULAS_GD, T.INCLUDE_WORK_CANDIDATES = S.INCLUDE_WORK_CANDIDATES
+    ORA-00904: "T"."INCLUDE_WORK_CANDIDATES": invalid identifier
+ERROR : MERGE INTO VALIDATION_WARNING T USING VALIDATION_WARNING_T S ON (T.VALIDATION_WARNING_GD = S.VALIDATION_WARNING_GD) WHEN MATCHED THEN UPDATE SET T.TABLE_NAME = S.TABLE_NAME, T.COL_NAME = S.COL_NAME, T.ROW_PK = S.ROW_PK, T.INPUT_VALUE = S.INPUT_VALUE, T.PON_APP_USERS_GD = S.PON_APP_USERS_GD, T.VALIDATION_DATE = S.VALIDATION_DATE, T.VALIDATION_SOURCE_GENERIC = S.VALIDATION_SOURCE_GENERIC, T.VALIDATION_SOURCE_SPECIFIC = S.VALIDATION_SOURCE_SPECIFIC, T.VALIDATION_MESSAGE = S.VALIDATION_MESSAGE
+    ORA-00942: table or view does not exist
+ERROR : MERGE INTO PON_APP_USERS_ROLES T USING PON_APP_USERS_ROLES_T S ON (T.PON_APP_USERS_GD = S.PON_APP_USERS_GD AND T.PON_APP_ROLES_GD = S.PON_APP_ROLES_GD) WHEN MATCHED THEN UPDATE SET T.USERKEY = S.USERKEY, T.ROLEKEY = S.ROLEKEY, T.NOTES = S.NOTES, T.ACTIVE_DIRECTORY_ROLE = S.ACTIVE_DIRECTORY_ROLE
+    ORA-00904: "T"."ACTIVE_DIRECTORY_ROLE": invalid identifier
+ERROR : MERGE INTO PON_REPORT_REGISTER T USING PON_REPORT_REGISTER_T S ON (T.PON_REPORT_REGISTER_GD = S.PON_REPORT_REGISTER_GD) WHEN MATCHED THEN UPDATE SET T.REPORT_ID = S.REPORT_ID, T.NAME = S.NAME, T.DESCRIPTION = S.DESCRIPTION, T.REPORT_TYPE = S.REPORT_TYPE, T.CONTEXT = S.CONTEXT, T.REPORT_ORIGIN = S.REPORT_ORIGIN, T.REPORT_XML_FILE = S.REPORT_XML_FILE, T.CREATEDATETIME = S.CREATEDATETIME, T.CREATEUSERKEY = S.CREATEUSERKEY, T.MODTIME = S.MODTIME, T.MODUSERKEY = S.MODUSERKEY, T.PON_APP_CONTEXTS_GD = S.PON_APP_CONTEXTS_GD, T.ALLOW_ALL_STRUCTURES = S.ALLOW_ALL_STRUCTURES, T.ALLOW_SELECTED_STRUCTURES = S.ALLOW_SELECTED_STRUCTURES, T.ALLOW_FILTERED_STRUCTURES = S.ALLOW_FILTERED_STRUCTURES
+    ORA-00904: "T"."ALLOW_ALL_STRUCTURES": invalid identifier
+
+PL/SQL procedure successfully completed
+
+Enable recursive constraints after merging setup data.
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+0 rows updated
+
+
+0 rows updated
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+1 row updated
+
+
+3 rows updated
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+Remove retired tables from PON_EXCHANGE_OPTION_DETAIL
+Remove empty entries from PON_EXCHANGE_OPTION
+
+PL/SQL procedure successfully completed
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+1 row deleted
+
+
+1 row deleted
+
+
+1 row deleted
+
+
+1 row deleted
+
+
+1 row deleted
+
+
+1 row deleted
+
+
+1 row deleted
+
+
+1 row deleted
+
+
+1 row deleted
+
+
+1 row deleted
+
+
+1 row deleted
+
+
+1 row deleted
+
+
+1 row deleted
+
+
+1 row deleted
+
+
+0 rows deleted
+
+
+Session altered
+
+
+Session altered
+
+
+System altered
+
+
+PL/SQL procedure successfully completed
+
+
+195 rows updated
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+405 rows merged
+
+
+405 rows merged
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+0 rows updated
+
+
+0 rows updated
+
+
+0 rows updated
+
+
+0 rows updated
+
+
+0 rows updated
+
+
+0 rows updated
+
+
+148 rows updated
+
+
+148 rows updated
+
+
+0 rows updated
+
+
+0 rows updated
+
+
+0 rows updated
+
+
+0 rows updated
+
+
+675 rows updated
+
+
+675 rows updated
+
+
+0 rows updated
+
+
+180 rows updated
+
+
+180 rows updated
+
+
+0 rows updated
+
+
+59 rows updated
+
+
+53 rows updated
+
+
+0 rows updated
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+0 rows merged
+
+
+0 rows merged
+
+
+0 rows merged
+
+Enable disabled NOT NULL constraints.
+ALTER TABLE PON_APP_PERMISSIONS ENABLE CONSTRAINT SYS_C0031585
+ALTER TABLE PON_APP_ROLES_PERMISSIONS ENABLE CONSTRAINT SYS_C0031144
+ALTER TABLE PON_FILTERS ENABLE CONSTRAINT SYS_C0031574
+ALTER TABLE PON_FILTERS ENABLE CONSTRAINT SYS_C0031576
+ALTER TABLE PON_FILTERS ENABLE CONSTRAINT SYS_C0031575
+ALTER TABLE PON_FILTERS ENABLE CONSTRAINT SYS_C0031577
+
+PL/SQL procedure successfully completed
+
+Make non PK GUID columns required.
+ERROR :  ORA-01442: column to be modified to NOT NULL is already NOT NULL in KDOT_BLP.
+ERROR :  ORA-02296: cannot enable (KDOT_BLP.) - null values found in KDOT_BLP.
+ERROR :  ORA-01442: column to be modified to NOT NULL is already NOT NULL in KDOT_BLP.
+
+PL/SQL procedure successfully completed
+
+
+0 rows updated
+
+Make old key columns nullable
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+Add missing permissions, (if any).
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+Add indexes.
+CREATE INDEX FK_PON_FILTERS_515_USERS ON PON_FILTERS(PON_APP_USERS_GD)
+ERROR :  ORA-00942: table or view does not exist in KDOT_BLP.
+CREATE INDEX XAK1PON_NAV_CONTROL ON PON_NAV_CONTROL(PON_NAV_CONTROL_GROUP_GD,ORDER_NUM)
+CREATE INDEX XAK1PON_NAV_CONTROL_GROUP ON PON_NAV_CONTROL_GROUP(PON_NAV_TASK_GD,PARENT_CONTROL_GROUP_GD,ORDER_NUM)
+CREATE UNIQUE INDEX UQ_USRRWAY ON USERRWAY(ROADWAY_GD,ON_UNDER)
+CREATE UNIQUE INDEX XAK1PON_NAV_TASK ON PON_NAV_TASK(PON_NAV_TAB_GD,PON_NAV_TASK_GD,PARENT_PON_NAV_TASK_GD,ORDER_NUM)
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+BEGIN
+  IF UPPER(GET_VAR('FORWARD_ELEMS_FOR_BLANK_INSP')) = 'ON' THEN
+    BEGIN
+
+      BEGIN
+        EXECUTE IMMEDIATE 'DROP MATERIALIZED VIEW FORWARD_ELEMS_KEYS';
+      EXCEPTION
+        WHEN OTHERS THEN
+          NULL;
+      END;
+
+      BEGIN
+        EXECUTE IMMEDIATE '
+        CREATE MATERIALIZED VIEW FORWARD_ELEMS_KEYS
+          BUILD IMMEDIATE  REFRESH COMPLETE AS
+            SELECT
+                T.BRKEY, T.INSPKEY, T.INSPEVNT_GD, T.BRIDGE_GD, i.INSPEVNT_GD as PREV_INSPEVNT_GD
+            FROM (
+                    SELECT
+                      inspevnt.BRIDGE_GD, inspevnt.INSPEVNT_GD, inspevnt.BRKEY, inspevnt.INSPKEY
+                    FROM (select * from (select i1.*, row_number() over (partition by bridge_gd order by inspdate desc) rn from inspevnt i1) iv where iv.rn=1) inspevnt
+                    LEFT JOIN PON_ELEM_INSP pei ON pei.INSPEVNT_GD = inspevnt.INSPEVNT_GD WHERE pei.INSPEVNT_GD IS NULL
+                  ) T
+            LEFT JOIN (select * from (select i1.*, row_number() over (partition by bridge_gd order by inspdate desc) rn from inspevnt i1) iv where iv.rn=2) i ON i.BRIDGE_GD = T.BRIDGE_GD';
+      EXCEPTION
+        WHEN OTHERS THEN
+          RAISE;
+      END;
+
+      BEGIN
+        EXECUTE IMMEDIATE '
+        INSERT INTO PON_ELEM_INSP
+          (
+            BRKEY, INSPKEY, ELEM_KEY, ELEM_PARENT_KEY, ENVKEY, STRUNITKEY,ELEM_QUANTITY,ELEM_SCALE_FACTOR,ELEM_PCTSTATE1,ELEM_PCTSTATE2,ELEM_PCTSTATE3,ELEM_PCTSTATE4,
+            ELEM_QTYSTATE1,ELEM_QTYSTATE2,ELEM_QTYSTATE3,ELEM_QTYSTATE4,ELEM_DESC,ELEM_CREATEDATETIME,ELEM_CREATEUSERKEY,ELEM_MODTIME,ELEM_MODUSERKEY,ELEM_DOCREFKEY,
+            ELEM_NOTES,ELEM_GRANDPARENT_KEY,PON_ELEM_INSP_GD,PON_ELEM_INSP_LB,PON_ELEM_DEFS_GD,PON_ENVT_DEFS_GD,INSPEVNT_GD,STRUCTURE_UNIT_GD,PARENT_PON_ELEM_INSP_GD,
+            BRIDGE_GD
+          )
+        SELECT
+          fek.BRKEY, fek.INSPKEY, pei.ELEM_KEY, pei.ELEM_PARENT_KEY, pei.ENVKEY, pei.STRUNITKEY, pei.ELEM_QUANTITY, pei.ELEM_SCALE_FACTOR, pei.ELEM_PCTSTATE1, pei.ELEM_PCTSTATE2, pei.ELEM_PCTSTATE3, pei.ELEM_PCTSTATE4,
+          pei.ELEM_QTYSTATE1, pei.ELEM_QTYSTATE2, pei.ELEM_QTYSTATE3, pei.ELEM_QTYSTATE4, pei.ELEM_DESC, CURRENT_DATE, pei.ELEM_CREATEUSERKEY, CURRENT_DATE, pei.ELEM_MODUSERKEY, pei.ELEM_DOCREFKEY,  pei.ELEM_NOTES,
+          pei.ELEM_GRANDPARENT_KEY, SYS_GUID(), REPLACE(pei.PON_ELEM_INSP_LB, pei.INSPKEY, fek.INSPKEY) , pei.PON_ELEM_DEFS_GD, pei.PON_ENVT_DEFS_GD, fek.INSPEVNT_GD, pei.STRUCTURE_UNIT_GD, pei.PARENT_PON_ELEM_INSP_GD,
+          fek.BRIDGE_GD
+        FROM FORWARD_ELEMS_KEYS fek
+        LEFT JOIN PON_ELEM_INSP pei ON pei.INSPEVNT_GD = fek.PREV_INSPEVNT_GD WHERE pei.INSPEVNT_GD IS NOT NULL';
+      EXCEPTION
+        WHEN OTHERS THEN
+          RAISE;
+      END;
+
+      BEGIN
+        EXECUTE IMMEDIATE 'DROP MATERIALIZED VIEW FORWARD_ELEMS_KEYS';
+      EXCEPTION
+        WHEN OTHERS THEN
+          RAISE;
+      END;
+
+
+  END IF;
+  EXCEPTION
+      WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('ERROR: Failed forwarding elements for latest inspection having no elements with previous inspections containg elements; ' ||
+                             SQLERRM);
+    END;
+END;
+
+ORA-06550: line 59, column 7:
+PLS-00103: Encountered the symbol "IF" when expecting one of the following:
+
+   ; <an identifier> <a double-quoted delimited-identifier>
+
+PL/SQL procedure successfully completed
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+PL/SQL procedure successfully completed
+
+
+138 rows deleted
+
+
+6 rows deleted
+
+
+0 rows deleted
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+A DEFAULT Pontis USER HAS BEEN ADDED WITH A PASSWORD OF 'pontis'.
+CHANGE THIS PASSWORD!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+PL/SQL procedure successfully completed
+
+Script finished on KDOT_BLP.
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+425 rows merged
+
+
+425 rows merged
+
+
+425 rows merged
+
+
+425 rows merged
+
+
+425 rows merged
+
+
+0 rows merged
+
+
+PL/SQL procedure successfully completed
+
+
+Commit complete
+
+
+Commit complete
+
