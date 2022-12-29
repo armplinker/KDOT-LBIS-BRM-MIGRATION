@@ -1,0 +1,190 @@
+CONNECT KDOT_BLP/Einstein345@localhost:1521/xepdb1 AS NORMAL
+
+SET SERVEROUTPUT ON
+spool C:\git\repos\KDOT-LBIS-BRM-MIGRATION\stages\6.0\out\GenUserTables-20221227T1618.log
+
+drop synonym USERBRDG;
+drop table USERBRDG purge;
+create table USERBRDG as select * from kdotblp_bridge order by BRKEY ASC;
+
+drop synonym USERINSP;
+drop table USERINSP purge;
+create table USERINSP as select * from kdotblp_inspections order by BRKEY ASC, MODTIME DESC,INSPKEY ASC;
+
+
+-- MIMIC the PK, FK, indexes of KDOTBLP_BRIDGE for USERBRDG
+-- Create/Recreate indexes 
+create index NRM_USERBRDG_POSTING_REQ on USERBRDG (POSTING_JUSTIFICATION)
+  tablespace KDOT_BLP
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 64K
+    minextents 1
+    maxextents unlimited
+  )
+  nologging;
+
+create index NRM_USERBRDG_POSTING_TYPE on USERBRDG (POSTING_TYPE)
+  tablespace KDOT_BLP
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 64K
+    minextents 1
+    maxextents unlimited
+  )
+  nologging;
+
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table USERBRDG
+  add constraint PK_USERBRDG_BRIDGE_GD primary key (BRIDGE_GD)
+  using index 
+  tablespace KDOT_BLP
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 64K
+    minextents 1
+    maxextents unlimited
+  )
+  novalidate;
+
+alter index PK_USERBRDG_BRIDGE_GD nologging;
+
+alter table USERBRDG
+  add constraint UNQ_USERBRDG_BRKEY unique (BRKEY)
+  using index 
+  tablespace KDOT_BLP
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 64K
+    minextents 1
+    maxextents unlimited
+  );
+
+alter index UNQ_USERBRDG_BRKEY nologging;
+
+alter table USERBRDG
+  add constraint FK_USERBRDG_BRIDGE foreign key (BRIDGE_GD)
+  references BRIDGE (BRIDGE_GD) on delete cascade
+  disable
+  novalidate;
+
+-- Grant/Revoke object privileges 
+grant select on USERBRDG to BLP_BROWSER;
+grant select on USERBRDG to BLP_INSPECTOR;
+grant select, insert, update, delete, alter on USERBRDG to BLP_LOAD_RATER;
+grant select on USERBRDG to BLP_LOCAL_AGENCY_REVIEW;
+grant select, insert, update, delete on USERBRDG to BLP_PORTAL_ADMINISTRATOR;
+grant select, insert, update, delete on USERBRDG to BLP_TEAM_LEADER;
+grant select, insert, update, delete on USERBRDG to BRMADMIN_ROLE;
+grant select on USERBRDG to BRMREADONLY_ROLE;
+grant select on USERBRDG to KDOT_BLP_ISU;
+grant select on USERBRDG to KDOT_BLP_SELECT;
+grant select, insert, update, delete on USERBRDG to PONTISUSER;
+grant select, insert, update, delete on USERBRDG to PONTISWEBADMINISTRATOR;
+grant select on USERBRDG to PONTISWEBBROWSER;
+grant select, insert, update, delete, alter on USERBRDG to PONTISWEBINSPECTIONSUPERVISOR;
+grant select, insert, update, delete on USERBRDG to PONTISWEBINSPECTOR;
+grant select on USERBRDG to PWEBLOGINID;
+grant select on USERBRDG to PWEBODBCLOGIN;
+
+-- MIMIC THE PK, FK of KDOTBLP_INSPECTIONS FOR USERINSP
+-- a vestigial table USERINSP_20181031_RENAMED may exist.  We won't drop it but we will kill the PK, unique key, and any other indexes
+-- Drop primary, unique and foreign key constraints 
+/*alter table USERINSP_20181031_RENAMED
+  drop constraint PK_USERINSP cascade;
+alter table USERINSP_20181031_RENAMED
+  drop constraint UNQ_USERINSP_BRKEY_INSPKEY cascade;
+  */
+drop index NRM_USERINSP_BRIDGE_GD
+
+
+alter table USERINSP
+  add constraint PK_USERINSP primary key (INSPEVNT_GD)
+  using index 
+  tablespace KDOT_BLP
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  )
+  novalidate;
+
+alter index PK_USERINSP nologging;
+
+alter table USERINSP
+  add constraint UNQ_USERINSP_BRKEY_INSPKEY unique (BRKEY, INSPKEY)
+  using index
+  enable
+  novalidate;
+
+alter table USERINSP
+  add constraint FK_USERINSP_BRIDGE_BRIDGE_GD foreign key (BRIDGE_GD)
+  references BRIDGE (BRIDGE_GD) on delete cascade
+  enable
+  novalidate;
+
+alter table USERINSP
+  add constraint FK_USERINSP_INSPEVNT_GD foreign key (INSPEVNT_GD)
+  references INSPEVNT (INSPEVNT_GD) on delete cascade
+  enable
+  novalidate;
+
+-- fixup for KDOTBLP_INSPECTIONS - these FK were not being enforced as of 12/27/2022 - must be to avoid ORPHANS in KDOTBLP_INSPECTIONS when a parent INSPEVNT record is removed
+-- to see the problem records and #of hits
+/*select brkey, inspkey, max(modtime) as modtime, count(*) as hits
+from kdotblp_inspections
+group by brkey,inspkey
+having count(*)>1
+order by brkey;
+*/
+
+alter table KDOTBLP_INSPECTIONS
+drop constraint FK_KDOT_INSP_INSPEVNT_GD;
+
+alter table KDOTBLP_INSPECTIONS
+  add constraint FK_KDOT_INSP_INSPEVNT_GD foreign key (INSPEVNT_GD)
+  references INSPEVNT (INSPEVNT_GD) on delete cascade
+  enable
+  novalidate;
+ 
+-- Grant/Revoke object privileges 
+grant select on USERINSP to BLP_BROWSER;
+grant select on USERINSP to BLP_INSPECTOR;
+grant select, insert, update, delete, alter on USERINSP to BLP_LOAD_RATER;
+grant select on USERINSP to BLP_LOCAL_AGENCY_REVIEW;
+grant select, insert, update, delete on USERINSP to BLP_PORTAL_ADMINISTRATOR;
+grant select, insert, update, delete on USERINSP to BLP_TEAM_LEADER;
+grant select, insert, update, delete on USERINSP to BRMADMIN_ROLE;
+grant select on USERINSP to BRMREADONLY_ROLE;
+grant select on USERINSP to KDOT_BLP_ISU;
+grant select on USERINSP to KDOT_BLP_SELECT;
+grant select, insert, update, delete on USERINSP to PONTISUSER;
+grant select, insert, update, delete on USERINSP to PONTISWEBADMINISTRATOR;
+grant select on USERINSP to PONTISWEBBROWSER;
+grant select, insert, update, delete, alter on USERINSP to PONTISWEBINSPECTIONSUPERVISOR;
+grant select, insert, update, delete on USERINSP to PONTISWEBINSPECTOR;
+grant select on USERINSP to PWEBLOGINID;
+grant select on USERINSP to PWEBODBCLOGIN; 
+
+spool off 

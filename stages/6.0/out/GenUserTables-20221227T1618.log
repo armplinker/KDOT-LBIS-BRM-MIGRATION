@@ -1,0 +1,164 @@
+﻿
+drop synonym USERBRDG
+
+ORA-01434: private synonym to be dropped does not exist
+
+Table dropped
+
+
+Table created
+
+
+drop synonym USERINSP
+
+ORA-01434: private synonym to be dropped does not exist
+
+Table dropped
+
+
+Table created
+
+
+Index created
+
+
+Index created
+
+
+Table altered
+
+
+Index altered
+
+
+Table altered
+
+
+Index altered
+
+
+Table altered
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Table altered
+
+
+Index altered
+
+
+Table altered
+
+
+Table altered
+
+
+Table altered
+
+
+Table altered
+
+
+Table altered
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+

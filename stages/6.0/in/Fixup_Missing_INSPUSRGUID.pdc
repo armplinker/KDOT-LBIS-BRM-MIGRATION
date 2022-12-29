@@ -1,0 +1,25 @@
+-- Fixup_Missing_INSPUSRGUID.pdc
+-- selected records in INSPEVNT are missing values for INSPUSRGUID
+-- this script sets them equal to PON_APP_USERS_GD for those rows, not knowing anything else.
+-- ARMarshall,ARM LLC - 20221228 - initial draft
+
+
+-- uses simple UPDATE statement
+DECLARE
+
+ls_UpdSQL Varchar2(32767):='UPDATE INSPEVT i 
+                            SET i.INSPUSRGUID=(SELECT pau.PON_APP_USERS_GD 
+                            FROM PON_APP_USERS pau 
+                            WHERE pau.USERKEY=i.USERKEY)
+                            WHERE i.INSPUSRGUID IS NULL;';
+
+
+BEGIN
+  
+
+EXCEPTION
+  
+WHEN OTHERS THEN RAISE;
+
+END;
+

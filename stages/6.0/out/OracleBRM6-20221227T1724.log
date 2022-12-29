@@ -1,0 +1,1329 @@
+﻿Prepared at Bentley Systems, Inc AKA Mayvue by Chris.Meredith on 9/10/2018 10:35:59 AM.
+Additional changes by Allen R. Marshall, ARM LLC - starting 20220818
+==================================================================================================
+ARM LLC Revision History
+==================================================================================================
+20220818 - ARMarshall, ARM LLC - initial review, added globals to preserve datadict and paramtrs tables for KDOT LBIS 9 (BrM 5.3) database
+20221220 - ARMarshall, ARM LLC - corrected minor typos as encountered
+20221220 - ARMarshall, ARM LLC - changed name of global to SAVEAGENCYSYSTABLES, now just 1 global, more changes near line 390 to backup PARAMTRS, DATADICT,PON_COPTIONS, COPTIONS, and KDOTBLP_ATTRIBUTE_DESCRIPTOR explicitly
+20221220 - ARMarshall, ARM LLC - near line 32,442 declaration for the query string is now V_Q VARCHAR2(2000 CHAR); -- ARMarshall, ARM LLC - 20221220 - error reported string buffer was too small, increased from 300 to 2000
+20221220 - ARMarshall, ARM LLC - near line 40,604 - failing because MV did not exist due to repeated runs (?) reformatted this MV section and added BEGIN EXCEPTION END blocks around each EXECUTE IMMEDIATE
+20221220 - ARMarshall, ARM LLC - added option to print cursor detail for debugging purposes - set to 0 normally 
+20221227 - ARMarshall, ARM LLC - set option DISABLE_FORCE_DEF_BY_TABLE to ON, created table VALIDATION_WARNING externally, modified table PON_APP_USERS_ROLES to add ACTIVE_DIRECTORY_ROLE column  directly
+20221227 - ARMarshall, ARM LLC - External script Drop_Create_Table_PON_MOBILE_ERRORS.pdc created to create new table PON_MOBILE_ERRORS
+20221227 - ARMarshall, ARM LLC - External script Drop_Create_Table_VALIDATION_WARNING.pdc created to create new table VALIDATION_WARNING
+20221227 - ARMarshall, ARM LLC - External script Drop_Create_Dummy_UserTables.pdc created to create dummy USERBRDG and USERINSP tables
+20221227 - ARMarshall, ARM LLC - As of 20221227, there were no orphan records in USERRWAY or USERSTRUNIT
+20221228 - ARMarshall, ARM LLC - Script assumes that table PON_PROGRAM has column INCLUDE_WORK_CANDIDATES CHAR(1) DEFAULT ('T')
+==================================================================================================
+
+PL/SQL procedure successfully completed
+
+
+Session altered
+
+
+Session altered
+
+
+System altered
+
+RUNNING AASHTOWare Bridge Management 6.0 GUID upgrade script.
+Run on KDOT_BLP BrM 6.0 Oracle on WEDNESDAY 12/28/2022 at 13:33 PM.
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+Function created
+
+
+Function created
+
+
+Procedure created
+
+
+Function created
+
+
+Function created
+
+
+Function created
+
+
+Function created
+
+
+Function created
+
+Saving PARAMTRS table
+Saving DATADICT table
+Saving PON_COPTIONS table
+Saving COPTIONS table
+Saving KDOTBLP_ATTRIBUTE_DESCRIPTOR table
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+Procedure created
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+Commit complete
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+0 rows updated
+
+
+2260 rows updated
+
+
+1 row updated
+
+
+131 rows updated
+
+
+163 rows updated
+
+
+2713 rows updated
+
+
+195 rows updated
+
+
+210 rows inserted
+
+
+Commit complete
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+Session altered
+
+
+Session altered
+
+
+System altered
+
+
+PL/SQL procedure successfully completed
+
+Update PON_COPTIONS_T with values from PON_COPTIONS.
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+Table altered
+
+
+Table altered
+
+
+Table altered
+
+
+Table altered
+
+
+Table altered
+
+
+Table altered
+
+
+Table altered
+
+
+4 rows updated
+
+
+30 rows updated
+
+
+11 rows updated
+
+
+4 rows updated
+
+
+Table altered
+
+
+4 rows updated
+
+MERGE INTO PON_DICT T
+    USING (SELECT
+                CASE UPPER(OPTIONNAME)
+                    WHEN 'XTRNBRDGTABLE' THEN 'USERBRDG'
+                    WHEN 'XTRNINSPTABLE' THEN 'USERINSP'
+                    WHEN 'XTRNRWAYTABLE' THEN 'USERRWAY'
+                    WHEN 'XTRNSTRUNITTABLE' THEN 'USERSTRUNIT'
+                    ELSE OPTIONVAL
+                END TABLE_NAME,
+                UPPER(OPTIONVAL) CUSTOM_TABLE_NAME
+            FROM PON_COPTIONS_T
+            WHERE UPPER(OPTIONNAME) IN ('XTRNBRDGTABLE', 'XTRNINSPTABLE', 'XTRNRWAYTABLE', 'XTRNSTRUNITTABLE')
+    ) S
+    ON (T.ORIGINAL_TABLE_NAME = S.TABLE_NAME)
+    WHEN MATCHED THEN UPDATE SET T.TABLE_NAME = S.CUSTOM_TABLE_NAME
+MERGE INTO PON_FK T
+    USING (SELECT
+                CASE UPPER(OPTIONNAME)
+                    WHEN 'XTRNBRDGTABLE' THEN 'USERBRDG'
+                    WHEN 'XTRNINSPTABLE' THEN 'USERINSP'
+                    WHEN 'XTRNRWAYTABLE' THEN 'USERRWAY'
+                    WHEN 'XTRNSTRUNITTABLE' THEN 'USERSTRUNIT'
+                    ELSE OPTIONVAL
+                END TABLE_NAME,
+                UPPER(OPTIONVAL) CUSTOM_TABLE_NAME
+            FROM PON_COPTIONS_T
+            WHERE UPPER(OPTIONNAME) IN ('XTRNBRDGTABLE', 'XTRNINSPTABLE', 'XTRNRWAYTABLE', 'XTRNSTRUNITTABLE')
+    ) S
+    ON (T.ORIGINAL_TABLE_NAME = S.TABLE_NAME)
+    WHEN MATCHED THEN UPDATE SET T.TABLE_NAME = S.CUSTOM_TABLE_NAME
+MERGE INTO PON_INDEX T
+    USING (SELECT
+                CASE UPPER(OPTIONNAME)
+                    WHEN 'XTRNBRDGTABLE' THEN 'USERBRDG'
+                    WHEN 'XTRNINSPTABLE' THEN 'USERINSP'
+                    WHEN 'XTRNRWAYTABLE' THEN 'USERRWAY'
+                    WHEN 'XTRNSTRUNITTABLE' THEN 'USERSTRUNIT'
+                    ELSE OPTIONVAL
+                END TABLE_NAME,
+                UPPER(OPTIONVAL) CUSTOM_TABLE_NAME
+            FROM PON_COPTIONS_T
+            WHERE UPPER(OPTIONNAME) IN ('XTRNBRDGTABLE', 'XTRNINSPTABLE', 'XTRNRWAYTABLE', 'XTRNSTRUNITTABLE')
+    ) S
+    ON (T.ORIGINAL_TABLE_NAME = S.TABLE_NAME)
+    WHEN MATCHED THEN UPDATE SET T.TABLE_NAME = S.CUSTOM_TABLE_NAME
+MERGE INTO PON_TABLE T
+    USING (SELECT
+                CASE UPPER(OPTIONNAME)
+                    WHEN 'XTRNBRDGTABLE' THEN 'USERBRDG'
+                    WHEN 'XTRNINSPTABLE' THEN 'USERINSP'
+                    WHEN 'XTRNRWAYTABLE' THEN 'USERRWAY'
+                    WHEN 'XTRNSTRUNITTABLE' THEN 'USERSTRUNIT'
+                    ELSE OPTIONVAL
+                END TABLE_NAME,
+                UPPER(OPTIONVAL) CUSTOM_TABLE_NAME
+            FROM PON_COPTIONS_T
+            WHERE UPPER(OPTIONNAME) IN ('XTRNBRDGTABLE', 'XTRNINSPTABLE', 'XTRNRWAYTABLE', 'XTRNSTRUNITTABLE')
+    ) S
+    ON (T.ORIGINAL_TABLE_NAME = S.TABLE_NAME)
+    WHEN MATCHED THEN UPDATE SET T.TABLE_NAME = S.CUSTOM_TABLE_NAME
+
+PL/SQL procedure successfully completed
+
+
+Table altered
+
+
+Table altered
+
+
+Table altered
+
+
+0 rows updated
+
+
+0 rows updated
+
+
+Commit complete
+
+
+Session altered
+
+
+PL/SQL procedure successfully completed
+
+
+0 rows updated
+
+
+Commit complete
+
+
+PL/SQL procedure successfully completed
+
+
+Session altered
+
+
+PL/SQL procedure successfully completed
+
+
+Session altered
+
+Error dropping foreign key before adding foreign keys.ORA-06502: PL/SQL: numeric or value error: character string buffer too small
+
+PL/SQL procedure successfully completed
+
+Outer error dropping PKs to be changed and the FKs that relate to them: ORA-06502: PL/SQL: numeric or value error: character string buffer too small
+
+PL/SQL procedure successfully completed
+
+Drop indexes that are unwanted or changed.
+DROP INDEX NRM_USERBRDG_POSTING_REQ
+DROP INDEX NRM_USERBRDG_POSTING_TYPE
+
+PL/SQL procedure successfully completed
+
+Reduce length or scale or change data type.
+
+PL/SQL procedure successfully completed
+
+Alter Columns.
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+Update new columns with default values.
+Make new required columns on old tables required.
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+REMOVE ITEMS FROM PRODUCTION DATABASES.
+
+PL/SQL procedure successfully completed
+
+
+0 rows deleted
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+0 rows deleted
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+ERROR D6: Failed Creating Foreign Key [ALTER TABLE PON_APP_CONTROL_SECURITY ADD CONSTRAINT FK_CTRL_SEC_TO_NAV_CONTROL FOREIGN KEY (PON_NAV_CONTROL_GD) REFERENCES PON_NAV_CONTROL (PON_NAV_CONTROL_GD) ON DELETE CASCADE;ORA-02298: cannot validate (KDOT_BLP.FK_CTRL_SEC_TO_NAV_CONTROL) - parent keys not found
+ERROR D6: Failed Creating Foreign Key [ALTER TABLE USERBRDG ADD CONSTRAINT FK_USERBRDG_14_BRIDGE FOREIGN KEY (BRIDGE_GD) REFERENCES BRIDGE (BRIDGE_GD) ON DELETE CASCADE;ORA-02298: cannot validate (KDOT_BLP.FK_USERBRDG_14_BRIDGE) - parent keys not found
+ERROR D6: Failed Creating Foreign Key [ALTER TABLE USERINSP ADD CONSTRAINT FK_USERINSP_46_INSPEVNT FOREIGN KEY (INSPEVNT_GD) REFERENCES INSPEVNT (INSPEVNT_GD) ON DELETE CASCADE;ORA-02298: cannot validate (KDOT_BLP.FK_USERINSP_46_INSPEVNT) - parent keys not found
+ERROR D6: Failed Creating Foreign Key [ALTER TABLE USERSTRUNIT ADD CONSTRAINT FK_USERSTRU_103_STRUCTUR FOREIGN KEY (STRUCTURE_UNIT_GD) REFERENCES STRUCTURE_UNIT (STRUCTURE_UNIT_GD) ON DELETE CASCADE;ORA-02275: such a referential constraint already exists in the table
+
+PL/SQL procedure successfully completed
+
+
+0 rows updated
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+7 rows merged
+
+
+3651 rows updated
+
+
+3651 rows updated
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+PL/SQL procedure successfully completed
+
+Disable recursive constraints before merging setup data.
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+Merge optional setup data from temp tables.
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+Commit complete
+
+
+Commit complete
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+Enable recursive constraints after merging setup data.
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+0 rows updated
+
+
+0 rows updated
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+1 row updated
+
+
+1 row updated
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+Remove retired tables from PON_EXCHANGE_OPTION_DETAIL
+Remove empty entries from PON_EXCHANGE_OPTION
+
+PL/SQL procedure successfully completed
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+Session altered
+
+
+Session altered
+
+
+System altered
+
+
+PL/SQL procedure successfully completed
+
+
+195 rows updated
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+405 rows merged
+
+
+405 rows merged
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+0 rows updated
+
+
+0 rows updated
+
+
+0 rows updated
+
+
+0 rows updated
+
+
+0 rows updated
+
+
+0 rows updated
+
+
+148 rows updated
+
+
+148 rows updated
+
+
+0 rows updated
+
+
+0 rows updated
+
+
+0 rows updated
+
+
+0 rows updated
+
+
+675 rows updated
+
+
+675 rows updated
+
+
+0 rows updated
+
+
+180 rows updated
+
+
+180 rows updated
+
+
+0 rows updated
+
+
+58 rows updated
+
+
+53 rows updated
+
+
+0 rows updated
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+0 rows merged
+
+
+0 rows merged
+
+
+0 rows merged
+
+Enable disabled NOT NULL constraints.
+
+PL/SQL procedure successfully completed
+
+Make non PK GUID columns required.
+ALTER TABLE INSPEVNT MODIFY BRIDGE_GD  NOT NULL
+ERROR :  ALTER TABLE INSPEVNT MODIFY BRIDGE_GD  NOT NULL; ORA-01442: column to be modified to NOT NULL is already NOT NULL in KDOT_BLP.
+ALTER TABLE INSPEVNT MODIFY INSPUSRGUID  NOT NULL
+ERROR :  ALTER TABLE INSPEVNT MODIFY INSPUSRGUID  NOT NULL; ORA-02296: cannot enable (KDOT_BLP.) - null values found in KDOT_BLP.
+ALTER TABLE PON_ELEM_INSP MODIFY BRIDGE_GD  NOT NULL
+ERROR :  ALTER TABLE PON_ELEM_INSP MODIFY BRIDGE_GD  NOT NULL; ORA-01442: column to be modified to NOT NULL is already NOT NULL in KDOT_BLP.
+ALTER TABLE PON_MOBILE_ERRORS MODIFY DATA  NOT NULL
+ALTER TABLE PON_MOBILE_ERRORS MODIFY ORDER_NUM  NOT NULL
+ALTER TABLE USERINSP MODIFY BRIDGE_GD  NOT NULL
+ALTER TABLE USERINSP MODIFY INSPEVNT_GD  NOT NULL
+
+PL/SQL procedure successfully completed
+
+
+0 rows updated
+
+Make old key columns nullable
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+Add missing permissions, (if any).
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+Add indexes.
+CREATE INDEX FK_VALIDATION_WARNING_USERS ON VALIDATION_WARNING(PON_APP_USERS_GD)
+CREATE INDEX XAK1PON_NAV_CONTROL ON PON_NAV_CONTROL(PON_NAV_CONTROL_GROUP_GD,ORDER_NUM)
+CREATE INDEX XAK1PON_NAV_CONTROL_GROUP ON PON_NAV_CONTROL_GROUP(PON_NAV_TASK_GD,PARENT_CONTROL_GROUP_GD,ORDER_NUM)
+CREATE UNIQUE INDEX XAK1PON_NAV_TASK ON PON_NAV_TASK(PON_NAV_TAB_GD,PON_NAV_TASK_GD,PARENT_PON_NAV_TASK_GD,ORDER_NUM)
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+PL/SQL procedure successfully completed
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+0 rows deleted
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+A DEFAULT Pontis USER HAS BEEN ADDED WITH A PASSWORD OF 'pontis'.
+CHANGE THIS PASSWORD!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+PL/SQL procedure successfully completed
+
+Script finished on KDOT_BLP.
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+0 rows merged
+
+
+0 rows merged
+
+
+0 rows merged
+
+
+0 rows merged
+
+
+0 rows merged
+
+
+0 rows merged
+
+
+PL/SQL procedure successfully completed
+
+
+Commit complete
+
+
+Commit complete
+

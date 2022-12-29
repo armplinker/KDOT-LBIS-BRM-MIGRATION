@@ -141,7 +141,139 @@ after imports, it may be necessary to recompile the KDOT_BLP schema wholesale, l
             SQL>EXECUTE UTL_RECOMP.RECOMP_PARALLEL(4,'KDOT_BLP');  
 
 
-#### 2022-12-22
+#### 2022-12-27
 
 ------------------------------------------  
 
+Created a script to generate table ***VALIDATION_WARNING***,
+
+Create statement  is derived from this section of the script:
+
+            /*
+            Insert into PON_DICT (TABLE_NAME,PK,REQUIRED,COL_ORDER,COL_NAME,DATA_TYPE,LENGTH,SCALE,DEF_VALUE,ID,FORCE_DEF) values ('VALIDATION_WARNING',3,1,1,'VALIDATION_WARNING_GD','VARCHAR',32,null,'REPLACE(NEWID(), ''-'','''')',0,1);
+            Insert into PON_DICT (TABLE_NAME,PK,REQUIRED,COL_ORDER,COL_NAME,DATA_TYPE,LENGTH,SCALE,DEF_VALUE,ID,FORCE_DEF) values ('VALIDATION_WARNING',0,0,2,'TABLE_NAME','VARCHAR',100,null,null,0,1);
+            Insert into PON_DICT (TABLE_NAME,PK,REQUIRED,COL_ORDER,COL_NAME,DATA_TYPE,LENGTH,SCALE,DEF_VALUE,ID,FORCE_DEF) values ('VALIDATION_WARNING',0,0,3,'COL_NAME','VARCHAR',100,null,null,0,1);
+            Insert into PON_DICT (TABLE_NAME,PK,REQUIRED,COL_ORDER,COL_NAME,DATA_TYPE,LENGTH,SCALE,DEF_VALUE,ID,FORCE_DEF) values ('VALIDATION_WARNING',0,0,4,'ROW_PK','VARCHAR',32,null,null,0,1);
+            Insert into PON_DICT (TABLE_NAME,PK,REQUIRED,COL_ORDER,COL_NAME,DATA_TYPE,LENGTH,SCALE,DEF_VALUE,ID,FORCE_DEF) values ('VALIDATION_WARNING',0,0,5,'INPUT_VALUE','VARCHAR',3999,null,null,0,1);
+            Insert into PON_DICT (TABLE_NAME,PK,REQUIRED,COL_ORDER,COL_NAME,DATA_TYPE,LENGTH,SCALE,DEF_VALUE,ID,FORCE_DEF) values ('VALIDATION_WARNING',0,0,6,'PON_APP_USERS_GD','VARCHAR',32,null,null,0,1);
+            Insert into PON_DICT (TABLE_NAME,PK,REQUIRED,COL_ORDER,COL_NAME,DATA_TYPE,LENGTH,SCALE,DEF_VALUE,ID,FORCE_DEF) values ('VALIDATION_WARNING',0,0,7,'VALIDATION_DATE','DATETIME',null,null,null,0,1);
+            Insert into PON_DICT (TABLE_NAME,PK,REQUIRED,COL_ORDER,COL_NAME,DATA_TYPE,LENGTH,SCALE,DEF_VALUE,ID,FORCE_DEF) values ('VALIDATION_WARNING',0,0,8,'VALIDATION_SOURCE_GENERIC','VARCHAR',100,null,null,0,1);
+            Insert into PON_DICT (TABLE_NAME,PK,REQUIRED,COL_ORDER,COL_NAME,DATA_TYPE,LENGTH,SCALE,DEF_VALUE,ID,FORCE_DEF) values ('VALIDATION_WARNING',0,0,9,'VALIDATION_SOURCE_SPECIFIC','VARCHAR',1000,null,null,0,1);
+            Insert into PON_DICT (TABLE_NAME,PK,REQUIRED,COL_ORDER,COL_NAME,DATA_TYPE,LENGTH,SCALE,DEF_VALUE,ID,FORCE_DEF) values ('VALIDATION_WARNING',0,0,10,'VALIDATION_MESSAGE','VARCHAR',3999,null,null,0,1);
+            */
+
+which translates to this:
+
+            DROP TABLE VALIDATION_WARNING;
+
+            CREATE TABLE VALIDATION_WARNING 
+            (
+            VALIDATION_WARNING_GD VARCHAR2(32) NOT NULL,
+            TABLE_NAME VARCHAR2(100) NOT NULL,
+            COL_NAME VARCHAR2(100) NOT NULL,
+            ROW_PK VARCHAR2(32) NOT NULL,
+            INPUT_VALUE VARCHAR2(3999 CHAR) NOT NULL,
+            PON_APP_USERS_GD VARCHAR2(32) NOT NULL,
+            VALIDATION_DATE DATE NOT NULL,
+            VALIDATION_SOURCE_GENERIC VARCHAR2(100) NOT NULL,
+            VALIDATION_SOURCE_SPECIFIC VARCHAR2(1000) NOT NULL,
+            VALIDATION_MESSAGE VARCHAR2(3999 CHAR) NOT NULL);
+
+and these constraints on table ***VALIDATION_WARNING*** are also taken fronm the upgrade script:
+
+            ALTER TABLE VALIDATION_WARNING ADD CONSTRAINT PK_VALIDATION_WARNING PRIMARY KEY ("VALIDATION_WARNING_GD") using index tablespace PONT_TBL;
+
+            ALTER TABLE VALIDATION_WARNING ADD CONSTRAINT FK_VALIDATION_WARNING_USERS FOREIGN KEY (PON_APP_USERS_GD) REFERENCES PON_APP_USERS (PON_APP_USERS_GD) ON DELETE CASCADE;
+
+-- added the table PON_MOBILE_ERRORS, using these statenents from the script
+
+            Insert into PON_DICT (TABLE_NAME,PK,REQUIRED,COL_ORDER,COL_NAME,DATA_TYPE,LENGTH,SCALE,DEF_VALUE,ID,FORCE_DEF) values ('PON_MOBILE_ERRORS',3,1,1,'PON_MOBILE_ERRORS_GD','VARCHAR',32,null,'REPLACE(NEWID(), ''-'','''')',0,1);
+            Insert into PON_DICT (TABLE_NAME,PK,REQUIRED,COL_ORDER,COL_NAME,DATA_TYPE,LENGTH,SCALE,DEF_VALUE,ID,FORCE_DEF) values ('PON_MOBILE_ERRORS',0,1,2,'PON_APP_USERS_GD','VARCHAR',32,null,null,0,1);
+            Insert into PON_DICT (TABLE_NAME,PK,REQUIRED,COL_ORDER,COL_NAME,DATA_TYPE,LENGTH,SCALE,DEF_VALUE,ID,FORCE_DEF) values ('PON_MOBILE_ERRORS',0,1,3,'DATE_REPORTED','DATETIME',null,null,null,0,1);
+            Insert into PON_DICT (TABLE_NAME,PK,REQUIRED,COL_ORDER,COL_NAME,DATA_TYPE,LENGTH,SCALE,DEF_VALUE,ID,FORCE_DEF) values ('PON_MOBILE_ERRORS',0,1,4,'DATA','VARCHAR',4000,null,null,0,1);
+            Insert into PON_DICT (TABLE_NAME,PK,REQUIRED,COL_ORDER,COL_NAME,DATA_TYPE,LENGTH,SCALE,DEF_VALUE,ID,FORCE_DEF) values ('PON_MOBILE_ERRORS',0,1,5,'ORDER_NUM','SMALLINT',null,null,null,0,1);
+
+and the create statement looks like:
+
+            CONNECT KDOT_BLP/********************@localhost:1521/xepdb1 AS NORMAL
+
+            SET SERVEROUTPUT ON
+            spool C:\git\repos\KDOT-LBIS-BRM-MIGRATION\stages\6.0\out\Create_Table_PON_MOBILE_ERRORS-20221227T1646.log
+
+            drop table PON_MOBILE_ERRORS purge;
+
+            create table PON_MOBILE_ERRORS 
+            ( PON_MOBILE_ERRORS_GD VARCHAR2(32) DEFAULT ('REPLACE(NEWID(), ''-'')')  NOT NULL,
+            PON_APP_USERS_GD VARCHAR2(32) NOT NULL ,
+            DATE_REPORTED DATE DEFAULT (SYSDATE)  NOT NULL,
+            DATA VARCHAR2(4000 CHAR),
+            ORDER_NUM INTEGER 
+            );            
+            ALTER TABLE PON_MOBILE_ERRORS ADD CONSTRAINT PK_PON_MOBILE_ERRORS PRIMARY KEY ("PON_MOBILE_ERRORS_GD") using index tablespace PONT_TBL;
+
+Added the column ACTIVE_DIRECTORY_ROLE (CHAR(1)) to PON_APP_USERS_ROLES  
+
+
+
+Recreated USERINSP and USERBRDG and USERRWAY as   
+
+      SELECT * FROM KDOTBLP_BRIDGE, KDOTBLP_INSPECTIONS, KDOTBLP_ROADWAYS,   
+
+to ensure USERSTRUNIT had an entry for every bridge **(SQL manipulation)**  
+Added KDOT agency tables KDOTBLP_BRIDGE, KDOTBLP_INSPECTIONS, KDOTBLP_ROADWAYS, KDOTBLP_LOAD_RATINGS  
+to the upgrade script near line  
+
+Added a script GenUserTables to make dummy copies of USERBRGD and USER INSP so the upgrade script won't choke
+Discovered some orphan records in KDOTBLP_INSPECTIONS that needed to be cleaned out
+
+            -- fixup for KDOTBLP_INSPECTIONS - these FK were not being enforced as of 12/27/2022 - must be to avoid ORPHANS in KDOTBLP_INSPECTIONS when a parent INSPEVNT record is removed
+            alter table KDOTBLP_INSPECTIONS
+            drop constraint FK_KDOT_INSP_INSPEVNT_GD;
+
+            alter table KDOTBLP_INSPECTIONS
+            add constraint FK_KDOT_INSP_INSPEVNT_GD foreign key (INSPEVNT_GD)
+            references INSPEVNT (INSPEVNT_GD) on delete cascade
+            enable
+            novalidate;
+
+The bridges involved (and the inspections INSPKEY values along with the # of duplicates) were
+ 
+| BRKEY           | INSPKEY | MODTIME               | HITS |
+|---|:---:|:---:|---:|
+| 000000000630360 | GPIO    | 2/10/2020 12:27:00 PM | 2    |
+| 000000000630370 | VAXU    | 2/10/2020 12:27:00 PM | 2    |
+| 000000000890625 | RHOA    | 2/17/2022 08:39:42 AM | 5    |
+| 414301052550076 | CXJU    | 8/27/2021 11:49:30 AM | 2    |
+| 414301052550076 | QLEB    | 2/10/2020 12:27:00 PM | 2    |
+| 427950895521H9C | TECQ    | 2/17/2022 10:33:42 AM | 4    |
+| 42795089552D10C | VYOV    | 2/17/2022 10:37:16 AM | 2    |
+| 430400876401010 | BCAF    | 3/6/2020 10:55:29 AM  | 2    |
+| 430400876401010 | PRRL    | 2/17/2022 09:05:49 AM | 3    |
+| 530400870000098 | RMUN    | 2/17/2022 09:44:25 AM | 3    |
+| 530400870000098 | UCPG    | 3/6/2020 01:10:21 PM  | 2    |
+| 5304008700MCR10 | EBVY    | 3/6/2020 02:14:01 PM  | 2    |
+| 5304008700MCR10 | EUPQ    | 6/28/2022 08:54:16 AM | 2    |
+| 5304008700MCR20 | IYUL    | 6/28/2022 09:02:01 AM | 2    |
+| 5304008700MCR20 | UATA    | 3/9/2020 12:16:44 PM  | 2    |
+| 5304008700MCR30 | IMKC    | 8/16/2021 09:47:27 AM | 3    |
+| 5304008700MCR40 | NIIM    | 8/16/2021 09:48:23 AM | 4    |
+| 5304008700MCR40	| NIIM	| 8/16/2021 09:48:23 AM	| 4    | 
+ 
+
+
+
+As of 20221227, there were no orphan records in USERRWAY or USERSTRUNIT  
+
+#### 2022-12-28  
+
+------------------------------------------  
+
+Made sure the BrM-specific table PON_PROGRAM has the column INCLUDE_WORK_CANDIDATES CHAR(1) DEFAULT ('T') - apparently not in KDOT_BLP PRODUCTION
+Working on script to fix INSPUSRGUID where either null or not a GUID already. WIP
+
+
+#### DAILY HEADING  
+
+------------------------------------------  
+
+ 
