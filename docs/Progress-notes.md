@@ -272,8 +272,111 @@ Made sure the BrM-specific table PON_PROGRAM has the column INCLUDE_WORK_CANDIDA
 Working on script to fix INSPUSRGUID where either null or not a GUID already. WIP
 
 
-#### DAILY HEADING  
+#### 2023-01-02  
 
 ------------------------------------------  
 
- 
+ Added dedicated procedure to create and drop KDOTBLP Portal tables, registered in table KDOTBLP_PORTAL_TABLES, and incorporated the same proc into the upgrade script itself.   
+ An optional setting in the upgrade script will kill these temp tables at the end of the upgrade process - the default is 0 to NOT drop them.
+
+ Looks like:  
+
+                CREATE OR REPLACE PROCEDURE BACKUP_KDOTBLP_PORTAL_TABLES AS
+
+                -- THIS PROCEDURE MAKES A BACKUP WITH A UNIQUE NAME  ENDING IN _KT
+                -- FOR  ANY TABLES REGISTERED IN TABLE KDOTBLP_PORTAL_TABLES
+                -- ALSO INCORPORATED DIRECTLY IN OracleBRM6.sql
+
+                -- ARMarshall, ARM_LLC - 20230102 - created (and in OracleBRM6.sql)
+
+                TYPE R_CURSOR IS REF CURSOR;
+                CUR R_CURSOR;
+
+                V_Q      VARCHAR2(4000);
+                V_SUFFIX VARCHAR2(36) := q'[_]' || HEXTORAW(SYS_GUID()) || q'[_KT]';
+                V_TN     VARCHAR2(128);
+
+                BEGIN
+
+                -- commented out for stand-alone
+                --IF GET_VAR('SAVEAGENCYSYSTABLES') = 1 THEN
+                OPEN CUR FOR
+                    SELECT TABLE_NAME FROM KDOTBLP_PORTAL_TABLES ORDER BY PROCESSING_ORDER;
+                LOOP
+                    FETCH CUR
+                    INTO V_TN;
+                    EXIT WHEN CUR%NOTFOUND;
+                
+                    DBMS_OUTPUT.PUT_LINE(q'[Archiving KDOT Portal Table ]' || V_TN ||
+                                        q'[ TO ]' || V_TN || V_SUFFIX || q'[...]');
+                
+                    V_Q := TRIM(q'[CREATE TABLE ]' || TRIM(V_TN || V_SUFFIX) ||
+                                q'[ AS SELECT * FROM ]' || TRIM(V_TN));
+                    BEGIN
+                    EXECUTE IMMEDIATE V_Q;
+                    DBMS_OUTPUT.PUT_LINE(q'[Table ]' || V_TN || q'[ archived OK]');
+                    EXCEPTION
+                    WHEN OTHERS THEN
+                        DBMS_OUTPUT.PUT_LINE(q'[ERROR ARCHIVING TABLE: ]' || V_Q ||
+                                            q'[: ]' || SQLERRM);
+                    END;
+                
+                END LOOP;
+                CLOSE CUR;
+                -- commented out for stand-alone 
+                -- END IF;
+                EXCEPTION
+                WHEN OTHERS THEN
+                    BEGIN
+                    RAISE_APPLICATION_ERROR(-20000, SQLERRM);
+                    END;
+                END;
+
+
+and the drop procedure looks like:  
+
+
+            CREATE OR REPLACE PROCEDURE DROP_KDOTBLP_BACKUP_TABLES AS
+            -- THIS PROCEDURE DROPS ANY TABLES WITH NAMES ENDING IN _KT
+            -- EXTRACTED FROM OracleBRM6.sql
+            -- ARMarshall, ARM_LLC - 20230102 - created (and in OracleBRM6.sql)
+            --DECLARE
+
+                v_TN1 VARCHAR2(30);
+                v_q VARCHAR2(4000 CHAR);
+                CURSOR curColData IS
+                        SELECT ut.TABLE_NAME
+                        FROM USER_TABLES ut
+                        JOIN KDOTBLP_PORTAL_TABLES kt
+                        ON  ut.TABLE_NAME LIKE kt.TABLE_NAME || '%_KT'
+                        ORDER BY ut.TABLE_NAME;
+            BEGIN
+                --IF  GET_VAR('KDOT_TABLE_CLEANUP') = '1' THEN
+                    /** H.1.1 | Start a loop through the cursor to create a dynamic drop process  **/
+                    OPEN curColData;
+                    FETCH curColData INTO v_TN1;
+                    WHILE (curColData%FOUND)
+                    LOOP
+                        BEGIN
+
+                        DBMS_OUTPUT.PUT_LINE('Cleaning up KDOTBLP PORTAL TABLES (_KT) tables -' || V_TN1);
+
+                            v_q := 'DROP TABLE ' || V_TN1 || ' PURGEX';
+                            execute immediate v_q;
+                        EXCEPTION WHEN OTHERS THEN
+                            DBMS_OUTPUT.PUT_LINE('ERROR F1: Dropping KDOTBLP PORTAL TABLES (_KT) Table [' || v_q || ']; ' || SQLERRM);
+                        END;
+                        FETCH curColData INTO v_TN1;
+                    END LOOP;
+                    CLOSE curColData;
+            -- END IF;
+            --INSERT INTO PROFILING(PLACE, END_TIME) VALUES ('DROP TEMP KDOTBLP PORTAL TABLES (_KT)',  CURRENT_TIMESTAMP);
+
+            EXCEPTION
+
+            WHEN OTHERS THEN
+                BEGIN
+                RAISE_APPLICATION_ERROR(-20000, SQLERRM);
+
+                END;
+            END;

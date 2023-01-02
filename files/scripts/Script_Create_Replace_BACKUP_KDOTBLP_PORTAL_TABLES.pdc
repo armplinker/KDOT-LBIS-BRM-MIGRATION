@@ -1,35 +1,51 @@
 CREATE OR REPLACE PROCEDURE BACKUP_KDOTBLP_PORTAL_TABLES AS
 
- 
-    TYPE R_CURSOR IS REF CURSOR;
-    CUR R_CURSOR;
+  -- THIS PROCEDURE MAKES A BACKUP WITH A UNIQUE NAME  ENDING IN _KT
+  -- FOR  ANY TABLES REGISTERED IN TABLE KDOTBLP_PORTAL_TABLES
+  -- ALSO INCORPORATED DIRECTLY IN OracleBRM6.sql
 
-    V_Q VARCHAR2(4000);
-    V_SUFFIX VARCHAR2(36) := q'[_]'||HEXTORAW(SYS_GUID())||q'[_KT]';
-    V_TN VARCHAR2(128)   ;
+  -- ARMarshall, ARM_LLC - 20230102 - created (and in OracleBRM6.sql)
+
+  TYPE R_CURSOR IS REF CURSOR;
+  CUR R_CURSOR;
+
+  V_Q      VARCHAR2(4000);
+  V_SUFFIX VARCHAR2(36) := q'[_]' || HEXTORAW(SYS_GUID()) || q'[_KT]';
+  V_TN     VARCHAR2(128);
 
 BEGIN
 
+  -- commented out for stand-alone
   --IF GET_VAR('SAVEAGENCYSYSTABLES') = 1 THEN
-        OPEN CUR FOR SELECT TABLE_NAME FROM KDOTBLP_PORTAL_TABLES ORDER BY PROCESSING_ORDER;
-        LOOP
-            FETCH CUR INTO V_TN;
-            EXIT WHEN CUR%NOTFOUND;
-
-             DBMS_OUTPUT.PUT_LINE(q'[Archiving KDOT Portal Table ]'|| V_TN || q'[ TO ]' ||  V_TN || V_SUFFIX || q'[...]' );
-
-             V_Q := TRIM( q'[CREATE TABLE ]' || TRIM(V_TN || V_SUFFIX) || q'[ AS SELECT * FROM ]' || TRIM(V_TN) );
-            BEGIN
-                EXECUTE IMMEDIATE V_Q;
-                DBMS_OUTPUT.PUT_LINE(q'[Table ]' || V_TN || q'[ archived OK]'   );
-            EXCEPTION WHEN OTHERS THEN
-                DBMS_OUTPUT.PUT_LINE(q'[ERROR ARCHIVING TABLE: ]' || V_Q || q'[: ]' || SQLERRM);
-            END;
-
-
-        END LOOP;
-        CLOSE CUR;
- -- END IF;
-
+  OPEN CUR FOR
+    SELECT TABLE_NAME FROM KDOTBLP_PORTAL_TABLES ORDER BY PROCESSING_ORDER;
+  LOOP
+    FETCH CUR
+      INTO V_TN;
+    EXIT WHEN CUR%NOTFOUND;
+  
+    DBMS_OUTPUT.PUT_LINE(q'[Archiving KDOT Portal Table ]' || V_TN ||
+                         q'[ TO ]' || V_TN || V_SUFFIX || q'[...]');
+  
+    V_Q := TRIM(q'[CREATE TABLE ]' || TRIM(V_TN || V_SUFFIX) ||
+                q'[ AS SELECT * FROM ]' || TRIM(V_TN));
+    BEGIN
+      EXECUTE IMMEDIATE V_Q;
+      DBMS_OUTPUT.PUT_LINE(q'[Table ]' || V_TN || q'[ archived OK]');
+    EXCEPTION
+      WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE(q'[ERROR ARCHIVING TABLE: ]' || V_Q ||
+                             q'[: ]' || SQLERRM);
+    END;
+  
+  END LOOP;
+  CLOSE CUR;
+  -- commented out for stand-alone 
+  -- END IF;
+EXCEPTION
+  WHEN OTHERS THEN
+    BEGIN
+      RAISE_APPLICATION_ERROR(-20000, SQLERRM);
+    END;
 END;
 /
