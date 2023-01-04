@@ -1,0 +1,54 @@
+CREATE OR REPLACE PROCEDURE DROP_BRM_T_BACKUP_TABLES AS
+-- THIS PROCEDURE DROPS ANY TABLES WITH NAMES ENDING IN _T
+-- EXTRACTED FROM OracleBRM6.sql
+-- intended for STANDALONE cleanup  to drop and purge (permanently remove) *_T tables
+-- ARMarshall, ARM_LLC - 20230103 - created 
+/*
+to see the tables that will be deleted:
+ SELECT ut.TABLE_NAME,pt.table_name
+            FROM USER_TABLES ut
+            JOIN PON_TABLE pt
+            ON  ut.TABLE_NAME LIKE pt.TABLE_NAME || '%_T'
+            ORDER BY ut.TABLE_NAME;
+*/
+--DECLARE
+
+    v_TN1 VARCHAR2(128 BYTE);
+    v_q VARCHAR2(4000 CHAR);
+    CURSOR curColData IS
+             SELECT ut.TABLE_NAME
+            FROM USER_TABLES ut
+            JOIN PON_TABLE pt
+            ON  ut.TABLE_NAME LIKE pt.TABLE_NAME || '%_T'
+            ORDER BY ut.TABLE_NAME;
+BEGIN
+    --IF  GET_VAR('KDOT_TABLE_CLEANUP') = '1' THEN
+        /** H.1.1 | Start a loop through the cursor to create a dynamic drop process  **/
+        OPEN curColData;
+        FETCH curColData INTO v_TN1;
+        WHILE (curColData%FOUND)
+        LOOP
+            BEGIN
+
+              DBMS_OUTPUT.PUT_LINE('Cleaning up BrM TEMP TABLES (*_T) tables -' || V_TN1);
+
+                v_q := 'DROP TABLE ' || V_TN1 || ' PURGE';
+                execute immediate v_q;
+            EXCEPTION WHEN OTHERS THEN
+                DBMS_OUTPUT.PUT_LINE('ERROR F1: Dropping BrM TEMP TABLES (*_T) Table [' || v_q || ']; ' || SQLERRM);
+            END;
+            FETCH curColData INTO v_TN1;
+        END LOOP;
+        CLOSE curColData;
+   -- END IF;
+--INSERT INTO PROFILING(PLACE, END_TIME) VALUES ('DROP TEMP KDOTBLP PORTAL TABLES (_KT)',  CURRENT_TIMESTAMP);
+
+  EXCEPTION
+
+  WHEN OTHERS THEN
+    BEGIN
+       RAISE_APPLICATION_ERROR(-20000, SQLERRM);
+
+    END;
+END DROP_BRM_T_BACKUP_TABLES;
+/

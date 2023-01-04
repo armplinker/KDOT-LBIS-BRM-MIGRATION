@@ -1,0 +1,40 @@
+
+
+BEGIN
+DBMS_OUTPUT.PUT_LINE('Creating table PON_MOBILE_ERRORS');
+        BEGIN
+        EXECUTE IMMEDIATE 'drop table PON_MOBILE_ERRORS purge';
+        EXCEPTION
+        WHEN OTHERS THEN NULL;
+        END; 
+ 
+
+ 
+        BEGIN
+        -- ARMarshall, ARM_LLC - surrounded DATA column name with dquotes to avoid keyword confusion
+        EXECUTE IMMEDIATE q'[create table PON_MOBILE_ERRORS 
+        ( PON_MOBILE_ERRORS_GD VARCHAR2(32) DEFAULT ('REPLACE(NEWID(), ''-'')')  NOT NULL,
+        PON_APP_USERS_GD VARCHAR2(32) NOT NULL ,
+        DATE_REPORTED DATE DEFAULT (SYSDATE)  NOT NULL,
+        "DATA" VARCHAR2(4000 CHAR),
+        ORDER_NUM INTEGER 
+        )]';
+        EXCEPTION
+            WHEN OTHERS THEN RAISE;
+            END; 
+
+        BEGIN
+        EXECUTE IMMEDIATE q'[ALTER TABLE PON_MOBILE_ERRORS ADD CONSTRAINT PK_PON_MOBILE_ERRORS PRIMARY KEY ("PON_MOBILE_ERRORS_GD") using index tablespace PONT_TBL]';
+        EXCEPTION
+            WHEN OTHERS THEN RAISE;
+            END; 
+DBMS_OUTPUT.PUT_LINE('Creating table PON_MOBILE_ERRORS -succeeded');
+EXCEPTION
+
+WHEN OTHERS THEN RAISE;
+
+END;
+
+
+
+ 

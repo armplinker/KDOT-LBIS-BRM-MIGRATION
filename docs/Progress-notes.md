@@ -268,15 +268,15 @@ As of 20221227, there were no orphan records in USERRWAY or USERSTRUNIT
 
 ------------------------------------------  
 
-Made sure the BrM-specific table PON_PROGRAM has the column INCLUDE_WORK_CANDIDATES CHAR(1) DEFAULT ('T') - apparently not in KDOT_BLP PRODUCTION
-Working on script to fix INSPUSRGUID where either null or not a GUID already. WIP
+-- Made sure the BrM-specific table PON_PROGRAM has the column INCLUDE_WORK_CANDIDATES CHAR(1) DEFAULT ('T') - apparently not in KDOT_BLP PRODUCTION
+-- Working on script to fix INSPUSRGUID where either null or not a GUID already. WIP
 
 
 #### 2023-01-02  
 
 ------------------------------------------  
 
- Added dedicated procedure to create and drop KDOTBLP Portal tables, registered in table KDOTBLP_PORTAL_TABLES, and incorporated the same proc into the upgrade script itself.   
+ -- Added dedicated procedure to create and drop KDOTBLP Portal tables, registered in table KDOTBLP_PORTAL_TABLES, and incorporated the same proc into the upgrade script itself.   
  An optional setting in the upgrade script will kill these temp tables at the end of the upgrade process - the default is 0 to NOT drop them.
 
  Looks like:  
@@ -338,6 +338,11 @@ and the drop procedure looks like:
 
             CREATE OR REPLACE PROCEDURE DROP_KDOTBLP_BACKUP_TABLES AS
             -- THIS PROCEDURE DROPS ANY TABLES WITH NAMES ENDING IN _KT
+            -- this proc is **_intended to be run standalone_** at any time to drop and purge (permanently remove) **_all_** tables with name extension _KT
+            -- left over from an upgrade script run
+            -- usage (from SQL*PLUS or PL/SQL Command Window):  
+            -- SQL>EXEC DROP_KDOTBLP_BACKUP_TABLES;  
+            -- SQL>/  
             -- EXTRACTED FROM OracleBRM6.sql
             -- ARMarshall, ARM_LLC - 20230102 - created (and in OracleBRM6.sql)
             --DECLARE
@@ -380,3 +385,76 @@ and the drop procedure looks like:
 
                 END;
             END;
+
+
+#### 2023-01-02  
+
+------------------------------------------  
+
+-- A very similar procedure based on DROP_KDOTBLP_BACKUP_TABLES named DROP_BRM_T_BACKUP_TABLES  
+was created that is **_intended to be run standalone_** to drop and purge (permanently remove) **_all_** _T tables 
+
+                /*
+                to see the tables that will be deleted:
+                SELECT ut.TABLE_NAME,pt.table_name
+                            FROM USER_TABLES ut
+                            JOIN PON_TABLE pt
+                            ON  ut.TABLE_NAME LIKE pt.TABLE_NAME || '%_T'
+                            ORDER BY ut.TABLE_NAME;
+                */
+
+            -- usage (from SQL*PLUS or PL/SQL Command Window):  
+            -- SQL>EXEC DROP_BRM_T_BACKUP_TABLES;  
+            -- SQL>/  
+
+
+------------------------------------------  
+
+-- Everywhere I could find it, changed Oracle Object names to 128 bytes per the new Oracle 12C object name length limit  
+
+**_For example_**,  **_TABLE_NAME VARCHAR2(128 BYTE)  NOT NULL_**,:  
+
+            v_q := 'CREATE TABLE PON_TABLE (
+            TABLE_NAME VARCHAR2(128 BYTE)  NOT NULL,
+            SHORT_NAME VARCHAR(20), 
+            RANK NUMBER(10,0)  NOT NULL,
+            CONSTRAINT PON_TABLE_PK PRIMARY KEY (TABLE_NAME))';
+
+and if there was a string collection variable of VARCHAR2(2000) or similar, changed to VARCHAR2(32767) which is permitted in code (not in table column sizes)  
+**_For example_**, 
+
+            CREATE TABLE VALIDATION_WARNING  
+            (  
+            VALIDATION_WARNING_GD VARCHAR2(32) NOT NULL,  
+            TABLE_NAME VARCHAR2(128 BYTE) NOT NULL,  
+            COL_NAME VARCHAR2(128 BYTE) NOT NULL,  
+            ROW_PK VARCHAR2(32) NOT NULL,  
+            INPUT_VALUE VARCHAR2(3999 CHAR) NOT NULL,  
+            PON_APP_USERS_GD VARCHAR2(32) NOT NULL,  
+            VALIDATION_DATE DATE NOT NULL,  
+            VALIDATION_SOURCE_GENERIC VARCHAR2(128 BYTE) NOT NULL,  
+            VALIDATION_SOURCE_SPECIFIC VARCHAR2(1000) NOT NULL,  
+            VALIDATION_MESSAGE VARCHAR2(3999 CHAR) NOT NULL);  
+
+-- Script modified to use procedure backup_KDOTBLP_PORTAL_TABLES to backup separately every table listed in KDOTBLP_PORTAL_TABLES with unique name and suffix _KT, added global var KDOT_TABLE_CLEANUP to kill the tables after the run, defaults to 0');                           
+-- Fixed apparent typo IS_K1EY to IS_KEY in the inserts to DATADICT_T near line 6080');                   
+   
+-- moved the **_prerequisite scripts_** to **_C:/git/repos/KDOT-LBIS-BRM-MIGRATION/files/scripts/_**  
+
+-- a bunch of calls to SUBSTR were assuming object names were limited to 30, so they used SUBSTR(TABLE_NAME, 1, 28) || '_T' for example
+-- all of these (hopefully) were found and upgraded.  Also affected temporary tables like PON_FK and PON_TABLE where the object name lengths were 30..
+
+            DBMS_OUTPUT.PUT_LINE('20230103 - ARMarshall, ARM LLC - EXAMPLE SNIPPET (near line 4860:'); 
+            DBMS_OUTPUT.PUT_LINE(q['>>>>>>>>>>>>>>> -- Oracle object name used to be 30]');
+            DBMS_OUTPUT.PUT_LINE(q['>>>>>>>>>>>>>>> -- the SUBSTR function here has been changed to permit up to 126 chars  
+             of the real name to be used for the _T table ]');
+            DBMS_OUTPUT.PUT_LINE(q['>>>>>>>>>>>>>>> -- given that the suffix _T takes up 2 chars.]');
+            DBMS_OUTPUT.PUT_LINE(q[' WITH T(TABLE_NAME) AS (SELECT DISTINCT SUBSTR(TABLE_NAME, 1, 126) || '_T' FROM PON_DICT  ] etc.');
+    
+-- table PON_NAV_CONTROL has no parent record for PON_NAV_CONTROL_GD=C01F1D4AE11B4ABFBC3A837674D30DAD , so any attempt to create a FK from  
+PON_APP_CONTROL_SECURITY etc. will fail.  DELETED entries in PON_APP_CONTROL_SECURITY  
+
+            SELECT * FROM PON_NAV_CONTROL PNC WHERE PNC.PON_NAV_CONTROL_GD='C01F1D4AE11B4ABFBC3A837674D30DAD';
+
+            DELETE PON_APP_CONTROL_SECURITY  
+            WHERE PON_NAV_CONTROLGD='C01F1D4AE11B4ABFBC3A837674D30DAD';     

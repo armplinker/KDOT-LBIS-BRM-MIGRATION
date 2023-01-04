@@ -1,11 +1,16 @@
 CREATE OR REPLACE PROCEDURE DROP_KDOTBLP_BACKUP_TABLES AS
 -- THIS PROCEDURE DROPS ANY TABLES WITH NAMES ENDING IN _KT
 -- EXTRACTED FROM OracleBRM6.sql
+-- this proc is intended to be run standalone at any time to to drop and purge (permanently remove) all tables with name extension _KT
+-- left over from an upgrade script run
+-- usage:  
+-- SQL>EXEC DROP_KDOTBLP_BACKUP_TABLES;
+-- SQL>/
 -- ARMarshall, ARM_LLC - 20230102 - created (and in OracleBRM6.sql)
 --DECLARE
 
-    v_TN1 VARCHAR2(30);
-    v_q VARCHAR2(4000 CHAR);
+    v_TN1 VARCHAR2(128 BYTE);
+    v_q VARCHAR2(32767);
     CURSOR curColData IS
              SELECT ut.TABLE_NAME
             FROM USER_TABLES ut
@@ -41,5 +46,5 @@ BEGIN
        RAISE_APPLICATION_ERROR(-20000, SQLERRM);
 
     END;
-END;
+END DROP_KDOTBLP_BACKUP_TABLES;
 /

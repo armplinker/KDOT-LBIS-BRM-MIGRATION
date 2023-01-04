@@ -1,1 +1,14 @@
 *.~*
+/stages/6.0/in/&&SpoolFile.lst
+/stages/6.0/in/&1.lst
+/stages/6.0/out/Create_Table_PON_MOBILE_ERRORS-20230103T1114.log
+/stages/6.0/out/Create_Table_VALIDATION_WARNING-20230103T11113.log
+/stages/6.0/out/Fixup_Missing_INSPUSRGUID-20230103T11116.log
+/stages/6.0/out/Fixup_Missing_INSPUSRGUID-20230103T1206.log
+/stages/6.0/out/GenUserTables-20230103T1115.log
+/stages/6.0/out/KDOTBLP_DOCUMENTS.json
+/stages/6.0/out/OracleBRM6-20230103T1203.log
+/stages/6.0/out/OracleBRM6-20230103T1403.log
+/stages/6.0/out/OracleBRM6-20230103T1422.log
+/stages/6.0/out/OracleBRM6-20230103T1539.log
+/stages/6.0/out/OracleBRM6-20230103T1717.log
