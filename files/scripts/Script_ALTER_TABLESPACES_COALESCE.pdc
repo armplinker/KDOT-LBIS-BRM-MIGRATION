@@ -1,0 +1,24 @@
+CONNECT SYS/Einstein#345@localhost:1521/xepdb1 AS SYSDBA
+
+select a.tablespace_name, a.file_id, a.block_id, a.blocks, b.block_id
+  from dba_free_space a, dba_free_space b
+ where a.tablespace_name IN ('SYSTEM','KDOT_BLP','PONT_TBL')
+ and b.tablespace_name IN ('SYSTEM','KDOT_BLP','PONT_TBL')
+ and a.tablespace_name = b.tablespace_name
+ and a.file_id = b.file_id
+ and a.block_id+a.blocks = b.block_id
+ ORDER BY 1,2;
+/
+
+ALTER TABLESPACE KDOT_BLP COALESCE;
+/
+
+select a.tablespace_name, a.file_id, a.block_id, a.blocks, b.block_id
+  from dba_free_space a, dba_free_space b
+ where a.tablespace_name IN ('SYSTEM','KDOT_BLP','PONT_TBL')
+ and b.tablespace_name IN ('SYSTEM','KDOT_BLP','PONT_TBL')
+ and a.tablespace_name = b.tablespace_name
+ and a.file_id = b.file_id
+ and a.block_id+a.blocks = b.block_id
+ ORDER BY 1,2;
+/

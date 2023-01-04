@@ -1,0 +1,319 @@
+﻿drop synonym USERBRDG;
+
+drop synonym USERBRDG
+
+ORA-01434: private synonym to be dropped does not exist
+drop table USERBRDG purge;
+
+Table dropped
+
+create table USERBRDG as select * from kdotblp_bridge order by BRKEY ASC;
+
+Table created
+
+drop synonym USERINSP;
+
+drop synonym USERINSP
+
+ORA-01434: private synonym to be dropped does not exist
+drop table USERINSP purge;
+
+Table dropped
+
+create table USERINSP as select * from kdotblp_inspections order by BRKEY ASC, MODTIME DESC,INSPKEY ASC;
+
+Table created
+
+create index NRM_USERBRDG_POSTING_REQ on USERBRDG (POSTING_JUSTIFICATION)
+  tablespace KDOT_BLP
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 64K
+    minextents 1
+    maxextents unlimited
+  )
+  nologging;
+
+Index created
+
+create index NRM_USERBRDG_POSTING_TYPE on USERBRDG (POSTING_TYPE)
+  tablespace KDOT_BLP
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 64K
+    minextents 1
+    maxextents unlimited
+  )
+  nologging;
+
+Index created
+
+alter table USERBRDG
+  add constraint PK_USERBRDG_BRIDGE_GD primary key (BRIDGE_GD)
+  using index
+  tablespace KDOT_BLP
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 64K
+    minextents 1
+    maxextents unlimited
+  )
+  novalidate;
+
+Table altered
+
+alter index PK_USERBRDG_BRIDGE_GD nologging;
+
+Index altered
+
+alter table USERBRDG
+  add constraint UNQ_USERBRDG_BRKEY unique (BRKEY)
+  using index
+  tablespace KDOT_BLP
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 64K
+    minextents 1
+    maxextents unlimited
+  );
+
+Table altered
+
+alter index UNQ_USERBRDG_BRKEY nologging;
+
+Index altered
+
+alter table USERBRDG
+  add constraint FK_USERBRDG_BRIDGE foreign key (BRIDGE_GD)
+  references BRIDGE (BRIDGE_GD) on delete cascade
+  disable
+  novalidate;
+
+Table altered
+
+grant select on USERBRDG to BLP_BROWSER;
+
+Grant succeeded
+
+grant select on USERBRDG to BLP_INSPECTOR;
+
+Grant succeeded
+
+grant select, insert, update, delete, alter on USERBRDG to BLP_LOAD_RATER;
+
+Grant succeeded
+
+grant select on USERBRDG to BLP_LOCAL_AGENCY_REVIEW;
+
+Grant succeeded
+
+grant select, insert, update, delete on USERBRDG to BLP_PORTAL_ADMINISTRATOR;
+
+Grant succeeded
+
+grant select, insert, update, delete on USERBRDG to BLP_TEAM_LEADER;
+
+Grant succeeded
+
+grant select, insert, update, delete on USERBRDG to BRMADMIN_ROLE;
+
+Grant succeeded
+
+grant select on USERBRDG to BRMREADONLY_ROLE;
+
+Grant succeeded
+
+grant select on USERBRDG to KDOT_BLP_ISU;
+
+Grant succeeded
+
+grant select on USERBRDG to KDOT_BLP_SELECT;
+
+Grant succeeded
+
+grant select, insert, update, delete on USERBRDG to PONTISUSER;
+
+Grant succeeded
+
+grant select, insert, update, delete on USERBRDG to PONTISWEBADMINISTRATOR;
+
+Grant succeeded
+
+grant select on USERBRDG to PONTISWEBBROWSER;
+
+Grant succeeded
+
+grant select, insert, update, delete, alter on USERBRDG to PONTISWEBINSPECTIONSUPERVISOR;
+
+Grant succeeded
+
+grant select, insert, update, delete on USERBRDG to PONTISWEBINSPECTOR;
+
+Grant succeeded
+
+grant select on USERBRDG to PWEBLOGINID;
+
+Grant succeeded
+
+grant select on USERBRDG to PWEBODBCLOGIN;
+
+Grant succeeded
+
+/*alter table USERINSP_20181031_RENAMED
+  drop constraint PK_USERINSP cascade;
+alter table USERINSP_20181031_RENAMED
+  drop constraint UNQ_USERINSP_BRKEY_INSPKEY cascade;
+  */
+drop index NRM_USERINSP_BRIDGE_GD
+alter table USERINSP
+  add constraint PK_USERINSP primary key (INSPEVNT_GD)
+  using index
+  tablespace KDOT_BLP
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  )
+  novalidate;
+
+Table altered
+
+alter index PK_USERINSP nologging;
+
+Index altered
+
+alter table USERINSP
+  add constraint UNQ_USERINSP_BRKEY_INSPKEY unique (BRKEY, INSPKEY)
+  using index
+  enable
+  novalidate;
+
+Table altered
+
+alter table USERINSP
+  add constraint FK_USERINSP_BRIDGE_BRIDGE_GD foreign key (BRIDGE_GD)
+  references BRIDGE (BRIDGE_GD) on delete cascade
+  enable
+  novalidate;
+
+Table altered
+
+alter table USERINSP
+  add constraint FK_USERINSP_INSPEVNT_GD foreign key (INSPEVNT_GD)
+  references INSPEVNT (INSPEVNT_GD) on delete cascade
+  enable
+  novalidate;
+
+Table altered
+
+/*select brkey, inspkey, max(modtime) as modtime, count(*) as hits
+from kdotblp_inspections
+group by brkey,inspkey
+having count(*)>1
+order by brkey;
+*/
+alter table KDOTBLP_INSPECTIONS
+drop constraint FK_KDOT_INSP_INSPEVNT_GD;
+
+alter table KDOTBLP_INSPECTIONS
+drop constraint FK_KDOT_INSP_INSPEVNT_GD
+
+ORA-02443: Cannot drop constraint  - nonexistent constraint
+alter table KDOTBLP_INSPECTIONS
+  add constraint FK_KDOT_INSP_INSPEVNT_GD foreign key (INSPEVNT_GD)
+  references INSPEVNT (INSPEVNT_GD) on delete cascade
+  enable
+  novalidate;
+
+Table altered
+
+grant select on USERINSP to BLP_BROWSER;
+
+Grant succeeded
+
+grant select on USERINSP to BLP_INSPECTOR;
+
+Grant succeeded
+
+grant select, insert, update, delete, alter on USERINSP to BLP_LOAD_RATER;
+
+Grant succeeded
+
+grant select on USERINSP to BLP_LOCAL_AGENCY_REVIEW;
+
+Grant succeeded
+
+grant select, insert, update, delete on USERINSP to BLP_PORTAL_ADMINISTRATOR;
+
+Grant succeeded
+
+grant select, insert, update, delete on USERINSP to BLP_TEAM_LEADER;
+
+Grant succeeded
+
+grant select, insert, update, delete on USERINSP to BRMADMIN_ROLE;
+
+Grant succeeded
+
+grant select on USERINSP to BRMREADONLY_ROLE;
+
+Grant succeeded
+
+grant select on USERINSP to KDOT_BLP_ISU;
+
+Grant succeeded
+
+grant select on USERINSP to KDOT_BLP_SELECT;
+
+Grant succeeded
+
+grant select, insert, update, delete on USERINSP to PONTISUSER;
+
+Grant succeeded
+
+grant select, insert, update, delete on USERINSP to PONTISWEBADMINISTRATOR;
+
+Grant succeeded
+
+grant select on USERINSP to PONTISWEBBROWSER;
+
+Grant succeeded
+
+grant select, insert, update, delete, alter on USERINSP to PONTISWEBINSPECTIONSUPERVISOR;
+
+Grant succeeded
+
+grant select, insert, update, delete on USERINSP to PONTISWEBINSPECTOR;
+
+Grant succeeded
+
+grant select on USERINSP to PWEBLOGINID;
+
+Grant succeeded
+
+grant select on USERINSP to PWEBODBCLOGIN;
+
+Grant succeeded
+
+SET ECHO OFF

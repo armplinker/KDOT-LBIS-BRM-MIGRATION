@@ -1,0 +1,55 @@
+CREATE OR REPLACE PROCEDURE KDOTBLP_SHRINK_PORTAL_TABLES AS
+-- THIS PROCEDURE SHRINKS ANY TABLES REGISTERED IN KDOTBLP_PORTAL_TABLES
+-- EXTRACTED FROM SIMILAR SPs in OracleBRM6.sql
+-- this proc is intended to be run standalone at any time to release space (shrink) all tables registered in KDOTBLP_PORTAL_TABLES
+-- left over from an upgrade script run
+-- usage:  
+-- SQL>EXEC KDOTBLP_SHRINK_PORTAL_TABLES;
+-- SQL>/
+-- ARMarshall, ARM_LLC - 20230104 - created (and in OracleBRM6.sql)
+-- http://www.dba-oracle.com/t_callan_oracle_row_movement.htm 
+
+    v_TN1 VARCHAR2(128 BYTE);
+    v_q VARCHAR2(32767);
+    CURSOR curColData IS
+SELECT ut.TABLE_NAME
+  FROM USER_TABLES ut
+  JOIN KDOTBLP_PORTAL_TABLES kt
+    ON ut.TABLE_NAME LIKE kt.TABLE_NAME --|| '%_KT'
+ ORDER BY ut.TABLE_NAME;
+BEGIN
+  OPEN curColData;
+  FETCH curColData
+    INTO v_TN1;
+  WHILE (curColData%FOUND) LOOP
+    BEGIN
+    
+      DBMS_OUTPUT.PUT_LINE('Enable row movement for table registered in KDOTBLP PORTAL TABLES -' ||
+                           V_TN1);
+      v_q := q'[ALTER TABLE ]' || V_TN1 || q'[ ENABLE ROW MOVEMENT]';
+    
+      execute immediate v_q;
+    
+      DBMS_OUTPUT.PUT_LINE('Shrinking table registered in KDOTBLP PORTAL TABLES -' ||
+                           V_TN1);
+      v_q := q'[ALTER TABLE ]' || V_TN1 || q'[ SHRINK SPACE]';
+      execute immediate v_q;
+    EXCEPTION
+      WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('ERROR F1: Shrinking registered KDOTBLP PORTAL TABLES Table [' ||
+                             V_TN1 || ']; ' || SQLERRM);
+    END;
+    FETCH curColData
+      INTO v_TN1;
+  END LOOP;
+  CLOSE curColData;
+
+EXCEPTION
+
+  WHEN OTHERS THEN
+    BEGIN
+      RAISE;
+    
+    END;
+END KDOTBLP_SHRINK_PORTAL_TABLES;
+/

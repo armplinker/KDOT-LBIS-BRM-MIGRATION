@@ -1,0 +1,97 @@
+CONNECT KDOT_BLP/Einstein345@localhost:1521/xepdb1
+
+set feedback off
+set echo off
+set serveroutput ON SIZE UNLIMITED
+set linesize 4000
+
+spool "C:\git\repos\KDOT-LBIS-BRM-MIGRATION\files\out\pljson-test-executeList.json"
+
+declare
+
+listTab pljson_list;
+
+begin
+  -- create json objects and lists from sql statements
+  listTab := pljson_dyn.executeList('select 
+  doc_key, 
+doc_type_key, 
+doc_subtype_key, 
+brkey, 
+bridge_gd, 
+inspkey, 
+inspevnt_gd, 
+source_file_name, 
+target_file_name, 
+thumb_file_name, 
+doc_title, 
+mime_type, 
+file_size_bytes, 
+uploaded_by, 
+uploaded_by_gd, 
+--uploaded_at, 
+updated_by, 
+updated_by_gd, 
+--updated_at, 
+deleted_by, 
+deleted_by_gd, 
+--deleted_at, 
+doc_status, 
+doc_source, 
+doc_project_number, 
+doc_effective_date, 
+docrefkey, 
+notes, 
+doc_source_event_gd
+   from kdotblp_documents where rownum <=20');
+  listTab.print;
+end;
+  
+
+/
+
+spool off
+spool "C:\git\repos\KDOT-LBIS-BRM-MIGRATION\files\out\pljson-test-executeObject.json "
+
+DECLARE
+
+objTab pljson;
+
+begin
+  objTab := pljson_dyn.executeObject('select 
+  doc_key, 
+doc_type_key, 
+doc_subtype_key, 
+brkey, 
+bridge_gd, 
+inspkey, 
+inspevnt_gd, 
+source_file_name, 
+target_file_name, 
+thumb_file_name, 
+doc_title, 
+mime_type, 
+file_size_bytes, 
+uploaded_by, 
+uploaded_by_gd, 
+--uploaded_at, 
+updated_by, 
+updated_by_gd, 
+--updated_at, 
+deleted_by, 
+deleted_by_gd, 
+--deleted_at, 
+doc_status, 
+doc_source, 
+doc_project_number, 
+doc_effective_date, 
+docrefkey, 
+notes, 
+doc_source_event_gd
+   from kdotblp_documents where rownum <=20');
+  objTab.print; 
+end;
+/
+
+spool off
+ 

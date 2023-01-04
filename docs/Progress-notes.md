@@ -458,3 +458,88 @@ PON_APP_CONTROL_SECURITY etc. will fail.  DELETED entries in PON_APP_CONTROL_SEC
 
             DELETE PON_APP_CONTROL_SECURITY  
             WHERE PON_NAV_CONTROLGD='C01F1D4AE11B4ABFBC3A837674D30DAD';     
+
+#### 2023-01-04  
+
+------------------------------------------  
+
+-- create process and procedures to shrink local database from max to workable size.
+hese instructions assume you created 2 tablespaces PONT_TBL and KDOT_BLP and assigned some data files to these.
+
+To create a tablespace (your directory location will be different) - this uses 3 4M dbf files.  The names and extensions are up to you....:
+
+create tablespace KDOT_BLP  datafile 'D:\oradata\orcl\df1.dbf' size 4m ,  'D:\oradata\orcl\df2.dbf' size 4m,  'D:\oradata\orcl\df3.dbf' size 4m;
+
+To add a file to a tablespace (your directory location will be different)
+
+        ALTER TABLESPACE  KDOT_BLP   ADD DATAFILE ' D:\oradata\orcl\df4.dbf' SIZE 1000M
+
+To see what you have , run the script Script_Check_Tablespace_Size.pdc from a command window e.g. SQL*PLUS and something like this should show up:
+
+        SQL>
+
+        TABLESPACE_NAME                     TOTAL  AVAILABLE       USED    PCTUSED
+
+
+        ------------------------------ ---------- ---------- ---------- ----------
+        PONT_TBL                             3072    3068.88       3.12        0.1
+
+        FILE_NAME                                                                        BYTES/1024/1024
+
+
+        -------------------------------------------------------------------------------- ---------------
+        C:\PRJ\KDOT\ORA\DATA\PONT_TBL_DATA1.DBF                                                     1024
+        C:\PRJ\KDOT\ORA\DATA\PONT_TBL_DATA2.DBF                                                     1024
+        C:\PRJ\KDOT\ORA\DATA\PONT_TBL_DATA3.DBF                                                     1024
+
+        SQL>
+
+        TABLESPACE_NAME                     TOTAL  AVAILABLE       USED    PCTUSED
+        ------------------------------ ---------- ---------- ---------- ----------
+        PONT_TBL                             3072    3068.88       3.12        0.1
+
+        FILE_NAME                                                                        BYTES/1024/1024
+        -------------------------------------------------------------------------------- ---------------
+        C:\PRJ\KDOT\ORA\DATA\PONT_TBL_DATA1.DBF                                                     1024
+        C:\PRJ\KDOT\ORA\DATA\PONT_TBL_DATA2.DBF                                                     1024
+        C:\PRJ\KDOT\ORA\DATA\PONT_TBL_DATA3.DBF                                                     1024
+
+        SQL>
+
+        TABLESPACE_NAME                     TOTAL  AVAILABLE       USED    PCTUSED
+        ------------------------------ ---------- ---------- ---------- ----------
+        KDOT_BLP                        8604.9375    6222.81  2382.1275      27.68
+
+        FILE_NAME                                                                        BYTES/1024/1024
+        -------------------------------------------------------------------------------- ---------------
+        C:\PRJ\KDOT\ORA\DATA\KDOT_BLP_DATA1.DBF                                                  3131.25
+        C:\PRJ\KDOT\ORA\DATA\KDOT_BLP_DATA2.DBF                                                  2807.75
+        C:\PRJ\KDOT\ORA\DATA\KDOT_BLP_DATA3.DBF                                                2665.9375
+
+        SQL>
+
+ 
+
+Process to squish database:
+
+1. ) Run the sql script **Script_Show_Total_Database_Size_GB.sql** - it shows the total GB and other stuff
+
+1. ) Delete cruft (like we discussed earlier e.g. BRIDGE_AR INSPEVNT_AR, ARC_****, *_T,  *_tmp  etc. etc.) and remember to PURGE the recycle bin after dropping the cruft.  I actually deleted all the materialized views as well to save space.
+
+1. ) Run the attached script **Script_Create_KDOTBLP_PORTAL_TABLES_Entries.sql** to create the table   KDOTBLP_PORTAL_TABLES and add the tables that you may care about.  Add or remove table namess as you see fit - these are the ones that will be shrunk.  They will be processed in the order shown.   You only have to create this table once....
+
+1. ) Create the shrink procedure by running **Script_Create_Replace_SHRINK_KDOTBLP_TABLES.pdc**
+
+1. ) Run the shrink procedure... load the file **Script_Execute_SHRINK_KDOTBLP_TABLES.pdc**  and run it
+
+1. ) Check the work by repeating step 1.
+
+and also make sure no objects exist in a dead tablespace e.g. PONT_TBL for a LOCAL development database.
+
+
+#### 2023-01-04  
+
+**_(CONTINUED)_**
+--------------------------------------------------
+
+-- changed tablespace sizes etc. to make sure the Express db does not exceed 12G overall - it was causing script errors.

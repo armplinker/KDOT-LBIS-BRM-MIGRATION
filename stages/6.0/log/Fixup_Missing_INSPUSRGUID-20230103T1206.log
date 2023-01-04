@@ -1,0 +1,55 @@
+﻿DECLARE
+
+ls_UpdSQL VARCHAR2(2000) ;
+
+BEGIN
+
+ls_UpdSQL := 'UPDATE INSPEVNT i
+                             SET i.INSPUSRGUID =
+                                 (SELECT pau.PON_APP_USERS_GD
+                                    FROM PON_APP_USERS pau
+                                   WHERE TO_CHAR(pau.USERKEY) = TO_CHAR(i.INSPUSRKEY)) FROM INSPEVNT i
+                           WHERE i.INSPUSRGUID IS NULL
+                              OR ISNUMERIC(i.INSPUSRGUID) = 1;'; -- no semi-colon at the end of the SQL string
+
+EXECUTE IMMEDIATE ls_UpdSQL;
+
+COMMIT WORK;
+
+
+EXCEPTION
+
+WHEN OTHERS THEN RAISE;
+
+END;
+/
+
+DECLARE
+
+ls_UpdSQL VARCHAR2(2000) ;
+
+BEGIN
+
+ls_UpdSQL := 'UPDATE INSPEVNT i
+                             SET i.INSPUSRGUID =
+                                 (SELECT pau.PON_APP_USERS_GD
+                                    FROM PON_APP_USERS pau
+                                   WHERE TO_CHAR(pau.USERKEY) = TO_CHAR(i.INSPUSRKEY)) FROM INSPEVNT i
+                           WHERE i.INSPUSRGUID IS NULL
+                              OR ISNUMERIC(i.INSPUSRGUID) = 1;'; -- no semi-colon at the end of the SQL string
+
+EXECUTE IMMEDIATE ls_UpdSQL;
+
+COMMIT WORK;
+
+
+EXCEPTION
+
+WHEN OTHERS THEN RAISE;
+
+END;
+
+ORA-00933: SQL command not properly ended
+ORA-06512: at line 22
+ORA-06512: at line 15
+SPOOL OFF
