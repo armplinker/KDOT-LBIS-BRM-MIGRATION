@@ -28,7 +28,7 @@ BEGIN
 
               DBMS_OUTPUT.PUT_LINE('Cleaning up KDOTBLP PORTAL TABLES (_KT) tables -' || V_TN1);
 
-                v_q := 'DROP TABLE ' || V_TN1 || ' PURGEX';
+                v_q := 'DROP TABLE ' || V_TN1 || ' PURGE';
                 execute immediate v_q;
             EXCEPTION WHEN OTHERS THEN
                 DBMS_OUTPUT.PUT_LINE('ERROR F1: Dropping KDOTBLP PORTAL TABLES (_KT) Table [' || v_q || ']; ' || SQLERRM);

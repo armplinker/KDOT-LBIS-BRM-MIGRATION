@@ -542,4 +542,72 @@ and also make sure no objects exist in a dead tablespace e.g. PONT_TBL for a LOC
 **_(CONTINUED)_**
 --------------------------------------------------
 
--- changed tablespace sizes etc. to make sure the Express db does not exceed 12G overall - it was causing script errors.
+-- changed tablespace sizes etc. to make sure the Express db does not exceed 12G overall - it was causing script errors.  
+-- created mismatch check script **Script_Show_USERBRDG_and_USERINSP_And_USRSTRUNIT_NonMatches_Parent.sql**
+
+
+
+#### 2023-01-05   
+
+--------------------------------------------------
+
+-- some code near 35960 is trying to enable a NOT NULL constraint when it is already set to NOT NULL and ENABLED.   **_Ignorable_**  
+
+            -- Enable disabled NOT NULL constraints.
+            -- If successful this will prevent "ORA-01442: column to be modified to NOT NULL is already NOT NULL" when making columns required in the next block. 2.
+            -- Will fail with "ORA-02293: cannot validate" if there is bad data.
+            SELECT 'ALTER TABLE ' || D.TABLE_NAME || ' ENABLE CONSTRAINT ' || CONS.CONSTRAINT_NAME 
+                FROM PON_DICT D
+                JOIN USER_TAB_COLUMNS C ON C.TABLE_NAME = D.TABLE_NAME AND C.COLUMN_NAME = D.COL_NAME
+                JOIN USER_CONSTRAINTS CONS ON CONS.TABLE_NAME = D.TABLE_NAME
+                JOIN USER_CONS_COLUMNS CONS_COLS ON CONS_COLS.CONSTRAINT_NAME = CONS.CONSTRAINT_NAME AND CONS_COLS.COLUMN_NAME = D.COL_NAME
+                WHERE D.REQUIRED = 1 AND 
+                    D.PK <> 1 AND
+                    C.NULLABLE = 'Y' AND
+                    D.COL_NAME NOT LIKE '%CAPTION_ID' AND
+                    CONS.STATUS = 'DISABLED' AND 
+                    CONS_COLS.POSITION IS NULL AND 
+                    INSTR(F_READ_SEARCH_CONDITION(CONS.CONSTRAINT_NAME), 'IS NOT NULL') > 0 
+                ORDER BY D.TABLE_NAME, D.COL_NAME;  
+
+and this  
+
+                --  Make some non PK columns required.
+                DECLARE	V_CUR SYS_REFCURSOR;
+                BEGIN
+                    DBMS_OUTPUT.PUT_LINE('Make non PK GUID columns required.');
+                    
+                    OPEN V_CUR FOR
+                    SELECT 'ALTER TABLE ' || D.TABLE_NAME || ' MODIFY ' || D.COL_NAME || ' ' || ' NOT NULL'
+                    FROM PON_DICT D
+                    JOIN USER_TAB_COLUMNS C ON C.TABLE_NAME = D.TABLE_NAME AND C.COLUMN_NAME = D.COL_NAME
+                    WHERE D.REQUIRED = 1 AND D.PK <> 1 AND C.NULLABLE = 'Y' AND D.COL_NAME NOT LIKE '%CAPTION_ID'
+                    ORDER BY D.TABLE_NAME, D.COL_NAME;
+                    
+                    IF GET_VAR('PRINT_DETAILS') = 1 THEN
+                            REV(V_CUR,1); 
+                        ELSE
+                            REV(V_CUR);
+                        END IF;
+                    CLOSE V_CUR;
+                        
+                END;
+                /
+
+-- 20230105 - ARMarshall,ARM LLC -added/restored NOT NULL constraint to USERRWAY.ON_UNDER and USRSTRUNIT.STRUNITKEY
+
+-- The following constraints remained disabled after a run.  All of these are GUID columns.  This is near line 35983 ...
+
+- ALTER TABLE PON_APP_GROUPS ENABLE CONSTRAINT SYS_C0031990
+- ALTER TABLE PON_APP_PERMISSIONS ENABLE CONSTRAINT SYS_C0031586
+- ALTER TABLE PON_APP_ROLES_PERMISSIONS ENABLE CONSTRAINT SYS_C0031146
+- ALTER TABLE PON_APP_ROLES_PERMISSIONS ENABLE CONSTRAINT SYS_C0031145
+- ALTER TABLE PON_APP_USERS_GROUPS ENABLE CONSTRAINT SYS_C0031184
+- ALTER TABLE PON_APP_USERS_GROUPS ENABLE CONSTRAINT SYS_C0031183
+- ALTER TABLE PON_APP_USERS_ROLES ENABLE CONSTRAINT SYS_C0032018
+- ALTER TABLE PON_APP_USERS_ROLES ENABLE CONSTRAINT SYS_C0032017
+
+
+
+-- 20230105 - ARMarshall,ARM LLC - removed function named "f_is_active(pBridgeGroup IN VARCHAR2)" - bad name.  Fixed and capitalized.  See script **Script_Create_Replace_F_IS_ACTIVE_BRIDGEGROUP.fnc**  
+-- 20230105 - ARMarshall,ARM LLC - addded post step to restore a couple missing indexes on KDOTBLP_BRIDGE - see script **Script_Restore_Missing_KDOT_Objects.pdc** where all such restores are done.

@@ -1,0 +1,73 @@
+-- Script_Restore_Missing_KDOT_Objects
+-- ARMarshall, ARM_LLC, 20230105 - created
+
+-- indexes
+-- upgrade script is removing a couple indexes added to the production database on KDOTBLP_BRIDGE (which is cloned as USERBRDG by the upgrade script)
+
+
+drop index NRM_KDOTBLP_POSTING_REQ1;
+-- Create/Recreate indexes 
+create index NRM_KDOTBLP_POSTING_REQ1 on USERBRDG (POSTING_JUSTIFICATION)
+  tablespace KDOT_BLP
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 64K
+    minextents 1
+    maxextents unlimited
+  )
+  nologging;
+  
+
+drop index   NRM_KDOTBLP_POSTING_TYPE1;
+
+create index NRM_KDOTBLP_POSTING_TYPE1 on USERBRDG (POSTING_TYPE)
+  tablespace KDOT_BLP
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 64K
+    minextents 1
+    maxextents unlimited
+  )
+  nologging;
+
+DROP INDEX NRM_KDOTBLP_POSTING_REQ;
+-- Create/Recreate indexes 
+create index NRM_KDOTBLP_POSTING_REQ on KDOTBLP_BRIDGE (POSTING_JUSTIFICATION)
+  tablespace KDOT_BLP
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 64K
+    minextents 1
+    maxextents unlimited
+  )
+  nologging;
+  
+DROP INDEX NRM_KDOTBLP_POSTING_TYPE;
+
+create index NRM_KDOTBLP_POSTING_TYPE on KDOTBLP_BRIDGE (POSTING_TYPE)
+  tablespace KDOT_BLP
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 64K
+    minextents 1
+    maxextents unlimited
+  )
+  nologging;
+
+  
