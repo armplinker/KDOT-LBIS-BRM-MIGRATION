@@ -5,12 +5,13 @@ CREATE OR REPLACE PROCEDURE BACKUP_KDOTBLP_PORTAL_TABLES AS
   -- ALSO INCORPORATED DIRECTLY IN OracleBRM6.sql
 
   -- ARMarshall, ARM_LLC - 20230102 - created (and in OracleBRM6.sql)
+  -- ARMarshall, ARM_LLC - 20230106 - fixed V_SUFFIX which was using a dash to use an underscore before time string
 
   TYPE R_CURSOR IS REF CURSOR;
   CUR R_CURSOR;
 
-  V_Q      VARCHAR2(4000);
-  V_SUFFIX VARCHAR2(50) := TRIM(q'[_]' || TO_CHAR(SYSDATE,'yyyymmdd-hhmmss') || q'[_KT]');
+  V_Q      VARCHAR2(32767);
+  V_SUFFIX VARCHAR2(50) := TRIM(q'[_]' || TO_CHAR(SYSDATE,'yyyymmdd_hhmmss') || q'[_KT]' ); -- no dashes in names...
   V_TN     VARCHAR2(128 BYTE);
 
 BEGIN
@@ -18,7 +19,7 @@ BEGIN
   -- commented out for stand-alone
   --IF GET_VAR('SAVEAGENCYSYSTABLES') = 1 THEN
   OPEN CUR FOR
-    SELECT TABLE_NAME FROM KDOTBLP_PORTAL_TABLES ORDER BY PROCESSING_ORDER;
+    SELECT TRIM(UPPER(TABLE_NAME)) FROM KDOTBLP_PORTAL_TABLES ORDER BY PROCESSING_ORDER;
   LOOP
     FETCH CUR
       INTO V_TN;
@@ -26,15 +27,15 @@ BEGIN
   
     DBMS_OUTPUT.PUT_LINE(q'[Archiving KDOT Portal Table ]' || V_TN ||
                          q'[ TO ]' || V_TN || V_SUFFIX || q'[...]');
-  
-    V_Q := TRIM(q'[CREATE TABLE ]' || TRIM(V_TN || V_SUFFIX) ||
-                q'[ AS SELECT * FROM ]' || TRIM(V_TN));
+    
+    V_Q := TRIM(q'[CREATE TABLE ]' || V_TN || V_SUFFIX ||
+                q'[ AS SELECT * FROM ]' ||  V_TN );
     BEGIN
       EXECUTE IMMEDIATE V_Q;
-      DBMS_OUTPUT.PUT_LINE(q'[Table ]' || V_TN || q'[ archived OK]');
+      DBMS_OUTPUT.PUT_LINE(q'[Table ]' || V_TN || q'[ archived OK >> ]'|| V_TN );
     EXCEPTION
       WHEN OTHERS THEN
-        DBMS_OUTPUT.PUT_LINE(q'[ERROR ARCHIVING TABLE: ]' || V_Q ||
+        DBMS_OUTPUT.PUT_LINE(q'[ERROR ARCHIVING TABLE - SQL: ]' || V_Q ||
                              q'[: ]' || SQLERRM);
     END;
   

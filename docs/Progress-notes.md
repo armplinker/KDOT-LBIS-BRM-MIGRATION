@@ -611,3 +611,24 @@ and this
 
 -- 20230105 - ARMarshall,ARM LLC - removed function named "f_is_active(pBridgeGroup IN VARCHAR2)" - bad name.  Fixed and capitalized.  See script **Script_Create_Replace_F_IS_ACTIVE_BRIDGEGROUP.fnc**  
 -- 20230105 - ARMarshall,ARM LLC - addded post step to restore a couple missing indexes on KDOTBLP_BRIDGE - see script **Script_Restore_Missing_KDOT_Objects.pdc** where all such restores are done.
+-- 20230105 - ARMarshall,ARM LLC - addded script to remove records with no parents and create child records for KDOTBLP_BRIDGE, KDOTBLP_INSPECTIONS, USERSTRUNIT
+
+
+#### 2023-01-07   
+
+--------------------------------------------------
+
+The following two commands should be issued before attempting an impdb run  
+
+                SQL>connect sys@xe as sysdba;
+                SQL<create or replace directory KDOT_DP_DIR as 'C:\temp\Ora\DataPump\KDOT'; --<<< Windows file system location >>>
+
+The connection string for IMPDP should be as sys and look like
+
+                SYS>CONNECT sys/********@localhost:1521/xepdb1 AS SYSDBA  
+                
+ROLE BRMADMIN must exist in the database in advance  
+
+The user KDOT_BLP should be DROPPED before first attempt to import.  Can exist afterwards.  
+The user KDOT_BLP can be granted SYSDBA, **_optionally_**  
+The user KDOT_BLP may be granted  exp_full_database and imp_full_database **_optionally_**.  

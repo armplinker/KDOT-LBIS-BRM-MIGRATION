@@ -1,0 +1,694 @@
+;;; 
+Import: Release 21.0.0.0.0 - Production on Sat Jan 7 10:15:08 2023
+Version 21.3.0.0.0
+
+Copyright (c) 1982, 2021, Oracle and/or its affiliates.  All rights reserved.
+;;; 
+Connected to: Oracle Database 21c Express Edition Release 21.0.0.0.0 - Production
+Master table "SYS"."SYS_IMPORT_SCHEMA_01" successfully loaded/unloaded
+import done in AL32UTF8 character set and AL16UTF16 NCHAR character set
+export done in WE8MSWIN1252 character set and AL16UTF16 NCHAR character set
+Warning: possible data loss in character set conversions
+Starting "SYS"."SYS_IMPORT_SCHEMA_01":  userid="sys/********@localhost:1521/xepdb1 AS SYSDBA" schemas=(KDOT_BLP) dumpfile=KDOT_BLP_12152022.DMP logfile=KDOT_BLP_20230107_IMP.LOG directory=KDOT_DP_DIR table_exists_action=replace remap_tablespace=PONT_TBL:KDOT_BLP 
+Processing object type SCHEMA_EXPORT/USER
+Processing object type SCHEMA_EXPORT/SYSTEM_GRANT
+Processing object type SCHEMA_EXPORT/ROLE_GRANT
+Processing object type SCHEMA_EXPORT/DEFAULT_ROLE
+Processing object type SCHEMA_EXPORT/PRE_SCHEMA/PROCACT_SCHEMA
+Processing object type SCHEMA_EXPORT/SYNONYM/SYNONYM
+Processing object type SCHEMA_EXPORT/TYPE/TYPE_SPEC
+Processing object type SCHEMA_EXPORT/TYPE/GRANT/OWNER_GRANT/OBJECT_GRANT
+Processing object type SCHEMA_EXPORT/SEQUENCE/SEQUENCE
+Processing object type SCHEMA_EXPORT/SEQUENCE/GRANT/OWNER_GRANT/OBJECT_GRANT
+Processing object type SCHEMA_EXPORT/TABLE/TABLE
+Processing object type SCHEMA_EXPORT/TABLE/TABLE_DATA
+. . imported "KDOT_BLP"."MV_NBI_EXPORT_EXCELSHEET_METRIC"  39.90 MB   21072 rows
+. . imported "KDOT_BLP"."PON_PERFORM_MEASURE"            8.734 KB      13 rows
+. . imported "KDOT_BLP"."MV_INSP_DATES_FIX"              49.23 MB  169314 rows
+. . imported "KDOT_BLP"."PON_NBI_ITEM"                   14.30 KB     128 rows
+. . imported "KDOT_BLP"."USERRWAY"                       6.072 MB   21448 rows
+. . imported "KDOT_BLP"."MAX_MV_INSPDATE"                655.6 KB   20165 rows
+. . imported "KDOT_BLP"."MAX_MV_CREATEDATETIME_2"        655.7 KB   20168 rows
+. . imported "KDOT_BLP"."KEYSTASH"                       11.24 KB     103 rows
+. . imported "KDOT_BLP"."PON_COMMON_LISTS"               8.078 KB      11 rows
+. . imported "KDOT_BLP"."NBI2002"                        11.12 MB   20837 rows
+. . imported "KDOT_BLP"."KDOTBLP_NBI_RATING_HISTORY"     1.441 MB   19776 rows
+. . imported "KDOT_BLP"."PON_FLEX_BENEFIT"               10.66 KB      55 rows
+. . imported "KDOT_BLP"."PON_TUNNEL_INSP"                22.64 KB       1 rows
+. . imported "KDOT_BLP"."FLEXSETS"                       6.382 KB       1 rows
+. . imported "KDOT_BLP"."PON_FOLLOW_UP_ACTION"           23.02 KB      33 rows
+. . imported "KDOT_BLP"."VE_UPD_ATTR"                    632.0 KB   25679 rows
+. . imported "KDOT_BLP"."PON_FILTERS_03_07_2018"         110.5 KB     257 rows
+. . imported "KDOT_BLP"."KDOTBLP_EXCLUDED_STRUCTURES"    13.93 KB      74 rows
+. . imported "KDOT_BLP"."KDOTBLP_ATTRIBUTE_DESCRIPTOR_NEW"      0 KB       0 rows
+. . imported "KDOT_BLP"."MV_NUM_03_NBI64_GT_3_LT_21_T"      15 KB       5 rows
+. . imported "KDOT_BLP"."PON_CS_SCOUR_POT_LINE"              0 KB       0 rows
+. . imported "KDOT_BLP"."LR_VEHICLE_DEFS"                11.16 KB      14 rows
+. . imported "KDOT_BLP"."PON_VALDN_SET_VALUES"           37.48 KB     444 rows
+. . imported "KDOT_BLP"."PON_SEGMENT_PROFILE"            7.929 KB       1 rows
+. . imported "KDOT_BLP"."USERPROJ"                           0 KB       0 rows
+. . imported "KDOT_BLP"."MISSOURI_NBI"                   15.08 MB   28300 rows
+. . imported "KDOT_BLP"."KDOTBLP_PRODUCTION_INDEXES"     171.4 KB     399 rows
+. . imported "KDOT_BLP"."PON_TUNNEL_STRUCT_UNITS"        7.343 KB       1 rows
+. . imported "KDOT_BLP"."ASSET_DEFINITION"               24.81 KB     109 rows
+. . imported "KDOT_BLP"."PON_DISABLE_FORCE_DEF_TBLS"         0 KB       0 rows
+. . imported "KDOT_BLP"."SCENPARAM"                      32.52 KB     336 rows
+. . imported "KDOT_BLP"."ARC_KBLP_BRIDGE_20200210"       4.911 MB   21076 rows
+. . imported "KDOT_BLP"."PON_APP_CONTROL_GROUP_SECURITY"  840.4 KB    9996 rows
+. . imported "KDOT_BLP"."NBI2011"                        10.63 MB   19943 rows
+. . imported "KDOT_BLP"."PON_TUNNEL_ELEM_INSP"           15.43 KB      26 rows
+. . imported "KDOT_BLP"."USERACC"                        8.593 KB       8 rows
+. . imported "KDOT_BLP"."INSPEVNT_TEMP"                  3.145 MB   10759 rows
+. . imported "KDOT_BLP"."LOAD_RATING_EVENTS"             9.507 KB       1 rows
+. . imported "KDOT_BLP"."MV_DATABASE_EXPORT_EXCELSHEET"  53.76 MB   21448 rows
+. . imported "KDOT_BLP"."PAUG_BACKUP_20160427"           75.87 KB    1273 rows
+. . imported "KDOT_BLP"."STATEDFS"                       100.6 KB     458 rows
+. . imported "KDOT_BLP"."PON_CS_STRUCT_DTL"                  0 KB       0 rows
+. . imported "KDOT_BLP"."ASSET_TYPE"                     9.164 KB       3 rows
+. . imported "KDOT_BLP"."PON_CTRL_NBI_GUIDE"             45.67 KB     258 rows
+. . imported "KDOT_BLP"."PON_MOD_DETER"                  22.72 KB     101 rows
+. . imported "KDOT_BLP"."BRIDGE_TEMP_PROD"               175.0 KB     244 rows
+. . imported "KDOT_BLP"."PON_CS_SCOUR_POT"                   0 KB       0 rows
+. . imported "KDOT_BLP"."ASSET_LIBRARY"                  30.53 KB     150 rows
+. . imported "KDOT_BLP"."STRUCTURE_UNIT"                 4.916 MB   21431 rows
+. . imported "KDOT_BLP"."PON_TUNNEL_ELEM_STATE_DEFS"     53.03 KB     236 rows
+. . imported "KDOT_BLP"."EXPACTN"                        136.5 KB    3732 rows
+. . imported "KDOT_BLP"."PON_LAYOUTS_BKUP2"              32.96 KB      25 rows
+. . imported "KDOT_BLP"."PON_BEN_ELEM_CREATE"            10.95 KB      30 rows
+. . imported "KDOT_BLP"."BRM_OBJECTS_MASTER_LIST"            0 KB       0 rows
+. . imported "KDOT_BLP"."USERINSP_RENAMED_20190416"      43.90 MB  158620 rows
+. . imported "KDOT_BLP"."PON_REPORT_SECURITY"                0 KB       0 rows
+. . imported "KDOT_BLP"."PON_PROGRAM_SEGMENT_FIELD"          0 KB       0 rows
+. . imported "KDOT_BLP"."PON_CS_ORIG_STREAMBED_LINE"         0 KB       0 rows
+. . imported "KDOT_BLP"."PON_ACTION_DEFERMENT_RULES"     8.937 KB       7 rows
+. . imported "KDOT_BLP"."ACTMODLS"                       448.7 KB    8196 rows
+. . imported "KDOT_BLP"."UI_OBJ_ATTR_CLASSES"            7.242 KB      64 rows
+. . imported "KDOT_BLP"."PON_VALDN_FIELD"                8.835 KB      11 rows
+. . imported "KDOT_BLP"."COMPONENT_PACKAGE"              9.140 KB       7 rows
+. . imported "KDOT_BLP"."PON_APP_CONTROL_SECURITY"       936.2 KB   10458 rows
+. . imported "KDOT_BLP"."DATADICT"                       938.1 KB    3626 rows
+. . imported "KDOT_BLP"."PROFILING"                          0 KB       0 rows
+. . imported "KDOT_BLP"."KDOTBLP_NBI_RATING_HISTORY_10"  1.438 MB   19748 rows
+. . imported "KDOT_BLP"."PON_EXEC_SUM_CHRT_GRP"          7.625 KB       9 rows
+. . imported "KDOT_BLP"."ARC_USERRWAY_20200210"          6.003 MB   21097 rows
+. . imported "KDOT_BLP"."PON_TUNNEL"                     31.64 KB       1 rows
+. . imported "KDOT_BLP"."NBI2005"                        14.46 MB   27134 rows
+. . imported "KDOT_BLP"."ASSET_COMPONENT_DEFINITION"     14.98 KB      21 rows
+. . imported "KDOT_BLP"."MV_NBI_EXPORT_EXCELSHEET_ENGLISH"  39.63 MB   21093 rows
+. . imported "KDOT_BLP"."KDOTBLP_LOAD_RATINGS_TEMP"          0 KB       0 rows
+. . imported "KDOT_BLP"."PBCATTBL"                       16.07 KB       1 rows
+. . imported "KDOT_BLP"."PON_APP_PERMISSIONS"            15.28 KB      59 rows
+. . imported "KDOT_BLP"."ASSET_AUDIT_LOG"                27.05 KB      42 rows
+. . imported "KDOT_BLP"."KDOTBLP_USERS_02_15_2018"       139.1 KB     514 rows
+. . imported "KDOT_BLP"."PON_INDEX"                          0 KB       0 rows
+. . imported "KDOT_BLP"."PON_BENEFIT_RISKS"              9.765 KB       2 rows
+. . imported "KDOT_BLP"."PON_APP_USERS_02_15_2018"       107.5 KB     523 rows
+. . imported "KDOT_BLP"."KLBEP_SCOUR_D4_TRANS"           221.2 KB    3504 rows
+. . imported "KDOT_BLP"."DEFAULT_COPTIONS"               38.09 KB     203 rows
+. . imported "KDOT_BLP"."COMPONENT_PACKAGE_FK_TABLES"    9.171 KB      15 rows
+. . imported "KDOT_BLP"."KDOTBLP_USERS"                  162.1 KB     584 rows
+. . imported "KDOT_BLP"."PON_ELEM_MAT_DEFS"              8.070 KB      11 rows
+. . imported "KDOT_BLP"."REHABRULE"                      9.257 KB       3 rows
+. . imported "KDOT_BLP"."PON_SESSION_LOG"                148.7 MB  231536 rows
+. . imported "KDOT_BLP"."NBI2016"                        10.36 MB   19414 rows
+. . imported "KDOT_BLP"."PON_GRPS_ROAD"                      0 KB       0 rows
+. . imported "KDOT_BLP"."PON_PROJECT_FUNDING"                0 KB       0 rows
+. . imported "KDOT_BLP"."NBI2001"                        11.08 MB   20764 rows
+. . imported "KDOT_BLP"."EDITCHECK_DEFINITIONS"          114.8 KB     415 rows
+. . imported "KDOT_BLP"."NBI2006"                        10.96 MB   20530 rows
+. . imported "KDOT_BLP"."KDOTBLP_FORM_TABS"              9.664 KB      17 rows
+. . imported "KDOT_BLP"."PON_COPTIONS_LOOKUP"            9.132 KB      26 rows
+. . imported "KDOT_BLP"."REHABSETS"                      6.968 KB       3 rows
+. . imported "KDOT_BLP"."PON_PROG_PERFORMANCE"               0 KB       0 rows
+. . imported "KDOT_BLP"."UI_APP_OBJ_MAP"                 130.7 KB    1646 rows
+. . imported "KDOT_BLP"."USERINSP_BKU_20910416"          24.48 MB  158837 rows
+. . imported "KDOT_BLP"."PON_PROG_PERF_EST_LOG"              0 KB       0 rows
+. . imported "KDOT_BLP"."DM_DET_MATRIX_A"                    0 KB       0 rows
+. . imported "KDOT_BLP"."CONDUMDL"                       33.52 KB     888 rows
+. . imported "KDOT_BLP"."DM_DET_MATRIX_B"                    0 KB       0 rows
+. . imported "KDOT_BLP"."MV_REMOVED_EXPORT_EXCELSHEET"   425.1 KB     656 rows
+. . imported "KDOT_BLP"."KLBEP_SCOUR_D6_KDOT_PREV"       40.26 KB     827 rows
+. . imported "KDOT_BLP"."KDOTBLP_PRODUCTION_MVIEWS"      121.2 KB      14 rows
+. . imported "KDOT_BLP"."NBI2014"                        10.40 MB   19481 rows
+. . imported "KDOT_BLP"."KDOTBLP_BRIDGE_BACKUP"          5.255 MB   21316 rows
+. . imported "KDOT_BLP"."PON_APP_CAPTION"                90.02 KB    1215 rows
+. . imported "KDOT_BLP"."LOOKUP_LEGAL_LOADS"                 0 KB       0 rows
+. . imported "KDOT_BLP"."NBI2017"                        10.31 MB   19313 rows
+. . imported "KDOT_BLP"."MV_LATEST_INSPECTION_QAQC"      333.8 KB    9023 rows
+. . imported "KDOT_BLP"."DW_PONTIS_NST_BRDG_MV"          25.70 MB   19487 rows
+. . imported "KDOT_BLP"."PON_APP_USERS_SUBMITTAL"        103.2 KB     495 rows
+. . imported "KDOT_BLP"."LOOKUP_MAT_DESIGN_MAIN_TYPE"    7.570 KB      82 rows
+. . imported "KDOT_BLP"."PON_PROJECT_CATEGORY_ACTIONS"   9.578 KB      59 rows
+. . imported "KDOT_BLP"."PON_FORMULA_CATEGORIES"         32.98 KB     255 rows
+. . imported "KDOT_BLP"."NBI2009"                        7.625 MB   20122 rows
+. . imported "KDOT_BLP"."MV_TOO_SHORT_BRIDGES"           36.63 KB     101 rows
+. . imported "KDOT_BLP"."ARC_INSPEVNT_20200210"          103.4 MB  169307 rows
+. . imported "KDOT_BLP"."PON_TUNNEL_ELEM_CHILD"          43.25 KB     371 rows
+. . imported "KDOT_BLP"."KLBEP_SCOUR_D2_TRANS"           319.9 KB    4045 rows
+. . imported "KDOT_BLP"."KDOTBLP_USERS_GROUPS"           2.253 MB   92479 rows
+. . imported "KDOT_BLP"."DM_ACT_PROB_EXPERTS"            76.44 KB    2236 rows
+. . imported "KDOT_BLP"."MV_NUM_01_NBI64_LT_3T"          88.79 KB     248 rows
+. . imported "KDOT_BLP"."PON_NETWORK_POLICY"             9.453 KB      11 rows
+. . imported "KDOT_BLP"."MULTIMEDIA"                     139.0 KB     500 rows
+. . imported "KDOT_BLP"."PON_POLICY_BRIDGE"              12.96 MB  105010 rows
+. . imported "KDOT_BLP"."MV_LATEST_NBI_INSPECTION"       2.460 MB   21427 rows
+. . imported "KDOT_BLP"."PON_SEGMENT_FIELDS"                 0 KB       0 rows
+. . imported "KDOT_BLP"."MV_OFF_SYSTEM_BRIDGES_NEW"      18.23 KB      74 rows
+. . imported "KDOT_BLP"."PARAMTRS_BACKUP_20181129"           0 KB       0 rows
+. . imported "KDOT_BLP"."KDOTBLP_ATTRIBUTE_DESCRIPTOR_20220708"  94.59 KB     320 rows
+. . imported "KDOT_BLP"."PON_LAYOUTS_BKUP"               32.92 KB      25 rows
+. . imported "KDOT_BLP"."INSPEVNT_BACKUP_20200210"       103.4 MB  169314 rows
+. . imported "KDOT_BLP"."KDOTBLP_ATTRIBUTE_DESCRIPTOR_BACKUP"  93.68 KB     317 rows
+. . imported "KDOT_BLP"."NBI2010"                        7.531 MB   19883 rows
+. . imported "KDOT_BLP"."EDITCHECK_SESSION_LOG"          17.56 MB  134198 rows
+. . imported "KDOT_BLP"."PON_APP_ROLES_TABS"             7.812 KB      64 rows
+. . imported "KDOT_BLP"."USEROLES"                       349.5 KB   17333 rows
+. . imported "KDOT_BLP"."PON_CS_ORIG_STREAMBED"              0 KB       0 rows
+. . imported "KDOT_BLP"."LKAHDSETS"                      6.882 KB       2 rows
+. . imported "KDOT_BLP"."USERINSP_ORIG_20160324"         6.618 MB  122786 rows
+. . imported "KDOT_BLP"."PON_BEN_ELEM_REPLACE"           22.28 KB     109 rows
+. . imported "KDOT_BLP"."PROJECTS"                       66.43 KB     371 rows
+. . imported "KDOT_BLP"."PON_PROJECT"                        0 KB       0 rows
+. . imported "KDOT_BLP"."SCOPESETS"                      6.875 KB       2 rows
+. . imported "KDOT_BLP"."PON_APP_LANGUAGE"               6.023 KB       2 rows
+. . imported "KDOT_BLP"."NBI1993"                        14.21 MB   26665 rows
+. . imported "KDOT_BLP"."METRIC_ENGLISH"                 10.92 KB      64 rows
+. . imported "KDOT_BLP"."PON_APP_USERS_ROLES_BKU_20190519"  133.2 KB     983 rows
+. . imported "KDOT_BLP"."PARAMTRS_05152017_BACKUP"       193.7 KB    2876 rows
+. . imported "KDOT_BLP"."KDOTBLP_LOG"                        0 KB       0 rows
+. . imported "KDOT_BLP"."LOOKUP_MAT_DESIGN_APPR_TYPE"    6.945 KB      49 rows
+. . imported "KDOT_BLP"."PON_BATCH_BRKEYS"               71.38 MB  822576 rows
+. . imported "KDOT_BLP"."PON_PROGRAM"                    17.74 KB       2 rows
+. . imported "KDOT_BLP"."PON_PROJECT_MILESTONE"              0 KB       0 rows
+. . imported "KDOT_BLP"."PLAN_TABLE"                         0 KB       0 rows
+. . imported "KDOT_BLP"."NBI2019"                        10.31 MB   19323 rows
+. . imported "KDOT_BLP"."PON_MAINT_EVENT"                    0 KB       0 rows
+. . imported "KDOT_BLP"."FORMULAS"                       6.562 KB       6 rows
+. . imported "KDOT_BLP"."CICOCNTL"                       53.33 MB  448642 rows
+. . imported "KDOT_BLP"."MV_COMBINED_INSPECTION"         2.905 MB   19800 rows
+. . imported "KDOT_BLP"."PON_NBI_EXPORT_DEF"             24.64 KB     128 rows
+. . imported "KDOT_BLP"."BUDGMTRX"                       6.273 KB      20 rows
+. . imported "KDOT_BLP"."ACTYPDFS"                       12.13 KB      24 rows
+. . imported "KDOT_BLP"."MV_LATEST_ELEMENT_INSPECTION"   8.234 KB      15 rows
+. . imported "KDOT_BLP"."KDOTBLP_UTIL_ERROR_MESSAGES"    16.25 KB     151 rows
+. . imported "KDOT_BLP"."DM_DET_PROB_1_BIN"                  0 KB       0 rows
+. . imported "KDOT_BLP"."NBI_26_PLANNING_DATA"           842.8 KB   19872 rows
+. . imported "KDOT_BLP"."COMPONENT_PACKAGE_RELATIONS"    6.625 KB       9 rows
+. . imported "KDOT_BLP"."PON_EXCHANGE_OPTION_DETAIL"     54.50 KB     494 rows
+. . imported "KDOT_BLP"."PON_NAV_CONTROL_GROUP"          126.6 KB     476 rows
+. . imported "KDOT_BLP"."PRJ_PROGFUND"                   10.98 KB      70 rows
+. . imported "KDOT_BLP"."MAP_INFO_OPTIONS"                   0 KB       0 rows
+. . imported "KDOT_BLP"."USERS"                          69.87 KB     545 rows
+. . imported "KDOT_BLP"."ROADWAY_AR"                     170.6 KB     656 rows
+. . imported "KDOT_BLP"."KDOTBLP_USERS_3_3_2016"         127.9 KB     463 rows
+. . imported "KDOT_BLP"."PON_GRPS_PARAM"                     0 KB       0 rows
+. . imported "KDOT_BLP"."KDOTBLP_ATTRIBUTE_DESCRIPTOR"   96.25 KB     320 rows
+. . imported "KDOT_BLP"."PON_BEN_ELEM_REMOVE"                0 KB       0 rows
+. . imported "KDOT_BLP"."MATDEFS"                        7.273 KB      11 rows
+. . imported "KDOT_BLP"."NBI2018"                        10.32 MB   19332 rows
+ORA-02374: conversion error loading table "KDOT_BLP"."BRIDGE_SUBMITTAL"
+ORA-12899: value too large for column NOTES (actual: 2002, maximum: 2000)
+ORA-02372: data for row: NOTES : '12-08-11-SEB-place an asphalt overlay on corrugate'
+ 
+. . imported "KDOT_BLP"."BRIDGE_SUBMITTAL"               12.28 MB   20675 out of 20676 rows
+. . imported "KDOT_BLP"."KBI_ORPHANS_20220119"           17.40 KB     341 rows
+. . imported "KDOT_BLP"."PON_FILTERS_BKU_20220221"       160.6 KB     282 rows
+. . imported "KDOT_BLP"."DATADICT20160615"               612.5 KB    2404 rows
+. . imported "KDOT_BLP"."INSPEVNT_BKUP_02012017"         51.02 MB  132954 rows
+. . imported "KDOT_BLP"."PON_FLEX_CONDITION"                 0 KB       0 rows
+. . imported "KDOT_BLP"."NBI1997"                        14.51 MB   27213 rows
+. . imported "KDOT_BLP"."PON_BENEFIT_FIELDS"             10.62 KB      11 rows
+. . imported "KDOT_BLP"."AGENCYPOLSETS"                  6.851 KB       1 rows
+. . imported "KDOT_BLP"."PARAMTRS_11_28_18"              194.2 KB    2883 rows
+. . imported "KDOT_BLP"."PON_EXPORT_STATUS"              9.048 MB  206133 rows
+. . imported "KDOT_BLP"."EDITCHECK_SESSION"              36.80 MB  151524 rows
+. . imported "KDOT_BLP"."PON_CONTEXT_TABLES"             16.20 KB      51 rows
+. . imported "KDOT_BLP"."CICOXCPT"                           0 KB       0 rows
+. . imported "KDOT_BLP"."PBCATEDT"                       9.367 KB      21 rows
+. . imported "KDOT_BLP"."PON_FUNDING_ALLOCATION"             0 KB       0 rows
+. . imported "KDOT_BLP"."PON_ELEM_DEFS"                  92.42 KB     148 rows
+. . imported "KDOT_BLP"."PON_CS_OFFSET"                      0 KB       0 rows
+. . imported "KDOT_BLP"."INSPEVNT_SUBMITTAL"             51.81 MB  134588 rows
+. . imported "KDOT_BLP"."ROADWAY_BKU_20190416"           4.710 MB   21029 rows
+. . imported "KDOT_BLP"."BRIDGE_SNAP_20060331"           9.528 MB   20468 rows
+. . imported "KDOT_BLP"."PON_VALDN_NBI"                  27.39 KB     291 rows
+. . imported "KDOT_BLP"."USERINSP_TEMP"                  25.46 KB     261 rows
+. . imported "KDOT_BLP"."MRRMODLS"                       8.718 KB       2 rows
+. . imported "KDOT_BLP"."PON_UTIL_CRIT_PROFILE"          5.554 KB       1 rows
+. . imported "KDOT_BLP"."PON_ATTRIBUTE_DISPLAY"          14.16 KB      41 rows
+. . imported "KDOT_BLP"."PARAMTRS_BKU_20190419"          350.8 KB    3405 rows
+. . imported "KDOT_BLP"."ARC_STRUC_UNIT_20200210"        4.817 MB   21080 rows
+. . imported "KDOT_BLP"."MV_NBI_EXPORT_EXCELSHEET"       43.04 MB   21448 rows
+. . imported "KDOT_BLP"."PON_APP_ROLES"                  8.812 KB      23 rows
+. . imported "KDOT_BLP"."PLSQL_PROFILER_DATA"            10.73 KB      51 rows
+. . imported "KDOT_BLP"."PON_CTRL_NBI_ERRORS"            7.890 KB      13 rows
+. . imported "KDOT_BLP"."PON_INSP_STATUSES"              7.773 KB       5 rows
+. . imported "KDOT_BLP"."PON_PROGRAM_NETWORK_POLICY"         0 KB       0 rows
+. . imported "KDOT_BLP"."ACTIVE_TRIGGERS"                10.47 KB     106 rows
+. . imported "KDOT_BLP"."PON_FK"                             0 KB       0 rows
+. . imported "KDOT_BLP"."PON_CS_STREAMBED_CS"                0 KB       0 rows
+. . imported "KDOT_BLP"."PONTLOG"                          8.5 KB      12 rows
+. . imported "KDOT_BLP"."ROADWAY_9_25_2018"              4.667 MB   20959 rows
+. . imported "KDOT_BLP"."USERS_BKU_20190129"             66.64 KB     494 rows
+. . imported "KDOT_BLP"."ARC_KBLP_DOCS_ARC_20200210"     12.47 MB   50087 rows
+. . imported "KDOT_BLP"."PON_NBI_EXPORT_OPTION"          6.507 KB      13 rows
+. . imported "KDOT_BLP"."PON_APP_ROLES_TASKS"            7.804 KB      56 rows
+. . imported "KDOT_BLP"."PON_DICT"                           0 KB       0 rows
+. . imported "KDOT_BLP"."PON_FILTERS_TMP"                27.52 KB     190 rows
+. . imported "KDOT_BLP"."MV_LATEST_LR_INSPECTION"        1.285 MB    9911 rows
+. . imported "KDOT_BLP"."SCOPERULE"                      11.24 KB       8 rows
+. . imported "KDOT_BLP"."USERINSP_20181031_RENAMED"          0 KB       0 rows
+. . imported "KDOT_BLP"."KDOTBLP_BRIDGE"                 5.204 MB   21447 rows
+. . imported "KDOT_BLP"."PON_PROJECT_PERFORMANCE"            0 KB       0 rows
+. . imported "KDOT_BLP"."KDOTBLP_QAQC_REVIEW_FINDINGS"   7.830 MB    9023 rows
+. . imported "KDOT_BLP"."PROGFILE"                           0 KB       0 rows
+. . imported "KDOT_BLP"."PON_APP_PERMISSIONS_NEW"            0 KB       0 rows
+. . imported "KDOT_BLP"."PON_SYSTEM_PARAM"               12.82 KB      26 rows
+. . imported "KDOT_BLP"."PON_PROGRAM_RESULTS"                0 KB       0 rows
+. . imported "KDOT_BLP"."MV_DATABASE_EXPORT_EXCELSHEET_ENGLISH"  41.37 MB   21448 rows
+. . imported "KDOT_BLP"."KDOTBLP_LOAD_RATINGS_NEW__20181129"      0 KB       0 rows
+. . imported "KDOT_BLP"."PLSQL_PROFILER_RUNS"            8.937 KB       7 rows
+. . imported "KDOT_BLP"."USERBRDG"                       9.621 MB   43492 rows
+. . imported "KDOT_BLP"."PON_APP_USERS_ROLES_2_15_2018"  64.23 KB     517 rows
+. . imported "KDOT_BLP"."PON_INSP_STATUS_TREE"               0 KB       0 rows
+. . imported "KDOT_BLP"."PON_CONTEXT_JOINS"              5.625 KB       5 rows
+. . imported "KDOT_BLP"."PON_APP_ROLES_PERMISSIONS"      59.33 KB     674 rows
+. . imported "KDOT_BLP"."BRIDGE_TEMP_TEST"               174.6 KB     244 rows
+. . imported "KDOT_BLP"."PON_ELEM_INSP"                  910.9 KB    2023 rows
+. . imported "KDOT_BLP"."KDOTBLP_NOTES_TEXT_SNIPPETS"    12.92 KB      71 rows
+. . imported "KDOT_BLP"."USERRWAY_BKU_20190416"          3.535 MB   21029 rows
+. . imported "KDOT_BLP"."KDOTBLP_FORM_TABS_BACKUP"       9.171 KB      17 rows
+. . imported "KDOT_BLP"."USERPREFSREG"                   7.289 KB       2 rows
+. . imported "KDOT_BLP"."ARC_KBLP_INSPS_20200210"        45.50 MB  169307 rows
+. . imported "KDOT_BLP"."PBCATVLD"                           0 KB       0 rows
+. . imported "KDOT_BLP"."PON_DEFS_ASSESSMENT"            21.33 KB       5 rows
+. . imported "KDOT_BLP"."STRUCTURE_UNIT_AR"              71.67 KB     656 rows
+. . imported "KDOT_BLP"."PON_PROJECT_PROGRAM"                0 KB       0 rows
+. . imported "KDOT_BLP"."PON_APP_TASK_SECURITY"          350.7 KB    4200 rows
+. . imported "KDOT_BLP"."PON_EXEC_SUM_CHRT_FLTR"         6.281 KB       4 rows
+. . imported "KDOT_BLP"."DM_DET_PROB_EXPERTS"            41.59 KB    1832 rows
+. . imported "KDOT_BLP"."PON_POLICY"                     9.609 KB       5 rows
+. . imported "KDOT_BLP"."NBI1994"                        14.18 MB   26602 rows
+. . imported "KDOT_BLP"."COSTSETS"                       6.882 KB       2 rows
+. . imported "KDOT_BLP"."DM_ELEM_OBS_PAIRS"                  0 KB       0 rows
+. . imported "KDOT_BLP"."PON_SCENARIO"                   8.132 KB       1 rows
+. . imported "KDOT_BLP"."ARC_KBLP_LOAD_RATG_20200210"        0 KB       0 rows
+. . imported "KDOT_BLP"."NBI2018_SECOND_SUBMITTAL"           0 KB       0 rows
+. . imported "KDOT_BLP"."PON_PROJECT_WORKITEM"               0 KB       0 rows
+. . imported "KDOT_BLP"."NBI2003"                        11.12 MB   20832 rows
+. . imported "KDOT_BLP"."BRIDGEGROUP_ASSIGNMENTS"        838.6 KB   20469 rows
+. . imported "KDOT_BLP"."SCENELEM"                       14.28 KB     666 rows
+. . imported "KDOT_BLP"."PON_COMPONENT_DET_MODEL"        6.812 KB       4 rows
+. . imported "KDOT_BLP"."PON_VALDN_DEPENDENCY"           27.61 KB     207 rows
+. . imported "KDOT_BLP"."PON_CONDITION_STATES"           8.585 KB       4 rows
+. . imported "KDOT_BLP"."PON_CONTEXT"                    11.29 KB      10 rows
+. . imported "KDOT_BLP"."ARC_USERSTRUNIT_20200210"       7.547 MB   21075 rows
+. . imported "KDOT_BLP"."PON_INSP_STATUS_GROUP_MAP"          0 KB       0 rows
+. . imported "KDOT_BLP"."KDOTBLP_QAQC_REVIEW_FINDS_BKUP"  3.251 MB    5076 rows
+. . imported "KDOT_BLP"."USERNOTE"                           0 KB       0 rows
+. . imported "KDOT_BLP"."PRJ_PRJFUND"                        0 KB       0 rows
+. . imported "KDOT_BLP"."PON_CS_ORIENTATION"                 0 KB       0 rows
+. . imported "KDOT_BLP"."FLEXRULES"                      47.94 KB     524 rows
+. . imported "KDOT_BLP"."NBI2015"                        10.37 MB   19436 rows
+. . imported "KDOT_BLP"."INSPEVNT_BKU_20190416"          62.45 MB  158840 rows
+. . imported "KDOT_BLP"."COSTMTRX"                       124.4 KB     865 rows
+. . imported "KDOT_BLP"."PON_APP_TAB_SECURITY"           25.07 KB     212 rows
+. . imported "KDOT_BLP"."FLEXACTIONS"                    8.171 KB      10 rows
+. . imported "KDOT_BLP"."PON_PROGRAM_CATEGORY_DEFS"      7.812 KB       1 rows
+. . imported "KDOT_BLP"."INSPEVNT_TRANSFORM"             28.15 MB  169314 rows
+. . imported "KDOT_BLP"."PON_FORMULAS"                   11.10 KB      12 rows
+. . imported "KDOT_BLP"."DM_ELEMINSP"                        0 KB       0 rows
+. . imported "KDOT_BLP"."PON_FILTER_GROUP_SHARING"           0 KB       0 rows
+. . imported "KDOT_BLP"."DBDESCRP"                       9.859 KB       1 rows
+. . imported "KDOT_BLP"."PON_ELEMENT_CHILD"              60.82 KB     809 rows
+. . imported "KDOT_BLP"."PON_ASSESSMENT"                     0 KB       0 rows
+. . imported "KDOT_BLP"."ELEMDEFS"                       39.16 KB     111 rows
+. . imported "KDOT_BLP"."PON_NAV_TAB"                    13.03 KB      10 rows
+. . imported "KDOT_BLP"."KLBEP_SCOUR_D3_TRANS"           227.0 KB    2490 rows
+. . imported "KDOT_BLP"."PON_PROG_CONSTRAINT"                0 KB       0 rows
+. . imported "KDOT_BLP"."PON_EXEC_SUM_CHRT_FLTR_FLD"     11.43 KB      50 rows
+. . imported "KDOT_BLP"."PBCATCOL"                       14.47 KB       7 rows
+. . imported "KDOT_BLP"."BUBBLEHELP"                         0 KB       0 rows
+. . imported "KDOT_BLP"."MV_ALL_INSPECTIONS_ORDERED"     64.97 MB  204993 rows
+. . imported "KDOT_BLP"."PON_VALDN_SET"                  15.39 KB      44 rows
+. . imported "KDOT_BLP"."KDOTBLP_DOCUMENTS_NEW"              0 KB       0 rows
+. . imported "KDOT_BLP"."KLBEP_SCOUR_D4_KDOT_PREV"       148.5 KB    3503 rows
+. . imported "KDOT_BLP"."PON_SESSION_BATCH"              17.16 MB   70523 rows
+. . imported "KDOT_BLP"."PON_CS_SCOUR_RES"                   0 KB       0 rows
+. . imported "KDOT_BLP"."BRIDGE_AR"                      397.3 KB     656 rows
+. . imported "KDOT_BLP"."LOAD_RATINGS"                   12.85 KB      14 rows
+. . imported "KDOT_BLP"."P_E_I_BKU_20190416"             179.0 KB     938 rows
+. . imported "KDOT_BLP"."PON_POLICY_RULE_ARCHIVE"            0 KB       0 rows
+. . imported "KDOT_BLP"."PON_RETIRED_TABLE"                  0 KB       0 rows
+. . imported "KDOT_BLP"."PON_PROGRAM_SEGMENT"                0 KB       0 rows
+. . imported "KDOT_BLP"."NEBRASKA_NBI"                   8.551 MB   15995 rows
+. . imported "KDOT_BLP"."PON_BENEFIT_ELEMENTS"           125.3 KB     795 rows
+. . imported "KDOT_BLP"."POLSETS"                        6.398 KB       2 rows
+. . imported "KDOT_BLP"."PON_ELEM_INSP_BKUP"             68.02 KB     305 rows
+. . imported "KDOT_BLP"."PON_NBI_TRANSITION_TIME"        10.70 KB      36 rows
+. . imported "KDOT_BLP"."PLSQL_PROFILER_UNITS"           9.984 KB      26 rows
+. . imported "KDOT_BLP"."MV_DATABASE_EXPORT_EXCELSHEET_METRIC"  41.67 MB   21447 rows
+. . imported "KDOT_BLP"."KDOTBLP_ATTRIB_DESCR_20160615"  57.99 KB     215 rows
+. . imported "KDOT_BLP"."MV_LATEST_INSPECTION_AR"        26.77 KB     656 rows
+. . imported "KDOT_BLP"."PON_NAV_TASK"                   87.23 KB     200 rows
+. . imported "KDOT_BLP"."MV_OFF_SYSTEM_BRIDGES"          13.01 KB      81 rows
+. . imported "KDOT_BLP"."PON_MOD_DETER_PROF"                 0 KB       0 rows
+. . imported "KDOT_BLP"."UI_OBJ_ATTR_VALUES"             1.009 MB   20970 rows
+. . imported "KDOT_BLP"."MV_LATEST_OS_INSPECTION"        26.69 KB     126 rows
+. . imported "KDOT_BLP"."PRJ_PROGRAMS"                   11.23 KB       7 rows
+. . imported "KDOT_BLP"."KDOTBLP_NBI_RATING_HISTORY_09"  1.500 MB   20313 rows
+. . imported "KDOT_BLP"."CREDS_KEEPER"                   66.08 KB     464 rows
+. . imported "KDOT_BLP"."BLP_LOAD_RATINGS_TEMP"              0 KB       0 rows
+. . imported "KDOT_BLP"."PON_MRR_ACTION_DEFS"            174.6 KB     675 rows
+. . imported "KDOT_BLP"."PON_FLEXACTIONS_SETS"           28.63 KB     105 rows
+. . imported "KDOT_BLP"."PON_PROGRAM_UTILITY"                0 KB       0 rows
+. . imported "KDOT_BLP"."PON_VALDN_SET_MAP"              13.09 KB      71 rows
+. . imported "KDOT_BLP"."NBI1999"                        14.55 MB   27306 rows
+. . imported "KDOT_BLP"."KDOTBLP_KBLRP_CONTRACTS"            0 KB       0 rows
+. . imported "KDOT_BLP"."NBI2008"                        7.762 MB   20576 rows
+. . imported "KDOT_BLP"."KDOTBLP_INSPECTIONS_BACKUP"     78.99 MB  193628 rows
+. . imported "KDOT_BLP"."ROADWAY_BKUP"                   4.356 MB   20094 rows
+. . imported "KDOT_BLP"."PON_USER_FILTER_LAYOUT"         22.96 KB     133 rows
+. . imported "KDOT_BLP"."FORMERRS"                           0 KB       0 rows
+. . imported "KDOT_BLP"."PON_APP_LANGUAGE_CAPTION"       107.8 KB    1211 rows
+. . imported "KDOT_BLP"."POLMATRX"                       91.93 KB     481 rows
+. . imported "KDOT_BLP"."PON_TABLE"                          0 KB       0 rows
+. . imported "KDOT_BLP"."PON_EXCHANGE_OPTION"            23.09 KB     203 rows
+. . imported "KDOT_BLP"."PON_BRIDGE_GRPS"                    0 KB       0 rows
+. . imported "KDOT_BLP"."PON_DETERIORATION_PROFILE"          0 KB       0 rows
+. . imported "KDOT_BLP"."KLBEP_SCOUR_D6_TRANS"           79.14 KB     827 rows
+. . imported "KDOT_BLP"."UI_OBJ_CLASSES"                 6.367 KB      15 rows
+. . imported "KDOT_BLP"."OKLAHOMA_NBI"                   13.63 MB   25570 rows
+. . imported "KDOT_BLP"."PON_GLOB_VAR"                       0 KB       0 rows
+. . imported "KDOT_BLP"."PON_FILTERS"                    163.7 KB     283 rows
+. . imported "KDOT_BLP"."PON_STATE_DEFS"                 57.04 KB     180 rows
+. . imported "KDOT_BLP"."ARC_BRIDGE_20200210"            18.10 MB   21076 rows
+. . imported "KDOT_BLP"."PON_REPORT_REGISTER"            17.22 KB      33 rows
+. . imported "KDOT_BLP"."PON_APP_USERS_ROLES_02_15_2018"      0 KB       0 rows
+. . imported "KDOT_BLP"."KDOTBLP_INSPECTIONS"            84.97 MB  205188 rows
+. . imported "KDOT_BLP"."NBI1996"                        14.45 MB   27108 rows
+. . imported "KDOT_BLP"."USERSTRUNIT"                    12.64 MB   43920 rows
+. . imported "KDOT_BLP"."PON_PASSWORD_RULES"             7.304 KB       8 rows
+. . imported "KDOT_BLP"."PON_BRIDGE_CONDITION"               0 KB       0 rows
+. . imported "KDOT_BLP"."PON_APP_ROLES_NEW"                  0 KB       0 rows
+. . imported "KDOT_BLP"."PON_PROG_OPT_MESSAGE"               0 KB       0 rows
+. . imported "KDOT_BLP"."PON_APP_USERS_3_3_2016"             0 KB       0 rows
+. . imported "KDOT_BLP"."ENVTDEFS"                       7.437 KB       4 rows
+. . imported "KDOT_BLP"."EXPACTC"                        192.8 KB    8232 rows
+. . imported "KDOT_BLP"."SCENARIO"                       17.67 KB       6 rows
+. . imported "KDOT_BLP"."ELTYPDFS"                       7.851 KB      19 rows
+. . imported "KDOT_BLP"."PARAMTRS_07_10_2017_BACKUP"     194.0 KB    2881 rows
+. . imported "KDOT_BLP"."COMPARE_TEMP"                   29.57 KB     166 rows
+. . imported "KDOT_BLP"."PON_FILTERS_TEST"               110.8 KB     257 rows
+. . imported "KDOT_BLP"."KIND_CODE_LABELS"               11.89 KB     208 rows
+. . imported "KDOT_BLP"."DM_DET_PROB_NEW_MODEL"          61.11 KB    1832 rows
+. . imported "KDOT_BLP"."KDOTBLP_UTIL_MSG_LOG"           1.108 MB    5796 rows
+. . imported "KDOT_BLP"."NBI1995"                        14.31 MB   26847 rows
+. . imported "KDOT_BLP"."PDIFILESETS"                    7.265 KB      10 rows
+. . imported "KDOT_BLP"."PON_POLICY_RULE"                21.13 KB      12 rows
+. . imported "KDOT_BLP"."EDITCHECK_VALUE_SETS"           27.50 KB     251 rows
+. . imported "KDOT_BLP"."PON_APP_USERS_ROLES"            120.5 KB     663 rows
+. . imported "KDOT_BLP"."MAX_MV_CREATEDATETIME"          651.7 KB   20045 rows
+. . imported "KDOT_BLP"."NBI1992"                        14.23 MB   26690 rows
+. . imported "KDOT_BLP"."PON_EXEC_SUM_CHRT"              8.718 KB       6 rows
+. . imported "KDOT_BLP"."PON_PROJECT_CATEGORY_DEFS"      10.46 KB      11 rows
+. . imported "KDOT_BLP"."ELEMINSP"                           0 KB       0 rows
+. . imported "KDOT_BLP"."KDOTBLP_DOCUMENTS_TEMP"             0 KB       0 rows
+. . imported "KDOT_BLP"."PFERRORLOG"                     11.63 KB      12 rows
+. . imported "KDOT_BLP"."PON_VALDN_TYPE"                 6.070 KB       2 rows
+. . imported "KDOT_BLP"."BRM_HEALTH_CHECKS"                  0 KB       0 rows
+ORA-02374: conversion error loading table "KDOT_BLP"."BRIDGE_BKU_20190416"
+ORA-12899: value too large for column NOTES (actual: 2002, maximum: 2000)
+ORA-02372: data for row: NOTES : '12-08-11-SEB-place an asphalt overlay on corrugate'
+ 
+. . imported "KDOT_BLP"."BRIDGE_BKU_20190416"            14.39 MB   21007 out of 21008 rows
+. . imported "KDOT_BLP"."PON_NBI_COMPONENT"              12.02 KB       4 rows
+. . imported "KDOT_BLP"."PON_FLEX_ELEMS"                 66.35 KB     353 rows
+. . imported "KDOT_BLP"."STRUCTURE_UNIT_BKU_20190416"    1.989 MB   21012 rows
+. . imported "KDOT_BLP"."PONT_WORK"                          0 KB       0 rows
+. . imported "KDOT_BLP"."FUNC_CLASS_UPDATE"              997.5 KB   19485 rows
+. . imported "KDOT_BLP"."PARAMTRS"                       377.2 KB    3553 rows
+. . imported "KDOT_BLP"."PON_ELEM_CAT_DEFS"              7.992 KB      11 rows
+. . imported "KDOT_BLP"."MV_LATEST_PH_INSPECTION"        15.10 KB      37 rows
+. . imported "KDOT_BLP"."USERSTRUNIT_BKU_20190416"       5.080 MB   21007 rows
+. . imported "KDOT_BLP"."PON_UTIL_CRIT_CATEGORY"         37.01 KB     135 rows
+. . imported "KDOT_BLP"."ROADWAY_SNAP_20060331"          4.259 MB   20480 rows
+ORA-02374: conversion error loading table "KDOT_BLP"."BRIDGE_BACKUP_3_7_2018"
+ORA-12899: value too large for column NOTES (actual: 2002, maximum: 2000)
+ORA-02372: data for row: NOTES : '12-08-11-SEB-place an asphalt overlay on corrugate'
+ 
+. . imported "KDOT_BLP"."BRIDGE_BACKUP_3_7_2018"         13.46 MB   20839 out of 20840 rows
+. . imported "KDOT_BLP"."KBR_ORPHANS_20220119"           5.296 KB       6 rows
+. . imported "KDOT_BLP"."KDOTBLP_DOCUMENTS"              20.11 MB   55297 rows
+. . imported "KDOT_BLP"."PON_CS_STRUCT_DTL_LINE"             0 KB       0 rows
+. . imported "KDOT_BLP"."PON_TUNNEL_ELEM_DEFS"           39.32 KB     147 rows
+. . imported "KDOT_BLP"."PON_NBI_LIMIT_GROUP"            7.476 KB       2 rows
+. . imported "KDOT_BLP"."MV_NBI_EXPORT_EXCELSHEET_NEW"   52.43 MB   21448 rows
+. . imported "KDOT_BLP"."LKAHDRULE"                      15.29 KB      46 rows
+. . imported "KDOT_BLP"."PON_APP_ROLES_BKU_20190519"     8.828 KB      23 rows
+. . imported "KDOT_BLP"."NBI2021"                        9.466 MB   19313 rows
+. . imported "KDOT_BLP"."PRJ_FUNDSRC"                    8.632 KB       3 rows
+. . imported "KDOT_BLP"."EXPCNDUC"                       21.75 KB     424 rows
+. . imported "KDOT_BLP"."ASSET_COMPONENT_TYPE"           8.648 KB       4 rows
+. . imported "KDOT_BLP"."PON_UTIL_CRIT_POINTS"           15.84 KB     117 rows
+. . imported "KDOT_BLP"."PON_POLICY_ARCHIVE"                 0 KB       0 rows
+. . imported "KDOT_BLP"."IMPRMTRX"                       26.87 KB       1 rows
+. . imported "KDOT_BLP"."PRJ_WITEMS"                         0 KB       0 rows
+. . imported "KDOT_BLP"."PON_APP_USERS_ROLES_SUBMITTAL"  65.67 KB     490 rows
+. . imported "KDOT_BLP"."PON_PROGRAM_ADDT_FUNDING"           0 KB       0 rows
+. . imported "KDOT_BLP"."VE_INSPEVNT"                        0 KB       0 rows
+. . imported "KDOT_BLP"."INSPEVNT_AR"                    607.1 KB    2066 rows
+. . imported "KDOT_BLP"."PON_CS_SCOUR_RES_LINE"              0 KB       0 rows
+. . imported "KDOT_BLP"."BLP_LOAD_RATING_EVENTS"             0 KB       0 rows
+. . imported "KDOT_BLP"."BUDGSETS"                       6.390 KB       2 rows
+. . imported "KDOT_BLP"."PON_APP_USERS_GROUPS"           589.0 KB    4318 rows
+. . imported "KDOT_BLP"."KLBEP_SCOUR_D2_KDOT_PREV"       170.5 KB    4039 rows
+. . imported "KDOT_BLP"."NBI2004"                        11.08 MB   20762 rows
+. . imported "KDOT_BLP"."PON_PROJECT_BRIDGE"                 0 KB       0 rows
+. . imported "KDOT_BLP"."PON_APP_GROUPS"                 19.25 KB     218 rows
+. . imported "KDOT_BLP"."PON_EXEC_SUM_CHRT_GRP_FLD"      19.06 KB     143 rows
+. . imported "KDOT_BLP"."USERS_BKU_20190129_JNK"         69.87 KB     544 rows
+. . imported "KDOT_BLP"."KDOTBLP_ATTRIB_DESC_BACKUP"     54.53 KB     193 rows
+. . imported "KDOT_BLP"."KDOTBLP_PRODUCTION_VIEWS"       175.6 KB      58 rows
+. . imported "KDOT_BLP"."NBI_EXTRACT"                        0 KB       0 rows
+. . imported "KDOT_BLP"."PON_PROGRAM_FUNDING"            6.492 KB       1 rows
+. . imported "KDOT_BLP"."BRM_RUNLOG"                         0 KB       0 rows
+. . imported "KDOT_BLP"."NBISUBMITTAL"                   9.377 MB   19318 rows
+. . imported "KDOT_BLP"."ROADWAY_03_06_2014"             4.512 MB   20227 rows
+. . imported "KDOT_BLP"."DM_DET_PROB_HISTORY"                0 KB       0 rows
+. . imported "KDOT_BLP"."PON_FK_RESTORED"                45.04 KB     356 rows
+. . imported "KDOT_BLP"."PON_APP_USERS_20160324"             0 KB       0 rows
+. . imported "KDOT_BLP"."PON_VALDN"                      147.5 KB     308 rows
+. . imported "KDOT_BLP"."PON_APP_USERS_ROLES_11_28_18"   62.70 KB     519 rows
+. . imported "KDOT_BLP"."PON_ENVT_DEFS"                      8 KB       4 rows
+. . imported "KDOT_BLP"."PON_APP_USERS_ROLES_NEW"            0 KB       0 rows
+. . imported "KDOT_BLP"."PON_FUNDING"                    9.656 KB       2 rows
+. . imported "KDOT_BLP"."PON_INSP_STATUS_LOG"                0 KB       0 rows
+. . imported "KDOT_BLP"."PON_SESSION"                    2.985 MB   32388 rows
+. . imported "KDOT_BLP"."PON_APP_CONTEXTS"               6.273 KB       6 rows
+. . imported "KDOT_BLP"."KDOTBLP_INSPS_BACKUP_20200210"  45.50 MB  169314 rows
+. . imported "KDOT_BLP"."USERBRDG_BKU_20910416"          728.4 KB   21008 rows
+. . imported "KDOT_BLP"."PON_LAYOUTS"                    14.06 KB      13 rows
+. . imported "KDOT_BLP"."ELCATDFS"                       7.132 KB       9 rows
+. . imported "KDOT_BLP"."INSP_WCAND"                         0 KB       0 rows
+. . imported "KDOT_BLP"."KDOTBLP_DESIGN_MATERIAL_LOOKUP"  19.42 KB     128 rows
+. . imported "KDOT_BLP"."PON_PROG_OPTIMIZATION"              0 KB       0 rows
+. . imported "KDOT_BLP"."KDOTBLP_PON_APP_GROUP_CONTACTS"  22.08 KB     194 rows
+. . imported "KDOT_BLP"."ED_CHECKS_KEEPER"               50.96 KB     257 rows
+. . imported "KDOT_BLP"."FUTMETRIC"                          0 KB       0 rows
+. . imported "KDOT_BLP"."NBI_EXTRACT_2021_BKUP"          8.088 MB   19321 rows
+. . imported "KDOT_BLP"."ARC_ROADWAY_20200210"           7.642 MB   21097 rows
+. . imported "KDOT_BLP"."KDOTBLP_REPORTS"                11.28 KB      19 rows
+. . imported "KDOT_BLP"."NBI2013"                        10.44 MB   19595 rows
+. . imported "KDOT_BLP"."PBCATFMT"                       7.015 KB      20 rows
+. . imported "KDOT_BLP"."EXPCONDU"                       16.73 KB     424 rows
+. . imported "KDOT_BLP"."KDOTBLP_EXCLUDED_BRIDGEGROUPS"  7.070 KB       9 rows
+. . imported "KDOT_BLP"."EDITCHECK_CONSTANTS"            9.421 KB      20 rows
+. . imported "KDOT_BLP"."PON_APP_GROUP_ACCESS_FILTERS"   29.52 KB     215 rows
+. . imported "KDOT_BLP"."DM_COND_STATE_PAIRS"                0 KB       0 rows
+. . imported "KDOT_BLP"."BLP_BRIDGE_POSTINGS"                0 KB       0 rows
+. . imported "KDOT_BLP"."CRED_BACKUP"                    72.39 KB     464 rows
+. . imported "KDOT_BLP"."KDOTBLP_INSPECTIONS_20220119_ARM"  78.99 MB  193628 rows
+. . imported "KDOT_BLP"."MV_NUM_02_NBI59_AND_NBI60_LT2"      0 KB       0 rows
+. . imported "KDOT_BLP"."TMP_WITEMS"                         0 KB       0 rows
+. . imported "KDOT_BLP"."PON_FUNDING_TARGETS"            7.156 KB       4 rows
+. . imported "KDOT_BLP"."PON_BENEFIT_CHILD"                  0 KB       0 rows
+. . imported "KDOT_BLP"."ASSET_STATUS_ROLE"                  0 KB       0 rows
+. . imported "KDOT_BLP"."KDOTBLP_ATTRIBUTE_DESCRIPTOR_BKU_20190416"  58.17 KB     216 rows
+. . imported "KDOT_BLP"."MV_NUM_03_NBI64_GT_3_LT_21_MT"  13.81 KB       5 rows
+. . imported "KDOT_BLP"."PON_NBI_DISTRIBUTION"               0 KB       0 rows
+. . imported "KDOT_BLP"."PON_MAINT_ACTIVITY"                 0 KB       0 rows
+. . imported "KDOT_BLP"."PON_PROGRAM_CAT_PRJ_CAT_MAP"    5.617 KB       1 rows
+. . imported "KDOT_BLP"."PON_NAV_TASK_KEY"               6.695 KB       5 rows
+. . imported "KDOT_BLP"."PON_COPTIONS"                   20.28 KB      73 rows
+. . imported "KDOT_BLP"."KDOTBLP_VALDN_RESULTS"          12.38 MB  103002 rows
+. . imported "KDOT_BLP"."PON_APP_USERS"                  145.5 KB     595 rows
+. . imported "KDOT_BLP"."MV_NUM_04_NBI41_B"              92.75 KB      73 rows
+. . imported "KDOT_BLP"."PON_NBI_PROFILE"                8.843 KB       2 rows
+. . imported "KDOT_BLP"."PON_APP_USERS_11_28_18"         107.7 KB     525 rows
+. . imported "KDOT_BLP"."PROGELEM"                           0 KB       0 rows
+. . imported "KDOT_BLP"."DATADICT_3_23_16"               524.1 KB    1904 rows
+. . imported "KDOT_BLP"."PON_CS_MONTH_YEAR"                  0 KB       0 rows
+. . imported "KDOT_BLP"."MV_LATEST_INSPECTION"           2.460 MB   21427 rows
+. . imported "KDOT_BLP"."KLBEP_SCOUR_D1_TRANS"           323.8 KB    4057 rows
+. . imported "KDOT_BLP"."DM_DET_PROB_OLD_MODEL"              0 KB       0 rows
+. . imported "KDOT_BLP"."INSPEVNT"                       147.6 MB  205008 rows
+. . imported "KDOT_BLP"."PON_BATCH_TKEYS"                6.453 KB       1 rows
+. . imported "KDOT_BLP"."PON_PROG_PROJECT_RESULTS"           0 KB       0 rows
+. . imported "KDOT_BLP"."PON_CS_STREAMBED_CS_LINE"           0 KB       0 rows
+. . imported "KDOT_BLP"."KLBEP_SCOUR_D3_KDOT_PREV"       106.4 KB    2490 rows
+. . imported "KDOT_BLP"."PON_COST_INDEX"                     0 KB       0 rows
+. . imported "KDOT_BLP"."KDOTBLP_PRODUCTION_SEQS"        12.44 KB      30 rows
+. . imported "KDOT_BLP"."ARC_P_E_I_ARC_20200210"         538.1 KB    1094 rows
+. . imported "KDOT_BLP"."KLBEP_SCOUR_D5_TRANS"           394.2 KB    5126 rows
+. . imported "KDOT_BLP"."BLP_VEHICLE_LOAD_RATINGS"           0 KB       0 rows
+. . imported "KDOT_BLP"."KDOTBLP_INSPECTIONS_20220118"   78.99 MB  193628 rows
+. . imported "KDOT_BLP"."NBI2000"                        13.77 MB   25836 rows
+. . imported "KDOT_BLP"."STRUC_UNIT_SNAP_20060331"       1.902 MB   20468 rows
+. . imported "KDOT_BLP"."UPD_LAT_LONG"                   643.4 KB   20382 rows
+. . imported "KDOT_BLP"."PON_INSP_WORKCAND"                  0 KB       0 rows
+. . imported "KDOT_BLP"."ASSET_STATUS"                       0 KB       0 rows
+. . imported "KDOT_BLP"."INSPEVNT_SNAP_20060331"         5.512 MB   20480 rows
+. . imported "KDOT_BLP"."PON_FORMULA_PARAMS"             12.73 KB      19 rows
+. . imported "KDOT_BLP"."MV_KS_SW_SCOURCRIT_DETAIL"      3.682 MB   21306 rows
+. . imported "KDOT_BLP"."INSPEVNT_BKUP_10032014"         34.30 MB  107982 rows
+. . imported "KDOT_BLP"."PON_ELEM_TYPE_DEFS"             9.960 KB      19 rows
+. . imported "KDOT_BLP"."KDOTBLP_ATTRIBUTE_DESCRIPTOR_20181111"      0 KB       0 rows
+. . imported "KDOT_BLP"."PON_SESSION_BATCH_AR"           348.6 KB    3582 rows
+. . imported "KDOT_BLP"."PON_UTIL_CRIT_WEIGHTS_PROFILE"      0 KB       0 rows
+. . imported "KDOT_BLP"."MRRACTDF"                       54.49 KB    1029 rows
+. . imported "KDOT_BLP"."PON_NBI_LIMIT"                  10.67 KB      18 rows
+. . imported "KDOT_BLP"."KLBEP_SCOUR_D1_KDOT_PREV"       171.4 KB    4056 rows
+. . imported "KDOT_BLP"."OBJECT_HELP"                    8.273 KB      67 rows
+. . imported "KDOT_BLP"."PON_BENEFIT_GROUPS"             14.51 KB      52 rows
+. . imported "KDOT_BLP"."DEFAULT_SCENPARAM"              19.64 KB     166 rows
+. . imported "KDOT_BLP"."NBI2012"                        10.52 MB   19707 rows
+. . imported "KDOT_BLP"."ROADWAY"                        7.501 MB   21449 rows
+. . imported "KDOT_BLP"."BRIDGE"                         20.62 MB   21427 rows
+. . imported "KDOT_BLP"."COSTINDX"                       6.984 KB      92 rows
+. . imported "KDOT_BLP"."KDOTBLP_QAQC_REVIEW_FLAGS"      543.5 KB    3937 rows
+. . imported "KDOT_BLP"."PFERRORMSG"                        19 KB      86 rows
+. . imported "KDOT_BLP"."PON_BENEFIT_COST_FRONTIER"          0 KB       0 rows
+. . imported "KDOT_BLP"."KDOTBLP_USER_CREDENTIALS"       69.99 KB     459 rows
+. . imported "KDOT_BLP"."PON_NAV_CONTROL"                273.6 KB     929 rows
+. . imported "KDOT_BLP"."COPTIONS"                       42.59 KB     228 rows
+. . imported "KDOT_BLP"."USERPREFS"                      13.91 KB      96 rows
+. . imported "KDOT_BLP"."NETMETRIC"                          0 KB       0 rows
+. . imported "KDOT_BLP"."NBI2020"                        9.466 MB   19313 rows
+. . imported "KDOT_BLP"."KDOTBLP_LOAD_RATINGS"               0 KB       0 rows
+. . imported "KDOT_BLP"."PFUSER_PREF"                        0 KB       0 rows
+. . imported "KDOT_BLP"."NBI2007"                        10.97 MB   20556 rows
+. . imported "KDOT_BLP"."KLBEP_SCOUR_D5_KDOT_PREV"       209.2 KB    5126 rows
+. . imported "KDOT_BLP"."STATMDLS"                       136.3 KB    3664 rows
+. . imported "KDOT_BLP"."PON_LAYOUTS_FIELDS"             17.57 KB      87 rows
+. . imported "KDOT_BLP"."NBI1998"                        14.55 MB   27296 rows
+. . imported "KDOT_BLP"."DM_CONTROL"                         0 KB       0 rows
+. . imported "KDOT_BLP"."AGENCYPOLRULE"                  13.54 KB       1 rows
+. . imported "KDOT_BLP"."IMPRSETS"                       6.390 KB       1 rows
+. . imported "KDOT_BLP"."MV_LATEST_INSPECTION_ANY_INSPTYPE"  3.587 MB   21310 rows
+. . imported "KDOT_BLP"."PON_APP_ROLES_PERMISSIONS_NEW"      0 KB       0 rows
+. . imported "KDOT_BLP"."PON_CTRL_ELEMENTS_PRN"              0 KB       0 rows
+. . imported "KDOT_BLP"."EDITCHECK_NBI_LAYOUT"           28.61 KB     137 rows
+. . imported "KDOT_BLP"."PON_PROG_BRIDGE_RESULTS"            0 KB       0 rows
+Processing object type SCHEMA_EXPORT/TABLE/GRANT/OWNER_GRANT/OBJECT_GRANT
+ORA-39083: Object type OBJECT_GRANT failed to create with error:
+ORA-01931: cannot grant INDEX to a role
+
+Failing sql is:
+GRANT INDEX ON "KDOT_BLP"."KDOTBLP_LOG" TO "PWEBODBCLOGIN"
+ORA-39083: Object type OBJECT_GRANT failed to create with error:
+ORA-01931: cannot grant INDEX to a role
+
+Failing sql is:
+GRANT INDEX ON "KDOT_BLP"."KDOTBLP_LOG" TO "PWEBLOGINID"
+Processing object type SCHEMA_EXPORT/TABLE/COMMENT
+Processing object type SCHEMA_EXPORT/PACKAGE/PACKAGE_SPEC
+Processing object type SCHEMA_EXPORT/PACKAGE/GRANT/OWNER_GRANT/OBJECT_GRANT
+Processing object type SCHEMA_EXPORT/FUNCTION/FUNCTION
+Processing object type SCHEMA_EXPORT/FUNCTION/GRANT/OWNER_GRANT/OBJECT_GRANT
+Processing object type SCHEMA_EXPORT/PROCEDURE/PROCEDURE
+Processing object type SCHEMA_EXPORT/PROCEDURE/GRANT/OWNER_GRANT/OBJECT_GRANT
+Processing object type SCHEMA_EXPORT/PACKAGE/COMPILE_PACKAGE/PACKAGE_SPEC/ALTER_PACKAGE_SPEC
+Processing object type SCHEMA_EXPORT/FUNCTION/ALTER_FUNCTION
+Processing object type SCHEMA_EXPORT/PROCEDURE/ALTER_PROCEDURE
+Processing object type SCHEMA_EXPORT/VIEW/VIEW
+Processing object type SCHEMA_EXPORT/VIEW/GRANT/OWNER_GRANT/OBJECT_GRANT
+Processing object type SCHEMA_EXPORT/PACKAGE/PACKAGE_BODY
+Processing object type SCHEMA_EXPORT/TABLE/INDEX/INDEX
+Processing object type SCHEMA_EXPORT/TABLE/INDEX/FUNCTIONAL_INDEX/INDEX
+Processing object type SCHEMA_EXPORT/TABLE/CONSTRAINT/CONSTRAINT
+Processing object type SCHEMA_EXPORT/TABLE/INDEX/STATISTICS/INDEX_STATISTICS
+Processing object type SCHEMA_EXPORT/TABLE/INDEX/STATISTICS/FUNCTIONAL_INDEX/INDEX_STATISTICS
+Processing object type SCHEMA_EXPORT/TABLE/CONSTRAINT/REF_CONSTRAINT
+Processing object type SCHEMA_EXPORT/TABLE/TRIGGER
+Processing object type SCHEMA_EXPORT/TABLE/STATISTICS/TABLE_STATISTICS
+Processing object type SCHEMA_EXPORT/STATISTICS/MARKER
+Processing object type SCHEMA_EXPORT/MATERIALIZED_VIEW
+ORA-39083: Object type MATERIALIZED_VIEW:"KDOT_BLP"."MV_ALL_INSPECTIONS_ORDERED" failed to create with error:
+ORA-32334: cannot create prebuilt materialized view on a table already referenced by a MV
+
+Failing sql is:
+CREATE MATERIALIZED VIEW "KDOT_BLP"."MV_ALL_INSPECTIONS_ORDERED" ("BRKEY", "BRIDGE_GD", "INSPKEY", "INSPEVNT_GD", "INSPDATE", "LASTINSP", "NEXTINSP", "DATE_ENTERED", "INSPTYPE", "NEW_INSPTYPE", "CREATEDATETIME", "MODTIME", "ORIG_INSPTYPE", "ORIG_CREATEDATETIME", "ORIG_MODTIME", "ORIG_FCLASTINSP", "ORIG_UWLASTINSP", "ORIG_OSLASTINSP", "RN", "NEXT_BRIDGE_GD", "NEXT_INSPDATE", "NEXT_INSPKEY", "NEXT_INSPEVNT_GD", "LAST_BRIDGE_GD", "LAST_INSPDATE", "LAST_INSPKEY", "LAST_INSPEVNT_GD") USING ("MV_ALL_INSPECTIONS_ORDERED", (10, 'ESOAPROD.WORLD', 1, 0, 0, "KDOT_BLP", "INSPEVNT", '2022-12-15 14:01:01', 0, 253525, '2022-12-15 14:01:01', '', 0, 16168649849615, 0, NULL), 2228544, 10, ('2022-11-30 13:55:25', 241, 0, 0, 16168649849615, 0, 0, 4194336, 2, NULL, NULL)) REFRESH FORCE AS SELECT Src1.*
+  FROM (SELECT i.Brkey
+              ,i.Bridge_Gd
+              ,i.Inspkey
+              ,i.Inspevnt_Gd
+              ,i.Inspdate
+              ,i.Lastinsp
+              ,i.Nextinsp
+              ,i.Date_Entered
+              ,i.Insptype
+              ,CASE
+                 WHEN Ft.Inspevnt_Gd IS NOT NULL THEN
+                  'I'
+                 ELSE
+                  i.Insptype
+               END AS New_Insptype
+              ,i.Createdatetime
+              ,i.Modtime
+              , i.INSPTYPE As Orig_Insptype -- Original INSPTYPE artifact
+              ,i.Createdatetime AS Orig_Createdatetime --Original CreateDateTime Date artifact
+              ,i.Modtime AS Orig_Modtime --Original ModTime d
+ORA-39083: Object type MATERIALIZED_VIEW:"KDOT_BLP"."MV_LATEST_INSPECTION" failed to create with error:
+ORA-32334: cannot create prebuilt materialized view on a table already referenced by a MV
+
+Failing sql is:
+CREATE MATERIALIZED VIEW "KDOT_BLP"."MV_LATEST_INSPECTION" ("BRIDGE_GD", "INSPEVNT_GD", "BRKEY", "INSPKEY", "INSPDATE", "INSPTYPE", "BRINSPFREQ", "LASTINSP", "DATE_ENTERED") USING ("MV_LATEST_INSPECTION", (10, 'ESOAPROD.WORLD', 1, 0, 0, "KDOT_BLP", "BRIDGE", '2022-12-15 15:00:00', 0, 253559, '2022-12-15 15:00:00', '', 0, 16168649867232, 0, NULL), 2228544, 10, ('2020-07-21 14:39:38', 141, 0, 0, 16168649867232, 0, 0, 4194336, 2, NULL, NULL)) REFRESH FORCE AS WITH Cte AS
+ (SELECT b.Bridge_Gd
+        ,I1.Inspevnt_Gd
+        ,b.Brkey
+        ,I1.Inspkey
+        ,I1.Inspdate
+        ,I1.Insptype
+        , Cast(I1.BRINSPFREQ As Number) As BRINSPFREQ
+        ,I1.Lastinsp
+        ,I1.Date_Entered
+      /*  ,f_Nextrinsp_Date(b.Brkey) AS Nextrinsp_Calc
+        ,f_Nextfcinsp_Date(b.Brkey) AS Nextfcinsp_Calc
+        ,f_Nextosinsp_Date(b.Brkey) AS Nextosinsp_Calc*/
+        ,Row_Number() Over(PARTITION BY I1.Bridge_Gd ORDER BY I1.Inspdate DESC, I1.CreateDateTime Desc) Rn
+    FROM Inspevnt I1
+   INNER JOIN Bridge b
+      On ( I1.Bridge_Gd = b.Bridge_Gd))
+SELECT Cte.Bridge_Gd
+      ,Cte.Inspevnt_Gd
+      ,Cte.Brkey
+      ,Cte.Inspkey
+      ,Cte.Inspdate
+      ,cte.insptype
+      ,cte.BRINSPFREQ
+      ,Cte.Lastinsp
+      ,Cte.Date_Entered
+  /*    ,Cte.Nextrinsp_Calc
+      ,Cte.Nextfcinsp_Calc
+      ,Cte.Nextosinsp_Calc*/
+  FROM Cte
+ WHERE Rn = 1
+Processing object type SCHEMA_EXPORT/JOB
+Processing object type SCHEMA_EXPORT/REFRESH_GROUP
+ORA-31685: Object type REFRESH_GROUP:"KDOT_BLP"."MV_ALL_INSPECTIONS_ORDERED" failed due to insufficient privileges. Failing sql is:
+ BEGIN dbms_refresh.make('"KDOT_BLP"."MV_ALL_INSPECTIONS_ORDERED"',list=>null,next_date=>'16-DEC-22',interval=>'sysdate + 1 ',implicit_destroy=>TRUE,lax=>FALSE,job=>121,rollback_seg=>NULL,push_deferred_rpc=>TRUE,refresh_after_errors=>FALSE,purge_option=>1,parallelism=>0,heap_size=>0);
+dbms_refresh.add(name=>'"KDOT_BLP"."MV_ALL_INSPECTIONS_ORDERED"',list=>'"KDOT_BLP"."MV_ALL_INSPECTIONS_ORDERED"',siteid=>0,export_db=>'ESOAPROD.WORLD'); END; 
+Processing object type SCHEMA_EXPORT/POST_SCHEMA/PROCOBJ
+ORA-39082: Object type TRIGGER:"KDOT_BLP"."TAUI_SET_SPEC_INSPTYPES" created with compilation warnings
+Job "SYS"."SYS_IMPORT_SCHEMA_01" completed with 15 error(s) at Sat Jan 7 10:20:12 2023 elapsed 0 00:03:59

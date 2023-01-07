@@ -1,0 +1,577 @@
+﻿Executing Fixup_Missing_INSPUSRGUID.pdc
+Executing Drop_Create_Table_PON_MOBILE_ERRORS.pdc
+Creating table PON_MOBILE_ERRORS
+Creating table PON_MOBILE_ERRORS -succeeded
+Executing Drop_Create_Table_VALIDATION_WARNING.pdc
+Dropping table VALIDATION_WARNING
+Creating table VALIDATION_WARNING
+Executing Drop_Create_Dummy_UserTables.pdc
+
+BEGIN
+      DBMS_OUTPUT.ENABLE();
+      DBMS_OUTPUT.PUT_LINE('Prepared at Bentley Systems, Inc AKA Mayvue by Chris.Meredith on 9/10/2018 10:35:59 AM.');
+      DBMS_OUTPUT.PUT_LINE('Additional changes by Allen R. Marshall, ARM LLC - starting 20220818');
+      DBMS_OUTPUT.PUT_LINE('===========================================================================================================================================================');
+      DBMS_OUTPUT.PUT_LINE('ARM LLC Revision History');
+      DBMS_OUTPUT.PUT_LINE('===========================================================================================================================================================');
+      DBMS_OUTPUT.PUT_LINE('20220818 - ARMarshall, ARM LLC - initial review, added globals to preserve datadict and paramtrs tables for KDOT LBIS 9 (BrM 5.3) database');
+      DBMS_OUTPUT.PUT_LINE('20221220 - ARMarshall, ARM LLC - corrected minor typos as encountered');
+      DBMS_OUTPUT.PUT_LINE('20221220 - ARMarshall, ARM LLC - changed name of global to SAVEAGENCYSYSTABLES, now just 1 global, more changes near line 390 to backup PARAMTRS, DATADICT,PON_COPTIONS, COPTIONS, and KDOTBLP_ATTRIBUTE_DESCRIPTOR explicitly');
+      DBMS_OUTPUT.PUT_LINE('20221220 - ARMarshall, ARM LLC - near line 32,442 declaration for the query string is now V_Q VARCHAR2(2000 CHAR); -- ARMarshall, ARM LLC - 20221220 - error reported string buffer was too small, increased from 300 to 2000');
+      DBMS_OUTPUT.PUT_LINE('20221220 - ARMarshall, ARM LLC - near line 40,604 - failing because MV did not exist due to repeated runs (?) reformatted this MV section and added BEGIN EXCEPTION END blocks around each EXECUTE IMMEDIATE');
+      DBMS_OUTPUT.PUT_LINE('20221220 - ARMarshall, ARM LLC - added option to print cursor detail for debugging purposes - set to 0 normally ');
+      DBMS_OUTPUT.PUT_LINE('20221227 - ARMarshall, ARM LLC - set option DISABLE_FORCE_DEF_BY_TABLE to ON, created table VALIDATION_WARNING externally, modified table PON_APP_USERS_ROLES to add ACTIVE_DIRECTORY_ROLE column  directly');
+      DBMS_OUTPUT.PUT_LINE('20221227 - ARMarshall, ARM LLC - External script Drop_Create_Table_PON_MOBILE_ERRORS.pdc created to create new table PON_MOBILE_ERRORS');
+      DBMS_OUTPUT.PUT_LINE('20221227 - ARMarshall, ARM LLC - External script Drop_Create_Table_VALIDATION_WARNING.pdc created to create new table VALIDATION_WARNING');
+      DBMS_OUTPUT.PUT_LINE('20221227 - ARMarshall, ARM LLC - External script Drop_Create_Dummy_UserTables.pdc created to create dummy USERBRDG and USERINSP tables');
+      DBMS_OUTPUT.PUT_LINE('20221227 - ARMarshall, ARM LLC - As of 20221227, there were no orphan records in USERRWAY or USERSTRUNIT');
+      DBMS_OUTPUT.PUT_LINE('20221228 - ARMarshall, ARM LLC - Script assumes that table PON_PROGRAM has column INCLUDE_WORK_CANDIDATES CHAR(1) DEFAULT (''T'')');
+      DBMS_OUTPUT.PUT_LINE('20230103 - ARMarshall, ARM LLC - Script modified to use procedure backup_KDOTBLP_PORTAL_TABLES to backup separately every table listed in KDOTBLP_PORTAL_TABLES with unique name and suffix _KT, added global var KDOT_TABLE_CLEANUP to kill the tables after the run, defaults to 0');
+      DBMS_OUTPUT.PUT_LINE('20230103 - ARMarshall, ARM LLC - Changed object name e.g. TABLE_NAME references from VARCHAR2(30) to VARCHAR2(128 BYTE) throughout');
+      DBMS_OUTPUT.PUT_LINE('20230103 - ARMarshall, ARM LLC - this name length change affects several/many SUBSTR calls - the table names may be as long as 128');
+      DBMS_OUTPUT.PUT_LINE('20230103 - ARMarshall, ARM LLC - EXAMPLE SNIPPET (near line 4860:');
+      DBMS_OUTPUT.PUT_LINE(q'[ >>>>>>>>>>>>>>> -- Oracle object name used to be 30 ]');
+      DBMS_OUTPUT.PUT_LINE(q'[ >>>>>>>>>>>>>>> -- the SUBSTR function here has been changed to permit up to 126 chars of the real name to be used for the _T table ]');
+      DBMS_OUTPUT.PUT_LINE(q'[ >>>>>>>>>>>>>>> -- given that the suffix _T takes up 2 chars. ]');
+      DBMS_OUTPUT.PUT_LINE(q'[ >>>>>>>>>>>>>>>     WITH T(TABLE_NAME) AS (SELECT DISTINCT SUBSTR(TABLE_NAME, 1, 126) || '_T' FROM PON_DICT  ] etc.]');
+      DBMS_OUTPUT.PUT_LINE('20230103 - ARMarshall, ARM LLC - fixed apparent typo IS_K1EY to IS_KEY in the inserts to DATADICT_T near line 6080');
+      DBMS_OUTPUT.PUT_LINE('20230103 - ARMarshall, ARM LLC - relocated the prerequisite tables to repos subdirectory KDOT-LBIS-BRM-MIGRATION/files/scripts/ ');
+      DBMS_OUTPUT.PUT_LINE(q'[20230105 - ARMarshall,ARM LLC -added/restored NOT NULL constraint to USERRWAY.ON_UNDER and USERSTRUNIT.STRUNITKEY]');
+      DBMS_OUTPUT.PUT_LINE(q'[20230106 - ARMarshall,ARM LLC -added a script Script_Restore_Missing_KDOT_Objects.pdc to restore KDOT objects that get nuked by the upgrade process.  Runs at the end of the upgrade.]'); 
+      DBMS_OUTPUT.PUT_LINE('===========================================================================================================================================================');
+END;
+
+ORA-06550: line 30, column 19:
+PLS-00302: component 'PUT_LIN' must be declared
+ORA-06550: line 30, column 7:
+PL/SQL: Statement ignored
+RUNNING AASHTOWare Bridge Management 6.0 GUID upgrade script.
+Run on KDOT_BLP BrM 6.0 Oracle on FRIDAY 1/6/2023 at 15:10 PM.
+Executing external SP -  BACKUP_KDOTBLP_PORTAL_TABLES
+Archiving KDOT Portal Table KDOTBLP_ATTRIBUTE_DESCRIPTOR TO KDOTBLP_ATTRIBUTE_DESCRIPTOR_20230106_030137_KT...
+Table KDOTBLP_ATTRIBUTE_DESCRIPTOR archived OK >> KDOTBLP_ATTRIBUTE_DESCRIPTOR
+Archiving KDOT Portal Table KDOTBLP_USERS TO KDOTBLP_USERS_20230106_030137_KT...
+Table KDOTBLP_USERS archived OK >> KDOTBLP_USERS
+Archiving KDOT Portal Table KDOTBLP_BRIDGE TO KDOTBLP_BRIDGE_20230106_030137_KT...
+Table KDOTBLP_BRIDGE archived OK >> KDOTBLP_BRIDGE
+Archiving KDOT Portal Table KDOTBLP_INSPECTIONS TO KDOTBLP_INSPECTIONS_20230106_030137_KT...
+Table KDOTBLP_INSPECTIONS archived OK >> KDOTBLP_INSPECTIONS
+Archiving KDOT Portal Table USERSTRUNIT TO USERSTRUNIT_20230106_030137_KT...
+Table USERSTRUNIT archived OK >> USERSTRUNIT
+Archiving KDOT Portal Table KDOTBLP_STRUCTURE_UNIT TO KDOTBLP_STRUCTURE_UNIT_20230106_030137_KT...
+Table KDOTBLP_STRUCTURE_UNIT archived OK >> KDOTBLP_STRUCTURE_UNIT
+Archiving KDOT Portal Table USERRWAY TO USERRWAY_20230106_030137_KT...
+Table USERRWAY archived OK >> USERRWAY
+Archiving KDOT Portal Table KDOTBLP_LOAD_RATINGS TO KDOTBLP_LOAD_RATINGS_20230106_030137_KT...
+Table KDOTBLP_LOAD_RATINGS archived OK >> KDOTBLP_LOAD_RATINGS
+Archiving KDOT Portal Table LR_VEHICLE_DEFS TO LR_VEHICLE_DEFS_20230106_030137_KT...
+Table LR_VEHICLE_DEFS archived OK >> LR_VEHICLE_DEFS
+Archiving KDOT Portal Table KDOTBLP_QAQC_REVIEW_FINDINGS TO KDOTBLP_QAQC_REVIEW_FINDINGS_20230106_030137_KT...
+Table KDOTBLP_QAQC_REVIEW_FINDINGS archived OK >> KDOTBLP_QAQC_REVIEW_FINDINGS
+Archiving KDOT Portal Table KDOTBLP_QAQC_REVIEW_FLAGS TO KDOTBLP_QAQC_REVIEW_FLAGS_20230106_030137_KT...
+Table KDOTBLP_QAQC_REVIEW_FLAGS archived OK >> KDOTBLP_QAQC_REVIEW_FLAGS
+Archiving KDOT Portal Table KDOTBLP_DOCUMENTS TO KDOTBLP_DOCUMENTS_20230106_030137_KT...
+Table KDOTBLP_DOCUMENTS archived OK >> KDOTBLP_DOCUMENTS
+Archiving KDOT Portal Table KDOTBLP_NBI_RATING_HISTORY TO KDOTBLP_NBI_RATING_HISTORY_20230106_030137_KT...
+Table KDOTBLP_NBI_RATING_HISTORY archived OK >> KDOTBLP_NBI_RATING_HISTORY
+Archiving KDOT Portal Table KDOTBLP_KBLRP_CONTRACTS TO KDOTBLP_KBLRP_CONTRACTS_20230106_030137_KT...
+Table KDOTBLP_KBLRP_CONTRACTS archived OK >> KDOTBLP_KBLRP_CONTRACTS
+Archiving KDOT Portal Table KDOTBLP_EXCLUDED_STRUCTURES TO KDOTBLP_EXCLUDED_STRUCTURES_20230106_030137_KT...
+Table KDOTBLP_EXCLUDED_STRUCTURES archived OK >> KDOTBLP_EXCLUDED_STRUCTURES
+Archiving KDOT Portal Table KDOTBLP_FORM_TABS TO KDOTBLP_FORM_TABS_20230106_030137_KT...
+Table KDOTBLP_FORM_TABS archived OK >> KDOTBLP_FORM_TABS
+Archiving KDOT Portal Table KDOTBLP_DESIGN_MATERIAL_LOOKUP TO KDOTBLP_DESIGN_MATERIAL_LOOKUP_20230106_030137_KT...
+Table KDOTBLP_DESIGN_MATERIAL_LOOKUP archived OK >> KDOTBLP_DESIGN_MATERIAL_LOOKUP
+Archiving KDOT Portal Table KDOTBLP_PON_APP_GROUP_CONTACTS TO KDOTBLP_PON_APP_GROUP_CONTACTS_20230106_030137_KT...
+Table KDOTBLP_PON_APP_GROUP_CONTACTS archived OK >> KDOTBLP_PON_APP_GROUP_CONTACTS
+Archiving KDOT Portal Table KDOTBLP_REPORTS TO KDOTBLP_REPORTS_20230106_030137_KT...
+Table KDOTBLP_REPORTS archived OK >> KDOTBLP_REPORTS
+Archiving KDOT Portal Table KDOTBLP_VALDN_RESULTS TO KDOTBLP_VALDN_RESULTS_20230106_030137_KT...
+Table KDOTBLP_VALDN_RESULTS archived OK >> KDOTBLP_VALDN_RESULTS
+Archiving KDOT Portal Table KIND_CODE_LABELS TO KIND_CODE_LABELS_20230106_030137_KT...
+Table KIND_CODE_LABELS archived OK >> KIND_CODE_LABELS
+Archiving KDOT Portal Table LOOKUP_MAT_DESIGN_APPR_TYPE TO LOOKUP_MAT_DESIGN_APPR_TYPE_20230106_030137_KT...
+Table LOOKUP_MAT_DESIGN_APPR_TYPE archived OK >> LOOKUP_MAT_DESIGN_APPR_TYPE
+Archiving KDOT Portal Table PARAMTRS TO PARAMTRS_20230106_030137_KT...
+Table PARAMTRS archived OK >> PARAMTRS
+Archiving KDOT Portal Table LOOKUP_MAT_DESIGN_MAIN_TYPE TO LOOKUP_MAT_DESIGN_MAIN_TYPE_20230106_030137_KT...
+Table LOOKUP_MAT_DESIGN_MAIN_TYPE archived OK >> LOOKUP_MAT_DESIGN_MAIN_TYPE
+Archiving KDOT Portal Table DATADICT TO DATADICT_20230106_030137_KT...
+Table DATADICT archived OK >> DATADICT
+Archiving KDOT Portal Table COPTIONS TO COPTIONS_20230106_030137_KT...
+Table COPTIONS archived OK >> COPTIONS
+Archiving KDOT Portal Table PON_COPTIONS TO PON_COPTIONS_20230106_030137_KT...
+Table PON_COPTIONS archived OK >> PON_COPTIONS
+Archiving KDOT Portal Table PON_APP_USERS TO PON_APP_USERS_20230106_030137_KT...
+Table PON_APP_USERS archived OK >> PON_APP_USERS
+Archiving KDOT Portal Table PON_APP_ROLES TO PON_APP_ROLES_20230106_030137_KT...
+Table PON_APP_ROLES archived OK >> PON_APP_ROLES
+Archiving KDOT Portal Table PON_APP_USERS_ROLES TO PON_APP_USERS_ROLES_20230106_030137_KT...
+Table PON_APP_USERS_ROLES archived OK >> PON_APP_USERS_ROLES
+Archiving KDOT Portal Table PON_APP_PERMISSIONS TO PON_APP_PERMISSIONS_20230106_030137_KT...
+Table PON_APP_PERMISSIONS archived OK >> PON_APP_PERMISSIONS
+Archiving KDOT Portal Table PON_APP_ROLES_PERMISSIONS TO PON_APP_ROLES_PERMISSIONS_20230106_030137_KT...
+Table PON_APP_ROLES_PERMISSIONS archived OK >> PON_APP_ROLES_PERMISSIONS
+Archiving KDOT Portal Table PON_APP_GROUPS TO PON_APP_GROUPS_20230106_030137_KT...
+Table PON_APP_GROUPS archived OK >> PON_APP_GROUPS
+Archiving KDOT Portal Table PON_APP_USERS_GROUPS TO PON_APP_USERS_GROUPS_20230106_030137_KT...
+Table PON_APP_USERS_GROUPS archived OK >> PON_APP_USERS_GROUPS
+Archiving KDOT Portal Table PON_APP_GROUP_ACCESS_FILTERS TO PON_APP_GROUP_ACCESS_FILTERS_20230106_030137_KT...
+Table PON_APP_GROUP_ACCESS_FILTERS archived OK >> PON_APP_GROUP_ACCESS_FILTERS
+Archiving KDOT Portal Table PON_FILTERS TO PON_FILTERS_20230106_030137_KT...
+Table PON_FILTERS archived OK >> PON_FILTERS
+Archiving KDOT Portal Table PON_LAYOUTS TO PON_LAYOUTS_20230106_030137_KT...
+Table PON_LAYOUTS archived OK >> PON_LAYOUTS
+Archiving KDOT Portal Table KDOTBLP_ATTRIBUTE_DESCRIPTOR TO KDOTBLP_ATTRIBUTE_DESCRIPTOR_A14AF3B1D8ED4211B8491A2B8197A0BF_KT...
+Table KDOTBLP_ATTRIBUTE_DESCRIPTOR archived OK
+Archiving KDOT Portal Table KDOTBLP_USERS TO KDOTBLP_USERS_A14AF3B1D8ED4211B8491A2B8197A0BF_KT...
+Table KDOTBLP_USERS archived OK
+Archiving KDOT Portal Table KDOTBLP_BRIDGE TO KDOTBLP_BRIDGE_A14AF3B1D8ED4211B8491A2B8197A0BF_KT...
+Table KDOTBLP_BRIDGE archived OK
+Archiving KDOT Portal Table KDOTBLP_INSPECTIONS TO KDOTBLP_INSPECTIONS_A14AF3B1D8ED4211B8491A2B8197A0BF_KT...
+Table KDOTBLP_INSPECTIONS archived OK
+Archiving KDOT Portal Table USERSTRUNIT TO USERSTRUNIT_A14AF3B1D8ED4211B8491A2B8197A0BF_KT...
+Table USERSTRUNIT archived OK
+Archiving KDOT Portal Table KDOTBLP_STRUCTURE_UNIT TO KDOTBLP_STRUCTURE_UNIT_A14AF3B1D8ED4211B8491A2B8197A0BF_KT...
+Table KDOTBLP_STRUCTURE_UNIT archived OK
+Archiving KDOT Portal Table USERRWAY TO USERRWAY_A14AF3B1D8ED4211B8491A2B8197A0BF_KT...
+Table USERRWAY archived OK
+Archiving KDOT Portal Table KDOTBLP_LOAD_RATINGS TO KDOTBLP_LOAD_RATINGS_A14AF3B1D8ED4211B8491A2B8197A0BF_KT...
+Table KDOTBLP_LOAD_RATINGS archived OK
+Archiving KDOT Portal Table LR_VEHICLE_DEFS TO LR_VEHICLE_DEFS_A14AF3B1D8ED4211B8491A2B8197A0BF_KT...
+Table LR_VEHICLE_DEFS archived OK
+Archiving KDOT Portal Table KDOTBLP_QAQC_REVIEW_FINDINGS TO KDOTBLP_QAQC_REVIEW_FINDINGS_A14AF3B1D8ED4211B8491A2B8197A0BF_KT...
+Table KDOTBLP_QAQC_REVIEW_FINDINGS archived OK
+Archiving KDOT Portal Table KDOTBLP_QAQC_REVIEW_FLAGS TO KDOTBLP_QAQC_REVIEW_FLAGS_A14AF3B1D8ED4211B8491A2B8197A0BF_KT...
+Table KDOTBLP_QAQC_REVIEW_FLAGS archived OK
+Archiving KDOT Portal Table KDOTBLP_DOCUMENTS TO KDOTBLP_DOCUMENTS_A14AF3B1D8ED4211B8491A2B8197A0BF_KT...
+Table KDOTBLP_DOCUMENTS archived OK
+Archiving KDOT Portal Table KDOTBLP_NBI_RATING_HISTORY TO KDOTBLP_NBI_RATING_HISTORY_A14AF3B1D8ED4211B8491A2B8197A0BF_KT...
+Table KDOTBLP_NBI_RATING_HISTORY archived OK
+Archiving KDOT Portal Table KDOTBLP_KBLRP_CONTRACTS TO KDOTBLP_KBLRP_CONTRACTS_A14AF3B1D8ED4211B8491A2B8197A0BF_KT...
+Table KDOTBLP_KBLRP_CONTRACTS archived OK
+Archiving KDOT Portal Table KDOTBLP_EXCLUDED_STRUCTURES TO KDOTBLP_EXCLUDED_STRUCTURES_A14AF3B1D8ED4211B8491A2B8197A0BF_KT...
+Table KDOTBLP_EXCLUDED_STRUCTURES archived OK
+Archiving KDOT Portal Table KDOTBLP_FORM_TABS TO KDOTBLP_FORM_TABS_A14AF3B1D8ED4211B8491A2B8197A0BF_KT...
+Table KDOTBLP_FORM_TABS archived OK
+Archiving KDOT Portal Table KDOTBLP_DESIGN_MATERIAL_LOOKUP TO KDOTBLP_DESIGN_MATERIAL_LOOKUP_A14AF3B1D8ED4211B8491A2B8197A0BF_KT...
+Table KDOTBLP_DESIGN_MATERIAL_LOOKUP archived OK
+Archiving KDOT Portal Table KDOTBLP_PON_APP_GROUP_CONTACTS TO KDOTBLP_PON_APP_GROUP_CONTACTS_A14AF3B1D8ED4211B8491A2B8197A0BF_KT...
+Table KDOTBLP_PON_APP_GROUP_CONTACTS archived OK
+Archiving KDOT Portal Table KDOTBLP_REPORTS TO KDOTBLP_REPORTS_A14AF3B1D8ED4211B8491A2B8197A0BF_KT...
+Table KDOTBLP_REPORTS archived OK
+Archiving KDOT Portal Table KDOTBLP_VALDN_RESULTS TO KDOTBLP_VALDN_RESULTS_A14AF3B1D8ED4211B8491A2B8197A0BF_KT...
+Table KDOTBLP_VALDN_RESULTS archived OK
+Archiving KDOT Portal Table KIND_CODE_LABELS TO KIND_CODE_LABELS_A14AF3B1D8ED4211B8491A2B8197A0BF_KT...
+Table KIND_CODE_LABELS archived OK
+Archiving KDOT Portal Table LOOKUP_MAT_DESIGN_APPR_TYPE TO LOOKUP_MAT_DESIGN_APPR_TYPE_A14AF3B1D8ED4211B8491A2B8197A0BF_KT...
+Table LOOKUP_MAT_DESIGN_APPR_TYPE archived OK
+Archiving KDOT Portal Table PARAMTRS TO PARAMTRS_A14AF3B1D8ED4211B8491A2B8197A0BF_KT...
+Table PARAMTRS archived OK
+Archiving KDOT Portal Table LOOKUP_MAT_DESIGN_MAIN_TYPE TO LOOKUP_MAT_DESIGN_MAIN_TYPE_A14AF3B1D8ED4211B8491A2B8197A0BF_KT...
+Table LOOKUP_MAT_DESIGN_MAIN_TYPE archived OK
+Archiving KDOT Portal Table DATADICT TO DATADICT_A14AF3B1D8ED4211B8491A2B8197A0BF_KT...
+Table DATADICT archived OK
+Archiving KDOT Portal Table COPTIONS TO COPTIONS_A14AF3B1D8ED4211B8491A2B8197A0BF_KT...
+Table COPTIONS archived OK
+Archiving KDOT Portal Table PON_COPTIONS TO PON_COPTIONS_A14AF3B1D8ED4211B8491A2B8197A0BF_KT...
+Table PON_COPTIONS archived OK
+Archiving KDOT Portal Table PON_APP_USERS TO PON_APP_USERS_A14AF3B1D8ED4211B8491A2B8197A0BF_KT...
+Table PON_APP_USERS archived OK
+Archiving KDOT Portal Table PON_APP_ROLES TO PON_APP_ROLES_A14AF3B1D8ED4211B8491A2B8197A0BF_KT...
+Table PON_APP_ROLES archived OK
+Archiving KDOT Portal Table PON_APP_USERS_ROLES TO PON_APP_USERS_ROLES_A14AF3B1D8ED4211B8491A2B8197A0BF_KT...
+Table PON_APP_USERS_ROLES archived OK
+Archiving KDOT Portal Table PON_APP_PERMISSIONS TO PON_APP_PERMISSIONS_A14AF3B1D8ED4211B8491A2B8197A0BF_KT...
+Table PON_APP_PERMISSIONS archived OK
+Archiving KDOT Portal Table PON_APP_ROLES_PERMISSIONS TO PON_APP_ROLES_PERMISSIONS_A14AF3B1D8ED4211B8491A2B8197A0BF_KT...
+Table PON_APP_ROLES_PERMISSIONS archived OK
+Archiving KDOT Portal Table PON_APP_GROUPS TO PON_APP_GROUPS_A14AF3B1D8ED4211B8491A2B8197A0BF_KT...
+Table PON_APP_GROUPS archived OK
+Archiving KDOT Portal Table PON_APP_USERS_GROUPS TO PON_APP_USERS_GROUPS_A14AF3B1D8ED4211B8491A2B8197A0BF_KT...
+Table PON_APP_USERS_GROUPS archived OK
+Archiving KDOT Portal Table PON_APP_GROUP_ACCESS_FILTERS TO PON_APP_GROUP_ACCESS_FILTERS_A14AF3B1D8ED4211B8491A2B8197A0BF_KT...
+Table PON_APP_GROUP_ACCESS_FILTERS archived OK
+Archiving KDOT Portal Table PON_FILTERS TO PON_FILTERS_A14AF3B1D8ED4211B8491A2B8197A0BF_KT...
+Table PON_FILTERS archived OK
+Archiving KDOT Portal Table PON_LAYOUTS TO PON_LAYOUTS_A14AF3B1D8ED4211B8491A2B8197A0BF_KT...
+Table PON_LAYOUTS archived OK
+Update PON_COPTIONS_T with values from PON_COPTIONS.
+MERGE INTO PON_DICT T
+    USING (SELECT
+                CASE UPPER(OPTIONNAME)
+                    WHEN 'XTRNBRDGTABLE' THEN 'USERBRDG'
+                    WHEN 'XTRNINSPTABLE' THEN 'USERINSP'
+                    WHEN 'XTRNRWAYTABLE' THEN 'USERRWAY'
+                    WHEN 'XTRNSTRUNITTABLE' THEN 'USERSTRUNIT'
+                    ELSE OPTIONVAL
+                END TABLE_NAME,
+                UPPER(OPTIONVAL) CUSTOM_TABLE_NAME
+            FROM PON_COPTIONS_T
+            WHERE UPPER(OPTIONNAME) IN ('XTRNBRDGTABLE', 'XTRNINSPTABLE', 'XTRNRWAYTABLE', 'XTRNSTRUNITTABLE')
+    ) S
+    ON (T.ORIGINAL_TABLE_NAME = S.TABLE_NAME)
+    WHEN MATCHED THEN UPDATE SET T.TABLE_NAME = S.CUSTOM_TABLE_NAME
+MERGE INTO PON_FK T
+    USING (SELECT
+                CASE UPPER(OPTIONNAME)
+                    WHEN 'XTRNBRDGTABLE' THEN 'USERBRDG'
+                    WHEN 'XTRNINSPTABLE' THEN 'USERINSP'
+                    WHEN 'XTRNRWAYTABLE' THEN 'USERRWAY'
+                    WHEN 'XTRNSTRUNITTABLE' THEN 'USERSTRUNIT'
+                    ELSE OPTIONVAL
+                END TABLE_NAME,
+                UPPER(OPTIONVAL) CUSTOM_TABLE_NAME
+            FROM PON_COPTIONS_T
+            WHERE UPPER(OPTIONNAME) IN ('XTRNBRDGTABLE', 'XTRNINSPTABLE', 'XTRNRWAYTABLE', 'XTRNSTRUNITTABLE')
+    ) S
+    ON (T.ORIGINAL_TABLE_NAME = S.TABLE_NAME)
+    WHEN MATCHED THEN UPDATE SET T.TABLE_NAME = S.CUSTOM_TABLE_NAME
+MERGE INTO PON_INDEX T
+    USING (SELECT
+                CASE UPPER(OPTIONNAME)
+                    WHEN 'XTRNBRDGTABLE' THEN 'USERBRDG'
+                    WHEN 'XTRNINSPTABLE' THEN 'USERINSP'
+                    WHEN 'XTRNRWAYTABLE' THEN 'USERRWAY'
+                    WHEN 'XTRNSTRUNITTABLE' THEN 'USERSTRUNIT'
+                    ELSE OPTIONVAL
+                END TABLE_NAME,
+                UPPER(OPTIONVAL) CUSTOM_TABLE_NAME
+            FROM PON_COPTIONS_T
+            WHERE UPPER(OPTIONNAME) IN ('XTRNBRDGTABLE', 'XTRNINSPTABLE', 'XTRNRWAYTABLE', 'XTRNSTRUNITTABLE')
+    ) S
+    ON (T.ORIGINAL_TABLE_NAME = S.TABLE_NAME)
+    WHEN MATCHED THEN UPDATE SET T.TABLE_NAME = S.CUSTOM_TABLE_NAME
+MERGE INTO PON_TABLE T
+    USING (SELECT
+                CASE UPPER(OPTIONNAME)
+                    WHEN 'XTRNBRDGTABLE' THEN 'USERBRDG'
+                    WHEN 'XTRNINSPTABLE' THEN 'USERINSP'
+                    WHEN 'XTRNRWAYTABLE' THEN 'USERRWAY'
+                    WHEN 'XTRNSTRUNITTABLE' THEN 'USERSTRUNIT'
+                    ELSE OPTIONVAL
+                END TABLE_NAME,
+                UPPER(OPTIONVAL) CUSTOM_TABLE_NAME
+            FROM PON_COPTIONS_T
+            WHERE UPPER(OPTIONNAME) IN ('XTRNBRDGTABLE', 'XTRNINSPTABLE', 'XTRNRWAYTABLE', 'XTRNSTRUNITTABLE')
+    ) S
+    ON (T.ORIGINAL_TABLE_NAME = S.TABLE_NAME)
+    WHEN MATCHED THEN UPDATE SET T.TABLE_NAME = S.CUSTOM_TABLE_NAME
+Drop indexes that are unwanted or changed.
+DROP INDEX NRM_USERBRDG_POSTING_REQ
+DROP INDEX NRM_USERBRDG_POSTING_TYPE
+Reduce length or scale or change data type.
+Alter Columns.
+Update new columns with default values.
+Make new required columns on old tables required.
+REMOVE ITEMS FROM PRODUCTION DATABASES.
+Disable recursive constraints before merging setup data.
+Merge optional setup data from temp tables.
+Enable recursive constraints after merging setup data.
+Remove retired tables from PON_EXCHANGE_OPTION_DETAIL
+Remove empty entries from PON_EXCHANGE_OPTION
+Enable disabled NOT NULL constraints.
+Make non PK GUID columns required.
+ALTER TABLE INSPEVNT MODIFY BRIDGE_GD  NOT NULL
+ERROR :  ALTER TABLE INSPEVNT MODIFY BRIDGE_GD  NOT NULL; ORA-01442: column to be modified to NOT NULL is already NOT NULL in KDOT_BLP.
+ALTER TABLE PON_ELEM_INSP MODIFY BRIDGE_GD  NOT NULL
+ERROR :  ALTER TABLE PON_ELEM_INSP MODIFY BRIDGE_GD  NOT NULL; ORA-01442: column to be modified to NOT NULL is already NOT NULL in KDOT_BLP.
+ALTER TABLE PON_MOBILE_ERRORS MODIFY DATA  NOT NULL
+ALTER TABLE PON_MOBILE_ERRORS MODIFY ORDER_NUM  NOT NULL
+ALTER TABLE USERINSP MODIFY BRIDGE_GD  NOT NULL
+Make old key columns nullable
+
+DECLARE
+   L_NULL USER_TAB_COLUMNS.NULLABLE%TYPE;
+BEGIN
+  -- ARMarshall, ARM_LLC - 20230106 -  added UPPER(NULLABLE) here...
+   SELECT UPPER(NULLABLE) INTO L_NULL FROM USER_TAB_COLUMNS WHERE TABLE_NAME = 'ROADWAY' AND COLUMN_NAME = 'ON_UNDER';
+   IF L_NULL = 'Y' THEN
+      EXECUTE IMMEDIATE 'ALTER TABLE ROADWAY MODIFY (ON_UNDER VARCHAR2(2) NOT NULL)';
+   END IF;
+
+   -- ARMarshall, ARM_LLC - 20230105 - added this constraint to USERRWAY
+
+   SELECT UPPER(NULLABLE) INTO L_NULL FROM USER_TAB_COLUMNS WHERE TABLE_NAME = 'USERRWAY' AND COLUMN_NAME = 'ON_UNDER';
+   IF L_NULL = 'Y' THEN
+      EXECUTE IMMEDIATE 'ALTER TABLE USERRWAY MODIFY (ON_UNDER VARCHAR2(2) NOT NULL)';
+   END IF;
+
+   SELECT UPPER(NULLABLE) INTO L_NULL FROM USER_TAB_COLUMNS WHERE TABLE_NAME = 'STRUCTURE_UNIT' AND COLUMN_NAME = 'STRUNITKEY';
+   IF L_NULL = 'Y' THEN
+      EXECUTE IMMEDIATE 'ALTER TABLE STRUCTURE_UNIT MODIFY (STRUNITKEY NUMBER(4,0) NOT NULL)';
+   END IF;
+
+   -- ARMarshall, ARM_LLC - 20230105 - added this constraint to USERSTRUNIT
+   SELECT UPPER(NULLABLE) INTO L_NULL FROM USER_TAB_COLUMNS WHERE TABLE_NAME = 'USERSTRUNIT' AND COLUMN_NAME = 'STRUNITKEY';
+   IF L_NULL = 'Y' THEN
+      EXECUTE IMMEDIATE 'ALTER TABLE USERSTRUNIT MODIFY (STRUNITKEY NUMBER(4,0) NOT NULL)';
+   END IF;
+     -- ARMarshall, ARM_LLC - 20230105 - added this constraint to USERSTRUNIT
+   SELECT UPPER(NULLABLE) INTO L_NULL FROM USER_TAB_COLUMNS WHERE TABLE_NAME = 'KDOTBLP_STRUCTURE_UNIT' AND COLUMN_NAME = 'STRUNITKEY';
+   IF L_NULL = 'Y' THEN
+      EXECUTE IMMEDIATE 'ALTER TABLE KDOTBLP_STRUCTURE_UNIT MODIFY (STRUNITKEY NUMBER(4,0) NOT NULL)';
+   END IF;
+END;
+
+ORA-01442: column to be modified to NOT NULL is already NOT NULL
+ORA-06512: at line 14
+Add missing permissions, (if any).
+Add indexes.
+CREATE INDEX FK_VALIDATION_WARNING_USERS ON VALIDATION_WARNING(PON_APP_USERS_GD)
+CREATE INDEX XAK1PON_NAV_CONTROL ON PON_NAV_CONTROL(PON_NAV_CONTROL_GROUP_GD,ORDER_NUM)
+CREATE INDEX XAK1PON_NAV_CONTROL_GROUP ON PON_NAV_CONTROL_GROUP(PON_NAV_TASK_GD,PARENT_CONTROL_GROUP_GD,ORDER_NUM)
+CREATE UNIQUE INDEX XAK1PON_NAV_TASK ON PON_NAV_TASK(PON_NAV_TAB_GD,PON_NAV_TASK_GD,PARENT_PON_NAV_TASK_GD,ORDER_NUM)
+Cleaning up temporary (_T) tables -ACTMODLS_T
+Cleaning up temporary (_T) tables -ACTYPDFS_T
+Cleaning up temporary (_T) tables -ASSET_AUDIT_LOG_T
+Cleaning up temporary (_T) tables -ASSET_COMPONENT_DEFINITION_T
+Cleaning up temporary (_T) tables -ASSET_COMPONENT_TYPE_T
+Cleaning up temporary (_T) tables -ASSET_DEFINITION_T
+Cleaning up temporary (_T) tables -ASSET_LIBRARY_T
+Cleaning up temporary (_T) tables -ASSET_STATUS_ROLE_T
+Cleaning up temporary (_T) tables -ASSET_STATUS_T
+Cleaning up temporary (_T) tables -ASSET_TYPE_T
+Cleaning up temporary (_T) tables -BRIDGE_T
+Cleaning up temporary (_T) tables -CICOCNTL_T
+Cleaning up temporary (_T) tables -CICOXCPT_T
+Cleaning up temporary (_T) tables -COMPONENT_PACKAGE_FK_TABLES_T
+Cleaning up temporary (_T) tables -COMPONENT_PACKAGE_RELATIONS_T
+Cleaning up temporary (_T) tables -COMPONENT_PACKAGE_T
+Cleaning up temporary (_T) tables -CONDUMDL_T
+Cleaning up temporary (_T) tables -COPTIONS_T
+Cleaning up temporary (_T) tables -COSTINDX_T
+Cleaning up temporary (_T) tables -DATADICT_T
+Cleaning up temporary (_T) tables -DBDESCRP_T
+Cleaning up temporary (_T) tables -EDITCHECK_CONSTANTS_T
+Cleaning up temporary (_T) tables -EDITCHECK_DEFINITIONS_T
+Cleaning up temporary (_T) tables -EDITCHECK_NBI_LAYOUT_T
+Cleaning up temporary (_T) tables -EDITCHECK_SESSION_LOG_T
+Cleaning up temporary (_T) tables -EDITCHECK_SESSION_T
+Cleaning up temporary (_T) tables -EDITCHECK_VALUE_SETS_T
+Cleaning up temporary (_T) tables -ELCATDFS_T
+Cleaning up temporary (_T) tables -ELEMDEFS_T
+Cleaning up temporary (_T) tables -ELEMINSP_T
+Cleaning up temporary (_T) tables -ELTYPDFS_T
+Cleaning up temporary (_T) tables -ENVTDEFS_T
+Cleaning up temporary (_T) tables -EXPACTC_T
+Cleaning up temporary (_T) tables -EXPACTN_T
+Cleaning up temporary (_T) tables -EXPCNDUC_T
+Cleaning up temporary (_T) tables -EXPCONDU_T
+Cleaning up temporary (_T) tables -FLEXRULES_T
+Cleaning up temporary (_T) tables -FORMERRS_T
+Cleaning up temporary (_T) tables -FORMULAS_T
+Cleaning up temporary (_T) tables -INSPEVNT_T
+Cleaning up temporary (_T) tables -LOAD_RATING_EVENTS_T
+Cleaning up temporary (_T) tables -LOAD_RATINGS_T
+Cleaning up temporary (_T) tables -LR_VEHICLE_DEFS_T
+Cleaning up temporary (_T) tables -MAP_INFO_OPTIONS_T
+Cleaning up temporary (_T) tables -MATDEFS_T
+Cleaning up temporary (_T) tables -METRIC_ENGLISH_T
+Cleaning up temporary (_T) tables -MRRACTDF_T
+Cleaning up temporary (_T) tables -MULTIMEDIA_T
+Cleaning up temporary (_T) tables -PARAMTRS_T
+Cleaning up temporary (_T) tables -PON_ACTION_DEFERMENT_RULES_T
+Cleaning up temporary (_T) tables -PON_APP_AD_GROUPS_ROLES_T
+Cleaning up temporary (_T) tables -PON_APP_AD_GROUPS_T
+Cleaning up temporary (_T) tables -PON_APP_CAPTION_T
+Cleaning up temporary (_T) tables -PON_APP_CONTEXTS_T
+Cleaning up temporary (_T) tables -PON_APP_CONTROL_GROUP_SECURITY_T
+Cleaning up temporary (_T) tables -PON_APP_CONTROL_SECURITY_T
+Cleaning up temporary (_T) tables -PON_APP_GROUP_ACCESS_FILTERS_T
+Cleaning up temporary (_T) tables -PON_APP_GROUPS_T
+Cleaning up temporary (_T) tables -PON_APP_LANGUAGE_CAPTION_T
+Cleaning up temporary (_T) tables -PON_APP_LANGUAGE_T
+Cleaning up temporary (_T) tables -PON_APP_PERMISSIONS_T
+Cleaning up temporary (_T) tables -PON_APP_ROLES_PERMISSIONS_T
+Cleaning up temporary (_T) tables -PON_APP_ROLES_T
+Cleaning up temporary (_T) tables -PON_APP_TAB_SECURITY_T
+Cleaning up temporary (_T) tables -PON_APP_TASK_SECURITY_T
+Cleaning up temporary (_T) tables -PON_APP_USERS_GROUPS_T
+Cleaning up temporary (_T) tables -PON_APP_USERS_ROLES_T
+Cleaning up temporary (_T) tables -PON_APP_USERS_T
+Cleaning up temporary (_T) tables -PON_ASSESSMENT_T
+Cleaning up temporary (_T) tables -PON_ATTRIBUTE_DISPLAY_T
+Cleaning up temporary (_T) tables -PON_BATCH_BRKEYS_T
+Cleaning up temporary (_T) tables -PON_BATCH_TKEYS_T
+Cleaning up temporary (_T) tables -PON_BEN_ELEM_CREATE_T
+Cleaning up temporary (_T) tables -PON_BEN_ELEM_REMOVE_T
+Cleaning up temporary (_T) tables -PON_BEN_ELEM_REPLACE_T
+Cleaning up temporary (_T) tables -PON_BENEFIT_CHILD_T
+Cleaning up temporary (_T) tables -PON_BENEFIT_COST_FRONTIER_T
+Cleaning up temporary (_T) tables -PON_BENEFIT_ELEMENTS_T
+Cleaning up temporary (_T) tables -PON_BENEFIT_FIELDS_T
+Cleaning up temporary (_T) tables -PON_BENEFIT_GROUPS_T
+Cleaning up temporary (_T) tables -PON_BENEFIT_RISKS_T
+Cleaning up temporary (_T) tables -PON_BRIDGE_CONDITION_T
+Cleaning up temporary (_T) tables -PON_BRIDGE_GRPS_T
+Cleaning up temporary (_T) tables -PON_COMMON_LISTS_T
+Cleaning up temporary (_T) tables -PON_COMPONENT_DET_MODEL_T
+Cleaning up temporary (_T) tables -PON_CONDITION_STATES_T
+Cleaning up temporary (_T) tables -PON_CONTEXT_JOINS_T
+Cleaning up temporary (_T) tables -PON_CONTEXT_T
+Cleaning up temporary (_T) tables -PON_CONTEXT_TABLES_T
+Cleaning up temporary (_T) tables -PON_COPTIONS_LOOKUP_T
+Cleaning up temporary (_T) tables -PON_COPTIONS_T
+Cleaning up temporary (_T) tables -PON_COST_INDEX_T
+Cleaning up temporary (_T) tables -PON_CS_MONTH_YEAR_T
+Cleaning up temporary (_T) tables -PON_CS_OFFSET_T
+Cleaning up temporary (_T) tables -PON_CS_ORIENTATION_T
+Cleaning up temporary (_T) tables -PON_CS_ORIG_STREAMBED_LINE_T
+Cleaning up temporary (_T) tables -PON_CS_ORIG_STREAMBED_T
+Cleaning up temporary (_T) tables -PON_CS_SCOUR_POT_LINE_T
+Cleaning up temporary (_T) tables -PON_CS_SCOUR_POT_T
+Cleaning up temporary (_T) tables -PON_CS_SCOUR_RES_LINE_T
+Cleaning up temporary (_T) tables -PON_CS_SCOUR_RES_T
+Cleaning up temporary (_T) tables -PON_CS_STREAMBED_CS_LINE_T
+Cleaning up temporary (_T) tables -PON_CS_STREAMBED_CS_T
+Cleaning up temporary (_T) tables -PON_CS_STRUCT_DTL_LINE_T
+Cleaning up temporary (_T) tables -PON_CS_STRUCT_DTL_T
+Cleaning up temporary (_T) tables -PON_CTRL_ELEMENTS_PRN_T
+Cleaning up temporary (_T) tables -PON_CTRL_NBI_ERRORS_T
+Cleaning up temporary (_T) tables -PON_CTRL_NBI_GUIDE_T
+Cleaning up temporary (_T) tables -PON_DEFS_ASSESSMENT_T
+Cleaning up temporary (_T) tables -PON_DETERIORATION_PROFILE_T
+Cleaning up temporary (_T) tables -PON_ELEM_CAT_DEFS_T
+Cleaning up temporary (_T) tables -PON_ELEM_DEFS_T
+Cleaning up temporary (_T) tables -PON_ELEM_INSP_T
+Cleaning up temporary (_T) tables -PON_ELEM_MAT_DEFS_T
+Cleaning up temporary (_T) tables -PON_ELEM_TYPE_DEFS_T
+Cleaning up temporary (_T) tables -PON_ELEMENT_CHILD_T
+Cleaning up temporary (_T) tables -PON_ENVT_DEFS_T
+Cleaning up temporary (_T) tables -PON_EXCHANGE_OPTION_DETAIL_T
+Cleaning up temporary (_T) tables -PON_EXCHANGE_OPTION_T
+Cleaning up temporary (_T) tables -PON_EXEC_SUM_CHRT_FLTR_FLD_T
+Cleaning up temporary (_T) tables -PON_EXEC_SUM_CHRT_FLTR_T
+Cleaning up temporary (_T) tables -PON_EXEC_SUM_CHRT_GRP_FLD_T
+Cleaning up temporary (_T) tables -PON_EXEC_SUM_CHRT_GRP_T
+Cleaning up temporary (_T) tables -PON_EXEC_SUM_CHRT_T
+Cleaning up temporary (_T) tables -PON_EXPORT_STATUS_T
+Cleaning up temporary (_T) tables -PON_FILTER_GROUP_SHARING_T
+Cleaning up temporary (_T) tables -PON_FILTERS_T
+Cleaning up temporary (_T) tables -PON_FLEX_BENEFIT_T
+Cleaning up temporary (_T) tables -PON_FLEX_ELEMS_T
+Cleaning up temporary (_T) tables -PON_FLEXACTIONS_SETS_T
+Cleaning up temporary (_T) tables -PON_FOLLOW_UP_ACTION_T
+Cleaning up temporary (_T) tables -PON_FORMULA_CATEGORIES_T
+Cleaning up temporary (_T) tables -PON_FORMULA_PARAMS_T
+Cleaning up temporary (_T) tables -PON_FORMULAS_T
+Cleaning up temporary (_T) tables -PON_FUNDING_ALLOCATION_T
+Cleaning up temporary (_T) tables -PON_FUNDING_T
+Cleaning up temporary (_T) tables -PON_FUNDING_TARGETS_T
+Cleaning up temporary (_T) tables -PON_GRPS_ROAD_T
+Cleaning up temporary (_T) tables -PON_INSP_STATUS_LOG_T
+Cleaning up temporary (_T) tables -PON_INSP_STATUS_TREE_T
+Cleaning up temporary (_T) tables -PON_INSP_STATUSES_T
+Cleaning up temporary (_T) tables -PON_INSP_WORKCAND_T
+Cleaning up temporary (_T) tables -PON_LAYOUTS_FIELDS_T
+Cleaning up temporary (_T) tables -PON_LAYOUTS_T
+Cleaning up temporary (_T) tables -PON_MAINT_ACTIVITY_T
+Cleaning up temporary (_T) tables -PON_MAINT_EVENT_T
+Cleaning up temporary (_T) tables -PON_MOBILE_ERRORS_T
+Cleaning up temporary (_T) tables -PON_MOD_DETER_PROF_T
+Cleaning up temporary (_T) tables -PON_MOD_DETER_T
+Cleaning up temporary (_T) tables -PON_MRR_ACTION_DEFS_T
+Cleaning up temporary (_T) tables -PON_NAV_CONTROL_GROUP_T
+Cleaning up temporary (_T) tables -PON_NAV_CONTROL_T
+Cleaning up temporary (_T) tables -PON_NAV_TAB_T
+Cleaning up temporary (_T) tables -PON_NAV_TASK_KEY_T
+Cleaning up temporary (_T) tables -PON_NAV_TASK_T
+Cleaning up temporary (_T) tables -PON_NBI_COMPONENT_T
+Cleaning up temporary (_T) tables -PON_NBI_DISTRIBUTION_T
+Cleaning up temporary (_T) tables -PON_NBI_EXPORT_DEF_T
+Cleaning up temporary (_T) tables -PON_NBI_EXPORT_OPTION_T
+Cleaning up temporary (_T) tables -PON_NBI_ITEM_T
+Cleaning up temporary (_T) tables -PON_NBI_LIMIT_GROUP_T
+Cleaning up temporary (_T) tables -PON_NBI_LIMIT_T
+Cleaning up temporary (_T) tables -PON_NBI_PROFILE_T
+Cleaning up temporary (_T) tables -PON_NBI_TRANSITION_TIME_T
+Cleaning up temporary (_T) tables -PON_NETWORK_POLICY_T
+Cleaning up temporary (_T) tables -PON_PASSWORD_RULES_T
+Cleaning up temporary (_T) tables -PON_PERFORM_MEASURE_T
+Cleaning up temporary (_T) tables -PON_POLICY_ARCHIVE_T
+Cleaning up temporary (_T) tables -PON_POLICY_BRIDGE_T
+Cleaning up temporary (_T) tables -PON_POLICY_RULE_ARCHIVE_T
+Cleaning up temporary (_T) tables -PON_POLICY_RULE_T
+Cleaning up temporary (_T) tables -PON_POLICY_T
+Cleaning up temporary (_T) tables -PON_PROG_BRIDGE_RESULTS_T
+Cleaning up temporary (_T) tables -PON_PROG_CONSTRAINT_T
+Cleaning up temporary (_T) tables -PON_PROG_OPT_MESSAGE_T
+Cleaning up temporary (_T) tables -PON_PROG_OPTIMIZATION_T
+Cleaning up temporary (_T) tables -PON_PROG_PERF_EST_LOG_T
+Cleaning up temporary (_T) tables -PON_PROG_PERFORMANCE_T
+Cleaning up temporary (_T) tables -PON_PROG_PROJECT_RESULTS_T
+Cleaning up temporary (_T) tables -PON_PROGRAM_ADDT_FUNDING_T
+Cleaning up temporary (_T) tables -PON_PROGRAM_CAT_PRJ_CAT_MAP_T
+Cleaning up temporary (_T) tables -PON_PROGRAM_CATEGORY_DEFS_T
+Cleaning up temporary (_T) tables -PON_PROGRAM_FUNDING_T
+Cleaning up temporary (_T) tables -PON_PROGRAM_NETWORK_POLICY_T
+Cleaning up temporary (_T) tables -PON_PROGRAM_RESULTS_T
+Cleaning up temporary (_T) tables -PON_PROGRAM_SEGMENT_FIELD_T
+Cleaning up temporary (_T) tables -PON_PROGRAM_SEGMENT_T
+Cleaning up temporary (_T) tables -PON_PROGRAM_T
+Cleaning up temporary (_T) tables -PON_PROGRAM_UTILITY_T
+Cleaning up temporary (_T) tables -PON_PROJECT_BRIDGE_T
+Cleaning up temporary (_T) tables -PON_PROJECT_CATEGORY_ACTIONS_T
+Cleaning up temporary (_T) tables -PON_PROJECT_CATEGORY_DEFS_T
+Cleaning up temporary (_T) tables -PON_PROJECT_FUNDING_T
+Cleaning up temporary (_T) tables -PON_PROJECT_MILESTONE_T
+Cleaning up temporary (_T) tables -PON_PROJECT_PERFORMANCE_T
+Cleaning up temporary (_T) tables -PON_PROJECT_PROGRAM_T
+Cleaning up temporary (_T) tables -PON_PROJECT_T
+Cleaning up temporary (_T) tables -PON_PROJECT_WORKITEM_T
+Cleaning up temporary (_T) tables -PON_REPORT_REGISTER_T
+Cleaning up temporary (_T) tables -PON_REPORT_SECURITY_T
+Cleaning up temporary (_T) tables -PON_SCENARIO_T
+Cleaning up temporary (_T) tables -PON_SEGMENT_FIELDS_T
+Cleaning up temporary (_T) tables -PON_SEGMENT_PROFILE_T
+Cleaning up temporary (_T) tables -PON_SESSION_BATCH_T
+Cleaning up temporary (_T) tables -PON_SESSION_LOG_T
+Cleaning up temporary (_T) tables -PON_SESSION_T
+Cleaning up temporary (_T) tables -PON_STATE_DEFS_T
+Cleaning up temporary (_T) tables -PON_SYSTEM_PARAM_T
+Cleaning up temporary (_T) tables -PON_TUNNEL_ELEM_CHILD_T
+Cleaning up temporary (_T) tables -PON_TUNNEL_ELEM_DEFS_T
+Cleaning up temporary (_T) tables -PON_TUNNEL_ELEM_INSP_T
+Cleaning up temporary (_T) tables -PON_TUNNEL_ELEM_STATE_DEFS_T
+Cleaning up temporary (_T) tables -PON_TUNNEL_INSP_T
+Cleaning up temporary (_T) tables -PON_TUNNEL_STRUCT_UNITS_T
+Cleaning up temporary (_T) tables -PON_TUNNEL_T
+Cleaning up temporary (_T) tables -PON_USER_FILTER_LAYOUT_T
+Cleaning up temporary (_T) tables -PON_UTIL_CRIT_CATEGORY_T
+Cleaning up temporary (_T) tables -PON_UTIL_CRIT_POINTS_T
+Cleaning up temporary (_T) tables -PON_UTIL_CRIT_PROFILE_T
+Cleaning up temporary (_T) tables -PON_UTIL_CRIT_WEIGHTS_PROFILE_T
+Cleaning up temporary (_T) tables -PON_VALDN_DEPENDENCY_T
+Cleaning up temporary (_T) tables -PON_VALDN_FIELD_T
+Cleaning up temporary (_T) tables -PON_VALDN_NBI_T
+Cleaning up temporary (_T) tables -PON_VALDN_SET_MAP_T
+Cleaning up temporary (_T) tables -PON_VALDN_SET_T
+Cleaning up temporary (_T) tables -PON_VALDN_SET_VALUES_T
+Cleaning up temporary (_T) tables -PON_VALDN_T
+Cleaning up temporary (_T) tables -PON_VALDN_TYPE_T
+Cleaning up temporary (_T) tables -ROADWAY_T
+Cleaning up temporary (_T) tables -SCENELEM_T
+Cleaning up temporary (_T) tables -STATMDLS_T
+Cleaning up temporary (_T) tables -STRUCTURE_UNIT_T
+Cleaning up temporary (_T) tables -USERBRDG_T
+Cleaning up temporary (_T) tables -USERINSP_T
+Cleaning up temporary (_T) tables -USERRWAY_T
+Cleaning up temporary (_T) tables -USERS_T
+Cleaning up temporary (_T) tables -USERSTRUNIT_T
+Cleaning up temporary (_T) tables -VALIDATION_WARNING_T
+Cleaning up temporary tables/objects - PON_FK, PON_INDEX, PON_DICT,PON_TABLE,PON_RETIRED_TABLE,PON_DISABLE_FORCE_DEF_TBLS, F_READ_DATA_DEFAULT, F_READ_SEARCH_CONDITION
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+A DEFAULT Pontis USER HAS BEEN ADDED WITH A PASSWORD OF 'pontis'.
+CHANGE THIS PASSWORD!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Script finished on KDOT_BLP.
+Executing (POST-UPGRADE) Script_Restore_Missing_KDOT_Objects.pdc
+
+drop index NRM_KDOTBLP_POSTING_REQ1
+
+ORA-01418: specified index does not exist
+
+drop index   NRM_KDOTBLP_POSTING_TYPE1
+
+ORA-01418: specified index does not exist
