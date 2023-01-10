@@ -1,0 +1,58 @@
+set define off
+set serveroutput on size unlimited
+set linesize 5000
+set echo off
+set feedback off
+set termout off
+
+spool 'C:\git\repos\KDOT-LBIS-BRM-MIGRATION\files\data\logs\describe-index.log';
+
+declare
+
+idxTableName varchar2(128);
+idxName varchar2(128);
+
+v_q varchar2(32767);
+v_ddl VARCHAR2(4000 CHAR);
+
+CURSOR curUserIndexes IS
+    SELECT ui.table_name, ui.INDEX_NAME
+      FROM USER_INDEXES ui
+     -- WHERE ui.TABLE_NAME='KDOTBLP_PORTAL_TABLES'
+     ORDER BY ui.TABLE_NAME, ui.index_name;
+BEGIN
+  OPEN curUserIndexes;
+  FETCH curUserIndexes
+    INTO idxTableName, idxName;
+    
+  WHILE (curUserIndexes%FOUND) LOOP
+    BEGIN
+    
+      --DBMS_OUTPUT.PUT_LINE(q'[Describing index ]'|| idxName || q'[ ON table ]' ||  idxTableName);
+    
+      v_q := q'[select dbms_metadata.get_ddl('INDEX', ]' || q'[']' || idxName || q'[']'  ||  q'[,]' ||  q'['KDOT_BLP']' ||q'[)]'   || q'[ FROM DUAL]';
+       
+      execute immediate v_q into v_ddl;
+      dbms_output.PUT_LINE(v_ddl);
+      
+    EXCEPTION
+      WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('ERROR F1: extracting DDL for index ]' || idxName || q'[ ON table ]' ||  idxTableName || q'[: ]' || utl_tcp.crlf||SQLERRM);
+    END;
+    FETCH curUserIndexes
+       INTO idxTableName, idxName;
+  END LOOP;
+  CLOSE curUserIndexes;
+ 
+
+EXCEPTION
+
+  WHEN OTHERS THEN
+    BEGIN
+      RAISE_APPLICATION_ERROR(-20000, SQLERRM);
+    
+    END;
+    end;
+/    
+spool off
+    

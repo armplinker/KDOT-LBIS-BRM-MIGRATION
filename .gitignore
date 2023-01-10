@@ -20,3 +20,9 @@
 /src/Mayvue/BrM_6_x/BrM 6 Release.zip
 /src/Mayvue/BrM_6_x/BrM 60 Install.zip
 /src/Mayvue/BrM_6_x/BrM63 Install.zip
+/src/Mayvue/*
+/stages/6.0/in/OracleBRM6.sql.bak
+/files/out/pljson-test-executeList.json
+/files/out/pljson-test-executeObject.json
+/stages/6.0/log/OracleBRM6-20230108T1231.log
+/stages/6.0/log/OracleBRM6-20230109T1252.log

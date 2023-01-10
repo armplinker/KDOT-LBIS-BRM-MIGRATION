@@ -5,7 +5,7 @@ set echo off
 set serveroutput ON SIZE UNLIMITED
 set linesize 4000
 
-spool "C:\git\repos\KDOT-LBIS-BRM-MIGRATION\files\out\pljson-test-executeList.json"
+spool "D:\git\repos\KDOT-LBIS-BRM-MIGRATION\files\out\pljson-test-executeList.json"
 
 declare
 
@@ -51,7 +51,7 @@ end;
 /
 
 spool off
-spool "C:\git\repos\KDOT-LBIS-BRM-MIGRATION\files\out\pljson-test-executeObject.json "
+spool "D:\git\repos\KDOT-LBIS-BRM-MIGRATION\files\out\pljson-test-executeObject.json "
 
 DECLARE
 

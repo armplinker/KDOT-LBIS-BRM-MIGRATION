@@ -11,7 +11,7 @@ CREATE OR REPLACE PROCEDURE BACKUP_KDOTBLP_PORTAL_TABLES AS
   CUR R_CURSOR;
 
   V_Q      VARCHAR2(32767);
-  V_SUFFIX VARCHAR2(50) := TRIM(q'[_]' || TO_CHAR(SYSDATE,'yyyymmdd_hhmmss') || q'[_KT]' ); -- no dashes in names...
+  V_SUFFIX VARCHAR2(50) := TRIM(q'[_]' || TO_CHAR(SYSDATE,'yyyymmdd') || q'[_KT]' ); -- no dashes in names...
   V_TN     VARCHAR2(128 BYTE);
 
 BEGIN
@@ -24,10 +24,10 @@ BEGIN
     FETCH CUR
       INTO V_TN;
     EXIT WHEN CUR%NOTFOUND;
-  
+
     DBMS_OUTPUT.PUT_LINE(q'[Archiving KDOT Portal Table ]' || V_TN ||
                          q'[ TO ]' || V_TN || V_SUFFIX || q'[...]');
-    
+
     V_Q := TRIM(q'[CREATE TABLE ]' || V_TN || V_SUFFIX ||
                 q'[ AS SELECT * FROM ]' ||  V_TN );
     BEGIN
@@ -38,10 +38,10 @@ BEGIN
         DBMS_OUTPUT.PUT_LINE(q'[ERROR ARCHIVING TABLE - SQL: ]' || V_Q ||
                              q'[: ]' || SQLERRM);
     END;
-  
+
   END LOOP;
   CLOSE CUR;
-  -- commented out for stand-alone 
+  -- commented out for stand-alone
   -- END IF;
 EXCEPTION
   WHEN OTHERS THEN

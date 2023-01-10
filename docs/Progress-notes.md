@@ -1,3 +1,35 @@
+<!DOCTYPE {{{ page.doctype || 'html' }}}>
+ <!-- https://maizzle.com/guides/markdown-emails -->
+<html lang="{{ page.language || 'en' }}" xmlns:v="urn:schemas-microsoft-com:vml">
+<head>
+<meta charset="{{ page.charset || 'utf-8' }}">
+  <meta name="x-apple-disable-message-reformatting">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="format-detection" content="telephone=no, date=no, address=no, email=no, url=no">
+
+ 
+  <!--[if mso]>
+  <noscript>
+    <xml>
+      <o:OfficeDocumentSettings xmlns:o="urn:schemas-microsoft-com:office:office">
+        <o:PixelsPerInch>96</o:PixelsPerInch>
+      </o:OfficeDocumentSettings>
+    </xml>
+  </noscript>
+  <style>
+    td,th,div,p,a,h1,h2,h3,h4,h5,h6 {font-family: "Segoe UI", sans-serif; mso-line-height-rule: exactly;}
+  </style>
+  <![endif]-->
+  <if condition="page.title">
+    <title>{{{ page.title }}}</title>
+  </if>
+  <style>
+    {{{ page.css }}}
+  </style>
+  <stack name="head"></stack>
+</head>
+<body>
+ 
 # BRM Migration progress notes
  
    
@@ -5,16 +37,26 @@
   
 ### GENERAL COMMENTS ABOUT THE UPGRADE SCRIPT(S)
 
+
+------------------------------------------  
+
 PON_CONCAT calls might be better formed using LISTAGG available in Oracle 12C+
 
 see this>   [Oracle LISTAGG documentation](https://docs.oracle.com/cd/E11882_01/server.112/e41084/functions089.htm#SQLRF30030 "Oracle LISTAGG documentation")                
 
-            SELECT LISTAGG('T.'|| DICT.COLUMN_NAME ,',') 
+
+<span style="font-weight:500; font-size:12px;"> 
+          <p> SELECT LISTAGG('T.'|| DICT.COLUMN_NAME ,',') 
             WITHIN GROUP (ORDER BY DICT.COLUMN_ID) "DELIM_COL_LIST"
                                                 FROM USER_TAB_COLS DICT                                     
                                                 GROUP BY DICT.TABLE_NAME 
                                                 HAVING DICT.TABLE_NAME = 'BRIDGE'
                                                 ORDER BY DICT.TABLE_NAME
+                                                </p>
+</span>   
+
+------------------------------------------  
+
 #### TO EXPORT THE DATABASE
             C:\oracle\instantclient_21_7>expdp kdot_blp/Einstein345@localhost:1521/xepdb1 directory=KDOT_DP_DIR dumpfile=KDOT_BLP20221220SQL.dmp schemas=('KDOT_BLP') logfile=KDOT_BLP20221220SQL.log
 
@@ -626,9 +668,195 @@ The following two commands should be issued before attempting an impdb run
 The connection string for IMPDP should be as sys and look like
 
                 SYS>CONNECT sys/********@localhost:1521/xepdb1 AS SYSDBA  
-                
+
 ROLE BRMADMIN must exist in the database in advance  
 
 The user KDOT_BLP should be DROPPED before first attempt to import.  Can exist afterwards.  
 The user KDOT_BLP can be granted SYSDBA, **_optionally_**  
 The user KDOT_BLP may be granted  exp_full_database and imp_full_database **_optionally_**.  
+
+
+### 2023-01-09  
+
+-----------------------------------------------------
+
+Here is how the user (schema)  KDOT_BLP was set:
+
+            -- Create the user 
+            create user KDOT_BLP
+            default tablespace KDOT_BLP
+            temporary tablespace TEMP
+            profile DEFAULT
+            password expire;
+            -- Grant/Revoke role privileges 
+            grant connect to KDOT_BLP;
+            grant plustrace to KDOT_BLP;
+            grant resource to KDOT_BLP;
+            -- Grant/Revoke system privileges 
+            grant alter session to KDOT_BLP;
+            grant create any job to KDOT_BLP;
+            grant create any materialized view to KDOT_BLP;
+            grant create any synonym to KDOT_BLP;
+            grant create database link to KDOT_BLP;
+            grant create external job to KDOT_BLP;
+            grant create job to KDOT_BLP;
+            grant create materialized view to KDOT_BLP;
+            grant create public synonym to KDOT_BLP;
+            grant create synonym to KDOT_BLP;
+            grant create table to KDOT_BLP;
+            grant create view to KDOT_BLP;
+            grant debug connect session to KDOT_BLP;
+            grant drop any synonym to KDOT_BLP;
+            grant export full database to KDOT_BLP;
+            grant import full database to KDOT_BLP;
+            grant manage scheduler to KDOT_BLP;
+            grant select any dictionary to KDOT_BLP;
+            grant unlimited tablespace to KDOT_BLP;
+
+
+-- In Visual Studio Code, you can find all statements in the output log like CREATE UNIQUE INDEX "KDOT_BLP". 
+using a regex like this:  
+
+            ^(CREATE UNIQUE INDEX "KDOT_BLP"\.).+$
+
+which helps finding errors reported in the log.  
+
+
+-- 5.2 upgrade scripts   521_March302015_PontisOracle52.sql and BrM_5_3\521_April2015_PontisOracle52.sql only vary by the release id in table DBDESCRP - did not use
+
+
+#### 20220109
+
+## Testing with BrM 53 
+
+-----------------------------------------------------------------------
+
+Error#1:
+reference to an unknown column ORA-00904: "grps_name":  when enclosed in quotes like this it is matched by case.
+
+<span style="color:green;font-weight:500;font-size:12px;font-style: italic;">
+System.Web.HttpUnhandledException (0x80004005): Exception of type 'System.Web.HttpUnhandledException' was thrown. System.Exception: BridgeRepository::GetBridgeList: Unable To Retrieve Bridge List  System.Exception: AdoRepository::ExecuteReader Error executing command: SELECT * FROM (SELECT "_sd_".*, ROWNUM "_#_" FROM (SELECT DISTINCT(pon_bridge_grps.pon_bridge_grps_gd) AS "key_", pon_bridge_grps.grps_name AS "Bridge Groups", (select COUNT(DISTINCT(bridge_gd))from pon_grps_road r where r.pon_bridge_grps_gd = pon_bridge_grps.pon_bridge_grps_gd) "Bridge_Count", (select COUNT(bridge_gd)from pon_grps_road r where r.pon_bridge_grps_gd = pon_bridge_grps.pon_bridge_grps_gd) "Roadway_Count",pon_bridge_grps.description as "Description" from pon_bridge_grps left outer join pon_grps_road on pon_grps_road.pon_bridge_grps_gd = pon_bridge_grps.pon_bridge_grps_gd left outer join bridge on bridge.bridge_gd = pon_grps_road.bridge_gd WHERE 1=1 order by "grps_name" ASC) "_sd_" WHERE ROWNUM <= 1) "_sd2_" WHERE "_sd2_"."_#_" > 0 order by ROWNUM Oracle.ManagedDataAccess.Client.OracleException: ORA-00904: "grps_name": invalid identifierat OracleInternal.ServiceObjects.OracleCommandImpl.VerifyExecution(OracleConnectionImpl connectionImpl, Int32& cursorId, Boolean bThrowArrayBindRelatedErrors, OracleException& exceptionForArrayBindDML, Boolean& hasMoreRowsInDB, Boolean bFirstIterationDone)at OracleInternal.ServiceObjects.OracleCommandImpl.ExecuteReader(String commandText, OracleParameterCollection paramColl, CommandType commandType, OracleConnectionImpl connectionImpl, OracleDataReaderImpl& rdrImpl, Int32 longFetchSize, Int64 clientInitialLOBFS, OracleDependencyImpl orclDependencyImpl, Int64[] scnForExecution, Int64[]& scnFromExecution, OracleParameterCollection& bindByPositionParamColl, Boolean& bBindParamPresent, Int64& internalInitialLOBFS, OracleException& exceptionForArrayBindDML, Boolean isDescribeOnly, Boolean isFromEF)at Oracle.ManagedDataAccess.Client.OracleCommand.ExecuteReader(Boolean requery, Boolean fillRequest, CommandBehavior behavior)at Oracle.ManagedDataAccess.Client.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)at BRIDGEWare.Pontis.DataAccess.Repositories.AdoRepository.ExecuteReader(String commandText, Dictionary`2 queryParameters, Nullable`1 expectedRowCountHint, List`1 columnFilter, Nullable`1 timeout, Boolean forceSemiColonStrip) in E:\Agents\PRG01\_work\33\s\DataAccess\Repositories\AdoRepository.cs:line 91 --- End of inner exception stack trace --- at BRIDGEWare.Pontis.DataAccess.Repositories.AdoRepository.ExecuteReader(String commandText, Dictionary`2 queryParameters, Nullable`1 expectedRowCountHint, List`1 columnFilter, Nullable`1 timeout, Boolean forceSemiColonStrip) in E:\Agents\PRG01\_work\33\s\DataAccess\Repositories\AdoRepository.cs:line 130at BRIDGEWare.Pontis.DataAccess.Repositories.BridgeRepository.GetBridgeList(GridSearchCriteria criteria, Int32 currentPage, Int32 rowsPerPage) in E:\Agents\PRG01\_work\33\s\DataAccess\Repositories\BridgeRepository.cs:line 136  -- End of inner exception stack trace --- at BRIDGEWare.Pontis.DataAccess.Repositories.BridgeRepository.GetBridgeList(GridSearchCriteria criteria, Int32 currentPage, Int32 rowsPerPage) in E:\Agents\PRG01\_work\33\s\DataAccess\Repositories\BridgeRepository.cs:line 155at PontisModules_Bridge_UiDTCBagGrid.get_GridList()at PontisModules_Bridge_UiDTCBagGrid.get_GridDataSource()at ContextGridControl.SetGridDataSource(String sortColumnName, Boolean filterResults, Boolean showAllWhenUnfiltered)at PontisModules_Bridge_UiDTCBagGrid.BindData()at PontisModules_Bridge_UiDTCBagGrid.Page_Load(Object sender, EventArgs e)at System.Web.UI.Control.OnLoad(EventArgs e)at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)at System.Web.UI.Page.HandleError(Exception e)at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)at System.Web.UI.Page.ProcessRequest(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)at System.Web.UI.Page.ProcessRequest()at System.Web.UI.Page.ProcessRequest(HttpContext context)at ASP.bridges_bridgeanalysisgrplist_aspx.ProcessRequest(HttpContext context) in c:\Users\armpl\AppData\Local\Temp\Temporary ASP.NET Files\root\8d3e4b96\eea78b4\App_Web_f5frnmw3.0.cs:line 0at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)</span>
+
+
+
+            SELECT *
+            FROM (SELECT "_sd_".*, ROWNUM "_#_"
+                    FROM (SELECT DISTINCT (pon_bridge_grps.pon_bridge_grps_gd) AS "key_",
+                                            pon_bridge_grps.grps_name AS "Bridge Groups",
+                                            (select COUNT(DISTINCT(bridge_gd))
+                                            from pon_grps_road r
+                                            where r.pon_bridge_grps_gd =
+                                                    pon_bridge_grps.pon_bridge_grps_gd) "Bridge_Count",
+                                            (select COUNT(bridge_gd)
+                                            from pon_grps_road r
+                                            where r.pon_bridge_grps_gd =
+                                                    pon_bridge_grps.pon_bridge_grps_gd) "Roadway_Count",
+                                            pon_bridge_grps.description as "Description"
+                            from pon_bridge_grps
+                            left outer join pon_grps_road
+                                on pon_grps_road.pon_bridge_grps_gd =
+                                pon_bridge_grps.pon_bridge_grps_gd
+                            left outer join bridge
+                                on bridge.bridge_gd = pon_grps_road.bridge_gd
+                            WHERE 1 = 1
+                            order by "GRPS_NAME" ASC) "_sd_"
+                    WHERE ROWNUM <= 1) "_sd2_"
+            WHERE "_sd2_"."_#_" > 0
+            order by ROWNUM
+
+
+-- need some aliases (synonyms)
+-- these synonym names are magic strings that the portal automatically replaces in all occurrences.
+
+                Connected to Oracle Database 21c Express Edition Release 21.0.0.0.0 
+                Connected as KDOT_BLP@localhost:1521/xepdb1
+
+                                SQL> CREATE PUBLIC SYNONYM XTRNBRDGTABLE FOR KDOTBLP_BRIDGE;
+                                SQL> CREATE PUBLIC SYNONYM XTRNINSPTABLE FOR KDOTBLP_INSPECTIONS;
+                                SQL> CREATE PUBLIC SYNONYM XTRNRWAYTABLE FOR USERRWAY;
+                                SQL> CREATE PUBLIC SYNONYM XTRNSTRUNITTABLE FOR USERSTRUNIT;
+
+                Synonym created
+
+-- some filter SQL needs repair e.g. in this case, the alias b was not used where it needed to be:
+--  this is current layout Bridges w/ No Inspections  
+--  used to say ....   
+
+               ... ON inspevnt.bridge_gd = bridge.bridge_gd   
+
+but that makes ADO blow chunks so must be consistent  
+
+              ... ON inspevnt.bridge_gd = b.bridge_gd  
+
+            SELECT DISTINCT (b.bridge_gd) "key_",
+                            b.bridge_id "Bridge ID",
+                            b.district "District",
+                            b.county "County",
+                            b.facility "Facility Carried",
+                            b.featint "Feature Intersected",
+                            b.owner "Own",
+                            b.custodian "Maint",
+                            b.yearbuilt "Built",
+                            b.brkey "brkey"
+            from bridge b
+            left outer join (select *
+                                from roadway
+                                where roadway.ON_UNDER = '1'
+                                or (ROADWAY.bridge_gd not in
+                                    (select bridge_gd
+                                        from ROADWAY
+                                        where roadway.ON_UNDER = '1') and
+                                    (roadway.on_under = '2' or roadway.on_under = 'A'))) roadway
+                on roadway.bridge_gd = b.bridge_gd
+            left outer join XTRNBRDGTABLE
+                on XTRNBRDGTABLE.bridge_gd = b.bridge_gd
+            left outer join XTRNRWAYTABLE
+                on roadway.roadway_gd = XTRNRWAYTABLE.roadway_gd
+            left outer join (Select *
+                                from (select inspevnt.*,
+                                            row_number() over(partition by bridge_gd order by inspdate, createdatetime desc) rn
+                                        from inspevnt) inspevnt2
+                                where rn = 1) inspevnt
+                ON inspevnt.bridge_gd = b.bridge_gd
+            left outer join XTRNINSPTABLE
+                on XTRNINSPTABLE.inspevnt_gd = inspevnt.inspevnt_gd
+            left outer join structure_unit
+                on structure_unit.bridge_gd = b.bridge_gd
+            left outer join XTRNSTRUNITTABLE
+                on XTRNSTRUNITTABLE.structure_unit_gd =
+                structure_unit.structure_unit_gd
+            where b.bridge_gd not in (select i2.bridge_gd from inspevnt i2)
+
+-- and this won't work   
+                    
+                    SELECT "sqlfilter_".*                  
+                  FROM (SELECT (b.bridge_gd) AS "Key_",            
+
+has to be "key_"
+
+                    SELECT "sqlfilter_".*                  
+                  FROM (SELECT (b.bridge_gd) AS "Key_",            
+
+
+These difficulties necessitate minor but pervasive code changes to make every layout say   
+
+                ...bridge_gd as "key_"   
+
+and never say  
+
+                ...brkey as "key_"  
+
+and update the C# and JS throughout to use that convention.  There are definitely exceptions as of 20230109
+
+
+#### 20230110  
+
+--------------------------------------------------------
+
+BrM 5.3 can run against the database migrated to 6.0 at least as far as seeing the desktop.
+
+
+
+</body>
+</footer>
+</html>

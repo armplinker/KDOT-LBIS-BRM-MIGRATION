@@ -173,24 +173,23 @@ BEGIN
 
   -- Grant/Revoke object privileges 
   BEGIN
-    EXECUTE IMMEDIATE q'[
-        grant select on USERBRDG to BLP_BROWSER ]';
-    EXECUTE IMMEDIATE q'[     grant select on USERBRDG to BLP_INSPECTOR ]';
-    EXECUTE IMMEDIATE q'[     grant select, insert, update, delete, alter on USERBRDG to BLP_LOAD_RATER ]';
-    EXECUTE IMMEDIATE q'[    grant select on USERBRDG to BLP_LOCAL_AGENCY_REVIEW ]';
-    EXECUTE IMMEDIATE q'[    grant select, insert, update, delete on USERBRDG to BLP_PORTAL_ADMINISTRATOR ]';
-    EXECUTE IMMEDIATE q'[    grant select, insert, update, delete on USERBRDG to BLP_TEAM_LEADER ]';
-    EXECUTE IMMEDIATE q'[    grant select, insert, update, delete on USERBRDG to BRMADMIN_ROLE ]';
-    EXECUTE IMMEDIATE q'[     grant select on USERBRDG to BRMREADONLY_ROLE ]';
-    EXECUTE IMMEDIATE q'[      grant select on USERBRDG to KDOT_BLP_ISU ]';
-    EXECUTE IMMEDIATE q'[      grant select on USERBRDG to KDOT_BLP_SELECT ]';
-    EXECUTE IMMEDIATE q'[     grant select, insert, update, delete on USERBRDG to PONTISUSER ]';
-    EXECUTE IMMEDIATE q'[     grant select, insert, update, delete on USERBRDG to PONTISWEBADMINISTRATOR ]';
-    EXECUTE IMMEDIATE q'[     grant select on USERBRDG to PONTISWEBBROWSER ]';
-    EXECUTE IMMEDIATE q'[     grant select, insert, update, delete, alter on USERBRDG to PONTISWEBINSPECTIONSUPERVISOR ]';
-    EXECUTE IMMEDIATE q'[     grant select, insert, update, delete on USERBRDG to PONTISWEBINSPECTOR ]';
-    EXECUTE IMMEDIATE q'[    grant select on USERBRDG to PWEBLOGINID ]';
-    EXECUTE IMMEDIATE q'[    grant select on USERBRDG to PWEBODBCLOGIN ]';
+    EXECUTE IMMEDIATE q'[ grant select on USERBRDG to BLP_BROWSER ]';
+    EXECUTE IMMEDIATE q'[ grant select on USERBRDG to BLP_INSPECTOR ]';
+    EXECUTE IMMEDIATE q'[ grant select, insert, update, delete, alter on USERBRDG to BLP_LOAD_RATER ]';
+    EXECUTE IMMEDIATE q'[ grant select on USERBRDG to BLP_LOCAL_AGENCY_REVIEW ]';
+    EXECUTE IMMEDIATE q'[ grant select, insert, update, delete on USERBRDG to BLP_PORTAL_ADMINISTRATOR ]';
+    EXECUTE IMMEDIATE q'[ grant select, insert, update, delete on USERBRDG to BLP_TEAM_LEADER ]';
+    EXECUTE IMMEDIATE q'[ grant select, insert, update, delete on USERBRDG to BRMADMIN_ROLE ]';
+    EXECUTE IMMEDIATE q'[ grant select on USERBRDG to BRMREADONLY_ROLE ]';
+    EXECUTE IMMEDIATE q'[ grant select on USERBRDG to KDOT_BLP_ISU ]';
+    EXECUTE IMMEDIATE q'[ grant select on USERBRDG to KDOT_BLP_SELECT ]';
+    EXECUTE IMMEDIATE q'[ grant select, insert, update, delete on USERBRDG to PONTISUSER ]';
+    EXECUTE IMMEDIATE q'[ grant select, insert, update, delete on USERBRDG to PONTISWEBADMINISTRATOR ]';
+    EXECUTE IMMEDIATE q'[ grant select on USERBRDG to PONTISWEBBROWSER ]';
+    EXECUTE IMMEDIATE q'[ grant select, insert, update, delete, alter on USERBRDG to PONTISWEBINSPECTIONSUPERVISOR ]';
+    EXECUTE IMMEDIATE q'[ grant select, insert, update, delete on USERBRDG to PONTISWEBINSPECTOR ]';
+    EXECUTE IMMEDIATE q'[ grant select on USERBRDG to PWEBLOGINID ]';
+    EXECUTE IMMEDIATE q'[ grant select on USERBRDG to PWEBODBCLOGIN ]';
   
   EXCEPTION
     WHEN OTHERS THEN

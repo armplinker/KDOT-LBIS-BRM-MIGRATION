@@ -2,7 +2,15 @@ CREATE OR REPLACE PROCEDURE DROP_BRM_T_BACKUP_TABLES AS
   -- THIS PROCEDURE DROPS ANY TABLES WITH NAMES ENDING IN _T
   -- EXTRACTED FROM OracleBRM6.sql
   -- intended for STANDALONE cleanup  to drop and purge (permanently remove) *_T tables
+  ------------------------------------------------------------------------------------------------
+  -- this procedure does NOT compile if the table PON_TABLE has been cleaned by the upgrade script
+  -- this procedure does NOT compile if the table PON_TABLE has been cleaned by the upgrade script
+  -- this procedure does NOT compile if the table PON_TABLE has been cleaned by the upgrade script
+  ------------------------------------------------------------------------------------------------
+  
   -- ARMarshall, ARM_LLC - 20230103 - created 
+  -- ARMarshall, ARM_LLC - 20230109 - added comment about compilation 
+
   /*
   to see the tables that will be deleted:
    SELECT ut.TABLE_NAME,pt.table_name
