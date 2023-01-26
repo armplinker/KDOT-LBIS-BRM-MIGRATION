@@ -1,0 +1,871 @@
+﻿Executing main upgrade script OracleBRM651.sql
+
+PL/SQL procedure successfully completed
+
+Prepared at Mayvue Solutions by VssAdministrator on 10/8/2021 2:59:51 PM.
+
+PL/SQL procedure successfully completed
+
+
+Session altered
+
+
+Session altered
+
+RUNNING AASHTOWare Bridge Management 6.5.1 GUID upgrade script.
+Run on KDOT_BLP 0cfa87902d42a022590958dfaf5558c28b7f6e6c on THURSDAY 1/26/2023 at 12:48 PM.
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+Function created
+
+
+Function created
+
+
+Procedure created
+
+
+Function created
+
+
+Function created
+
+
+Function created
+
+
+Function created
+
+
+Function created
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+Commit completed
+
+
+0 rows updated
+
+
+2527 rows updated
+
+
+1 row updated
+
+
+136 rows updated
+
+
+186 rows updated
+
+
+3018 rows updated
+
+
+195 rows updated
+
+
+254 rows inserted
+
+
+Commit completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+Session altered
+
+
+Session altered
+
+
+PL/SQL procedure successfully completed
+
+Update PON_COPTIONS_T with values from PON_COPTIONS.
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+Table altered
+
+
+Table altered
+
+
+Table altered
+
+
+Table altered
+
+
+Table altered
+
+
+Table altered
+
+
+Table altered
+
+
+4 rows updated
+
+
+30 rows updated
+
+
+11 rows updated
+
+
+4 rows updated
+
+
+Table altered
+
+
+4 rows updated
+
+
+PL/SQL procedure successfully completed
+
+
+Table altered
+
+
+Table altered
+
+
+Table altered
+
+
+14 rows updated
+
+
+0 rows updated
+
+
+Commit completed
+
+
+Session altered
+
+
+10 rows updated
+
+
+Commit completed
+
+
+Session altered
+
+
+PL/SQL procedure successfully completed
+
+
+Session altered
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+Drop indexes that are unwanted or changed.
+
+PL/SQL procedure successfully completed
+
+Reduce length or scale or change data type.
+
+PL/SQL procedure successfully completed
+
+Alter Columns.
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+Update new columns with default values.
+Make new required columns on old tables required.
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+REMOVE ITEMS FROM PRODUCTION DATABASES.
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+ERROR D6: Failed Creating Foreign Key [ALTER TABLE PON_APP_CONTROL_SECURITY ADD CONSTRAINT FK_CTRL_SEC_TO_NAV_CONTROL FOREIGN KEY (PON_NAV_CONTROL_GD) REFERENCES PON_NAV_CONTROL (PON_NAV_CONTROL_GD) ON DELETE CASCADE;ORA-02298: cannot validate (KDOT_BLP.FK_CTRL_SEC_TO_NAV_CONTROL) - parent keys not found
+Suggestion : Orphan data may be preventing the creation of the foreign key. Check the references table to ensure it contains data in the primary table.
+ERROR D6: Failed Creating Foreign Key [ALTER TABLE KDOTBLP_BRIDGE ADD CONSTRAINT FK_USERBRDG_14_BRIDGE FOREIGN KEY (BRIDGE_GD) REFERENCES BRIDGE (BRIDGE_GD) ON DELETE CASCADE;ORA-02298: cannot validate (KDOT_BLP.FK_USERBRDG_14_BRIDGE) - parent keys not found
+Suggestion : Orphan data may be preventing the creation of the foreign key. Check the references table to ensure it contains data in the primary table.
+ERROR D6: Failed Creating Foreign Key [ALTER TABLE USERSTRUNIT ADD CONSTRAINT FK_USERSTRU_103_STRUCTUR FOREIGN KEY (STRUCTURE_UNIT_GD) REFERENCES STRUCTURE_UNIT (STRUCTURE_UNIT_GD) ON DELETE CASCADE;ORA-02298: cannot validate (KDOT_BLP.FK_USERSTRU_103_STRUCTUR) - parent keys not found
+Suggestion : Orphan data may be preventing the creation of the foreign key. Check the references table to ensure it contains data in the primary table.
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+4 rows merged
+
+
+3962 rows updated
+
+
+3962 rows updated
+
+
+PL/SQL procedure successfully completed
+
+Disable recursive constraints before merging setup data.
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+Merge optional setup data from temp tables.
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+Commit completed
+
+
+PL/SQL procedure successfully completed
+
+
+Commit completed
+
+
+Commit completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+Enable recursive constraints after merging setup data.
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+0 rows updated
+
+Remove retired tables from PON_EXCHANGE_OPTION_DETAIL
+Remove empty entries from PON_EXCHANGE_OPTION
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+Session altered
+
+
+Session altered
+
+
+PL/SQL procedure successfully completed
+
+
+195 rows updated
+
+
+195 rows updated
+
+
+4063 rows merged
+
+
+4063 rows merged
+
+
+0 rows updated
+
+
+0 rows updated
+
+
+0 rows updated
+
+
+0 rows updated
+
+
+0 rows updated
+
+
+0 rows updated
+
+Enable disabled NOT NULL constraints.
+
+PL/SQL procedure successfully completed
+
+Make non PK GUID columns required.
+ERROR :  ALTER TABLE INSPEVNT MODIFY BRIDGE_GD  NOT NULL; ORA-01442: column to be modified to NOT NULL is already NOT NULL in KDOT_BLP.
+ERROR :  ALTER TABLE PON_ELEM_INSP MODIFY BRIDGE_GD  NOT NULL; ORA-01442: column to be modified to NOT NULL is already NOT NULL in KDOT_BLP.
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+0 rows updated
+
+Add missing permissions, (if any).
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+Add indexes.
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+THERE IS A DEFAULT USER CALLED 'PONTIS' WITH A PASSWORD OF 'Pontis2020!'
+CHANGE THIS PASSWORD!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+PL/SQL procedure successfully completed
+
+Script finished on KDOT_BLP.
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+0 rows merged
+
+
+0 rows merged
+
+
+0 rows merged
+
+
+0 rows merged
+
+
+0 rows merged
+
+
+0 rows merged
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+0 rows deleted
+
+
+PL/SQL procedure successfully completed
+
+
+Commit completed
+
+
+Commit completed
+
+
+/*
+Profiling
+=========
+
+--DROP TABLE PROFILING;
+--DROP SEQUENCE S_PROFILING;
+
+CREATE TABLE PROFILING (
+    ID NUMBER(10) NOT NULL,
+    PLACE VARCHAR2(100) NOT NULL,
+    END_TIME TIMESTAMP NOT NULL);
+
+CREATE SEQUENCE S_PROFILING;
+
+CREATE OR REPLACE TRIGGER TRG_PROFILING
+    BEFORE INSERT ON PROFILING
+    FOR EACH ROW
+BEGIN
+    SELECT S_PROFILING.NEXTVAL INTO :NEW.ID FROM DUAL;
+END;
+
+COLUMN PLACE FORMAT A30
+COLUMN DURATION FORMAT A18
+SELECT B.PLACE, TO_CHAR(CAST((B.END_TIME - A.END_TIME) AS INTERVAL DAY TO SECOND(0)), 'HH:MM:SS') AS DURATION
+FROM PROFILING A
+INNER JOIN PROFILING B ON A.ID = B.ID -1
+ORDER BY B.END_TIME - A.END_TIME DESC;
+
+DELETE PROFILING;
+--INSERT INTO PROFILING(PLACE, END_TIME) VALUES ('SEED',  CURRENT_TIMESTAMP);
+*/
+
+ORA-00900: invalid SQL statement

@@ -1,3 +1,7 @@
+-- Script to create a control table of KDOTBLP Portal tables 
+--used by the migration script to do extra backups of critical tables outside of the normal set 
+-- Created by ARMarshall, ARM_LLC, 20230123
+
 DROP TABLE  "KDOT_BLP"."KDOTBLP_PORTAL_TABLES" ;
 
 CREATE TABLE "KDOT_BLP"."KDOTBLP_PORTAL_TABLES" 

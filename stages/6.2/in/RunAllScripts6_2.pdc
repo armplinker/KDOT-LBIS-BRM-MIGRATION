@@ -1,0 +1,21 @@
+-- CONNECT AND START SESSION
+CONNECT KDOT_BLP/eis3nh0wer@dt00en60.ksdot.org:1521/ESOADEV.WORLD
+--whenever sqlerror exit sql.sqlcode;
+SET SERVEROUTPUT ON SIZE UNLIMITED
+SPOOL "D:\git\repos\KDOT-LBIS-BRM-MIGRATION\stages\6.2\log\OracleBRM6_2-20230126.log";
+
+-- BEGIN SCRIPTS 
+ 
+
+EXEC DBMS_OUTPUT.PUT_LINE('Executing main upgrade script OracleBRM6_2.sql');
+@"D:\git\repos\KDOT-LBIS-BRM-MIGRATION\stages\6.2\in\OracleBRM6_2.sql";
+/
+
+-- END SCRIPTS
+
+-- SHUTDOWN 
+
+spool off
+DISCONNECT 
+/
+

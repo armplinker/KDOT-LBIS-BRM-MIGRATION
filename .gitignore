@@ -1,6 +1,14 @@
+# exclude PL/SQL Developer backup files
 *.~*
-/stages/6.0/in/&&SpoolFile.lst
-/stages/6.0/in/&1.lst
+
+# exclude junk intermediate processing files
+/stages/*/in/&&SpoolFile.lst
+/stages/*/in/&1.lst
+
+# keep all the log/* and out/* files for now, delete the ultimate one
+#/stages/*/log/*
+#/stages/*/out/*
+
 /stages/6.0/out/Create_Table_PON_MOBILE_ERRORS-20230103T1114.log
 /stages/6.0/out/Create_Table_VALIDATION_WARNING-20230103T11113.log
 /stages/6.0/out/Fixup_Missing_INSPUSRGUID-20230103T11116.log
@@ -13,7 +21,11 @@
 /stages/6.0/out/OracleBRM6-20230103T1539.log
 /stages/6.0/out/OracleBRM6-20230103T1717.log
 *.pde
+
+# exclude everything that can be downloaded again
+# KDOT database (5.3)
 /src/KDOT/Kansas DOT.zip
+# Mayvue files
 /src/Mayvue/BrM_5_3/53 Documentation.zip
 /src/Mayvue/BrM_5_3/BrM521_Workstation_sp3.zip
 /src/Mayvue/BrM_5_3/BrM53.zip
@@ -21,8 +33,11 @@
 /src/Mayvue/BrM_6_x/BrM 60 Install.zip
 /src/Mayvue/BrM_6_x/BrM63 Install.zip
 /src/Mayvue/*
-/stages/6.0/in/OracleBRM6.sql.bak
 /files/out/pljson-test-executeList.json
 /files/out/pljson-test-executeObject.json
+
+# exclude BAK files
+/stages/*/in/*.sql.bak
+# exclude specific obsolete interim log files
 /stages/6.0/log/OracleBRM6-20230108T1231.log
 /stages/6.0/log/OracleBRM6-20230109T1252.log

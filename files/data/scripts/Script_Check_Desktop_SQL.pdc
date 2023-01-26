@@ -1,0 +1,60 @@
+DECLARE
+  ls_hits    PLS_INTEGER := 0;
+  ls_execSQL VARCHAR2(32767);
+BEGIN
+
+  FOR filters IN (SELECT pf.filterkey, pf.name as filtername, pf.sql_filter
+                    from pon_filters pf
+                   where pf.shared = 1
+                     and pf.accessfilter = 0
+                     and pf.filterkey > 15000
+                     and pf.sql_filter is not null
+                   ORDER BY pf.FILTERKEY) LOOP
+  
+    BEGIN
+      ls_ExecSQL := REPLACE(q'[WITH CTE AS ( ]' || filters.sql_filter || utl_tcp.crlf||
+                            q'[ ) ]' || q'[ SELECT COUNT(*) FROM CTE ]',
+                            ';',
+                            '');
+      DBMS_OUTPUT.PUT_LINE(q'[=========================== START #]' ||
+                           TO_CHAR(filters.filterkey) ||
+                           q'[ =============================]');
+    
+      DBMS_OUTPUT.PUT_LINE(q'[Filter: ]' || TO_CHAR(filters.filterkey) ||
+                           q'[ - ]' || filters.filtername || utl_tcp.crlf || q'[ SQL: ]' || utl_tcp.crlf||
+                           ls_ExecSQL || utl_tcp.crlf );
+    
+      EXECUTE IMMEDIATE ls_ExecSQL
+        INTO ls_hits;
+      DBMS_OUTPUT.PUT_LINE(q'[The SQL for filter: ]' ||
+                           TO_CHAR(filters.filterkey) || q'[ - ]' ||
+                           filters.filtername || q'[ returns ]' ||
+                           TO_CHAR(ls_hits, '999,990') || q'[ rows]');
+      DBMS_OUTPUT.PUT_LINE(q'[=========================== END #]' ||
+                           TO_CHAR(filters.filterkey) ||
+                           q'[ =============================]'|| utl_tcp.crlf);
+    
+      CONTINUE;
+    EXCEPTION
+      WHEN NO_DATA_FOUND THEN
+        BEGIN
+          DBMS_OUTPUT.PUT_LINE(q'[The SQL returned 0 rows]');
+          CONTINUE;
+        END;
+      
+      WHEN OTHERS THEN
+        BEGIN
+          DBMS_OUTPUT.PUT_LINE(q'[ERROR: - The SQL failed with Oracle error: ]' || SQLERRM);
+          CONTINUE;
+        END;
+      
+    END;
+  
+  END LOOP;
+
+EXCEPTION
+
+  WHEN OTHERS THEN
+    RAISE;
+END;
+/

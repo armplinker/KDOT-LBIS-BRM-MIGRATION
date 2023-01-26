@@ -1,0 +1,44 @@
+-- CONNECT AND START SESSION
+CONNECT KDOT_BLP/eis3nh0wer@dt00en60.ksdot.org:1521/ESOADEV.WORLD
+--whenever sqlerror exit sql.sqlcode;
+SET SERVEROUTPUT ON SIZE UNLIMITED
+SPOOL "D:\git\repos\KDOT-LBIS-BRM-MIGRATION\stages\6.1HF\log\OracleBRM6_1HF-20230125.log";
+
+-- BEGIN SCRIPTS 
+/* 
+EXEC DBMS_OUTPUT.PUT_LINE('Running all upgrade scripts...');
+EXEC DBMS_OUTPUT.PUT_LINE('Executing Fixup_Missing_INSPEVNT_User_Identifiers.pdc...');
+@"D:\git\repos\KDOT-LBIS-BRM-MIGRATION\files\scripts\Fixup_Missing_INSPEVNT_User_Identifiers.pdc";
+/
+EXEC DBMS_OUTPUT.PUT_LINE('Executing Cleaning Orphan KDOTBLP_INSPECTIONS...');
+@"D:\git\repos\KDOT-LBIS-BRM-MIGRATION\files\scripts\Script_Clean_KDOTBLP_INSPECTIONS_Table_Orphans.pdc";
+/
+EXEC DBMS_OUTPUT.PUT_LINE('Executing Drop_Create_Table_PON_MOBILE_ERRORS...');
+@"D:\git\repos\KDOT-LBIS-BRM-MIGRATION\files\scripts\Drop_Create_Table_PON_MOBILE_ERRORS.pdc";
+/
+
+EXEC DBMS_OUTPUT.PUT_LINE('Executing Drop_Create_Table_VALIDATION_WARNING...');
+@"D:\git\repos\KDOT-LBIS-BRM-MIGRATION\files\scripts\Drop_Create_Table_VALIDATION_WARNING.pdc";
+/
+
+EXEC DBMS_OUTPUT.PUT_LINE('Executing Drop_Create_Dummy_UserTables...');
+@"D:\git\repos\KDOT-LBIS-BRM-MIGRATION\files\scripts\Drop_Create_Dummy_UserTables.pdc";
+/
+*/
+
+EXEC DBMS_OUTPUT.PUT_LINE('Executing main upgrade script OracleBRM6_1HF.sql');
+@"D:\git\repos\KDOT-LBIS-BRM-MIGRATION\stages\6.1HF\in\OracleBRM6_1HF.sql";
+/
+/*
+EXEC DBMS_OUTPUT.PUT_LINE('Executing (POST-UPGRADE) Script_Restore_Missing_KDOT_Objects.pdc...');
+@"D:\git\repos\KDOT-LBIS-BRM-MIGRATION\files\scripts\Script_Restore_Missing_KDOT_Objects.pdc";
+/
+*/
+-- END SCRIPTS
+
+-- SHUTDOWN 
+
+spool off
+DISCONNECT 
+/
+

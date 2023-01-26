@@ -1,0 +1,1360 @@
+﻿
+=========================== START #16501 =============================
+Filter: 16501 - LBIS Condition summary
+ SQL: 
+WITH CTE AS ( SELECT b.brkey, 
+b.bridge_gd As key_, 
+b.bridge_id, 
+b.lpa_bridge_id, 
+b.feature_intersected, 
+b.district, 
+b.county, 
+b.place, 
+b.length_in_ft, 
+b.built, 
+b.inspdate, 
+b.insptype, 
+b.deck, 
+b.super, 
+b.sub, 
+b.culv, 
+b.chan, 
+b.suff_rate, 
+b.nbi_rating, 
+b.hbrr_eligibility, 
+b.bridge_condition, 
+b.g_f_p, 
+b.bridgegroup,
+b.bridge_gd  /* same as key_ - may be removed eventually */
+From V_CONDITION_SUMMARY_LAYOUT b
+ ORDER BY 1
+ )  SELECT COUNT(*) FROM CTE 
+
+The SQL for filter: 16501 - LBIS Condition summary returns   21,427 rows
+=========================== END #16501 =============================
+
+=========================== START #16502 =============================
+Filter: 16502 - LBIS Material and Type of Main Span
+ SQL: 
+WITH CTE AS ( SELECT b.Brkey,
+       b.bridge_gd AS key_,
+       b.Bridge_Id AS Bridge_Id,
+       b.Strucname AS Lpa_Bridge_Id,
+       b.Featint   AS Feature_Intersected,
+       Pd.Shortdesc AS District,
+       Pc.Shortdesc AS County,
+       Pl.Shortdesc AS Place,
+      Lpad(to_char(to_number(f_safe_decimal( Nvl(b.Length,-1), 2, 12, 'N','N')  ),'999,990.90') ,12 )  AS "LENGTH (FT)",
+       b.Yearbuilt  AS Built,
+       b.Facility   AS Facility_Carried,
+       CASE
+         WHEN b.userkey1 is null or b.userkey1 = '-1' THEN
+          'Missing'
+         ELSE
+          Kdml.NBI_Material_Code || '-' || Kdml.NBI_Design_Code || ' : ' || Kdml.Kdot_Matl_Design_Code || '-' || Kdml.Kdot_Matl_Design_Label
+       END AS KDOT_Design,
+       Mt.Shortdesc AS Material,
+       Ds.Shortdesc AS Design,
+       b.bridge_gd --
+  FROM Bridge                         b,
+       Paramtrs                       Pd,
+       Paramtrs                       Pc,
+       Paramtrs                       Po,
+       Paramtrs                       Pm,
+       Paramtrs                       Pl,
+       Paramtrs                       Mt,
+       Paramtrs                       Ds,
+       Kdotblp_Design_Material_Lookup Kdml
+ WHERE ( Pc.Table_Name = 'bridge'
+   AND Pc.Field_Name = 'county'
+   AND Pc.Parmvalue = b.County
+   AND Pl.Table_Name = 'bridge'
+   AND Pl.Field_Name = 'placecode'
+   AND Pl.Parmvalue = b.Placecode
+   AND Pd.Table_Name = 'bridge'
+   AND Pd.Field_Name = 'district'
+   AND Pd.Parmvalue = b.District
+   AND Po.Table_Name = 'bridge'
+   AND Po.Field_Name = 'custodian'
+   AND Po.Parmvalue = b.Owner
+   AND Pm.Table_Name = 'bridge'
+   AND Pm.Field_Name = 'custodian'
+   AND Pm.Parmvalue = b.Custodian
+   AND Mt.Table_Name = 'bridge'
+   AND Mt.Field_Name = 'materialmain'
+   AND Mt.Parmvalue = b.Materialmain
+   AND Ds.Table_Name = 'bridge'
+   AND Ds.Field_Name = 'designmain'
+   AND Ds.Parmvalue = b.Designmain
+   AND Kdml.Kdot_Matl_Design_Key(+) = b.Userkey1)
+   ORDER BY 1
+ )  SELECT COUNT(*) FROM CTE 
+
+The SQL for filter: 16502 - LBIS Material and Type of Main Span returns   21,406 rows
+=========================== END #16502 =============================
+
+=========================== START #16505 =============================
+Filter: 16505 - LBIS Bridges with under roadways
+ SQL: 
+WITH CTE AS ( SELECT b.Brkey
+      ,b.bridge_gd AS key_
+      ,b.Bridge_Id    AS Bridge_Id
+      ,b.Strucname  AS Lpa_Bridge_Id
+      ,b.Featint    AS Feature_Intersected
+      ,Pd.Shortdesc AS District
+      ,Pc.Shortdesc AS County
+      ,Ppc.Shortdesc AS Place
+      ,Round(Nvl(b.Length ,-1),2) AS Meters
+      ,Nvl(b.Yearbuilt,-1) AS Built
+      ,b.Facility AS Facility_Carried
+      ,b.Bridge_Gd /* same as key_ - may be removed eventually */
+  FROM Bridge   b
+      ,Paramtrs Pd
+      ,Paramtrs Pc
+      ,Paramtrs Po
+      ,Paramtrs Pm
+      ,Paramtrs Ppc
+ WHERE Pc.Table_Name = 'bridge'
+   AND Pc.Field_Name = 'county'
+   AND Pc.Parmvalue = b.County
+   AND Ppc.Table_Name = 'bridge'
+   AND Ppc.Field_Name = 'placecode'
+   AND Ppc.Parmvalue = b.Placecode
+   AND Pd.Table_Name = 'bridge'
+   AND Pd.Field_Name = 'district'
+   AND Pd.Parmvalue = b.District
+   AND Po.Table_Name = 'bridge'
+   AND Po.Field_Name = 'custodian'
+   AND Po.Parmvalue = b.Owner
+   AND Pm.Table_Name = 'bridge'
+   AND Pm.Field_Name = 'custodian'
+   AND Pm.Parmvalue = b.Custodian
+   AND b.Bridge_Gd IN
+       (SELECT DISTINCT rw.Bridge_gd FROM Roadway rw WHERE rw.On_Under <> '1')
+ )  SELECT COUNT(*) FROM CTE 
+
+The SQL for filter: 16505 - LBIS Bridges with under roadways returns      138 rows
+=========================== END #16505 =============================
+
+=========================== START #16506 =============================
+Filter: 16506 - LBIS * Default
+ SQL: 
+WITH CTE AS ( SELECT b.brkey,
+       b.bridge_gd   AS key_,
+       b.Bridge_Id   AS Bridge_Id,
+       b.Strucname   AS Lpa_Bridge_Id,
+       b.Facility    AS Facility_Carried,
+       b.Featint     AS Feature_Intersected,
+       i.Lastinsp    AS Last_Nbi_Insp_Date,
+       i.Inspdate    AS Nbi_Insp_Date,
+       i.Insptype    as Insptype,
+       b.Bridgegroup AS Bridge_Group,
+       b.bridge_gd /* same as key_ - may be removed eventually */
+  FROM Bridge b
+ INNER JOIN (SELECT i1.Bridge_GD,
+                    I1.Inspevnt_GD,
+                    Row_Number() Over(PARTITION BY i1.Bridge_GD ORDER BY I1.Inspdate DESC) Rn
+               FROM Inspevnt I1
+              where i1.Insptype = 'I') Mv
+    ON b.bridge_GD = mv.bridge_GD
+   AND Mv.Rn = 1
+ INNER JOIN Inspevnt i
+    ON i.INSPEVNT_GD = mv.INSPEVNT_GD
+ ORDER BY 1
+ )  SELECT COUNT(*) FROM CTE 
+
+The SQL for filter: 16506 - LBIS * Default returns   21,427 rows
+=========================== END #16506 =============================
+
+=========================== START #16508 =============================
+Filter: 16508 - LBIS Bridges with expired sufficiency ratings
+ SQL: 
+WITH CTE AS ( SELECT b.brkey 
+      ,b.bridge_gd AS key_
+      ,b.Bridge_Id  AS Bridge_Id
+      ,b.Strucname  AS Lpa_Bridge_Id
+      ,Pd.Shortdesc AS District
+      ,Pc.Shortdesc AS County
+      ,b.Facility   AS Facility_Carried
+      ,b.Featint    AS Feature_Intersected
+      ,Po.Shortdesc AS Own
+      ,Pm.Shortdesc AS Maint
+      ,b.Yearbuilt  AS Built
+      ,b.bridge_gd /* same as key_ - may be removed eventually */
+  FROM Bridge b, Paramtrs Pd, Paramtrs Pc, Paramtrs Po, Paramtrs Pm
+ WHERE Pc.Table_Name = 'bridge'
+   AND Pc.Field_Name = 'county'
+   AND Pc.Parmvalue = b.County
+   AND Pd.Table_Name = 'bridge'
+   AND Pd.Field_Name = 'district'
+   AND Pd.Parmvalue = b.District
+   AND Po.Table_Name = 'bridge'
+   AND Po.Field_Name = 'custodian'
+   AND Po.Parmvalue = b.Owner
+   AND Pm.Table_Name = 'bridge'
+   AND Pm.Field_Name = 'custodian'
+   AND Pm.Parmvalue = b.Custodian
+   AND b.Srstatus <> '0'
+ )  SELECT COUNT(*) FROM CTE 
+
+The SQL for filter: 16508 - LBIS Bridges with expired sufficiency ratings returns      771 rows
+=========================== END #16508 =============================
+
+=========================== START #16509 =============================
+Filter: 16509 - LBIS Bridges with no inspections
+ SQL: 
+WITH CTE AS ( SELECT b.Brkey,
+       b.bridge_gd  AS key_,
+       b.bridge_id  AS Bridge_ID,
+       b.strucname  as LPA_Bridge_ID,
+       pd.shortdesc as District,
+       pc.shortdesc as County,
+       b.facility   AS Facility_Carried,
+       b.featint    as Feature_Intersected,
+       po.shortdesc as Own,
+       pm.shortdesc as Maint,
+       b.yearbuilt  as Built,
+       b.bridge_gd /* same as key_ - may be removed eventually */
+  FROM bridge b, paramtrs pd, paramtrs pc, paramtrs po, paramtrs pm
+ WHERE pc.table_name = 'bridge'
+   AND pc.field_name = 'county'
+   AND pc.parmvalue = b.county
+   AND pd.table_name = 'bridge'
+   AND pd.field_name = 'district'
+   AND pd.parmvalue = b.district
+   AND po.table_name = 'bridge'
+   AND po.field_name = 'custodian'
+   AND po.parmvalue = b.owner
+   AND pm.table_name = 'bridge'
+   AND pm.field_name = 'custodian'
+   AND pm.parmvalue = b.custodian
+   AND NOT EXISTS
+ (select i.brkey from inspevnt i where i.bridge_gd = b.bridge_gd)
+ ORDER BY 1
+
+ )  SELECT COUNT(*) FROM CTE 
+
+The SQL for filter: 16509 - LBIS Bridges with no inspections returns        0 rows
+=========================== END #16509 =============================
+
+=========================== START #16510 =============================
+Filter: 16510 - LBIS Inspector and latest inspection date
+ SQL: 
+WITH CTE AS ( SELECT b.Brkey AS key_,
+b.bridge_id AS  Bridge_ID,
+b.strucname as LPA_Bridge_ID,
+i.inspname as Inspector,
+i.lastinsp as LAST_INSP_DATE,
+i.inspkey as INSPKEY,
+pj.shortdesc as Inspection_Status,
+pt.shortdesc as Inspection_Type,
+pd.shortdesc as District,
+pc.shortdesc as County,
+b.facility AS Facility_Carried,
+b.featint as Feature_Intersected,
+b.yearbuilt as Built,
+b.bridge_gd
+FROM bridge b, inspevnt i, paramtrs pd, paramtrs pc, paramtrs pj, paramtrs pt
+WHERE pc.table_name='bridge' AND pc.field_name='county' AND pc.parmvalue=b.county AND
+pd.table_name='bridge' AND pd.field_name='district' AND pd.parmvalue=b.district AND
+pj.table_name='inspevnt' AND pj.field_name='inspstat' AND pj.parmvalue=i.inspstat AND
+pt.table_name='inspevnt' AND pt.field_name='insptype' AND pt.parmvalue=i.insptype AND
+(i.brkey = b.Brkey ) and (i.inspkey = (select max(j.inspkey) from inspevnt j where j.brkey = b.Brkey and j.inspdate = (select max(k.inspdate) from inspevnt k where k.brkey = b.Brkey )))
+ )  SELECT COUNT(*) FROM CTE 
+
+The SQL for filter: 16510 - LBIS Inspector and latest inspection date returns   21,427 rows
+=========================== END #16510 =============================
+
+=========================== START #16512 =============================
+Filter: 16512 - LBIS Bridges with QCQA inspections
+ SQL: 
+WITH CTE AS ( SELECT b.Brkey
+b.bridge_gd AS key_,
+b.bridge_id AS Bridge_ID,
+b.strucname as LPA_Bridge_ID,
+b.bridgegroup,
+b.feature,
+b.district,
+b.county,
+b.place,
+b.year_built,
+b.inspdate as RECORD_DATE,
+b.lastinsp as LAST_ROUT_INSP,
+b.inspector,
+b.inspkey,
+b.deck,
+b.deck_qaqc,
+b.DKMM,
+b.super,
+b.super_qaqc,
+b.sub,
+b.sub_qaqc,
+b.culv,
+b.culv_qaqc,
+b.chan,
+b.chan_qaqc,
+b.length_ft,
+b.length_ft_qaqc,
+b.aroadwidth_ft,
+b.aroadwidth_ft_qaqc,
+b.vclrinv_ft,
+b.vclrinv_ft_qaqc,
+b.hclrinv_ft,
+b.hclrinv_ft_qaqc,
+b.design,
+b.design_qaqc,
+b.material,
+b.material_qaqc,
+b.sr,
+b.sr_ok_qaqc,
+b.nbi_rating,
+b.nbi_rating_qaqc,
+b.hbrr_status,
+b.bridge_gd /* same as key_ - may be removed eventually */
+ FROM v_qaqc_condition_sumry_layout b
+ )  SELECT COUNT(*) FROM CTE 
+
+ERROR: - The SQL failed with Oracle error: ORA-00923: FROM keyword not found where expected
+=========================== START #16514 =============================
+Filter: 16514 - LBIS Bridges with locked inspections
+ SQL: 
+WITH CTE AS ( SELECT b.Brkey,
+ b.bridge_gd AS key_,
+ b.bridge_id AS Bridge_ID,
+ b.strucname as LPA_Bridge_ID,
+ pd.shortdesc as District,
+ pc.shortdesc as County,
+ b.facility     AS Facility_Carried,
+ b.featint      as Feature_Intersected,
+ po.shortdesc as Own,
+ pm.shortdesc as Maint,
+ b.yearbuilt    as Built,
+ b.bridge_gd  /* same as key_ - may be removed eventually */
+FROM bridge b,
+       paramtrs pd,
+       paramtrs pc,
+       paramtrs po,
+       paramtrs pm
+ WHERE( pc.table_name = 'bridge'
+   AND pc.field_name = 'county'
+   AND pc.parmvalue = b.county
+   AND pd.table_name = 'bridge'
+   AND pd.field_name = 'district'
+   AND pd.parmvalue = b.district
+   AND po.table_name = 'bridge'
+   AND po.field_name = 'custodian'
+   AND po.parmvalue = b.owner
+   AND pm.table_name = 'bridge'
+   AND pm.field_name = 'custodian'
+   AND pm.parmvalue = b.custodian
+   AND exists (SELECT 1 from INSPEVNT i where i.BRKEY=b.Brkey
+   and i.inspstat='4') )
+   ORDER BY 1
+ )  SELECT COUNT(*) FROM CTE 
+
+The SQL for filter: 16514 - LBIS Bridges with locked inspections returns   21,410 rows
+=========================== END #16514 =============================
+
+=========================== START #16515 =============================
+Filter: 16515 - LBIS Bridges with Annual Routine Inspection
+ SQL: 
+WITH CTE AS ( SELECT b.Brkey,
+       b.bridge_gd  AS key_,
+       bridge_id    AS Bridge_ID,
+       b.strucname  as LPA_Bridge_ID,
+       pd.shortdesc as District,
+       pc.shortdesc as Material_Main_43A,
+       po.shortdesc as Design_Main_43B,
+       facility     AS Facility_Carried,
+       featint      as Feature_Intersected,
+       i.inspname   as Inspector,
+       i.lastinsp   as LAST_INSP_DATE,
+       i.brinspfreq as Inspection_Freq,
+       yearbuilt    as Year_Built,
+       bridgegroup  as Bridge_Group,
+       b.bridge_gd /* same as key_ - may be removed eventually */
+  FROM bridge   b,
+       inspevnt i,
+       paramtrs pd,
+       paramtrs pc,
+       paramtrs po,
+       paramtrs pm
+ WHERE pc.table_name = 'bridge'
+   AND pc.field_name = 'materialmain'
+   AND pc.parmvalue = b.materialmain
+   AND pd.table_name = 'bridge'
+   AND pd.field_name = 'district'
+   AND pd.parmvalue = b.district
+   AND po.table_name = 'bridge'
+   AND po.field_name = 'designmain'
+   AND po.parmvalue = b.designmain
+   AND pm.table_name = 'bridge'
+   AND pm.field_name = 'custodian'
+   AND pm.parmvalue = b.custodian
+   AND (i.brinspfreq = '12')
+   AND (i.brkey = b.Brkey)
+   and (i.inspkey =
+       (select max(j.inspkey)
+           from inspevnt j
+          where j.brkey = b.Brkey
+            and j.inspdate = (select max(k.inspdate)
+                                from inspevnt k
+                               where k.brkey = b.Brkey)))
+
+ )  SELECT COUNT(*) FROM CTE 
+
+The SQL for filter: 16515 - LBIS Bridges with Annual Routine Inspection returns      816 rows
+=========================== END #16515 =============================
+
+=========================== START #16556 =============================
+Filter: 16556 - LBIS Bridges changed or created today
+ SQL: 
+WITH CTE AS ( SELECT b.Brkey,
+       b.Bridge_Gd  AS key_,
+       b.Bridge_Id   AS Bridge_Id,
+       b.Strucname   AS Lpa_Bridge_Id,
+       Pd.Shortdesc  AS District,
+       Pc.Shortdesc  AS Material_Main_43a,
+       Po.Shortdesc  AS Design_Main_43b,
+       b.Facility    AS Facility_Carried,
+       b.Featint     AS Feature_Intersected,
+       i.Inspname    AS Inspector,
+       i.Lastinsp    AS Last_Insp_Date,
+       b.Yearbuilt   AS Built,
+       b.Bridgegroup AS Bridge_Group,
+       b.Bridge_Gd /* same as key_ - may be removed eventually */
+  FROM Bridge b
+  LEFT OUTER JOIN Inspevnt i
+    ON i.Bridge_Gd = b.Bridge_Gd
+  LEFT OUTER JOIN Paramtrs Pd
+    ON Pd.Parmvalue = b.District
+   AND Pd.Table_Name = 'bridge'
+   AND Pd.Field_Name = 'district'
+  LEFT OUTER JOIN Paramtrs Pc
+    ON Pc.Parmvalue = b.Materialmain
+   AND Pc.Table_Name = 'bridge'
+   AND Pc.Field_Name = 'materialmain'
+  LEFT OUTER JOIN Paramtrs Po
+    ON Po.Parmvalue = b.Designmain
+   AND Po.Table_Name = 'bridge'
+   AND Po.Field_Name = 'designmain'
+  LEFT OUTER JOIN Paramtrs Pm2
+    ON Pm2.Parmvalue = b.Owner
+   AND Pm2.Table_Name = 'bridge'
+   AND Pm2.Field_Name = 'owner'
+  LEFT OUTER JOIN Paramtrs Pm
+    ON Pm.Parmvalue = b.Custodian
+   AND Pm.Table_Name = 'bridge'
+   AND Pm.Field_Name = 'custodian'
+ WHERE (i.Inspkey =
+       (SELECT MAX(j.Inspkey)
+           FROM Inspevnt j
+          WHERE j.Bridge_Gd = b.Bridge_Gd
+            AND j.Inspdate = (SELECT MAX(k.Inspdate)
+                                FROM Inspevnt k
+                               WHERE k.Bridge_Gd = b.Bridge_Gd)))
+   AND (Trunc(b.Createdatetime) >= Trunc(SYSDATE) OR
+       Trunc(b.Modtime) >= Trunc(SYSDATE))
+       ORDER BY 1
+ )  SELECT COUNT(*) FROM CTE 
+
+The SQL for filter: 16556 - LBIS Bridges changed or created today returns        0 rows
+=========================== END #16556 =============================
+
+=========================== START #16611 =============================
+Filter: 16611 - LBIS Structures with fracture critical reports
+ SQL: 
+WITH CTE AS ( SELECT b.Brkey, b.bridge_gd AS key_, b.bridge_id AS Bridge_ID, b.strucname as LPA_Bridge_ID,pd.shortdesc as District, pc.shortdesc as Material_Main_43A, po.shortdesc as Design_Main_43B, b.facility AS Facility_Carried, b.featint as Feature_Intersected, i.inspname as Inspector, i.lastinsp as LAST_INSP_DATE, b.yearbuilt as Built, b.bridgegroup as Bridge_Group , b.bridge_gd /* same as key_ - may be removed eventually */
+ FROM bridge b, inspevnt i, paramtrs pd, paramtrs pc, paramtrs po, paramtrs pm WHERE pc.table_name='bridge' AND pc.field_name='materialmain' AND pc.parmvalue=b.materialmain AND pd.table_name='bridge' AND pd.field_name='district' AND pd.parmvalue=b.district AND po.table_name='bridge' AND po.field_name='designmain' AND po.parmvalue=b.designmain AND pm.table_name='bridge' AND pm.field_name='custodian' AND pm.parmvalue=b.custodian AND (i.brkey = b.Brkey ) and (i.inspkey = (select max(j.inspkey) from inspevnt j where j.brkey = b.Brkey and j.inspdate = (select max(k.inspdate) from inspevnt k where k.brkey = b.Brkey ))) AND EXISTS(SELECT 1 FROM kdotblp_documents WHERE brkey=b.Brkey AND doc_type_key='11')
+ )  SELECT COUNT(*) FROM CTE 
+
+The SQL for filter: 16611 - LBIS Structures with fracture critical reports returns      497 rows
+=========================== END #16611 =============================
+
+=========================== START #16612 =============================
+Filter: 16612 - LBIS Structures with underwater inspection reports
+ SQL: 
+WITH CTE AS ( SELECT b.Brkey,
+       b.bridge_gd       AS key_,
+       b.bridge_id   AS Bridge_ID,
+       b.strucname   as LPA_Bridge_ID,
+       pd.shortdesc  as District,
+       pc.shortdesc  as Material_Main_43A,
+       po.shortdesc  as Design_Main_43B,
+       b.facility    AS Facility_Carried,
+       b.featint     as Feature_Intersected,
+       i.inspname    as Inspector,
+       i.lastinsp    as LAST_INSP_DATE,
+       b.yearbuilt   as Built,
+       b.bridgegroup as Bridge_Group,
+       b.bridge_gd /* same as key_ - may be removed eventually */
+  FROM bridge   b,
+       inspevnt i,
+       paramtrs pd,
+       paramtrs pc,
+       paramtrs po,
+       paramtrs pm
+ WHERE pc.table_name = 'bridge'
+   AND pc.field_name = 'materialmain'
+   AND pc.parmvalue = b.materialmain
+   AND pd.table_name = 'bridge'
+   AND pd.field_name = 'district'
+   AND pd.parmvalue = b.district
+   AND po.table_name = 'bridge'
+   AND po.field_name = 'designmain'
+   AND po.parmvalue = b.designmain
+   AND pm.table_name = 'bridge'
+   AND pm.field_name = 'custodian'
+   AND pm.parmvalue = b.custodian
+   AND (i.brkey = b.Brkey)
+   and (i.inspkey =
+       (select max(j.inspkey)
+           from inspevnt j
+          where j.brkey = b.Brkey
+            and j.inspdate = (select max(k.inspdate)
+                                from inspevnt k
+                               where k.brkey = b.Brkey)))
+   AND EXISTS (SELECT 1
+          FROM kdotblp_documents
+         WHERE brkey = b.Brkey
+           AND doc_type_key = '12')
+ )  SELECT COUNT(*) FROM CTE 
+
+The SQL for filter: 16612 - LBIS Structures with underwater inspection reports returns       93 rows
+=========================== END #16612 =============================
+
+=========================== START #16613 =============================
+Filter: 16613 - LBIS Structures with special inspection reports
+ SQL: 
+WITH CTE AS ( SELECT b.Brkey,
+       b.bridge_gd   AS key_,
+       b.bridge_id   AS Bridge_ID,
+       b.strucname   as LPA_Bridge_ID,
+       pd.shortdesc  as District,
+       pc.shortdesc  as Material_Main_43A,
+       po.shortdesc  as Design_Main_43B,
+       b.facility    AS Facility_Carried,
+       b.featint     as Feature_Intersected,
+       i.inspname    as Inspector,
+       i.lastinsp    as LAST_INSP_DATE,
+       b.yearbuilt   as Built,
+       b.bridgegroup as Bridge_Group,
+       b.bridge_gd /* same as key_ - may be removed eventually */
+  FROM bridge   b,
+       inspevnt i,
+       paramtrs pd,
+       paramtrs pc,
+       paramtrs po,
+       paramtrs pm
+ WHERE pc.table_name = 'bridge'
+   AND pc.field_name = 'materialmain'
+   AND pc.parmvalue = b.materialmain
+   AND pd.table_name = 'bridge'
+   AND pd.field_name = 'district'
+   AND pd.parmvalue = b.district
+   AND po.table_name = 'bridge'
+   AND po.field_name = 'designmain'
+   AND po.parmvalue = b.designmain
+   AND pm.table_name = 'bridge'
+   AND pm.field_name = 'custodian'
+   AND pm.parmvalue = b.custodian
+   AND (i.brkey = b.Brkey)
+   and (i.inspkey =
+       (select max(j.inspkey)
+           from inspevnt j
+          where j.brkey = b.Brkey
+            and j.inspdate = (select max(k.inspdate)
+                                from inspevnt k
+                               where k.brkey = b.Brkey)))
+   AND EXISTS (SELECT 1
+          FROM kdotblp_documents
+         WHERE brkey = b.Brkey
+           AND doc_type_key = '13')
+
+ )  SELECT COUNT(*) FROM CTE 
+
+The SQL for filter: 16613 - LBIS Structures with special inspection reports returns       55 rows
+=========================== END #16613 =============================
+
+=========================== START #16614 =============================
+Filter: 16614 - LBIS Structures with scour reports
+ SQL: 
+WITH CTE AS ( SELECT b.Brkey,
+       b.bridge_gd   AS key_,
+       b.bridge_id   AS Bridge_ID,
+       b.strucname   as LPA_Bridge_ID,
+       pd.shortdesc  as District,
+       pc.shortdesc  as Material_Main_43A,
+       po.shortdesc  as Design_Main_43B,
+       b.facility    AS Facility_Carried,
+       b.featint     as Feature_Intersected,
+       i.inspname    as Inspector,
+       i.lastinsp    as LAST_INSP_DATE,
+       b.yearbuilt   as Built,
+       b.bridgegroup as Bridge_Group,
+       b.bridge_gd /* same as key_ - may be removed eventually */
+  FROM bridge   b,
+       inspevnt i,
+       paramtrs pd,
+       paramtrs pc,
+       paramtrs po,
+       paramtrs pm
+ WHERE pc.table_name = 'bridge'
+   AND pc.field_name = 'materialmain'
+   AND pc.parmvalue = b.materialmain
+   AND pd.table_name = 'bridge'
+   AND pd.field_name = 'district'
+   AND pd.parmvalue = b.district
+   AND po.table_name = 'bridge'
+   AND po.field_name = 'designmain'
+   AND po.parmvalue = b.designmain
+   AND pm.table_name = 'bridge'
+   AND pm.field_name = 'custodian'
+   AND pm.parmvalue = b.custodian
+   AND (i.brkey = b.Brkey)
+   and (i.inspkey =
+       (select max(j.inspkey)
+           from inspevnt j
+          where j.brkey = b.Brkey
+            and j.inspdate = (select max(k.inspdate)
+                                from inspevnt k
+                               where k.brkey = b.Brkey)))
+   AND EXISTS (SELECT 1
+          FROM kdotblp_documents
+         WHERE brkey = b.Brkey
+           AND doc_type_key = '50')
+ )  SELECT COUNT(*) FROM CTE 
+
+The SQL for filter: 16614 - LBIS Structures with scour reports returns   20,419 rows
+=========================== END #16614 =============================
+
+=========================== START #16615 =============================
+Filter: 16615 - LBIS Structures with critical inspection findings
+ SQL: 
+WITH CTE AS ( SELECT b.Brkey,
+       b.bridge_gd   AS key_,
+       b.bridge_id   AS Bridge_ID,
+       b.strucname   as LPA_Bridge_ID,
+       pd.shortdesc  as District,
+       pc.shortdesc  as Material_Main_43A,
+       po.shortdesc  as Design_Main_43B,
+       b.facility    AS Facility_Carried,
+       b.featint     as Feature_Intersected,
+       i.inspname    as Inspector,
+       i.lastinsp    as LAST_INSP_DATE,
+       b.yearbuilt   as Built,
+       b.bridgegroup as Bridge_Group,
+       b.bridge_gd /* same as key_ - may be removed eventually */
+  FROM bridge   b,
+       inspevnt i,
+       paramtrs pd,
+       paramtrs pc,
+       paramtrs po,
+       paramtrs pm
+ WHERE pc.table_name = 'bridge'
+   AND pc.field_name = 'materialmain'
+   AND pc.parmvalue = b.materialmain
+   AND pd.table_name = 'bridge'
+   AND pd.field_name = 'district'
+   AND pd.parmvalue = b.district
+   AND po.table_name = 'bridge'
+   AND po.field_name = 'designmain'
+   AND po.parmvalue = b.designmain
+   AND pm.table_name = 'bridge'
+   AND pm.field_name = 'custodian'
+   AND pm.parmvalue = b.custodian
+   AND (i.brkey = b.Brkey)
+   and (i.inspkey =
+       (select max(j.inspkey)
+           from inspevnt j
+          where j.brkey = b.Brkey
+            and j.inspdate = (select max(k.inspdate)
+                                from inspevnt k
+                               where k.brkey = b.Brkey)))
+   AND EXISTS (SELECT 1
+          FROM kdotblp_documents
+         WHERE brkey = b.Brkey
+           AND doc_type_key = '15')
+ )  SELECT COUNT(*) FROM CTE 
+
+The SQL for filter: 16615 - LBIS Structures with critical inspection findings returns       47 rows
+=========================== END #16615 =============================
+
+=========================== START #16616 =============================
+Filter: 16616 - LBIS Structures with load ratings forms
+ SQL: 
+WITH CTE AS ( SELECT b.Brkey,
+       b.bridge_gd   AS key_,
+       b.bridge_id   AS Bridge_ID,
+       b.strucname   as LPA_Bridge_ID,
+       pd.shortdesc  as District,
+       pc.shortdesc  as Material_Main_43A,
+       po.shortdesc  as Design_Main_43B,
+       b.facility    AS Facility_Carried,
+       b.featint     as Feature_Intersected,
+       i.inspname    as Inspector,
+       i.lastinsp    as LAST_INSP_DATE,
+       b.yearbuilt   as Built,
+       b.bridgegroup as Bridge_Group,
+       b.bridge_gd /* same as key_ - may be removed eventually */
+  FROM bridge   b,
+       inspevnt i,
+       paramtrs pd,
+       paramtrs pc,
+       paramtrs po,
+       paramtrs pm
+ WHERE pc.table_name = 'bridge'
+   AND pc.field_name = 'materialmain'
+   AND pc.parmvalue = b.materialmain
+   AND pd.table_name = 'bridge'
+   AND pd.field_name = 'district'
+   AND pd.parmvalue = b.district
+   AND po.table_name = 'bridge'
+   AND po.field_name = 'designmain'
+   AND po.parmvalue = b.designmain
+   AND pm.table_name = 'bridge'
+   AND pm.field_name = 'custodian'
+   AND pm.parmvalue = b.custodian
+   AND (i.brkey = b.Brkey)
+   and (i.inspkey =
+       (select max(j.inspkey)
+           from inspevnt j
+          where j.brkey = b.Brkey
+            and j.inspdate = (select max(k.inspdate)
+                                from inspevnt k
+                               where k.brkey = b.Brkey)))
+   AND EXISTS (SELECT 1
+          FROM kdotblp_documents kd
+         WHERE kd.bridge_gd = b.bridge_gd
+           AND kd.doc_type_key = '60')
+ ORDER BY 1
+ )  SELECT COUNT(*) FROM CTE 
+
+The SQL for filter: 16616 - LBIS Structures with load ratings forms returns    1,432 rows
+=========================== END #16616 =============================
+
+=========================== START #16617 =============================
+Filter: 16617 - LBIS Structures with existing plans
+ SQL: 
+WITH CTE AS ( SELECT b.Brkey,
+       b.bridge_gd   AS key_,
+       b.bridge_id   AS Bridge_ID,
+       b.strucname   as LPA_Bridge_ID,
+       pd.shortdesc  as District,
+       pc.shortdesc  as Material_Main_43A,
+       po.shortdesc  as Design_Main_43B,
+       b.facility    AS Facility_Carried,
+       b.featint     as Feature_Intersected,
+       i.inspname    as Inspector,
+       i.lastinsp    as LAST_INSP_DATE,
+       b.yearbuilt   as Built,
+       b.bridgegroup as Bridge_Group,
+       b.bridge_gd /* same as key_ - may be removed eventually */
+  FROM bridge   b,
+       inspevnt i,
+       paramtrs pd,
+       paramtrs pc,
+       paramtrs po,
+       paramtrs pm
+ WHERE pc.table_name = 'bridge'
+   AND pc.field_name = 'materialmain'
+   AND pc.parmvalue = b.materialmain
+   AND pd.table_name = 'bridge'
+   AND pd.field_name = 'district'
+   AND pd.parmvalue = b.district
+   AND po.table_name = 'bridge'
+   AND po.field_name = 'designmain'
+   AND po.parmvalue = b.designmain
+   AND pm.table_name = 'bridge'
+   AND pm.field_name = 'custodian'
+   AND pm.parmvalue = b.custodian
+   AND (i.brkey = b.Brkey)
+   and (i.inspkey =
+       (select max(j.inspkey)
+           from inspevnt j
+          where j.brkey = b.Brkey
+            and j.inspdate = (select max(k.inspdate)
+                                from inspevnt k
+                               where k.brkey = b.Brkey)))
+   AND EXISTS (SELECT 1
+          FROM kdotblp_documents
+         WHERE brkey = b.Brkey
+           AND doc_type_key = '17')
+ ORDER BY 1
+ )  SELECT COUNT(*) FROM CTE 
+
+The SQL for filter: 16617 - LBIS Structures with existing plans returns    6,557 rows
+=========================== END #16617 =============================
+
+=========================== START #16711 =============================
+Filter: 16711 - LBIS * Structures with FC inspections
+ SQL: 
+WITH CTE AS ( SELECT b.brkey,
+       b.bridge_gd AS key_,
+       b.bridge_id AS bridge_id,
+       b.strucname AS lpa_bridge_id,
+       b.featint AS feature_intersected,
+       i1.inspdate,
+       cte.fc_inspdate,
+       f_lbl(b.district, 'bridge', 'district') AS district,
+       f_lbl(b.county, 'bridge', 'county') AS county,
+       f_lbl(b.placecode, 'bridge', 'placecode') AS place,
+       round(b.length, 2) AS feet,
+       trunc(b.yearbuilt) AS built,
+       b.facility AS facility_carried,     
+       i1.inspevnt_gd,
+       b.bridge_gd /* same as key_ - may be removed eventually */
+  FROM bridge b
+  LEFT OUTER JOIN inspevnt i1
+    ON (b.bridge_gd = i1.bridge_gd)
+ INNER JOIN (SELECT itypes.bridge_gd,
+                    itypes.inspevnt_gd,
+                    itypes.fc_inspdate,
+                    itypes.rn
+               FROM (SELECT i2.brkey,
+                            i2.inspevnt_gd,
+                            i2.bridge_gd,
+                            row_number() OVER(PARTITION BY i2.bridge_gd ORDER BY i2.fclastinsp DESC) AS rn,
+                            CASE
+                              WHEN i2.fclastinsp IS NOT NULL THEN
+                               i2.fclastinsp
+                              ELSE
+                               i2.inspdate
+                            END AS fc_inspdate
+                       FROM inspevnt i2
+                      WHERE f_is_yes(i2.fcinspdone) = 1) itypes) cte
+    ON (b.bridge_gd = cte.bridge_gd AND i1.inspevnt_gd = cte.inspevnt_gd AND
+       cte.rn = 1)
+ WHERE lower(b.bridgegroup) NOT IN ('removed',
+                                    'perm closed',
+                                    'too short',
+                                    'transferred',
+                                    'pedestrian',
+                                    'private',
+                                    'railroad',
+                                    'closed')
+   AND (1 = 1)
+ ORDER BY 1
+ )  SELECT COUNT(*) FROM CTE 
+
+The SQL for filter: 16711 - LBIS * Structures with FC inspections returns      410 rows
+=========================== END #16711 =============================
+
+=========================== START #16712 =============================
+Filter: 16712 - LBIS * Structures with UW inspections
+ SQL: 
+WITH CTE AS ( SELECT b.Brkey,
+       b.Bridge_gd AS key_,
+       b.Bridge_Id AS Bridge_Id,
+       b.Strucname AS Lpa_Bridge_Id,
+       b.Featint AS Feature_Intersected,
+       I1.Inspdate,
+       Cte.Uw_Inspdate,
+       f_Lbl(b.District, 'bridge', 'district') AS District,
+       f_Lbl(b.County, 'bridge', 'county') AS County,
+       f_Lbl(b.Placecode, 'bridge', 'placecode') AS Place,
+       Round(b.Length, 2) AS Feet,
+       Trunc(b.Yearbuilt) AS Built,
+       b.Facility AS Facility_Carried,      
+       I1.Inspevnt_Gd,
+       b.bridge_gd /* same as key_ - may be removed eventually */ 
+  FROM Bridge b
+  LEFT OUTER JOIN Inspevnt I1
+    ON (b.Bridge_Gd = I1.Bridge_Gd)
+ INNER JOIN (SELECT itypes.BRIDGE_GD,
+                    itypes.Inspevnt_Gd,
+                    itypes.Uw_Inspdate,
+                    itypes.rn
+               FROM (SELECT I2.Inspevnt_Gd,
+                            I2.Bridge_Gd,
+                            Row_Number() Over(PARTITION BY I2.Bridge_Gd ORDER BY I2.Uwlastinsp DESC) AS Rn,
+                            CASE
+                              WHEN I2.Uwlastinsp IS NOT NULL THEN
+                               I2.Uwlastinsp
+                              ELSE
+                               I2.Inspdate
+                            END AS Uw_Inspdate
+                       FROM Inspevnt I2
+                      WHERE f_Is_Yes(I2.Uwinspdone) = 1) itypes) Cte
+    ON (b.BRIDGE_GD = cte.BRIDGE_GD And I1.Inspevnt_Gd = Cte.Inspevnt_Gd AND
+       Cte.Rn = 1)
+ WHERE Lower(b.Bridgegroup) NOT IN ('removed',
+                                    'perm closed',
+                                    'too short',
+                                    'transferred',
+                                    'pedestrian',
+                                    'private',
+                                    'railroad',
+                                    'closed')
+ ORDER BY 1
+ )  SELECT COUNT(*) FROM CTE 
+
+The SQL for filter: 16712 - LBIS * Structures with UW inspections returns      147 rows
+=========================== END #16712 =============================
+
+=========================== START #16713 =============================
+Filter: 16713 - LBIS * Structures with OS inspections
+ SQL: 
+WITH CTE AS ( SELECT b.Brkey
+      ,b.Bridge_Gd AS key_
+      ,b.Bridge_Id AS Bridge_Id
+      ,b.Strucname AS Lpa_Bridge_Id
+      ,b.Featint AS Feature_Intersected
+      ,I1.Inspdate
+      ,Cte.OS_Inspdate
+      ,f_Lbl(b.District, 'bridge', 'district') AS District
+      ,f_Lbl(b.County, 'bridge', 'county') AS County
+      ,f_Lbl(b.Placecode, 'bridge', 'placecode') AS Place
+      ,Round(b.Length, 2) AS Feet
+      ,Trunc(b.Yearbuilt) AS Built
+      ,b.Facility AS Facility_Carried
+      ,I1.Inspevnt_Gd
+      ,b.Bridge_Gd /* same as key_ - may be removed eventually */ 
+  FROM Bridge b
+  LEFT OUTER JOIN Inspevnt I1
+    ON (b.Bridge_Gd = I1.Bridge_Gd)
+ INNER JOIN (SELECT itypes.bridge_gd, itypes.inspevnt_gd, itypes.os_inspdate,itypes.rn
+               FROM (SELECT I2.Inspevnt_Gd
+                           ,I2.Bridge_Gd
+                           ,Row_Number() Over(PARTITION BY I2.Bridge_Gd ORDER BY I2.OSlastinsp DESC) AS Rn
+                           ,CASE
+                              WHEN I2.OSlastinsp IS NOT NULL THEN
+                               I2.OSlastinsp
+                              ELSE
+                               I2.Inspdate
+                            END AS OS_Inspdate
+                       FROM Inspevnt I2
+                      WHERE f_Is_Yes(I2.OSinspdone) = 1) itypes) Cte
+    ON (b.BRIDGE_GD =cte.BRIDGE_GD And I1.Inspevnt_Gd = Cte.Inspevnt_Gd AND Cte.Rn = 1)
+ WHERE Lower(b.Bridgegroup) NOT IN ('removed'
+                                   ,'perm closed'
+                                   ,'too short'
+                                   ,'transferred'
+                                   ,'pedestrian'
+                                   ,'private'
+                                   ,'railroad'
+                                   ,'closed')
+ ORDER BY 1
+ )  SELECT COUNT(*) FROM CTE 
+
+The SQL for filter: 16713 - LBIS * Structures with OS inspections returns   12,722 rows
+=========================== END #16713 =============================
+
+=========================== START #16750 =============================
+Filter: 16750 - LBIS - FC Ever Required Since 2012
+ SQL: 
+WITH CTE AS ( SELECT b.Brkey,
+       b.bridge_gd AS key_,
+       b.Bridge_Id AS Bridge_Id,
+       b.Strucname AS Lpa_Bridge_Id,
+       b.Featint AS Feature_Intersected,
+       f_Get_Nbilabel_Fromcode('bridge', 'district', b.District) AS District,
+       f_Get_Nbilabel_Fromcode('bridge', 'county', b.County) AS County,
+       f_Get_Nbilabel_Fromcode('bridge', 'placecode', b.Placecode) AS Place,
+       b.Length AS Feet,
+       b.Yearbuilt AS Built,
+       b.Facility AS Facility_Carried,
+       b.bridge_gd /* same as key_ - may be removed eventually */
+  FROM Bridge b
+ INNER JOIN v_Fc_Ever_Reqd_Since_2012 v
+    ON b.Bridge_Gd = v.Bridge_Gd
+ WHERE (1 = 1)
+ ORDER BY 1
+ )  SELECT COUNT(*) FROM CTE 
+
+The SQL for filter: 16750 - LBIS - FC Ever Required Since 2012 returns      281 rows
+=========================== END #16750 =============================
+
+=========================== START #16751 =============================
+Filter: 16751 - LBIS - NBI Export
+ SQL: 
+WITH CTE AS ( SELECT b.Brkey,
+       b.bridge_gd AS key_,
+       b.Bridge_Id AS Bridge_Id,
+       f_lbl(b.district, 'bridge', 'district') AS District,
+       b.Facility AS Facility_Carried,
+       b.Featint AS Feature_Intersected,
+       i.Lastinsp AS Last_Insp_Date,
+       i.Inspdate AS NBI_Insp_Date,
+       b.Bridgegroup AS Bridge_Group,
+       mv.inspevnt_gd,
+       i.insptype
+       b.bridge_gd  /* same as key_ - may be removed eventually */ 
+       FROM Bridge b
+       INNER JOIN (SELECT b.Bridge_GD, I1.Inspevnt_GD, Row_Number()
+       Over(PARTITION BY b.Bridge_GD ORDER BY I1.Inspdate DESC) Rn
+       FROM Inspevnt I1
+       INNER JOIN Bridge b ON I1.Bridge_GD = b.Bridge_GD) Mv ON b.bridge_GD = mv.bridge_GD AND Mv.Rn = 1
+       INNER JOIN Inspevnt i ON i.INSPEVNT_GD = mv.INSPEVNT_GD WHERE Lower(b.Bridgegroup)
+       NOT IN ('pedestrian', 'private', 'railroad', 'removed', 'reserved', 'too short', 'transferred', 'perm closed', 'closed')
+       AND NOT EXISTS (SELECT 1 FROM KDOTBLP_EXCLUDED_STRUCTURES kexcl WHERE kexcl.BRIDGE_GD = b.BRIDGE_GD)
+       ORDER BY 1 
+ )  SELECT COUNT(*) FROM CTE 
+
+ERROR: - The SQL failed with Oracle error: ORA-00923: FROM keyword not found where expected
+=========================== START #16753 =============================
+Filter: 16753 - LBIS - Off System Bridges
+ SQL: 
+WITH CTE AS ( SELECT b.Brkey,
+       b.bridge_gd  AS key_,
+       b.bridge_id  AS Bridge_ID,
+       b.strucname  AS LPA_Bridge_ID,
+       b.featint    AS Feature_Intersected,
+       pd.shortdesc AS District,
+       pc.shortdesc AS County,
+       pl.shortdesc AS Place,
+       b.yearbuilt  AS Built,
+       b.facility   AS Facility_Carried,
+       b.bridge_gd /* same as key_ - may be removed eventually */
+  FROM bridge   b,
+       paramtrs pd,
+       paramtrs pc,
+       paramtrs po,
+       paramtrs pm,
+       paramtrs pl
+ WHERE pc.table_name = 'bridge'
+   AND pc.field_name = 'county'
+   AND pc.parmvalue = b.county
+   AND pl.table_name = 'bridge'
+   AND pl.field_name = 'placecode'
+   AND pl.parmvalue = b.placecode
+   AND pd.table_name = 'bridge'
+   AND pd.field_name = 'district'
+   AND pd.parmvalue = b.district
+   AND po.table_name = 'bridge'
+   AND po.field_name = 'custodian'
+   AND po.parmvalue = b.owner
+   AND pm.table_name = 'bridge'
+   AND pm.field_name = 'custodian'
+   AND pm.parmvalue = b.custodian
+   AND b.Brkey IN (select mv.brkey from MV_OFF_SYSTEM_BRIDGES mv)
+ )  SELECT COUNT(*) FROM CTE 
+
+The SQL for filter: 16753 - LBIS - Off System Bridges returns       81 rows
+=========================== END #16753 =============================
+
+=========================== START #16754 =============================
+Filter: 16754 - LBIS - Border Bridges Nebraska
+ SQL: 
+WITH CTE AS ( SELECT b.brkey,
+       b.bridge_gd AS key_,
+       b.bridge_id,
+       EXTB.agency,
+       b.nstatecode,
+       kdot_blp.f_get_paramtrs_equiv('bridge', 'county', b.county) AS County,
+       b.bridgegroup AS bridgegroup,
+       b.featint AS Feature_Crossed,
+       b.location AS Location,
+       b.bb_pct AS bb_pct,
+       b.bb_brdgeid AS bb_brdgeid,
+       i.inspdate AS Inspdate,
+       i.date_entered AS Record_Date,
+       i.inspname AS Inspector,
+       b.bridge_gd /* same as key_ - may be removed eventually */
+  FROM bridge b
+ inner join EXTERNAL_AGENCY_BRIDGES EXTB
+    ON b.BRIDGE_GD = EXTB.BRIDGE_GD
+ INNER JOIN mv_latest_inspection mv
+    ON b.bridge_gd = mv.bridge_gd
+ INNER JOIN INSPEVNT i
+    ON b.bridge_gd = i.bridge_gd
+   and mv.inspevnt_gd = i.inspevnt_gd
+ WHERE extb.AGENCY='NB' -- Nebraska
+ ORDER BY 1
+ )  SELECT COUNT(*) FROM CTE 
+
+The SQL for filter: 16754 - LBIS - Border Bridges Nebraska returns       36 rows
+=========================== END #16754 =============================
+
+=========================== START #16755 =============================
+Filter: 16755 - LBIS - Border Bridges Oklahoma
+ SQL: 
+WITH CTE AS ( SELECT b.brkey,
+       b.bridge_gd AS key_,
+       b.bridge_id,
+       EXTB.agency,
+       b.nstatecode,
+       kdot_blp.f_get_paramtrs_equiv('bridge', 'county', b.county) AS County,
+       b.bridgegroup AS bridgegroup,
+       b.featint AS Feature_Crossed,
+       b.location AS Location,
+       b.bb_pct AS bb_pct,
+       b.bb_brdgeid AS bb_brdgeid,
+       i.inspdate AS Inspdate,
+       i.date_entered AS Record_Date,
+       i.inspname AS Inspector,
+       b.bridge_gd /* same as key_ - may be removed eventually */
+  FROM bridge b
+ inner join EXTERNAL_AGENCY_BRIDGES EXTB
+    ON b.BRIDGE_GD = EXTB.BRIDGE_GD
+ INNER JOIN mv_latest_inspection mv
+    ON b.bridge_gd = mv.bridge_gd
+ INNER JOIN INSPEVNT i
+    ON b.bridge_gd = i.bridge_gd
+   and mv.inspevnt_gd = i.inspevnt_gd
+ WHERE AGENCY='OK' -- Oklahoma
+ ORDER BY 1
+ )  SELECT COUNT(*) FROM CTE 
+
+The SQL for filter: 16755 - LBIS - Border Bridges Oklahoma returns       25 rows
+=========================== END #16755 =============================
+
+=========================== START #16756 =============================
+Filter: 16756 - LBIS - Border Bridges Missouri
+ SQL: 
+WITH CTE AS ( SELECT b.brkey,
+       b.bridge_gd AS key_,
+       b.bridge_id,
+       EXTB.agency,
+       b.nstatecode,
+       kdot_blp.f_get_paramtrs_equiv('bridge', 'county', b.county) AS County,
+       b.bridgegroup AS bridgegroup,
+       b.featint AS Feature_Crossed,
+       b.location AS Location,
+       b.bb_pct AS bb_pct,
+       b.bb_brdgeid AS bb_brdgeid,
+       i.inspdate AS Inspdate,
+       i.date_entered AS Record_Date,
+       i.inspname AS Inspector,
+       b.bridge_gd /* same as key_ - may be removed eventually */
+  FROM bridge b
+ inner join EXTERNAL_AGENCY_BRIDGES EXTB
+    ON b.BRIDGE_GD = EXTB.BRIDGE_GD
+ INNER JOIN mv_latest_inspection mv
+    ON b.bridge_gd = mv.bridge_gd
+ INNER JOIN INSPEVNT i
+    ON b.bridge_gd = i.bridge_gd
+   and mv.inspevnt_gd = i.inspevnt_gd
+ WHERE AGENCY='MO' -- Missouri
+ ORDER BY 1
+ )  SELECT COUNT(*) FROM CTE 
+
+The SQL for filter: 16756 - LBIS - Border Bridges Missouri returns       12 rows
+=========================== END #16756 =============================
+
+=========================== START #16781 =============================
+Filter: 16781 - LBIS - NBI Export - TESTING
+ SQL: 
+WITH CTE AS ( SELECT b.brkey,
+       b.bridge_gd as key_,
+       b.Bridge_Id AS Bridge_Id,
+       f_lbl(b.district, 'bridge', 'district') AS District,
+       b.Facility AS Facility_Carried,
+       b.Featint AS Feature_Intersected,
+       i.Lastinsp AS Last_Insp_Date,
+       i.Inspdate AS NBI_Insp_Date,
+       b.Bridgegroup AS Bridge_Group,
+       mv.inspevnt_gd,
+       b.bridge_gd  /* same as key_ - may be removed eventually */  
+       
+  FROM Bridge b
+ INNER JOIN (SELECT b.Bridge_GD,
+                    I1.Inspevnt_GD,
+                    Row_Number() Over(PARTITION BY b.Bridge_GD ORDER BY I1.Inspdate DESC) Rn
+               FROM Inspevnt I1
+              INNER JOIN Bridge b
+                 ON I1.Bridge_GD = b.Bridge_GD) Mv
+    ON b.bridge_GD = mv.bridge_GD
+   AND Mv.Rn = 1
+ INNER JOIN Inspevnt i
+    ON i.INSPEVNT_GD = mv.INSPEVNT_GD
+ WHERE Lower(b.Bridgegroup) NOT IN ('pedestrian',
+                                    'private',
+                                    'railroad',
+                                    'removed',
+                                    'reserved',
+                                    'too short',
+                                    'transferred',
+                                    'perm closed',
+                                    'closed')
+   AND NOT EXISTS (SELECT 1
+          FROM KDOTBLP_EXCLUDED_STRUCTURES kexcl
+         WHERE kexcl.BRIDGE_GD = b.BRIDGE_GD)
+   AND ROWNUM <= 10
+ ORDER BY 1
+ )  SELECT COUNT(*) FROM CTE 
+
+The SQL for filter: 16781 - LBIS - NBI Export - TESTING returns       10 rows
+=========================== END #16781 =============================
+
+=========================== START #16785 =============================
+Filter: 16785 - LBIS - Bridges with load rating data
+ SQL: 
+WITH CTE AS ( SELECT b.brkey,
+       b.bridge_gd as key_,
+       b.bridge_id                "Bridge ID",
+       b.strucname                as LPA_Bridge_ID,
+       i.Lastinsp                 "LAST_INSP_DATE",
+       Rat.Load_Rating_Date       "LATEST_RATING_DATE",
+       pm.shortdesc               as method,
+       Rat.Controlling_Element    "CONTROLLING_ELEMENT",
+       Rat.Load_Rating_Lead_Firm  "LEAD FIRM",
+       Rat.Load_Rating_Consultant "CONSULTANT",
+       b.Bridgegroup              "BRIDGE_GROUP",
+       Pd.Shortdesc               AS District,
+       b.Facility                 AS Facility_Carried,
+       b.Featint                  AS Feature_Intersected,
+       b.bridge_gd -- may remove
+  FROM Bridge b
+ INNER JOIN Mv_Latest_Inspection Mv
+    ON b.Bridge_Gd = Mv.Bridge_Gd
+ INNER JOIN Inspevnt i
+    ON Mv.Inspevnt_Gd = i.Inspevnt_Gd
+ INNER JOIN Kdotblp_Load_Ratings Rat
+    ON b.Bridge_Gd = Rat.Bridge_Gd
+   AND i.Inspevnt_Gd = Rat.Inspevnt_Gd
+  LEFT OUTER JOIN Paramtrs Pd
+    ON (Pd.Table_Name = 'bridge' AND Pd.Field_Name = 'district' AND
+       Pd.Parmvalue = b.District)
+  LEFT OUTER JOIN Paramtrs Pm
+    ON (Pm.Table_Name = 'bridge' AND Pm.Field_Name = 'ortype' AND
+       Pm.Parmvalue = rat.rating_method)
+   And Rat.Load_Rating_Date =
+       (SELECT MAX(Rat2.Load_Rating_Date)
+          FROM Kdotblp_Load_Ratings Rat2
+         WHERE Rat2.Bridge_Gd = b.Bridge_Gd)
+   AND lower(b.bridgegroup) not In ('pedestrian',
+                                    'private',
+                                    'railroad',
+                                    'removed',
+                                    'reserved',
+                                    'too short',
+                                    'transferred',
+                                    'perm closed',
+                                    'closed')
+   AND EXISTS (SELECT 1
+          FROM Kdotblp_Load_Ratings Klr
+         WHERE Klr.Bridge_Gd = b.Bridge_Gd)
+ ORDER BY 1
+ )  SELECT COUNT(*) FROM CTE 
+
+The SQL for filter: 16785 - LBIS - Bridges with load rating data returns        0 rows
+=========================== END #16785 =============================
+
+=========================== START #16790 =============================
+Filter: 16790 - LBIS - Find-A-Bridge List
+ SQL: 
+WITH CTE AS ( SELECT b.Brkey,
+       b.bridge_gd      AS key_,
+       b.bridge_gd,
+       b.Bridge_Id      AS Bridge_Id,
+       b.Strucname      AS Lpa_Bridge_Id,
+       b.Bridgegroup    AS Bridgegroup,
+       i.Inspname       AS Inspector,
+       i.Lastinsp       AS Last_Insp_Date,
+       i.Inspdate       AS Nbi_Last_Insp,
+       b.Createdatetime AS Created,
+       Pau.Userkey      AS Create_Userkey,
+       Pau.Userid       AS Created_By
+  FROM Bridge b
+  LEFT OUTER JOIN Pon_App_Users Pau
+    ON Pau.Pon_App_Users_GD = b.Createuserkey
+ INNER JOIN (SELECT b.Bridge_GD,
+                    I1.Inspevnt_GD,
+                    Row_Number() Over(PARTITION BY b.Bridge_GD ORDER BY I1.Inspdate DESC) Rn
+               FROM Inspevnt I1
+              INNER JOIN Bridge b
+                 ON I1.Bridge_GD = b.Bridge_GD) Mv
+    ON b.bridge_GD = mv.bridge_GD
+   AND Mv.Rn = 1
+ INNER JOIN Inspevnt i
+    ON i.INSPEVNT_GD = mv.INSPEVNT_GD
+ ORDER BY 1
+
+ )  SELECT COUNT(*) FROM CTE 
+
+The SQL for filter: 16790 - LBIS - Find-A-Bridge List returns   21,427 rows
+=========================== END #16790 =============================
+
+=========================== START #16795 =============================
+Filter: 16795 - LBIS - Bridges with problematic BRIDGEGROUP
+ SQL: 
+WITH CTE AS ( SELECT b.Brkey
+      ,b.bridge_gd AS key_
+      ,b.Bridge_Id AS Bridge_Id
+      ,b.Strucname AS Lpa_Bridge_Id
+      ,b.Bridgegroup AS Bridge_Group
+      ,f_Lbl(b.District, 'bridge', 'district') AS District
+      ,f_Lbl(b.County, 'bridge', 'county') AS County
+      ,f_Lbl(b.Placecode, 'bridge', 'placecode') AS Placecode
+      ,b.Yearbuilt AS Built
+      ,b.Designmain Nbi_43a
+      ,b.Materialmain Nbi_43b
+      ,b.Userkey1 AS Kdot_Design_Code
+      ,f_Get_Kdot_Md_Lbl_Fr_Codes(b.Userkey1, b.Materialmain, b.Designmain) AS Kdot_Design
+      ,b.Mainspans
+      ,b.Appspans
+      ,b.Bridge_Gd /* same as key_ - may be removed eventually */ 
+  FROM Bridge b
+ WHERE Lower(TRIM(b.Bridgegroup)) = 'unassigned'
+    OR ((Trunc(b.Createdatetime) >= Add_Months(SYSDATE, -12) OR
+        Trunc(b.Modtime) >= Add_Months(SYSDATE, -12)) AND
+        (b.Bridgegroup IS NULL OR b.Bridgegroup = '' OR
+        b.Bridgegroup = '-1' OR NOT EXISTS
+         (SELECT 1
+            FROM Paramtrs p
+           WHERE p.Field_Name = 'bridgegroup'
+             AND Lower(TRIM(p.Shortdesc)) = Lower(TRIM(b.Bridgegroup))
+             AND f_Is_Yes(p.Isactive) = 1)))
+             ORDER BY 1 -- required as last ORDER BY 
+ )  SELECT COUNT(*) FROM CTE 
+
+The SQL for filter: 16795 - LBIS - Bridges with problematic BRIDGEGROUP returns        0 rows
+=========================== END #16795 =============================
+
+=========================== START #16800 =============================
+Filter: 16800 - LBIS - Bridges with Stale SR or STRRATING<=6
+ SQL: 
+WITH CTE AS ( SELECT b.Brkey 
+       ,b.bridge_gd AS key_
+       ,b.Bridge_Id      "BRIDGE ID"
+       ,b.District
+       ,b.County
+       ,b.Facility       "FACILITY CARRIED"
+       ,b.Featint        "FEATURE INTERSECTED"
+       ,b.Owner          "OWN"
+       ,b.Custodian      "MAINT"
+       ,b.Yearbuilt      "BUILT"
+       ,Insps.Nbi_Rating
+       ,Insps.Strrating
+       ,b.Srstatus
+       ,Insps.Suff_Prefx
+       ,Insps.Suff_Rate
+       ,b.Bridge_Gd  /* same as key_ - may be removed eventually */ 
+  FROM Bridge b
+  LEFT OUTER JOIN Kdotblp_Bridge Kb1
+    ON Kb1.Bridge_Gd = b.Bridge_Gd
+  LEFT OUTER JOIN (SELECT Rd.*
+                     FROM (SELECT Rw.*
+                                 ,Row_Number() Over(PARTITION BY Rw.Bridge_Gd ORDER BY Rw. On_Under) Rn
+                             FROM Roadway Rw) Rd
+                    WHERE Rd.Rn = 1) Rw1
+    ON Rw1.Bridge_Gd = b.Bridge_Gd
+  LEFT OUTER JOIN Userrway Krw1
+    ON Rw1.Roadway_Gd = Krw1.Roadway_Gd
+  LEFT OUTER JOIN (SELECT *
+                     FROM (SELECT I1.*
+                                 ,Row_Number() Over(PARTITION BY Bridge_Gd ORDER BY Inspdate DESC) Rn
+                             FROM Inspevnt I1) Insp2
+                    WHERE Insp2.Rn = 1) Insps
+    ON Insps.Bridge_Gd = b.Bridge_Gd
+  LEFT OUTER JOIN Kdotblp_Inspections
+    ON Kdotblp_Inspections.Inspevnt_Gd = Insps.Inspevnt_Gd
+  LEFT OUTER JOIN (SELECT *
+                     FROM (SELECT Su.*
+                                 ,Row_Number() Over(PARTITION BY Bridge_Gd ORDER BY Structure_Unit_Gd) Rn
+                             FROM Structure_Unit Su) S1
+                    WHERE S1.Rn = 1) Su1
+    ON Su1.Bridge_Gd = b.Bridge_Gd
+  LEFT OUTER JOIN Userstrunit Ustr1
+    ON Su1.Structure_Unit_Gd = Ustr1.Structure_Unit_Gd
+ WHERE (b.Srstatus IN ('1') OR Insps.Strrating < '6')
+ ORDER BY 1
+ )  SELECT COUNT(*) FROM CTE 
+
+The SQL for filter: 16800 - LBIS - Bridges with Stale SR or STRRATING<=6 returns   10,845 rows
+=========================== END #16800 =============================
+
+
+PL/SQL procedure successfully completed
+

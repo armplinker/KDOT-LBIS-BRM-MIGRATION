@@ -1,0 +1,88 @@
+
+/*
+--CONNECT KDOT_BLP/Einstein345@localhost:1521/xepdb1 AS NORMAL
+
+-- output to terminal, buffer size UNLIMITED
+SET SERVEROUTPUT ON SIZE UNLIMITED
+
+SET ECHO ON
+
+SPOOL C:\git\repos\KDOT-LBIS-BRM-MIGRATION\stages\6.0\out\Fixup_Missing_INSPUSRGUID-20230103T1206.log
+
+*/
+
+-- Fixup_Missing_INSPEVNT_User_Identifiers.pdc
+-- Script to fix NULL USERKEY, CREATEUSERKEY, INSPUSRKEY, or INSPUSERGUID on INSPEVNT
+-- selected records in INSPEVNT are missing values for USERKEY, CREATEUSERKEY, INSPUSRKEY, or INSPUSERGUID
+-- this script sets CREATEUSERKEY and USERKEY equal to PON_APP_USERS_GD for those rows, not knowing anything else.
+-- ARMarshall, ARM_LLC - 20221228 - initial draft
+-- ARMarshall, ARM_LLC - 20230124 - ran on ESOADEV
+--- ARMarshall, ARM_LLC - 20230124 - revised to do all four of these, corrected typo
+-- uses simple UPDATE statement with nested select
+DECLARE
+
+  ls_UpdSQL VARCHAR2(4000);
+
+BEGIN
+
+  DBMS_OUTPUT.PUT_LINE(q'[Starting script Fixup_Missing_INSPEVNT_User_Identifiers -  FIXING MISSING INSPUSRKEY, INSPUSRGUID, CREATEUSERKEY, or USERKEY for INSPEVNT rows]');
+  -- INSPEVNT.CREATEUSERKEY is a GUID - use PON_APP_USERS_GD from PON_APP_USERS as fix
+  DBMS_OUTPUT.PUT_LINE(q'[UPDATING NULL INSPEVNT.CREATEUSERKEY (GUID) to default PON_APP_USERS_GD for user PONTIS]');
+
+  ls_UpdSQL := q'[UPDATE INSPEVNT i
+                   SET i.CREATEUSERKEY = nvl(i.USERKEY,
+                                             (SELECT p.PON_APP_USERS_GD
+                                                from PON_APP_USERS p
+                                               WHERE LOWER(p.USERID) = 'pontis')), i.MODTIME=SYSDATE
+                 WHERE TRIM(i.CREATEUSERKEY) IS NULL ]';
+  EXECUTE IMMEDIATE ls_UpdSQL;
+  COMMIT WORK;
+
+  -- INSPEVNT.USERKEY is a GUID - use PON_APP_USERS_GD from PON_APP_USERS as fix
+  DBMS_OUTPUT.PUT_LINE(q'[UPDATING NULL INSPEVNT.USERKEY (GUID) to default PON_APP_USERS_GD for user PONTIS]');
+  ls_UpdSQL := q'[UPDATE INSPEVNT i
+                      SET i.USERKEY = NVL(i.CREATEUSERKEY,
+                       (SELECT pau.PON_APP_USERS_GD
+                          from PON_APP_USERS pau
+                         WHERE LOWER(pau.USERID) = 'pontis')), i.MODTIME=SYSDATE
+                     WHERE TRIM(i.USERKEY) IS NULL ]';
+  EXECUTE IMMEDIATE ls_UpdSQL;
+  COMMIT WORK;
+
+  -- INSPUSRKEY is still an INTEGER - use USERKEY from PON_APP_USERS as fix
+  DBMS_OUTPUT.PUT_LINE(q'[UPDATING NULL INSPEVNT.INSPUSRKEY (INTEGER) to default USERKEY for user PONTIS]');
+  ls_UpdSQL := q'[UPDATE INSPEVNT i
+                   SET i.INSPUSRKEY =
+                       (SELECT pau.USERKEY
+                          from PON_APP_USERS pau
+                         WHERE LOWER(pau.USERID) = 'pontis'), i.MODTIME=SYSDATE
+                 WHERE TRIM(i.INSPUSRKEY) IS NULL]';
+  EXECUTE IMMEDIATE ls_UpdSQL;
+  COMMIT WORK;
+
+  -- INSPEVNT.INSPUSRGUID is a GUID - set INSPUSRGUID to the PON_APP_USERS_GD value from PON_APP_USERS corresponding to INSPUSRKEY 
+  --(which may  have been reset in the earlier step in this script)
+  DBMS_OUTPUT.PUT_LINE(q'[UPDATING NULL INSPEVNT.INSPUSRGUID (GUID) to PON_APP_USERS_GD based on INSPUSRKEY lookup by USERKEY]');
+  ls_UpdSQL := q'[UPDATE INSPEVNT i
+                   SET i.INSPUSRGUID = NVL((SELECT pau.PON_APP_USERS_GD
+                                             FROM PON_APP_USERS pau
+                                            WHERE TO_CHAR(pau.USERKEY) =
+                                                  TO_CHAR(i.INSPUSRKEY)),
+                                           (SELECT pau.PON_APP_USERS_GD
+                                              from PON_APP_USERS pau
+                                             WHERE LOWER(pau.USERID) = 'pontis')), i.MODTIME=SYSDATE
+                 WHERE i.INSPUSRGUID IS NULL
+                    OR ISNUMERIC(i.INSPUSRGUID) = 1 ]'; -- no semi-colon at the end of the SQL string
+
+  EXECUTE IMMEDIATE ls_UpdSQL;
+  COMMIT WORK;
+
+  DBMS_OUTPUT.PUT_LINE(q'[Script Fixup_Missing_INSPEVNT_User_Identifiers succeeded...]');
+
+EXCEPTION
+
+  WHEN OTHERS THEN
+    RAISE;
+  
+END;
+ 

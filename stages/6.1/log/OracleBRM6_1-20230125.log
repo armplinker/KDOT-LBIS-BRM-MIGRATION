@@ -1,0 +1,966 @@
+﻿Executing main upgrade script OracleBRM6_1.sql
+
+PL/SQL procedure successfully completed
+
+
+BEGIN
+				DBMS_OUTPUT.ENABLE();
+				DBMS_OUTPUT.PUT_LINE('Prepared at Mayvue Solutions by Cmeredith on 3/22/2019 11:22:02 AM.');
+				END;
+				/
+-- ================================================================================================== --
+--    ___    ___   _____ __  ____________ _       __                                                  --
+--   /   |  /   | / ___// / / /_  __/ __ \ |     / /___ _________                                     --
+--  / /| | / /| | \__ \/ /_/ / / / / / / / | /| / / __ `/ ___/ _ \                                    --
+-- / ___ |/ ___ |___/ / __  / / / / /_/ /| |/ |/ / /_/ / /  /  __/                                    --
+--/_/  |_/_/  |_/____/_/ /_/ /_/  \____/ |__/|__/\__,_/_/   \___/                                     --
+--    ____       _     __              __  ___                                                  __    --
+--   / __ )_____(_)___/ /___ ____     /  |/  /___ _____  ____ _____ ____  ____ ___  ___  ____  / /_   --
+--  / __  / ___/ / __  / __ `/ _ \   / /|_/ / __ `/ __ \/ __ `/ __ `/ _ \/ __ `__ \/ _ \/ __ \/ __/   --
+-- / /_/ / /  / / /_/ / /_/ /  __/  / /  / / /_/ / / / / /_/ / /_/ /  __/ / / / / /  __/ / / / /_     --
+--/_____/_/  /_/\__,_/\__, /\___/  /_/  /_/\__,_/_/ /_/\__,_/\__, /\___/_/ /_/ /_/\___/_/ /_/\__/     --
+--                   /____/                                 /____/                               6.1  --
+-- ================================================================================================== --
+-- Author:      Mayvue Solutions - AASHTOWare Bridge Management Team                                   --
+-- Description: Install/Upgrade AASHTOWare Bridge Management 6.1                                      --
+-- ================================================================================================== --
+-- Refer to line 121 for upgrade options															  --
+
+/*
+The following example checks to see if the table PON_APP_USERS exists and checks to see if there is a Pontis user.
+It uses EXECUTE IMMEDIATE so the select from PON_APP_USERS is only parsed if the table exists. The query of USER_TABLES
+uses SELECT COUNT() INTO V_X because the table USER_TABLES always exists.
+can be access
+
+    DECLARE
+        V_X PLS_INTEGER;
+        V_Q VARCHAR2(300);
+        V_USERID VARCHAR2(30) := 'Pontis';
+
+    BEGIN
+        SELECT COUNT(*) INTO V_X FROM USER_TABLES WHERE TABLE_NAME = 'PON_APP_USERS';
+        IF V_X = 1 THEN
+
+            V_Q := 'SELECT COUNT (*) INTO :A FROM PON_APP_USERS WHERE USERID = :USERID';
+            EXECUTE IMMEDIATE V_Q INTO V_X USING V_USERID;
+
+            DBMS_OUTPUT.PUT_LINE('There are ' || V_X || ' rows in PON_APP_USERS with the USERID ' || V_USERID || '.');
+        END IF;
+    EXCEPTION WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error during demo: ' || V_Q || '; ' || SQLERRM);
+    END;
+    /
+*/
+
+/*
+Search for:
+REMOVE ITEMS FROM PRODUCTION DATABASES
+to locate where to remove items from a production database.
+*/
+
+SET DEFINE OFF
+SET SERVEROUTPUT ON SIZE UNLIMITED
+ALTER SESSION SET NLS_COMP=LINGUISTIC;
+ALTER SESSION SET NLS_SORT=BINARY_CI;
+ALTER SYSTEM SET OPEN_CURSORS=3000 SCOPE=MEMORY;
+
+DECLARE
+    V_I PLS_INTEGER;
+    V_Q VARCHAR2(200);
+BEGIN
+    DBMS_OUTPUT.ENABLE(buffer_size => null);
+    DBMS_OUTPUT.PUT_LINE('RUNNING AASHTOWare Bridge Management 6.1 GUID upgrade script.');
+    SELECT COUNT(*) INTO V_I FROM USER_TAB_COLUMNS WHERE TABLE_NAME = 'DBDESCRP' AND COLUMN_NAME = 'THISDBDESCR';
+    IF V_I = 1 THEN
+        EXECUTE IMMEDIATE  'SELECT THISDBDESCR FROM DBDESCRP WHERE THISDBTIME = (SELECT MAX(THISDBTIME) FROM DBDESCRP)' INTO V_Q;
+        DBMS_OUTPUT.PUT_LINE('Run on ' || SYS_CONTEXT('USERENV', 'CURRENT_SCHEMA') || ' ' || V_Q || ' on ' || TO_CHAR(SYSDATE, 'FMDAY MM/DD/YYYY "at" HH24:MI AM') || '.');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Run on empty ' || SYS_CONTEXT('USERENV', 'CURRENT_SCHEMA') || ' on ' || TO_CHAR(SYSDATE, 'FMDAY MM/DD/YYYY "at" HH24:MI AM') || '.');
+    END IF;
+END;
+
+ORA-06550: line 5, column 5:
+PLS-00103: Encountered the symbol "/"
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+Function created
+
+
+Function created
+
+
+Procedure created
+
+
+Function created
+
+
+Warning: Function created with compilation errors
+
+
+Function created
+
+
+Function created
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+Commit completed
+
+
+0 rows updated
+
+
+2243 rows updated
+
+
+1 row updated
+
+
+133 rows updated
+
+
+163 rows updated
+
+
+2720 rows updated
+
+
+195 rows updated
+
+
+210 rows inserted
+
+
+Commit completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+Session altered
+
+
+Session altered
+
+
+ALTER SYSTEM SET OPEN_CURSORS=3000 SCOPE=MEMORY
+
+ORA-01031: insufficient privileges
+
+PL/SQL procedure successfully completed
+
+Update PON_COPTIONS_T with values from PON_COPTIONS.
+
+PL/SQL procedure successfully completed
+
+
+Table altered
+
+
+Table altered
+
+
+Table altered
+
+
+Table altered
+
+
+Table altered
+
+
+Table altered
+
+
+Table altered
+
+
+4 rows updated
+
+
+30 rows updated
+
+
+11 rows updated
+
+
+4 rows updated
+
+
+Table altered
+
+
+2 rows updated
+
+
+PL/SQL procedure successfully completed
+
+
+Table altered
+
+
+Table altered
+
+
+Table altered
+
+
+0 rows updated
+
+
+0 rows updated
+
+
+Commit completed
+
+
+Session altered
+
+
+7 rows updated
+
+
+Commit completed
+
+
+Session altered
+
+
+PL/SQL procedure successfully completed
+
+
+Session altered
+
+
+PL/SQL procedure successfully completed
+
+Outer error dropping PKs to be changed and the FKs that relate to themORA-06502: PL/SQL: numeric or value error: character string buffer too small
+
+PL/SQL procedure successfully completed
+
+Drop indexes that are unwanted or changed.
+
+PL/SQL procedure successfully completed
+
+Reduce length or scale or change data type.
+WARNING: The column LOAD_RATING_EVENTS_GD from table LOAD_RATING_EVENTS is a different datatype, length, or scale than standard. Attempting to adjust this has failed.
+
+2: ALTER TABLE LOAD_RATING_EVENTS ADD TEMP_COL VARCHAR2(4000)
+3: UPDATE LOAD_RATING_EVENTS SET TEMP_COL = LOAD_RATING_EVENTS_GD
+4: ALTER TABLE  "LOAD_RATING_EVENTS" MODIFY ("LOAD_RATING_EVENTS_GD" NULL)
+5: UPDATE LOAD_RATING_EVENTS SET LOAD_RATING_EVENTS_GD = NULL
+ORA-01407: cannot update ("KDOT_BLP"."LOAD_RATING_EVENTS"."LOAD_RATING_EVENTS_GD") to NULL
+WARNING: The column LOAD_RATINGS_GD from table LOAD_RATINGS is a different datatype, length, or scale than standard. Attempting to adjust this has failed.
+
+2: ALTER TABLE LOAD_RATINGS ADD TEMP_COL VARCHAR2(4000)
+3: UPDATE LOAD_RATINGS SET TEMP_COL = LOAD_RATINGS_GD
+4: ALTER TABLE  "LOAD_RATINGS" MODIFY ("LOAD_RATINGS_GD" NULL)
+5: UPDATE LOAD_RATINGS SET LOAD_RATINGS_GD = NULL
+ORA-01407: cannot update ("KDOT_BLP"."LOAD_RATINGS"."LOAD_RATINGS_GD") to NULL
+
+PL/SQL procedure successfully completed
+
+Alter Columns.
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+Update new columns with default values.
+Make new required columns on old tables required.
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+REMOVE ITEMS FROM PRODUCTION DATABASES.
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+ERROR D6: Failed Creating Foreign Key [ALTER TABLE PON_APP_CONTROL_SECURITY ADD CONSTRAINT FK_CTRL_SEC_TO_NAV_CONTROL FOREIGN KEY (PON_NAV_CONTROL_GD) REFERENCES PON_NAV_CONTROL (PON_NAV_CONTROL_GD) ON DELETE CASCADE;ORA-02298: cannot validate (KDOT_BLP.FK_CTRL_SEC_TO_NAV_CONTROL) - parent keys not found
+ERROR D6: Failed Creating Foreign Key [ALTER TABLE USERBRDG ADD CONSTRAINT FK_USERBRDG_14_BRIDGE FOREIGN KEY (BRIDGE_GD) REFERENCES BRIDGE (BRIDGE_GD) ON DELETE CASCADE;ORA-02298: cannot validate (KDOT_BLP.FK_USERBRDG_14_BRIDGE) - parent keys not found
+ERROR D6: Failed Creating Foreign Key [ALTER TABLE USERSTRUNIT ADD CONSTRAINT FK_USERSTRU_103_STRUCTUR FOREIGN KEY (STRUCTURE_UNIT_GD) REFERENCES STRUCTURE_UNIT (STRUCTURE_UNIT_GD) ON DELETE CASCADE;ORA-02298: cannot validate (KDOT_BLP.FK_USERSTRU_103_STRUCTUR) - parent keys not found
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+7 rows merged
+
+
+3818 rows updated
+
+
+3818 rows updated
+
+
+PL/SQL procedure successfully completed
+
+Disable recursive constraints before merging setup data.
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+Merge optional setup data from temp tables.
+
+PL/SQL procedure successfully completed
+
+ERROR : MERGE INTO INSPEVNT T
+				USING INSPEVNT_T S
+				ON (T.INSPEVNT_GD = S.INSPEVNT_GD)
+				WHEN NOT MATCHED THEN INSERT (T.BRKEY, T.INSPKEY, T.INSPDATE, T.INSPNAME, T.INSPUSRKEY, T.REV_REQ, T.DET_UPD, T.INSPECTCONTROLID, T.NBINSPDONE, T.BRINSPFREQ, T.LASTINSP, T.NEXTINSP, T.ELINSPDONE, T.ELINSPFREQ, T.ELINSPDATE, T.ELNEXTDATE, T.UWINSPREQ, T.UWINSPDONE, T.UWINSPFREQ, T.UWLASTINSP, T.UWNEXTDATE, T.FCINSPREQ, T.FCINSPDONE, T.FCINSPFREQ, T.FCLASTINSP, T.FCNEXTDATE, T.OSINSPREQ, T.OSINSPDONE, T.OSINSPFREQ, T.OSLASTINSP, T.OSNEXTDATE, T.IETRIGGER, T.APPRDATE, T.RAILRATING, T.TRANSRATIN, T.ARAILRATIN, T.AENDRATING, T.OPPOSTCL, T.DECKGEOM, T.UNDERCLR, T.WATERADEQ, T.PIERPROT, T.SCOURCRIT, T.APPRALIGN, T.DKRATING, T.SUPRATING, T.SUBRATING, T.CHANRATING, T.CULVRATING, T.STRRATING, T.NBI_RATING, T.SUFF_RATE, T.SUFF_PREFX, T.INSPTYPE, T.INSPSTAT, T.DECKDISTR, T.BITRIGGER, T.RECWORKFLG, T.CREATEDATETIME, T.CREATEUSERKEY, T.MODTIME, T.USERKEY, T.DOCREFKEY, T.NOTES, T.ELEMCONVERT, T.INSPEVNT_GD, T.INSPEVNT_LB, T.BRIDGE_GD, T.OSTYPE, T.SCHEDULE_NOTES, T.ENGINEER_OF_RECORD, T.DATE_ENTERED, T.INSPUSRGUID, T.ENTERED_BY_GD, T.BRIDGE_CONDITION, T.HEALTH_INDEX, T.NBI_RATING_2018)
+				VALUES (S.BRKEY, S.INSPKEY, S.INSPDATE, S.INSPNAME, S.INSPUSRKEY, S.REV_REQ, S.DET_UPD, S.INSPECTCONTROLID, S.NBINSPDONE, S.BRINSPFREQ, S.LASTINSP, S.NEXTINSP, S.ELINSPDONE, S.ELINSPFREQ, S.ELINSPDATE, S.ELNEXTDATE, S.UWINSPREQ, S.UWINSPDONE, S.UWINSPFREQ, S.UWLASTINSP, S.UWNEXTDATE, S.FCINSPREQ, S.FCINSPDONE, S.FCINSPFREQ, S.FCLASTINSP, S.FCNEXTDATE, S.OSINSPREQ, S.OSINSPDONE, S.OSINSPFREQ, S.OSLASTINSP, S.OSNEXTDATE, S.IETRIGGER, S.APPRDATE, S.RAILRATING, S.TRANSRATIN, S.ARAILRATIN, S.AENDRATING, S.OPPOSTCL, S.DECKGEOM, S.UNDERCLR, S.WATERADEQ, S.PIERPROT, S.SCOURCRIT, S.APPRALIGN, S.DKRATING, S.SUPRATING, S.SUBRATING, S.CHANRATING, S.CULVRATING, S.STRRATING, S.NBI_RATING, S.SUFF_RATE, S.SUFF_PREFX, S.INSPTYPE, S.INSPSTAT, S.DECKDISTR, S.BITRIGGER, S.RECWORKFLG, S.CREATEDATETIME, S.CREATEUSERKEY, S.MODTIME, S.USERKEY, S.DOCREFKEY, S.NOTES, S.ELEMCONVERT, S.INSPEVNT_GD, S.INSPEVNT_LB, S.BRIDGE_GD, S.OSTYPE, S.SCHEDULE_NOTES, S.ENGINEER_OF_RECORD, S.DATE_ENTERED, S.INSPUSRGUID, S.ENTERED_BY_GD, S.BRIDGE_CONDITION, S.HEALTH_INDEX, S.NBI_RATING_2018)
+    ORA-04098: trigger 'KDOT_BLP.TRG_INSPEVNT_BRGCONDITION' is invalid and failed re-validation
+
+PL/SQL procedure successfully completed
+
+
+Commit completed
+
+
+Commit completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+ERROR : MERGE INTO INSPEVNT T USING INSPEVNT_T S ON (T.INSPEVNT_GD = S.INSPEVNT_GD) WHEN MATCHED THEN UPDATE SET T.BRKEY = S.BRKEY, T.INSPKEY = S.INSPKEY, T.INSPDATE = S.INSPDATE, T.INSPNAME = S.INSPNAME, T.INSPUSRKEY = S.INSPUSRKEY, T.REV_REQ = S.REV_REQ, T.DET_UPD = S.DET_UPD, T.INSPECTCONTROLID = S.INSPECTCONTROLID, T.NBINSPDONE = S.NBINSPDONE, T.BRINSPFREQ = S.BRINSPFREQ, T.LASTINSP = S.LASTINSP, T.NEXTINSP = S.NEXTINSP, T.ELINSPDONE = S.ELINSPDONE, T.ELINSPFREQ = S.ELINSPFREQ, T.ELINSPDATE = S.ELINSPDATE, T.ELNEXTDATE = S.ELNEXTDATE, T.UWINSPREQ = S.UWINSPREQ, T.UWINSPDONE = S.UWINSPDONE, T.UWINSPFREQ = S.UWINSPFREQ, T.UWLASTINSP = S.UWLASTINSP, T.UWNEXTDATE = S.UWNEXTDATE, T.FCINSPREQ = S.FCINSPREQ, T.FCINSPDONE = S.FCINSPDONE, T.FCINSPFREQ = S.FCINSPFREQ, T.FCLASTINSP = S.FCLASTINSP, T.FCNEXTDATE = S.FCNEXTDATE, T.OSINSPREQ = S.OSINSPREQ, T.OSINSPDONE = S.OSINSPDONE, T.OSINSPFREQ = S.OSINSPFREQ, T.OSLASTINSP = S.OSLASTINSP, T.OSNEXTDATE = S.OSNEXTDATE, T.IETRIGGER = S.IETRIGGER, T.APPRDATE = S.APPRDATE, T.RAILRATING = S.RAILRATING, T.TRANSRATIN = S.TRANSRATIN, T.ARAILRATIN = S.ARAILRATIN, T.AENDRATING = S.AENDRATING, T.OPPOSTCL = S.OPPOSTCL, T.DECKGEOM = S.DECKGEOM, T.UNDERCLR = S.UNDERCLR, T.WATERADEQ = S.WATERADEQ, T.PIERPROT = S.PIERPROT, T.SCOURCRIT = S.SCOURCRIT, T.APPRALIGN = S.APPRALIGN, T.DKRATING = S.DKRATING, T.SUPRATING = S.SUPRATING, T.SUBRATING = S.SUBRATING, T.CHANRATING = S.CHANRATING, T.CULVRATING = S.CULVRATING, T.STRRATING = S.STRRATING, T.NBI_RATING = S.NBI_RATING, T.SUFF_RATE = S.SUFF_RATE, T.SUFF_PREFX = S.SUFF_PREFX, T.INSPTYPE = S.INSPTYPE, T.INSPSTAT = S.INSPSTAT, T.DECKDISTR = S.DECKDISTR, T.BITRIGGER = S.BITRIGGER, T.RECWORKFLG = S.RECWORKFLG, T.CREATEDATETIME = S.CREATEDATETIME, T.CREATEUSERKEY = S.CREATEUSERKEY, T.MODTIME = S.MODTIME, T.USERKEY = S.USERKEY, T.DOCREFKEY = S.DOCREFKEY, T.NOTES = S.NOTES, T.ELEMCONVERT = S.ELEMCONVERT, T.DATE_ENTERED = S.DATE_ENTERED, T.INSPUSRGUID = S.INSPUSRGUID, T.ENTERED_BY_GD = S.ENTERED_BY_GD, T.HEALTH_INDEX = S.HEALTH_INDEX, T.NBI_RATING_2018 = S.NBI_RATING_2018
+    ORA-04098: trigger 'KDOT_BLP.TRG_INSPEVNT_BRGCONDITION' is invalid and failed re-validation
+
+PL/SQL procedure successfully completed
+
+Enable recursive constraints after merging setup data.
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+1 row updated
+
+Remove retired tables from PON_EXCHANGE_OPTION_DETAIL
+Remove empty entries from PON_EXCHANGE_OPTION
+
+PL/SQL procedure successfully completed
+
+
+Session altered
+
+
+Session altered
+
+
+ALTER SYSTEM SET OPEN_CURSORS=3000 SCOPE=MEMORY
+
+ORA-01031: insufficient privileges
+
+PL/SQL procedure successfully completed
+
+
+195 rows updated
+
+
+56 rows updated
+
+
+52 rows updated
+
+
+0 rows updated
+
+
+0 rows merged
+
+
+0 rows merged
+
+
+0 rows merged
+
+Enable disabled NOT NULL constraints.
+
+PL/SQL procedure successfully completed
+
+Make non PK GUID columns required.
+ERROR :  ALTER TABLE INSPEVNT MODIFY BRIDGE_GD  NOT NULL; ORA-01442: column to be modified to NOT NULL is already NOT NULL in KDOT_BLP.
+ERROR :  ALTER TABLE PON_ELEM_INSP MODIFY BRIDGE_GD  NOT NULL; ORA-01442: column to be modified to NOT NULL is already NOT NULL in KDOT_BLP.
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+Add missing permissions, (if any).
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+BEGIN
+	MERGE INTO INSPEVNT INSP USING (
+	SELECT INSPEVNT_GD, BRIDGE_GD, LEAST(CASE WHEN ISNUMERIC(DKRATING) = 1 AND DKRATING <> 0 THEN TO_NUMBER(DKRATING) ELSE 1000 END,
+	CASE WHEN ISNUMERIC(SUPRATING) = 1 AND SUPRATING <> 0 THEN TO_NUMBER(SUPRATING) ELSE 1000 END,
+	CASE WHEN ISNUMERIC(SUBRATING) = 1 AND SUBRATING <> 0 THEN TO_NUMBER(SUBRATING) ELSE 1000 END,
+	CASE WHEN ISNUMERIC(CULVRATING) = 1 AND CULVRATING <> 0 THEN TO_NUMBER(CULVRATING) ELSE 1000 END) LEAST FROM INSPEVNT WHERE BRIDGE_CONDITION IS NULL
+	) L ON (L.INSPEVNT_GD = INSP.INSPEVNT_GD AND L.BRIDGE_GD = INSP.BRIDGE_GD)
+	WHEN MATCHED THEN
+	UPDATE SET INSP.BRIDGE_CONDITION = (CASE
+	WHEN LEAST > 9 OR LEAST < 1 OR LEAST IS NULL THEN NULL
+	WHEN LEAST >= 7 THEN '1'
+	WHEN LEAST <= 4 THEN '3'
+	ELSE '2' END);
+END;
+
+ORA-06550: line 6, column 12:
+PL/SQL: ORA-06575: Package or function ISNUMERIC is in an invalid state
+ORA-06550: line 2, column 2:
+PL/SQL: SQL Statement ignored
+Add indexes.
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+Warning: PL/SQL procedure successfully completed with compilation errors
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+Warning: PL/SQL procedure successfully completed with compilation errors
+
+ERROR: Failed forwarding elements for latest inspection having no elements with previous inspections containg elements; ORA-04098: trigger 'KDOT_BLP.TRG_INSPEVNT_BRGCONDITION' is invalid and failed re-validation
+
+PL/SQL procedure successfully completed
+
+
+DECLARE
+    V_TEMP PLS_INTEGER;
+BEGIN
+    SELECT VAR_VALUE INTO V_TEMP FROM PON_GLOB_VAR WHERE VARI = 'DDV';
+
+    IF v_temp = 1 THEN
+		MERGE INTO INSPEVNT INSP
+		USING (SELECT EI.BRIDGE_GD,
+		  EI.INSPEVNT_GD,
+		  ROUND(
+		  (CASE
+		  WHEN SUM(EI.ELEM_QUANTITY*ELEMVALUE) > 0 THEN
+		  (SUM(EI.ELEM_QUANTITY*ELEMVALUE*(S1FACTOR*EI.ELEM_PCTSTATE1+S2FACTOR*EI.ELEM_PCTSTATE2+S3FACTOR*EI.ELEM_PCTSTATE3+S4FACTOR*EI.ELEM_PCTSTATE4))/SUM(EI.ELEM_QUANTITY*ELEMVALUE))
+		  ELSE -1
+		  END) , 2) AS HIX
+		  FROM PON_ELEM_INSP EI JOIN V_ELEMVALUE D ON EI.PON_ELEM_DEFS_GD = D.PON_ELEM_DEFS_GD
+		  GROUP BY EI.BRIDGE_GD,EI.INSPEVNT_GD) H
+		  ON (H.BRIDGE_GD = INSP.BRIDGE_GD AND H.INSPEVNT_GD = INSP.INSPEVNT_GD)
+		WHEN MATCHED THEN
+		UPDATE SET INSP.HEALTH_INDEX = H.HIX;
+
+		delete from PON_ATTRIBUTE_DISPLAY where CONTEXT_NAME = 'DTCBridgeDetails' and TABLE_NAME = 'v_hix' and COL_NAME = 'hix';
+	END IF;
+END;
+
+ORA-04098: trigger 'KDOT_BLP.TRG_INSPEVNT_BRGCONDITION' is invalid and failed re-validation
+ORA-06512: at line 7
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+A DEFAULT Pontis USER HAS BEEN ADDED WITH A PASSWORD OF 'pontis'.
+CHANGE THIS PASSWORD!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+PL/SQL procedure successfully completed
+
+Script finished on KDOT_BLP.
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+BEGIN
+	UPDATE INSPEVNT
+	SET NBI_RATING = 'N'
+	WHERE (BRIDGE_CONDITION != '3'
+	AND BRIDGE_CONDITION != '2'
+	AND BRIDGE_CONDITION != '1')
+	OR BRIDGE_CONDITION IS NULL;
+
+	UPDATE INSPEVNT
+	SET NBI_RATING = '1'
+	WHERE BRIDGE_CONDITION ='3';
+
+	UPDATE INSPEVNT
+	SET NBI_RATING = '0'
+	WHERE BRIDGE_CONDITION ='2' OR BRIDGE_CONDITION = '1';
+END;
+
+ORA-04098: trigger 'KDOT_BLP.TRG_INSPEVNT_BRGCONDITION' is invalid and failed re-validation
+ORA-06512: at line 2
+
+0 rows merged
+
+
+0 rows merged
+
+
+0 rows merged
+
+
+0 rows merged
+
+
+0 rows merged
+
+
+0 rows merged
+
+
+PL/SQL procedure successfully completed
+
+
+PL/SQL procedure successfully completed
+
+
+Commit completed
+
+
+Commit completed
+
+
+/*
+Profiling
+=========
+
+--DROP TABLE PROFILING;
+--DROP SEQUENCE S_PROFILING;
+
+CREATE TABLE PROFILING (
+    ID NUMBER(10) NOT NULL,
+    PLACE VARCHAR2(100) NOT NULL,
+    END_TIME TIMESTAMP NOT NULL);
+
+CREATE SEQUENCE S_PROFILING;
+
+CREATE OR REPLACE TRIGGER TRG_PROFILING
+    BEFORE INSERT ON PROFILING
+    FOR EACH ROW
+BEGIN
+    SELECT S_PROFILING.NEXTVAL INTO :NEW.ID FROM DUAL;
+END;
+
+COLUMN PLACE FORMAT A30
+COLUMN DURATION FORMAT A18
+SELECT B.PLACE, TO_CHAR(CAST((B.END_TIME - A.END_TIME) AS INTERVAL DAY TO SECOND(0)), 'HH:MM:SS') AS DURATION
+FROM PROFILING A
+INNER JOIN PROFILING B ON A.ID = B.ID -1
+ORDER BY B.END_TIME - A.END_TIME DESC;
+
+DELETE PROFILING;
+--INSERT INTO PROFILING(PLACE, END_TIME) VALUES ('SEED',  CURRENT_TIMESTAMP);
+*/
+
+ORA-00900: invalid SQL statement

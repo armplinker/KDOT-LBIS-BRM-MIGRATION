@@ -1,8 +1,8 @@
-﻿prompt PL/SQL Developer Export Tables for user KDOT_BLP@LOCALHOST:1521/XEPDB1
+prompt PL/SQL Developer Export Tables for user KDOT_BLP@LOCALHOST:1521/XEPDB1
 prompt Created by armpl on Wednesday, January 4, 2023
 set feedback off
 set define off
-
+/*
 prompt Dropping KDOTBLP_PORTAL_TABLES...
 drop table KDOTBLP_PORTAL_TABLES cascade constraints;
 prompt Creating KDOTBLP_PORTAL_TABLES...
@@ -22,6 +22,9 @@ tablespace KDOT_BLP
     minextents 1
     maxextents unlimited
   );
+*/
+truncate table KDOTBLP_PORTAL_TABLES;
+
 
 prompt Loading KDOTBLP_PORTAL_TABLES...
 insert into KDOTBLP_PORTAL_TABLES (table_name, processing_order)
@@ -89,7 +92,7 @@ values ('KIND_CODE_LABELS', 380);
 insert into KDOTBLP_PORTAL_TABLES (table_name, processing_order)
 values ('LOOKUP_MAT_DESIGN_APPR_TYPE', 390);
 insert into KDOTBLP_PORTAL_TABLES (table_name, processing_order)
-values ('LOOKUP_MAT_DESIGN_MAIN_TYPE', 400);
+values ('LOOKUP_MAT_DESIGN_MAIN_TYPE', 395);
 insert into KDOTBLP_PORTAL_TABLES (table_name, processing_order)
 values ('LR_VEHICLE_DEFS', 235);
 commit;

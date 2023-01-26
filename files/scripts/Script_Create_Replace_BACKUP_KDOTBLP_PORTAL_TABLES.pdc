@@ -6,7 +6,8 @@ CREATE OR REPLACE PROCEDURE BACKUP_KDOTBLP_PORTAL_TABLES AS
 
   -- ARMarshall, ARM_LLC - 20230102 - created (and in OracleBRM6.sql)
   -- ARMarshall, ARM_LLC - 20230106 - fixed V_SUFFIX which was using a dash to use an underscore before time string
-
+  -- ARMarshall, ARM_LLC - 20230124 - deployed to ESOADEV 
+  
   TYPE R_CURSOR IS REF CURSOR;
   CUR R_CURSOR;
 

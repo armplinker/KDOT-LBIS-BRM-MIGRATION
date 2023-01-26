@@ -33,7 +33,7 @@
 # BRM Migration progress notes
  
    
-## LAST UPDATES: ARMarshall, ARM LLC - 20221221 
+### LAST UPDATES: ARMarshall, ARM LLC - 20230123
   
 ### GENERAL COMMENTS ABOUT THE UPGRADE SCRIPT(S)
 
@@ -62,7 +62,7 @@ see this>   [Oracle LISTAGG documentation](https://docs.oracle.com/cd/E11882_01/
 
 ### TO SEE THE DDL FROM DATAPUMP DMP FILE
 Burleson Consulting says:
-[Show SQL From Dump FIle](http://www.dba-oracle.com/t_convert_expdp_dmp_file_sql.htm "Creating the SQL from a DATAPUMP import file")
+**[Show SQL From Dump FIle](http://www.dba-oracle.com/t_convert_expdp_dmp_file_sql.htm "Creating the SQL from a DATAPUMP import file")**
 
 ### PROGRESS NOTES
 
@@ -681,7 +681,7 @@ The user KDOT_BLP may be granted  exp_full_database and imp_full_database **_opt
 -----------------------------------------------------
 
 Here is how the user (schema)  KDOT_BLP was set:
-
+```
             -- Create the user 
             create user KDOT_BLP
             default tablespace KDOT_BLP
@@ -712,12 +712,14 @@ Here is how the user (schema)  KDOT_BLP was set:
             grant manage scheduler to KDOT_BLP;
             grant select any dictionary to KDOT_BLP;
             grant unlimited tablespace to KDOT_BLP;
-
+```
 
 -- In Visual Studio Code, you can find all statements in the output log like CREATE UNIQUE INDEX "KDOT_BLP". 
 using a regex like this:  
 
+```
             ^(CREATE UNIQUE INDEX "KDOT_BLP"\.).+$
+```
 
 which helps finding errors reported in the log.  
 
@@ -733,10 +735,10 @@ which helps finding errors reported in the log.
 
 Error#1:
 reference to an unknown column ORA-00904: "grps_name":  when enclosed in quotes like this it is matched by case.
-
+```
 <span style="color:green;font-weight:500;font-size:12px;font-style: italic;">
 System.Web.HttpUnhandledException (0x80004005): Exception of type 'System.Web.HttpUnhandledException' was thrown. System.Exception: BridgeRepository::GetBridgeList: Unable To Retrieve Bridge List  System.Exception: AdoRepository::ExecuteReader Error executing command: SELECT * FROM (SELECT "_sd_".*, ROWNUM "_#_" FROM (SELECT DISTINCT(pon_bridge_grps.pon_bridge_grps_gd) AS "key_", pon_bridge_grps.grps_name AS "Bridge Groups", (select COUNT(DISTINCT(bridge_gd))from pon_grps_road r where r.pon_bridge_grps_gd = pon_bridge_grps.pon_bridge_grps_gd) "Bridge_Count", (select COUNT(bridge_gd)from pon_grps_road r where r.pon_bridge_grps_gd = pon_bridge_grps.pon_bridge_grps_gd) "Roadway_Count",pon_bridge_grps.description as "Description" from pon_bridge_grps left outer join pon_grps_road on pon_grps_road.pon_bridge_grps_gd = pon_bridge_grps.pon_bridge_grps_gd left outer join bridge on bridge.bridge_gd = pon_grps_road.bridge_gd WHERE 1=1 order by "grps_name" ASC) "_sd_" WHERE ROWNUM <= 1) "_sd2_" WHERE "_sd2_"."_#_" > 0 order by ROWNUM Oracle.ManagedDataAccess.Client.OracleException: ORA-00904: "grps_name": invalid identifierat OracleInternal.ServiceObjects.OracleCommandImpl.VerifyExecution(OracleConnectionImpl connectionImpl, Int32& cursorId, Boolean bThrowArrayBindRelatedErrors, OracleException& exceptionForArrayBindDML, Boolean& hasMoreRowsInDB, Boolean bFirstIterationDone)at OracleInternal.ServiceObjects.OracleCommandImpl.ExecuteReader(String commandText, OracleParameterCollection paramColl, CommandType commandType, OracleConnectionImpl connectionImpl, OracleDataReaderImpl& rdrImpl, Int32 longFetchSize, Int64 clientInitialLOBFS, OracleDependencyImpl orclDependencyImpl, Int64[] scnForExecution, Int64[]& scnFromExecution, OracleParameterCollection& bindByPositionParamColl, Boolean& bBindParamPresent, Int64& internalInitialLOBFS, OracleException& exceptionForArrayBindDML, Boolean isDescribeOnly, Boolean isFromEF)at Oracle.ManagedDataAccess.Client.OracleCommand.ExecuteReader(Boolean requery, Boolean fillRequest, CommandBehavior behavior)at Oracle.ManagedDataAccess.Client.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)at BRIDGEWare.Pontis.DataAccess.Repositories.AdoRepository.ExecuteReader(String commandText, Dictionary`2 queryParameters, Nullable`1 expectedRowCountHint, List`1 columnFilter, Nullable`1 timeout, Boolean forceSemiColonStrip) in E:\Agents\PRG01\_work\33\s\DataAccess\Repositories\AdoRepository.cs:line 91 --- End of inner exception stack trace --- at BRIDGEWare.Pontis.DataAccess.Repositories.AdoRepository.ExecuteReader(String commandText, Dictionary`2 queryParameters, Nullable`1 expectedRowCountHint, List`1 columnFilter, Nullable`1 timeout, Boolean forceSemiColonStrip) in E:\Agents\PRG01\_work\33\s\DataAccess\Repositories\AdoRepository.cs:line 130at BRIDGEWare.Pontis.DataAccess.Repositories.BridgeRepository.GetBridgeList(GridSearchCriteria criteria, Int32 currentPage, Int32 rowsPerPage) in E:\Agents\PRG01\_work\33\s\DataAccess\Repositories\BridgeRepository.cs:line 136  -- End of inner exception stack trace --- at BRIDGEWare.Pontis.DataAccess.Repositories.BridgeRepository.GetBridgeList(GridSearchCriteria criteria, Int32 currentPage, Int32 rowsPerPage) in E:\Agents\PRG01\_work\33\s\DataAccess\Repositories\BridgeRepository.cs:line 155at PontisModules_Bridge_UiDTCBagGrid.get_GridList()at PontisModules_Bridge_UiDTCBagGrid.get_GridDataSource()at ContextGridControl.SetGridDataSource(String sortColumnName, Boolean filterResults, Boolean showAllWhenUnfiltered)at PontisModules_Bridge_UiDTCBagGrid.BindData()at PontisModules_Bridge_UiDTCBagGrid.Page_Load(Object sender, EventArgs e)at System.Web.UI.Control.OnLoad(EventArgs e)at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)at System.Web.UI.Page.HandleError(Exception e)at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)at System.Web.UI.Page.ProcessRequest(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)at System.Web.UI.Page.ProcessRequest()at System.Web.UI.Page.ProcessRequest(HttpContext context)at ASP.bridges_bridgeanalysisgrplist_aspx.ProcessRequest(HttpContext context) in c:\Users\armpl\AppData\Local\Temp\Temporary ASP.NET Files\root\8d3e4b96\eea78b4\App_Web_f5frnmw3.0.cs:line 0at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)</span>
-
+```
 
 
             SELECT *
@@ -785,7 +787,7 @@ System.Web.HttpUnhandledException (0x80004005): Exception of type 'System.Web.Ht
                ... ON inspevnt.bridge_gd = bridge.bridge_gd   
 
 but that makes ADO blow chunks so must be consistent  
-
+```
               ... ON inspevnt.bridge_gd = b.bridge_gd  
 
             SELECT DISTINCT (b.bridge_gd) "key_",
@@ -826,26 +828,31 @@ but that makes ADO blow chunks so must be consistent
                 on XTRNSTRUNITTABLE.structure_unit_gd =
                 structure_unit.structure_unit_gd
             where b.bridge_gd not in (select i2.bridge_gd from inspevnt i2)
+```
 
--- and this won't work   
-                    
+and this won't work   
+
+```                    
                     SELECT "sqlfilter_".*                  
                   FROM (SELECT (b.bridge_gd) AS "Key_",            
+```
 
-has to be "key_"
+has to be "**key_**"  
 
+```
                     SELECT "sqlfilter_".*                  
                   FROM (SELECT (b.bridge_gd) AS "Key_",            
-
+```
 
 These difficulties necessitate minor but pervasive code changes to make every layout say   
 
+```
                 ...bridge_gd as "key_"   
-
+```
 and never say  
-
+```
                 ...brkey as "key_"  
-
+```
 and update the C# and JS throughout to use that convention.  There are definitely exceptions as of 20230109
 
 
@@ -856,7 +863,257 @@ and update the C# and JS throughout to use that convention.  There are definitel
 BrM 5.3 can run against the database migrated to 6.0 at least as far as seeing the desktop.
 
 
+### 20230117  
 
+--------------------------------------------------------
+##### added script to quantify PON_FILTERS with layouts conforming to BRM requirements  
+- uses a REGEX to check the layouts for bare minimum compliance.
+- created a SQL script to try and exercise every layout - check compliance and whether it returns any rows
+
+- created this Oracle REGEX to check layouts:  
+```
+select pf.filterkey, pf.name ,nvl(1,0) as compliant,pf.sql_filter, pf.rowid
+  FROM PON_FILTERS pf
+ WHERE  pf.filterkey>=15000 and pf.accessfilter=0 and pf.shared=1 
+and  ( regexp_like(lower(trim(pf.sql_filter)),
+                   q'[^.*SELECT.*(b\.bridge_gd +as +key_).*(b\.brkey).*FROM( *| *
+* *)(bridge +b).*(ORDER +BY +(1|b\.brkey))*.*((/* *#END# *\*/)*).*\Z]' ,'inm')  
+);
+```
+
+- and this C# function  
+```
+
+        /// <summary>
+        ///     Check the desktop list for obvious missing elements
+        ///     Ignores any case-sensitivity in the SQL fragments
+        /// </summary>
+        /// <param name="sqlString"></param>
+        /// <param name="errFatal">True if the error is deemed fatal</param>
+        /// <param name="errsOut">List of error messages generated by the validation</param>
+        /// <param name="throwError">Raise an exception if a fatal error is encountered in validation</param>
+        /// <returns></returns>
+        public static bool ValidateDesktopListSqlRegex(this string sqlString, out bool errFatal, out string errsOut,
+            bool throwError = false)
+        {
+            var errMsg = new StringBuilder().AppendLine("");
+            errFatal = false; // be optimistic
+
+            try
+            {
+                var regexOpts = new RegexOptions();
+
+                var errCount = 0;
+                var warnCount = 0;
+                var infoCount = 0;
+
+                regexOpts = RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.CultureInvariant;
+                //1 see if the list contains FROM BRIDGE b in any way shape or form
+                var regex = new Regex(@"^.*?([ ]*FROM[ ]*BRIDGE[ ]*b[ ]*).*?$", regexOpts);
+                var result = regex.IsMatch(sqlString); // either t or f on first call
+
+                if (!result)
+                {
+                    errCount++;
+                    errMsg.AppendLine(
+                        $@"Check #1 - CHECK SQL - the sql does not contain any version of {"FROM BRIDGE b"} - (regex: {regex}) - this SQL fragment Is usually required for all layout list SQL");
+                }
+
+                //2 - must contain SELECT b.BRIDGE_GD as key_ in some way spaces do not matter
+                // this is a BrM requirement
+                // ARMarshall, ARM_LLC - 20230111 - changed to bridge_gd from brkey
+                regex = new Regex("^(.*?)(SELECT[ ]+b\\.bridge_gd[ ]+(?:as[ ]+?)*?key_[ ]*,)(.*?)$", regexOpts);
+                result = regex.IsMatch(sqlString);
+
+                if (!result)
+                {
+                    errFatal = true;
+                    errCount++;
+                    errMsg.AppendLine(
+                        $@"Check #2 - ERROR - the sql does not contain any version of {"SELECT b.bridge_gd as key_"} - (regex: {regex}) - this SQL fragment is required for all layout list SQL and BrM");
+                }
+
+
+                //3 - should contain b.bridge_gd, maybe with more columns before and after it..
+                regex = new Regex("^.*?[ ]*([,][ ]*?b\\.bridge_gd)[ ]*[,]*[ ]*.*?$", regexOpts);
+                result = regex.IsMatch(sqlString);
+
+                if (!result)
+                {
+                    warnCount++;
+                    errMsg.AppendLine(
+                        $@"Check #3 -  CHECK SQL - the layout sql must contain the fragment {"bridge_gd"} - (regex: {regex}) -this column was not found in the sql string and is required for all layout list SQL.");
+                }
+
+
+                //4 - should contain b.bridge_gd, maybe with more columns before and after it..
+                regex = new Regex("^.*?[ ]*([,][ ]*?b\\.brkey)[ ]*[,]*[ ]*.*?$", regexOpts);
+                result = regex.IsMatch(sqlString);
+
+                if (!result)
+                {
+                    warnCount++;
+                    errMsg.AppendLine(
+                        $@"Check #4 -  CHECK SQL - the layout sql must contain the fragment {"b.brkey"} - (regex: {regex}) -this column was not found in the sql string and is required for all layout list SQL.");
+                }
+
+
+                // log this before throwing the exception
+                if (!result) // something bad happened
+                {
+                    if (errFatal)
+                        Logger.Instance.Error(errMsg);
+                    else
+                        Logger.Instance.Warn(errMsg);
+                }
+
+                if (errCount > 0 || warnCount > 0 || infoCount > 0)
+                {
+                    errMsg.AppendLine("");
+                    errMsg.AppendLine(
+                        $"Summary: {errCount} errors, {warnCount} warnings, and {infoCount} info messages");
+                }
+
+                errsOut = errCount > 0 || warnCount > 0 ? errMsg.ToString() : Empty;
+
+                if (throwError && errFatal)
+                    throw new ArgumentException(
+                        $"Desktop list sql: {sqlString.FormatSqlString()} {Environment.NewLine} Errors:{Environment.NewLine}{errMsg}");
+
+                //  possibly passed, or it failed so there are >0 errors in the errCount
+                return errCount == 0;
+            }
+            catch (RegexMatchTimeoutException rte)
+            {
+                rte.Log(rte.GatherExceptionData());
+                throw;
+            }
+            catch (Exception ex)
+            {
+                errMsg.AppendLine("");
+                errMsg.AppendLine("Layout Sql:");
+                errMsg.Append($"{sqlString.FormatSqlString()}");
+                errMsg.AppendLine("");
+                errMsg.Append(ex.GatherExceptionData());
+                errMsg.AppendLine("");
+
+                ex.Log(errMsg.ToString());
+
+                throw;
+            }
+        }
+
+
+```
+where the first regex is:
+```
+^.*?([ ]*FROM[ ]*BRIDGE[ ]*b[ ]*).*?$
+```
+which verifies that the filter SQL contains the **FROM** clause:
+```
+FROM BRIDGE b
+```
+and the second regex is:
+```
+^(.*?)(SELECT[ ]+b\\.bridge_gd[ ]+(?:as[ ]+?)*?key_[ ]*,)(.*?)$
+```
+which verifies that the SQL contains the expression:
+
+```
+ b.bridge_gd as key_  
+```
+
+### 20230118  
+
+--------------------------------------------------------  
+
+**Updated BrM code throughout to assume BRIDGE_GD as KEY_ convention (see above)**
+
+
+### 20230123  
+
+--------------------------------------------------------  
+
+**Added 2 functions to ESOADEV**  
+
+- FUNCTION **F_IS_ACTIVE_BRIDGEGROUP**(pBridgeGroup IN VARCHAR2)  
+- FUNCTION **f_Get_Pon_App_Users_Gd_For_Userkey**(The_Userkey Pon_App_Users.Userkey%TYPE)  
+
+**replaced 3 views (updated)**
+
+- **V_BRIDGES_WITH_FC_INSPECTIONS**  
+- **V_BRIDGES_WITH_UW_INSPECTIONS**  
+- **V_BRIDGES_WITH_OS_INSPECTIONS**  
+  
+**added tables to ESOADEV**  
+
+- added **KDOTBLP_PORTAL_TABLES** to itemize tables that the upgrade script should backup before doing anything else
+- added table **VALIDATION_WARNINGS** to create a table missing from upgrade scripts but apparently required by BrM
+- added table **PON_MOBILE_ERRORS** to create a table missing from upgrade scripts but apparently required by BrM
+
+### 20230125  
+
+--------------------------------------------------------  
+
+Ran the upgrade script against ESOADEV.  Minor twiddles and it finished successfully.
+Found duplicate KDOTBLP_INSPECTIONS records - same BRKEY/INSPKEY - created scripts to find and remove these
+
+### 20230125  
+
+--------------------------------------------------------  
+
+**Ran script to clean orphaned KDOTBLP_INSPECTIONS with no parent INSPEVNT record**
+**Ran script to clean duplicate KDOTBLP_INSPECTIONS**
+**(Re)-Ran the upgrade script against ESOADEV.**
+- Minor twiddles and it finished successfully.
+**Testing**
+- My testing with BrM 5.3 and 6.0 has been **_very cursory_**, but I can connect to them, run validation, calculate sufficiency rating, select / unselect etc. etc.  No attempts at formulating a future bridge program for the BLP as yet (!!!)  
+- I do have some apparently bad news.  BrM uses Telerik (apparently) and uses the old version that we have determined is vulnerable.   **_The dependency on Telerik may not exist in future versions - don't know yet._**  
+- Also, there is cruft lying around in the web.config which suggests that they did not  
+thoroughly check it between 5.3 and 6.0 but I suspect the differences are not profound.  
+- I ran into a problem trying to tweak **PARAMTRS** table entries for the KDOTBLP_INSPECTIONS special inspection type SPINSPTYPE.  I have reported it to Mayvue.  It is issue #BRMSD-6826 https://bridgeware.atlassian.net/servicedesk/customer/portal/1/BRMSD-6826
+
+**Augmented and ran script Fixup_Missing_INSPEVNT_User_Identifiers.pdc to fix inspevnt records where user identifiers are null e.g. USERKEY**
+**Updated .gitignore to exclude unwanted files fro version control**
+**Reset web.config for both BrM 5.3 and 6.0 to use the file names BrM5_3.log and BrM6_0.log respectively for the log4net log files**
+
+
+### 20230126  
+
+--------------------------------------------------------  
+**Ran Oracle 6.1 upgrade script after patching the BrM exe.**
+- It has an error near line 212 - extraneous space before the slash at the end of the ISNUMERIC create script
+```
+-- ARMarshall, ARM_LLC -20230126 - removed extraneous space before the command slash at the bottom of the create script for this function ISNUMERIC
+--Above function (IS_INTEGER) returns false for 0, so creating a new one that actually treats it as a number
+CREATE OR REPLACE FUNCTION ISNUMERIC(p_string IN VARCHAR2)
+   RETURN INT
+IS
+   v_new_num NUMBER;
+BEGIN
+   v_new_num := TO_NUMBER(p_string);
+   RETURN 1;
+EXCEPTION
+WHEN VALUE_ERROR THEN
+   RETURN 0;
+END ISNUMERIC;
+/
+-- ARMarshall, ARM_LLC -20230126 - fixed the slash above to remove space
+```
+- Validation and sufficiency rating worked after upgrade
+- About box does not show the right version though - review of DLL properties shows
+```
+BRIDGEWare.Pontis.www, Version=6.1.0.0, Culture=neutral, PublicKeyToken=null
+```
+**A COMMON PROBLEM WITH ALL THESE SCRIPTS IS THAT THEY ASSUME THE PERSON RUNNING THEM HAS DBA PRIVILEGES AND CAN ISSUE THE ALTER SYSTEM COMMAND**
+
+**Ran scripts for 6.2, 6.3, 6.4, 6.5, 6.6 - BrM and Portal both work with the rudimentary testing I performed**
+- It is important to note the the Portal BrM DLLs are from BrM 5.3, and were NOT updated.  This is **_presumably OK_**, given that we want the Portal to behave as it always has.
+- Several weird things happening attempting to run BrM 6.4 where MULTIMEDIA was added to the application.  There seeems to be a configuration error and maybe MULTIMEDIA directory permissions issues as well.
+
+**BrM through release 6.5 apparently uses an internal browser tool/control that is essentially an ancient version of Internet Explorer.  This browser control  does not support mapping, so the mapping does not work**
+
+**BrM6.6 does not permit logging in as pontis/pontis.  I can login as amyjcoon with her password fine.  That is amazing.**
 </body>
 </footer>
 </html>
