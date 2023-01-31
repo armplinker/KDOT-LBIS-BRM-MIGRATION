@@ -1,4 +1,4 @@
-# exclude PL/SQL Developer backup files
+# exclude all PL/SQL Developer backup files
 *.~*
 
 # exclude junk intermediate processing files
