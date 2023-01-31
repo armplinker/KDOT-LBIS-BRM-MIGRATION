@@ -1,6 +1,62 @@
 -- Script_Restore_Missing_KDOT_Objects
 -- ARMarshall, ARM_LLC, 20230105 - created
 
+-- Oracle6.sql hoses   FK references and cascading delete settings from main tables - restore
+DELETE FROM INSPEVNT i
+ WHERE NOT EXISTS (SELECT 1 FROM BRIDGE b WHERE b.BRIDGE_GD = i.BRIDGE_GD);
+DELETE FROM STRUCTURE_UNIT su
+ WHERE NOT EXISTS (SELECT 1 FROM BRIDGE b WHERE b.BRIDGE_GD = su.BRIDGE_GD);
+DELETE FROM ROADWAY rw
+ WHERE NOT EXISTS (SELECT 1 FROM BRIDGE b WHERE b.BRIDGE_GD = rw.BRIDGE_GD);
+commit work;
+
+DELETE FROM PON_BATCH_BRKEYS pbb
+ WHERE NOT EXISTS
+ (SELECT 1 FROM BRIDGE b WHERE b.BRIDGE_GD = pbb.BRIDGE_GD);
+DELETE FROM CICOXCPT ccx
+ WHERE NOT EXISTS
+ (SELECT 1 FROM BRIDGE b WHERE b.BRIDGE_GD = ccx.BRIDGE_GD);
+DELETE FROM CICOCNTL ccg
+ WHERE NOT EXISTS
+ (SELECT 1 FROM BRIDGE b WHERE b.BRIDGE_GD = ccg.BRIDGE_GD);
+commit work;
+
+DELETE FROM KDOTBLP_BRIDGE kb
+ WHERE NOT EXISTS (SELECT 1 FROM BRIDGE b WHERE kb.BRIDGE_GD = b.BRIDGE_GD);
+
+DELETE FROM KDOTBLP_INSPECTIONS ki
+ WHERE NOT EXISTS
+ (SELECT 1 FROM INSPEVNT i WHERE ki.INSPEVNT_GD = i.INSPEVNT_GD);
+
+DELETE FROM USERSTRUNIT us
+ WHERE NOT EXISTS
+ (SELECT 1
+          FROM STRUCTURE_UNIT SU
+         WHERE us.Structure_Unit_Gd = su.Structure_Unit_Gd);
+DELETE FROM USERRWAY ur
+ WHERE NOT EXISTS
+ (SELECT 1 FROM ROADWAY rw WHERE ur.ROADWAY_GD = rw.ROADWAY_GD);
+commit work;
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table INSPEVNT add constraint FK_INSPEVNT_TO_BRIDGE foreign key(BRIDGE_GD) references bridge(BRIDGE_GD) on delete cascade;
+
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table STRUCTURE_UNIT add constraint FK_STRUCTURE_UNIT_TO_BRIDGE foreign key(BRIDGE_GD) references bridge(BRIDGE_GD) on delete cascade;
+
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table ROADWAY add constraint FK_ROADWAY_TO_BRIDGE foreign key(BRIDGE_GD) references bridge(BRIDGE_GD) on delete cascade;
+
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table KDOTBLP_BRIDGE add constraint FK_KDOT_BRIDGE_TO_BRIDGE foreign key(BRIDGE_GD) references bridge(BRIDGE_GD) on delete cascade;
+
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table KDOTBLP_INSPECTIONS add constraint FK_KDOTBLP_INSPS_TO_INSPEVNT foreign key(INSPEVNT_GD) references inspevnt(INSPEVNT_GD) on delete cascade;
+
+alter table USERSTRUNIT add constraint FK_USERSTRUNIT_TO_STRUCTURE_UNIT foreign key(STRUCTURE_UNIT_GD) references STRUCTURE_UNIT(STRUCTURE_UNIT_GD) on delete cascade;
+
+alter table USERRWAY add constraint FK_USERRWAY_TO_ROADWAY foreign key(ROADWAY_GD) references ROADWAY(ROADWAY_GD) on delete cascade;
+
+
 -- indexes
 -- upgrade script is removing a couple indexes added to the production database on KDOTBLP_BRIDGE (which is cloned as USERBRDG by the upgrade script)
 

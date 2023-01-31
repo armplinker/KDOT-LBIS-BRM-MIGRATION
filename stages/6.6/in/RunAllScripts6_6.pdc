@@ -2,7 +2,7 @@
 CONNECT KDOT_BLP/eis3nh0wer@dt00en60.ksdot.org:1521/ESOADEV.WORLD
 --whenever sqlerror exit sql.sqlcode;
 SET SERVEROUTPUT ON SIZE UNLIMITED
-SPOOL "D:\git\repos\KDOT-LBIS-BRM-MIGRATION\stages\6.6\log\OracleBRM6_62-20230126.log";
+SPOOL "D:\git\repos\KDOT-LBIS-BRM-MIGRATION\stages\6.6\log\OracleBRM6_62-20230131.log";
 
 -- BEGIN SCRIPTS 
  

@@ -30,16 +30,16 @@
 </head>
 <body>
  
-# BRM Migration progress notes
- 
+# BRM Database Migration Progress Notes
    
-### LAST UPDATES: ARMarshall, ARM LLC - 20230123
+### LAST UPDATED: ARMarshall, ARM LLC - 20230131
   
 ### GENERAL COMMENTS ABOUT THE UPGRADE SCRIPT(S)
 
 
 ------------------------------------------  
 
+```
 PON_CONCAT calls might be better formed using LISTAGG available in Oracle 12C+
 
 see this>   [Oracle LISTAGG documentation](https://docs.oracle.com/cd/E11882_01/server.112/e41084/functions089.htm#SQLRF30030 "Oracle LISTAGG documentation")                
@@ -54,6 +54,7 @@ see this>   [Oracle LISTAGG documentation](https://docs.oracle.com/cd/E11882_01/
                                                 ORDER BY DICT.TABLE_NAME
                                                 </p>
 </span>   
+```
 
 ------------------------------------------  
 
@@ -61,8 +62,17 @@ see this>   [Oracle LISTAGG documentation](https://docs.oracle.com/cd/E11882_01/
             C:\oracle\instantclient_21_7>expdp kdot_blp/Einstein345@localhost:1521/xepdb1 directory=KDOT_DP_DIR dumpfile=KDOT_BLP20221220SQL.dmp schemas=('KDOT_BLP') logfile=KDOT_BLP20221220SQL.log
 
 ### TO SEE THE DDL FROM DATAPUMP DMP FILE
-Burleson Consulting says:
+**_Burleson Consulting says_**:
 **[Show SQL From Dump FIle](http://www.dba-oracle.com/t_convert_expdp_dmp_file_sql.htm "Creating the SQL from a DATAPUMP import file")**
+
+
+#### GOTCHAS
+------------------------------------------
+ 
+>>> ##### ***A COMMON PROBLEM WITH ALL THESE SCRIPTS IS THAT THE SQL DDL and DML CODE ASSUMES THE PERSON RUNNING THEM HAS DBA PRIVILEGES AND CAN ISSUE THE ALTER SYSTEM COMMAND. CONSEQUENTLY, ANY ALTER SYSTEM STATEMENTS HAVE TO BE COMMENTED OUT BEFORE RUNNING ANY OF THEM*** 
+#####
+ 
+
 
 ### PROGRESS NOTES
 
@@ -76,8 +86,8 @@ Burleson Consulting says:
  
 -- ARMarshall, ARM LLC 20220817 -  all these calls to PON_CONCAT use the old CURSOR loop way - probably should use 12C LISTAGG or possibly XMLAGG functions if the string result is > 4000 characters
 -- leaving them alone.   
-
-            ...  
+ 
+``` 
             ...  
             ...  
     
@@ -89,6 +99,9 @@ Burleson Consulting says:
                                 ,' AND ')
             INTO V_MATCH_COLS
             FROM DUAL; 
+            ...  
+            ...  
+```
  
 ------------------------------------------  
 #### 2022-08-18
@@ -110,7 +123,7 @@ These tables are:
 - PARAMTRS  
 - KDOTBLP_ATTRIBUTE_DESCRIPTOR  
 
- 
+ ```
         BEGIN
             -- if the setting is true, make a backup of the table before doing anything else!
                 IF GET_VAR('SAVEAGENCYSYSTABLES') = 1 THEN
@@ -147,23 +160,24 @@ These tables are:
             WHEN OTHERS THEN RAISE;
             END;
         /
-            
+```           
 
 
 -- 20221220 - added option to print cursor detail for debugging purposes which should be set to 0 normally  
 
 -- IN PROCEDURE REV and anywhere else, examine this to determine if SQL strings or other materials should be echoed to the log
 -- set it at the top in this case to TRUE so it prints
-
+```
         INSERT INTO PON_GLOB_VAR (VARI, VAR_VALUE) VALUES ('PRINT_DETAILS', 1); 
-        
+```        
 -- where REV is invoked*
-        
+```        
         IF GET_VAR('PRINT_DETAILS') = 1 THEN
             REV(V_CUR,1); 
         ELSE
             REV(V_CUR);
         END IF;
+```
 
 ------------------------------------------  
 #### 2022-12-21
@@ -179,9 +193,10 @@ These tables are:
 
 after imports, it may be necessary to recompile the KDOT_BLP schema wholesale, like this (connected with DBA privileges e.g. SYS):
 
+```
             SQL>CONNECT SYS/xxxxx@localhost:1521/xepdb1 as SYSDBA;  
             SQL>EXECUTE UTL_RECOMP.RECOMP_PARALLEL(4,'KDOT_BLP');  
-
+```
 
 #### 2022-12-27
 
@@ -190,7 +205,7 @@ after imports, it may be necessary to recompile the KDOT_BLP schema wholesale, l
 Created a script to generate table ***VALIDATION_WARNING***,
 
 Create statement  is derived from this section of the script:
-
+```
             /*
             Insert into PON_DICT (TABLE_NAME,PK,REQUIRED,COL_ORDER,COL_NAME,DATA_TYPE,LENGTH,SCALE,DEF_VALUE,ID,FORCE_DEF) values ('VALIDATION_WARNING',3,1,1,'VALIDATION_WARNING_GD','VARCHAR',32,null,'REPLACE(NEWID(), ''-'','''')',0,1);
             Insert into PON_DICT (TABLE_NAME,PK,REQUIRED,COL_ORDER,COL_NAME,DATA_TYPE,LENGTH,SCALE,DEF_VALUE,ID,FORCE_DEF) values ('VALIDATION_WARNING',0,0,2,'TABLE_NAME','VARCHAR',100,null,null,0,1);
@@ -203,9 +218,11 @@ Create statement  is derived from this section of the script:
             Insert into PON_DICT (TABLE_NAME,PK,REQUIRED,COL_ORDER,COL_NAME,DATA_TYPE,LENGTH,SCALE,DEF_VALUE,ID,FORCE_DEF) values ('VALIDATION_WARNING',0,0,9,'VALIDATION_SOURCE_SPECIFIC','VARCHAR',1000,null,null,0,1);
             Insert into PON_DICT (TABLE_NAME,PK,REQUIRED,COL_ORDER,COL_NAME,DATA_TYPE,LENGTH,SCALE,DEF_VALUE,ID,FORCE_DEF) values ('VALIDATION_WARNING',0,0,10,'VALIDATION_MESSAGE','VARCHAR',3999,null,null,0,1);
             */
+```
 
 which translates to this:
 
+```
             DROP TABLE VALIDATION_WARNING;
 
             CREATE TABLE VALIDATION_WARNING 
@@ -220,23 +237,30 @@ which translates to this:
             VALIDATION_SOURCE_GENERIC VARCHAR2(100) NOT NULL,
             VALIDATION_SOURCE_SPECIFIC VARCHAR2(1000) NOT NULL,
             VALIDATION_MESSAGE VARCHAR2(3999 CHAR) NOT NULL);
+```
 
 and these constraints on table ***VALIDATION_WARNING*** are also taken fronm the upgrade script:
 
+```
             ALTER TABLE VALIDATION_WARNING ADD CONSTRAINT PK_VALIDATION_WARNING PRIMARY KEY ("VALIDATION_WARNING_GD") using index tablespace PONT_TBL;
 
             ALTER TABLE VALIDATION_WARNING ADD CONSTRAINT FK_VALIDATION_WARNING_USERS FOREIGN KEY (PON_APP_USERS_GD) REFERENCES PON_APP_USERS (PON_APP_USERS_GD) ON DELETE CASCADE;
+```
 
 -- added the table PON_MOBILE_ERRORS, using these statenents from the script
 
+```
             Insert into PON_DICT (TABLE_NAME,PK,REQUIRED,COL_ORDER,COL_NAME,DATA_TYPE,LENGTH,SCALE,DEF_VALUE,ID,FORCE_DEF) values ('PON_MOBILE_ERRORS',3,1,1,'PON_MOBILE_ERRORS_GD','VARCHAR',32,null,'REPLACE(NEWID(), ''-'','''')',0,1);
             Insert into PON_DICT (TABLE_NAME,PK,REQUIRED,COL_ORDER,COL_NAME,DATA_TYPE,LENGTH,SCALE,DEF_VALUE,ID,FORCE_DEF) values ('PON_MOBILE_ERRORS',0,1,2,'PON_APP_USERS_GD','VARCHAR',32,null,null,0,1);
             Insert into PON_DICT (TABLE_NAME,PK,REQUIRED,COL_ORDER,COL_NAME,DATA_TYPE,LENGTH,SCALE,DEF_VALUE,ID,FORCE_DEF) values ('PON_MOBILE_ERRORS',0,1,3,'DATE_REPORTED','DATETIME',null,null,null,0,1);
             Insert into PON_DICT (TABLE_NAME,PK,REQUIRED,COL_ORDER,COL_NAME,DATA_TYPE,LENGTH,SCALE,DEF_VALUE,ID,FORCE_DEF) values ('PON_MOBILE_ERRORS',0,1,4,'DATA','VARCHAR',4000,null,null,0,1);
             Insert into PON_DICT (TABLE_NAME,PK,REQUIRED,COL_ORDER,COL_NAME,DATA_TYPE,LENGTH,SCALE,DEF_VALUE,ID,FORCE_DEF) values ('PON_MOBILE_ERRORS',0,1,5,'ORDER_NUM','SMALLINT',null,null,null,0,1);
+```
+
 
 and the create statement looks like:
 
+```
             CONNECT KDOT_BLP/********************@localhost:1521/xepdb1 AS NORMAL
 
             SET SERVEROUTPUT ON
@@ -252,22 +276,23 @@ and the create statement looks like:
             ORDER_NUM INTEGER 
             );            
             ALTER TABLE PON_MOBILE_ERRORS ADD CONSTRAINT PK_PON_MOBILE_ERRORS PRIMARY KEY ("PON_MOBILE_ERRORS_GD") using index tablespace PONT_TBL;
+```
 
-Added the column ACTIVE_DIRECTORY_ROLE (CHAR(1)) to PON_APP_USERS_ROLES  
+- Added the column ACTIVE_DIRECTORY_ROLE (CHAR(1)) to PON_APP_USERS_ROLES  
 
+- Recreated USERINSP and USERBRDG and USERRWAY as   
 
-
-Recreated USERINSP and USERBRDG and USERRWAY as   
-
+```
       SELECT * FROM KDOTBLP_BRIDGE, KDOTBLP_INSPECTIONS, KDOTBLP_ROADWAYS,   
-
-to ensure USERSTRUNIT had an entry for every bridge **(SQL manipulation)**  
+```
+this is done to ensure USERSTRUNIT had an entry for every bridge **(SQL manipulation)**  
 Added KDOT agency tables KDOTBLP_BRIDGE, KDOTBLP_INSPECTIONS, KDOTBLP_ROADWAYS, KDOTBLP_LOAD_RATINGS  
 to the upgrade script near line  
 
-Added a script GenUserTables to make dummy copies of USERBRGD and USER INSP so the upgrade script won't choke
+- Added a script GenUserTables to make dummy copies of USERBRGD and USER INSP so the upgrade script won't choke
 Discovered some orphan records in KDOTBLP_INSPECTIONS that needed to be cleaned out
 
+```
             -- fixup for KDOTBLP_INSPECTIONS - these FK were not being enforced as of 12/27/2022 - must be to avoid ORPHANS in KDOTBLP_INSPECTIONS when a parent INSPEVNT record is removed
             alter table KDOTBLP_INSPECTIONS
             drop constraint FK_KDOT_INSP_INSPEVNT_GD;
@@ -277,6 +302,8 @@ Discovered some orphan records in KDOTBLP_INSPECTIONS that needed to be cleaned 
             references INSPEVNT (INSPEVNT_GD) on delete cascade
             enable
             novalidate;
+```
+
 
 The bridges involved (and the inspections INSPKEY values along with the # of duplicates) were
  
@@ -302,9 +329,9 @@ The bridges involved (and the inspections INSPKEY values along with the # of dup
 | 5304008700MCR40	| NIIM	| 8/16/2021 09:48:23 AM	| 4    | 
  
 
-
-
 As of 20221227, there were no orphan records in USERRWAY or USERSTRUNIT  
+
+***(later update work revealed that Referential Integrit Cascading Deletes betwen main tables and agency tables was hosed up by the upgrade scripts)***
 
 #### 2022-12-28  
 
@@ -323,6 +350,7 @@ As of 20221227, there were no orphan records in USERRWAY or USERSTRUNIT
 
  Looks like:  
 
+```
                 CREATE OR REPLACE PROCEDURE BACKUP_KDOTBLP_PORTAL_TABLES AS
 
                 -- THIS PROCEDURE MAKES A BACKUP WITH A UNIQUE NAME  ENDING IN _KT
@@ -373,11 +401,12 @@ As of 20221227, there were no orphan records in USERRWAY or USERSTRUNIT
                     RAISE_APPLICATION_ERROR(-20000, SQLERRM);
                     END;
                 END;
+```
 
 
 and the drop procedure looks like:  
 
-
+```
             CREATE OR REPLACE PROCEDURE DROP_KDOTBLP_BACKUP_TABLES AS
             -- THIS PROCEDURE DROPS ANY TABLES WITH NAMES ENDING IN _KT
             -- this proc is **_intended to be run standalone_** at any time to drop and purge (permanently remove) **_all_** tables with name extension _KT
@@ -427,6 +456,7 @@ and the drop procedure looks like:
 
                 END;
             END;
+```
 
 
 #### 2023-01-02  
@@ -436,6 +466,7 @@ and the drop procedure looks like:
 -- A very similar procedure based on DROP_KDOTBLP_BACKUP_TABLES named DROP_BRM_T_BACKUP_TABLES  
 was created that is **_intended to be run standalone_** to drop and purge (permanently remove) **_all_** _T tables 
 
+```
                 /*
                 to see the tables that will be deleted:
                 SELECT ut.TABLE_NAME,pt.table_name
@@ -448,7 +479,7 @@ was created that is **_intended to be run standalone_** to drop and purge (perma
             -- usage (from SQL*PLUS or PL/SQL Command Window):  
             -- SQL>EXEC DROP_BRM_T_BACKUP_TABLES;  
             -- SQL>/  
-
+```
 
 ------------------------------------------  
 
@@ -456,15 +487,18 @@ was created that is **_intended to be run standalone_** to drop and purge (perma
 
 **_For example_**,  **_TABLE_NAME VARCHAR2(128 BYTE)  NOT NULL_**,:  
 
+```
             v_q := 'CREATE TABLE PON_TABLE (
             TABLE_NAME VARCHAR2(128 BYTE)  NOT NULL,
             SHORT_NAME VARCHAR(20), 
             RANK NUMBER(10,0)  NOT NULL,
             CONSTRAINT PON_TABLE_PK PRIMARY KEY (TABLE_NAME))';
+```
 
 and if there was a string collection variable of VARCHAR2(2000) or similar, changed to VARCHAR2(32767) which is permitted in code (not in table column sizes)  
 **_For example_**, 
 
+```
             CREATE TABLE VALIDATION_WARNING  
             (  
             VALIDATION_WARNING_GD VARCHAR2(32) NOT NULL,  
@@ -477,6 +511,7 @@ and if there was a string collection variable of VARCHAR2(2000) or similar, chan
             VALIDATION_SOURCE_GENERIC VARCHAR2(128 BYTE) NOT NULL,  
             VALIDATION_SOURCE_SPECIFIC VARCHAR2(1000) NOT NULL,  
             VALIDATION_MESSAGE VARCHAR2(3999 CHAR) NOT NULL);  
+```
 
 -- Script modified to use procedure backup_KDOTBLP_PORTAL_TABLES to backup separately every table listed in KDOTBLP_PORTAL_TABLES with unique name and suffix _KT, added global var KDOT_TABLE_CLEANUP to kill the tables after the run, defaults to 0');                           
 -- Fixed apparent typo IS_K1EY to IS_KEY in the inserts to DATADICT_T near line 6080');                   
@@ -486,20 +521,24 @@ and if there was a string collection variable of VARCHAR2(2000) or similar, chan
 -- a bunch of calls to SUBSTR were assuming object names were limited to 30, so they used SUBSTR(TABLE_NAME, 1, 28) || '_T' for example
 -- all of these (hopefully) were found and upgraded.  Also affected temporary tables like PON_FK and PON_TABLE where the object name lengths were 30..
 
+
+```
             DBMS_OUTPUT.PUT_LINE('20230103 - ARMarshall, ARM LLC - EXAMPLE SNIPPET (near line 4860:'); 
             DBMS_OUTPUT.PUT_LINE(q['>>>>>>>>>>>>>>> -- Oracle object name used to be 30]');
             DBMS_OUTPUT.PUT_LINE(q['>>>>>>>>>>>>>>> -- the SUBSTR function here has been changed to permit up to 126 chars  
              of the real name to be used for the _T table ]');
             DBMS_OUTPUT.PUT_LINE(q['>>>>>>>>>>>>>>> -- given that the suffix _T takes up 2 chars.]');
             DBMS_OUTPUT.PUT_LINE(q[' WITH T(TABLE_NAME) AS (SELECT DISTINCT SUBSTR(TABLE_NAME, 1, 126) || '_T' FROM PON_DICT  ] etc.');
-    
--- table PON_NAV_CONTROL has no parent record for PON_NAV_CONTROL_GD=C01F1D4AE11B4ABFBC3A837674D30DAD , so any attempt to create a FK from  
-PON_APP_CONTROL_SECURITY etc. will fail.  DELETED entries in PON_APP_CONTROL_SECURITY  
+```
 
+- table PON_NAV_CONTROL has no parent record for PON_NAV_CONTROL_GD=C01F1D4AE11B4ABFBC3A837674D30DAD , so any attempt to create a FK from  PON_APP_CONTROL_SECURITY etc. will fail.  DELETED entries in PON_APP_CONTROL_SECURITY  
+
+```
             SELECT * FROM PON_NAV_CONTROL PNC WHERE PNC.PON_NAV_CONTROL_GD='C01F1D4AE11B4ABFBC3A837674D30DAD';
 
             DELETE PON_APP_CONTROL_SECURITY  
             WHERE PON_NAV_CONTROLGD='C01F1D4AE11B4ABFBC3A837674D30DAD';     
+```
 
 #### 2023-01-04  
 
@@ -510,14 +549,19 @@ hese instructions assume you created 2 tablespaces PONT_TBL and KDOT_BLP and ass
 
 To create a tablespace (your directory location will be different) - this uses 3 4M dbf files.  The names and extensions are up to you....:
 
+```
 create tablespace KDOT_BLP  datafile 'D:\oradata\orcl\df1.dbf' size 4m ,  'D:\oradata\orcl\df2.dbf' size 4m,  'D:\oradata\orcl\df3.dbf' size 4m;
+```
 
 To add a file to a tablespace (your directory location will be different)
 
+```
         ALTER TABLESPACE  KDOT_BLP   ADD DATAFILE ' D:\oradata\orcl\df4.dbf' SIZE 1000M
+```
 
-To see what you have , run the script Script_Check_Tablespace_Size.pdc from a command window e.g. SQL*PLUS and something like this should show up:
+To see what you have , run the script **_Script_Check_Tablespace_Size.pdc_** from a command window e.g. SQL*PLUS and something like this should show up, where the directory locations will probably be entirely different:
 
+```
         SQL>
 
         TABLESPACE_NAME                     TOTAL  AVAILABLE       USED    PCTUSED
@@ -559,24 +603,25 @@ To see what you have , run the script Script_Check_Tablespace_Size.pdc from a co
         C:\PRJ\KDOT\ORA\DATA\KDOT_BLP_DATA3.DBF                                                2665.9375
 
         SQL>
-
+```
  
 
 Process to squish database:
 
-1. ) Run the sql script **Script_Show_Total_Database_Size_GB.sql** - it shows the total GB and other stuff
+1. ) Run the sql script **_Script_Show_Total_Database_Size_GB.sql_** - it shows the total GB and other stuff
 
 1. ) Delete cruft (like we discussed earlier e.g. BRIDGE_AR INSPEVNT_AR, ARC_****, *_T,  *_tmp  etc. etc.) and remember to PURGE the recycle bin after dropping the cruft.  I actually deleted all the materialized views as well to save space.
 
-1. ) Run the attached script **Script_Create_KDOTBLP_PORTAL_TABLES_Entries.sql** to create the table   KDOTBLP_PORTAL_TABLES and add the tables that you may care about.  Add or remove table namess as you see fit - these are the ones that will be shrunk.  They will be processed in the order shown.   You only have to create this table once....
+1. ) Run the attached script **_Script_Create_KDOTBLP_PORTAL_TABLES_Entries.sql_** to create the table   KDOTBLP_PORTAL_TABLES and add the tables that you may care about.  Add or remove table namess as you see fit - these are the ones that will be shrunk.  They will be processed in the order shown.   You only have to create this table once....
 
-1. ) Create the shrink procedure by running **Script_Create_Replace_SHRINK_KDOTBLP_TABLES.pdc**
+1. ) Create the shrink procedure by running **_Script_Create_Replace_SHRINK_KDOTBLP_TABLES.pdc_**
 
-1. ) Run the shrink procedure... load the file **Script_Execute_SHRINK_KDOTBLP_TABLES.pdc**  and run it
+1. ) Run the shrink procedure... load the file **_Script_Execute_SHRINK_KDOTBLP_TABLES.pdc_**  and run it
 
 1. ) Check the work by repeating step 1.
 
-and also make sure no objects exist in a dead tablespace e.g. PONT_TBL for a LOCAL development database.
+and also make sure **_no objects exist in a dead tablespace_**  
+e.g. PONT_TBL for a LOCAL development database.
 
 
 #### 2023-01-04  
@@ -585,7 +630,8 @@ and also make sure no objects exist in a dead tablespace e.g. PONT_TBL for a LOC
 --------------------------------------------------
 
 -- changed tablespace sizes etc. to make sure the Express db does not exceed 12G overall - it was causing script errors.  
--- created mismatch check script **Script_Show_USERBRDG_and_USERINSP_And_USRSTRUNIT_NonMatches_Parent.sql**
+-- created mismatch check script  
+**_Script_Show_USERBRDG_and_USERINSP_And_USRSTRUNIT_NonMatches_Parent.sql_**
 
 
 
@@ -593,8 +639,8 @@ and also make sure no objects exist in a dead tablespace e.g. PONT_TBL for a LOC
 
 --------------------------------------------------
 
--- some code near 35960 is trying to enable a NOT NULL constraint when it is already set to NOT NULL and ENABLED.   **_Ignorable_**  
-
+-- some code near 35960 of the BrM5.3 Oracle script is trying to enable a NOT NULL constraint when it is already set to NOT NULL and ENABLED.   **_Ignorable_**  
+```
             -- Enable disabled NOT NULL constraints.
             -- If successful this will prevent "ORA-01442: column to be modified to NOT NULL is already NOT NULL" when making columns required in the next block. 2.
             -- Will fail with "ORA-02293: cannot validate" if there is bad data.
@@ -611,9 +657,11 @@ and also make sure no objects exist in a dead tablespace e.g. PONT_TBL for a LOC
                     CONS_COLS.POSITION IS NULL AND 
                     INSTR(F_READ_SEARCH_CONDITION(CONS.CONSTRAINT_NAME), 'IS NOT NULL') > 0 
                 ORDER BY D.TABLE_NAME, D.COL_NAME;  
+```
 
 and this  
 
+```
                 --  Make some non PK columns required.
                 DECLARE	V_CUR SYS_REFCURSOR;
                 BEGIN
@@ -636,6 +684,8 @@ and this
                 END;
                 /
 
+```
+
 -- 20230105 - ARMarshall,ARM LLC -added/restored NOT NULL constraint to USERRWAY.ON_UNDER and USRSTRUNIT.STRUNITKEY
 
 -- The following constraints remained disabled after a run.  All of these are GUID columns.  This is near line 35983 ...
@@ -651,8 +701,10 @@ and this
 
 
 
--- 20230105 - ARMarshall,ARM LLC - removed function named "f_is_active(pBridgeGroup IN VARCHAR2)" - bad name.  Fixed and capitalized.  See script **Script_Create_Replace_F_IS_ACTIVE_BRIDGEGROUP.fnc**  
--- 20230105 - ARMarshall,ARM LLC - addded post step to restore a couple missing indexes on KDOTBLP_BRIDGE - see script **Script_Restore_Missing_KDOT_Objects.pdc** where all such restores are done.
+-- 20230105 - ARMarshall,ARM LLC - removed function named "f_is_active(pBridgeGroup IN VARCHAR2)" - bad name.  Fixed and capitalized.  See script **Script_Create_Replace_F_IS_ACTIVE_BRIDGEGROUP.fnc_**  
+-- 20230105 - ARMarshall,ARM LLC - addded post step to restore a couple missing indexes on KDOTBLP_BRIDGE - 
+see script **_Script_Restore_Missing_KDOT_Objects.pdc_** where all such restores are done.  
+
 -- 20230105 - ARMarshall,ARM LLC - addded script to remove records with no parents and create child records for KDOTBLP_BRIDGE, KDOTBLP_INSPECTIONS, USERSTRUNIT
 
 
@@ -681,6 +733,7 @@ The user KDOT_BLP may be granted  exp_full_database and imp_full_database **_opt
 -----------------------------------------------------
 
 Here is how the user (schema)  KDOT_BLP was set:
+
 ```
             -- Create the user 
             create user KDOT_BLP
@@ -714,8 +767,8 @@ Here is how the user (schema)  KDOT_BLP was set:
             grant unlimited tablespace to KDOT_BLP;
 ```
 
--- In Visual Studio Code, you can find all statements in the output log like CREATE UNIQUE INDEX "KDOT_BLP". 
-using a regex like this:  
+-- In Visual Studio Code, you can find all statements in the output log like **CREATE UNIQUE INDEX "KDOT_BLP"**. 
+using a REGEX like this:  
 
 ```
             ^(CREATE UNIQUE INDEX "KDOT_BLP"\.).+$
@@ -724,7 +777,7 @@ using a regex like this:
 which helps finding errors reported in the log.  
 
 
--- 5.2 upgrade scripts   521_March302015_PontisOracle52.sql and BrM_5_3\521_April2015_PontisOracle52.sql only vary by the release id in table DBDESCRP - did not use
+- 5.2 upgrade scripts   **_521_March302015_PontisOracle52.sql_** and **_BrM_5_3\521_April2015_PontisOracle52.sql_** only vary by the release id in table DBDESCRP - did not use
 
 
 #### 20220109
@@ -733,14 +786,15 @@ which helps finding errors reported in the log.
 
 -----------------------------------------------------------------------
 
+```html
 Error#1:
 reference to an unknown column ORA-00904: "grps_name":  when enclosed in quotes like this it is matched by case.
-```
+
 <span style="color:green;font-weight:500;font-size:12px;font-style: italic;">
 System.Web.HttpUnhandledException (0x80004005): Exception of type 'System.Web.HttpUnhandledException' was thrown. System.Exception: BridgeRepository::GetBridgeList: Unable To Retrieve Bridge List  System.Exception: AdoRepository::ExecuteReader Error executing command: SELECT * FROM (SELECT "_sd_".*, ROWNUM "_#_" FROM (SELECT DISTINCT(pon_bridge_grps.pon_bridge_grps_gd) AS "key_", pon_bridge_grps.grps_name AS "Bridge Groups", (select COUNT(DISTINCT(bridge_gd))from pon_grps_road r where r.pon_bridge_grps_gd = pon_bridge_grps.pon_bridge_grps_gd) "Bridge_Count", (select COUNT(bridge_gd)from pon_grps_road r where r.pon_bridge_grps_gd = pon_bridge_grps.pon_bridge_grps_gd) "Roadway_Count",pon_bridge_grps.description as "Description" from pon_bridge_grps left outer join pon_grps_road on pon_grps_road.pon_bridge_grps_gd = pon_bridge_grps.pon_bridge_grps_gd left outer join bridge on bridge.bridge_gd = pon_grps_road.bridge_gd WHERE 1=1 order by "grps_name" ASC) "_sd_" WHERE ROWNUM <= 1) "_sd2_" WHERE "_sd2_"."_#_" > 0 order by ROWNUM Oracle.ManagedDataAccess.Client.OracleException: ORA-00904: "grps_name": invalid identifierat OracleInternal.ServiceObjects.OracleCommandImpl.VerifyExecution(OracleConnectionImpl connectionImpl, Int32& cursorId, Boolean bThrowArrayBindRelatedErrors, OracleException& exceptionForArrayBindDML, Boolean& hasMoreRowsInDB, Boolean bFirstIterationDone)at OracleInternal.ServiceObjects.OracleCommandImpl.ExecuteReader(String commandText, OracleParameterCollection paramColl, CommandType commandType, OracleConnectionImpl connectionImpl, OracleDataReaderImpl& rdrImpl, Int32 longFetchSize, Int64 clientInitialLOBFS, OracleDependencyImpl orclDependencyImpl, Int64[] scnForExecution, Int64[]& scnFromExecution, OracleParameterCollection& bindByPositionParamColl, Boolean& bBindParamPresent, Int64& internalInitialLOBFS, OracleException& exceptionForArrayBindDML, Boolean isDescribeOnly, Boolean isFromEF)at Oracle.ManagedDataAccess.Client.OracleCommand.ExecuteReader(Boolean requery, Boolean fillRequest, CommandBehavior behavior)at Oracle.ManagedDataAccess.Client.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)at BRIDGEWare.Pontis.DataAccess.Repositories.AdoRepository.ExecuteReader(String commandText, Dictionary`2 queryParameters, Nullable`1 expectedRowCountHint, List`1 columnFilter, Nullable`1 timeout, Boolean forceSemiColonStrip) in E:\Agents\PRG01\_work\33\s\DataAccess\Repositories\AdoRepository.cs:line 91 --- End of inner exception stack trace --- at BRIDGEWare.Pontis.DataAccess.Repositories.AdoRepository.ExecuteReader(String commandText, Dictionary`2 queryParameters, Nullable`1 expectedRowCountHint, List`1 columnFilter, Nullable`1 timeout, Boolean forceSemiColonStrip) in E:\Agents\PRG01\_work\33\s\DataAccess\Repositories\AdoRepository.cs:line 130at BRIDGEWare.Pontis.DataAccess.Repositories.BridgeRepository.GetBridgeList(GridSearchCriteria criteria, Int32 currentPage, Int32 rowsPerPage) in E:\Agents\PRG01\_work\33\s\DataAccess\Repositories\BridgeRepository.cs:line 136  -- End of inner exception stack trace --- at BRIDGEWare.Pontis.DataAccess.Repositories.BridgeRepository.GetBridgeList(GridSearchCriteria criteria, Int32 currentPage, Int32 rowsPerPage) in E:\Agents\PRG01\_work\33\s\DataAccess\Repositories\BridgeRepository.cs:line 155at PontisModules_Bridge_UiDTCBagGrid.get_GridList()at PontisModules_Bridge_UiDTCBagGrid.get_GridDataSource()at ContextGridControl.SetGridDataSource(String sortColumnName, Boolean filterResults, Boolean showAllWhenUnfiltered)at PontisModules_Bridge_UiDTCBagGrid.BindData()at PontisModules_Bridge_UiDTCBagGrid.Page_Load(Object sender, EventArgs e)at System.Web.UI.Control.OnLoad(EventArgs e)at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)at System.Web.UI.Page.HandleError(Exception e)at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)at System.Web.UI.Page.ProcessRequest(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)at System.Web.UI.Page.ProcessRequest()at System.Web.UI.Page.ProcessRequest(HttpContext context)at ASP.bridges_bridgeanalysisgrplist_aspx.ProcessRequest(HttpContext context) in c:\Users\armpl\AppData\Local\Temp\Temporary ASP.NET Files\root\8d3e4b96\eea78b4\App_Web_f5frnmw3.0.cs:line 0at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)</span>
 ```
 
-
+```
             SELECT *
             FROM (SELECT "_sd_".*, ROWNUM "_#_"
                     FROM (SELECT DISTINCT (pon_bridge_grps.pon_bridge_grps_gd) AS "key_",
@@ -765,11 +819,12 @@ System.Web.HttpUnhandledException (0x80004005): Exception of type 'System.Web.Ht
                     WHERE ROWNUM <= 1) "_sd2_"
             WHERE "_sd2_"."_#_" > 0
             order by ROWNUM
-
+```
 
 -- need some aliases (synonyms)
 -- these synonym names are magic strings that the portal automatically replaces in all occurrences.
 
+```
                 Connected to Oracle Database 21c Express Edition Release 21.0.0.0.0 
                 Connected as KDOT_BLP@localhost:1521/xepdb1
 
@@ -779,14 +834,18 @@ System.Web.HttpUnhandledException (0x80004005): Exception of type 'System.Web.Ht
                                 SQL> CREATE PUBLIC SYNONYM XTRNSTRUNITTABLE FOR USERSTRUNIT;
 
                 Synonym created
+```
 
 -- some filter SQL needs repair e.g. in this case, the alias b was not used where it needed to be:
 --  this is current layout Bridges w/ No Inspections  
 --  used to say ....   
 
+```
                ... ON inspevnt.bridge_gd = bridge.bridge_gd   
+```
 
-but that makes ADO blow chunks so must be consistent  
+but that makes the ADO database layer unhappy so must be consistent  
+
 ```
               ... ON inspevnt.bridge_gd = b.bridge_gd  
 
@@ -841,7 +900,7 @@ has to be "**key_**"
 
 ```
                     SELECT "sqlfilter_".*                  
-                  FROM (SELECT (b.bridge_gd) AS "Key_",            
+                  FROM (SELECT (b.bridge_gd) AS "key_",            
 ```
 
 These difficulties necessitate minor but pervasive code changes to make every layout say   
@@ -849,7 +908,9 @@ These difficulties necessitate minor but pervasive code changes to make every la
 ```
                 ...bridge_gd as "key_"   
 ```
-and never say  
+
+and **_never make BRKEY the key__**
+
 ```
                 ...brkey as "key_"  
 ```
@@ -871,6 +932,7 @@ BrM 5.3 can run against the database migrated to 6.0 at least as far as seeing t
 - created a SQL script to try and exercise every layout - check compliance and whether it returns any rows
 
 - created this Oracle REGEX to check layouts:  
+
 ```
 select pf.filterkey, pf.name ,nvl(1,0) as compliant,pf.sql_filter, pf.rowid
   FROM PON_FILTERS pf
@@ -882,6 +944,7 @@ and  ( regexp_like(lower(trim(pf.sql_filter)),
 ```
 
 - and this C# function  
+
 ```
 
         /// <summary>
@@ -1005,23 +1068,30 @@ and  ( regexp_like(lower(trim(pf.sql_filter)),
 
 
 ```
+
 where the first regex is:
+
 ```
 ^.*?([ ]*FROM[ ]*BRIDGE[ ]*b[ ]*).*?$
 ```
 which verifies that the filter SQL contains the **FROM** clause:
+
 ```
 FROM BRIDGE b
 ```
+
 and the second regex is:
+
 ```
 ^(.*?)(SELECT[ ]+b\\.bridge_gd[ ]+(?:as[ ]+?)*?key_[ ]*,)(.*?)$
 ```
+
 which verifies that the SQL contains the expression:
 
 ```
  b.bridge_gd as key_  
 ```
+
 
 ### 20230118  
 
@@ -1105,7 +1175,8 @@ END ISNUMERIC;
 ```
 BRIDGEWare.Pontis.www, Version=6.1.0.0, Culture=neutral, PublicKeyToken=null
 ```
-**A COMMON PROBLEM WITH ALL THESE SCRIPTS IS THAT THEY ASSUME THE PERSON RUNNING THEM HAS DBA PRIVILEGES AND CAN ISSUE THE ALTER SYSTEM COMMAND**
+
+ 
 
 **Ran scripts for 6.2, 6.3, 6.4, 6.5, 6.6 - BrM and Portal both work with the rudimentary testing I performed**
 - It is important to note the the Portal BrM DLLs are from BrM 5.3, and were NOT updated.  This is **_presumably OK_**, given that we want the Portal to behave as it always has.
@@ -1114,6 +1185,28 @@ BRIDGEWare.Pontis.www, Version=6.1.0.0, Culture=neutral, PublicKeyToken=null
 **BrM through release 6.5 apparently uses an internal browser tool/control that is essentially an ancient version of Internet Explorer.  This browser control  does not support mapping, so the mapping does not work**
 
 **BrM6.6 does not permit logging in as pontis/pontis.  I can login as amyjcoon with her password fine.  That is amazing.**
+
+### 20230130  
+
+--------------------------------------------------------  
+
+- the upgrade script destroyed some KDOTBLP foreign key references from KDOTBLP_BRIDGE to BRIDGE and KDOTBLP_INSPECTIONS to INSPEVNT.   
+
+```
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table KDOTBLP_BRIDGE
+  add constraint FK_KDOT_BRIDGE_TO_BRIDGE foreign key (BRIDGE_GD)
+  references bridge (BRIDGE_GD) on delete cascade;
+```
+and
+
+```
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table KDOTBLP_INSPECTIONS
+  add constraint FK_KDOBTLP_INSPS_TO_INSPEVNT foreign key (INSPEVNT_GD)
+  references inspevnt (INSPEVNT_GD) on delete cascade;
+
+```
 </body>
 </footer>
 </html>

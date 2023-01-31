@@ -1,0 +1,1339 @@
+<!DOCTYPE html><html><head>
+      <title>Progress-notes</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:///c:\Users\armpl\.vscode\extensions\shd101wyy.markdown-preview-enhanced-0.6.7\node_modules\@shd101wyy\mume\dependencies\katex\katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <style>
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}
+
+/* highlight */
+pre[data-line] {
+  position: relative;
+  padding: 1em 0 1em 3em;
+}
+pre[data-line] .line-highlight-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  display: block;
+  width: 100%;
+}
+
+pre[data-line] .line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: inherit 0;
+  margin-top: 1em;
+  background: hsla(24, 20%, 50%,.08);
+  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
+}
+
+pre[data-line] .line-highlight:before, 
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-start);
+  position: absolute;
+  top: .4em;
+  left: .6em;
+  min-width: 1em;
+  padding: 0 .5em;
+  background-color: hsla(24, 20%, 50%,.4);
+  color: hsl(24, 20%, 95%);
+  font: bold 65%/1.5 sans-serif;
+  text-align: center;
+  vertical-align: .3em;
+  border-radius: 999px;
+  text-shadow: none;
+  box-shadow: 0 1px white;
+}
+
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-end);
+  top: auto;
+  bottom: .4em;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p,html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div{display:inline}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  300px/2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview  ">
+      
+<meta charset="{{ page.charset || &apos;utf-8&apos; }}">
+  <meta name="x-apple-disable-message-reformatting">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="format-detection" content="telephone=no, date=no, address=no, email=no, url=no">
+  <!--[if mso]>
+  <noscript>
+    <xml>
+      <o:OfficeDocumentSettings xmlns:o="urn:schemas-microsoft-com:office:office">
+        <o:PixelsPerInch>96</o:PixelsPerInch>
+      </o:OfficeDocumentSettings>
+    </xml>
+  </noscript>
+  <style>
+    td,th,div,p,a,h1,h2,h3,h4,h5,h6 {font-family: "Segoe UI", sans-serif; mso-line-height-rule: exactly;}
+  </style>
+  <![endif]-->
+  <if condition="page.title">
+    <title>{{{ page.title }}}</title>
+  </if>
+  <style>
+    {{{ page.css }}}
+  </style>
+  <stack name="head"></stack>
+
+
+<h1>BRM Database Migration Progress Notes</h1>
+<h3>LAST UPDATED: ARMarshall, ARM LLC - 20230131</h3>
+<h3>GENERAL COMMENTS ABOUT THE UPGRADE SCRIPT(S)</h3>
+<hr>
+<pre data-role="codeBlock" data-info class="language-"><code>PON_CONCAT calls might be better formed using LISTAGG available in Oracle 12C+
+
+see this&gt;   [Oracle LISTAGG documentation](https://docs.oracle.com/cd/E11882_01/server.112/e41084/functions089.htm#SQLRF30030 &quot;Oracle LISTAGG documentation&quot;)                
+
+
+&lt;span style=&quot;font-weight:500; font-size:12px;&quot;&gt; 
+          &lt;p&gt; SELECT LISTAGG(&apos;T.&apos;|| DICT.COLUMN_NAME ,&apos;,&apos;) 
+            WITHIN GROUP (ORDER BY DICT.COLUMN_ID) &quot;DELIM_COL_LIST&quot;
+                                                FROM USER_TAB_COLS DICT                                     
+                                                GROUP BY DICT.TABLE_NAME 
+                                                HAVING DICT.TABLE_NAME = &apos;BRIDGE&apos;
+                                                ORDER BY DICT.TABLE_NAME
+                                                &lt;/p&gt;
+&lt;/span&gt;   
+</code></pre><hr>
+<h4>TO EXPORT THE DATABASE</h4>
+<pre class="language-text">        C:\oracle\instantclient_21_7&gt;expdp kdot_blp/Einstein345@localhost:1521/xepdb1 directory=KDOT_DP_DIR dumpfile=KDOT_BLP20221220SQL.dmp schemas=(&apos;KDOT_BLP&apos;) logfile=KDOT_BLP20221220SQL.log
+</pre>
+<h3>TO SEE THE DDL FROM DATAPUMP DMP FILE</h3>
+<p><strong><em>Burleson Consulting says</em></strong>:<br>
+<strong><a href="http://www.dba-oracle.com/t_convert_expdp_dmp_file_sql.htm" title="Creating the SQL from a DATAPUMP import file">Show SQL From Dump FIle</a></strong></p>
+<h4>GOTCHAS</h4>
+<hr>
+<blockquote>
+<blockquote>
+<blockquote>
+<h5><em><strong>A COMMON PROBLEM WITH ALL THESE SCRIPTS IS THAT THE SQL DDL and DML CODE ASSUMES THE PERSON RUNNING THEM HAS DBA PRIVILEGES AND CAN ISSUE THE ALTER SYSTEM COMMAND. CONSEQUENTLY, ANY ALTER SYSTEM STATEMENTS HAVE TO BE COMMENTED OUT BEFORE RUNNING ANY OF THEM</strong></em></h5>
+</blockquote>
+</blockquote>
+</blockquote>
+<h5></h5>
+<h3>PROGRESS NOTES</h3>
+<hr>
+<h4>2022-08-17</h4>
+<hr>
+<p>-- ARMarshall, ARM LLC 20220817 - named the block where the globals are set to SET_GLOBALS_FOR_RUN<br>
+-- ARMarshall, ARM LLC 20220817 - added PURGE to all DROP TABLE instances, including those constructed in loops.</p>
+<p>-- ARMarshall, ARM LLC 20220817 -  all these calls to PON_CONCAT use the old CURSOR loop way - probably should use 12C LISTAGG or possibly XMLAGG functions if the string result is &gt; 4000 characters<br>
+-- leaving them alone.</p>
+<pre data-role="codeBlock" data-info class="language-"><code>            ...  
+            ...  
+    
+            SELECT PON_CONCAT(CURSOR(SELECT &apos;T.&apos; || DICT.COL_NAME || &apos; = S.&apos; || DICT.COL_NAME
+                                        FROM PON_DICT DICT
+                                        WHERE DICT.TABLE_NAME = X.TABLE_NAME 
+                                        AND ACTIVE_PK = 1
+                                        ORDER BY DICT.COL_ORDER)
+                                ,&apos; AND &apos;)
+            INTO V_MATCH_COLS
+            FROM DUAL; 
+            ...  
+            ...  
+</code></pre><hr>
+<h4>2022-08-18</h4>
+<hr>
+<p>-- 20220818 - ARMarshall, ARM LLC - initial review, added globals to preserve datadict and paramtrs tables for KDOT LBIS 9 (BrM 5.3) database<br>
+-- 20220818 - ARMarshall, ARM LLC - corrected minor typos as encountered</p>
+<hr>
+<h4>2022-12-20</h4>
+<hr>
+<p>-- 202221220 - code example for BLP tables that are backed up SEPARATELY in addition to whatever the main script does</p>
+<p>These tables are:</p>
+<ul>
+<li>COPTIONS</li>
+<li>DATADICT</li>
+<li>PON_COPTIONS</li>
+<li>PARAMTRS</li>
+<li>KDOTBLP_ATTRIBUTE_DESCRIPTOR</li>
+</ul>
+<pre data-role="codeBlock" data-info class="language-"><code>       BEGIN
+           -- if the setting is true, make a backup of the table before doing anything else!
+               IF GET_VAR(&apos;SAVEAGENCYSYSTABLES&apos;) = 1 THEN
+                   DECLARE
+                   
+                   V_X VARCHAR2(64):=RAWTOHEX(SYS_GUID()); 
+
+                   BEGIN
+                       
+                       BEGIN
+                           EXECUTE IMMEDIATE q&apos;[DROP TABLE PARAMTRS]&apos;||V_X || q&apos;[ PURGE]&apos;;
+                       EXCEPTION
+                               WHEN OTHERS THEN NULL;  -- do not report if the table does not exist
+                       END;
+
+                       BEGIN
+                           
+                           EXECUTE IMMEDIATE q&apos;[CREATE TABLE PARAMTRS]&apos;||V_X|| q&apos;[ AS SELECT parms.* FROM PARAMTRS psrc ORDER BY parms.TABLE_NAME, parms.FIELD_NAME, parms.PARMVALUE]&apos; ;
+
+                       EXCEPTION
+                           WHEN OTHERS THEN RAISE;
+                       END;
+                   END;
+               END IF;
+                
+       
+       // do stuff here..  
+       ...  
+       ...  
+       ...  
+
+        
+       EXCEPTION
+           WHEN OTHERS THEN RAISE;
+           END;
+       /
+</code></pre><p>-- 20221220 - added option to print cursor detail for debugging purposes which should be set to 0 normally</p>
+<p>-- IN PROCEDURE REV and anywhere else, examine this to determine if SQL strings or other materials should be echoed to the log<br>
+-- set it at the top in this case to TRUE so it prints</p>
+<pre data-role="codeBlock" data-info class="language-"><code>        INSERT INTO PON_GLOB_VAR (VARI, VAR_VALUE) VALUES (&apos;PRINT_DETAILS&apos;, 1); 
+</code></pre><p>-- where REV is invoked*</p>
+<pre data-role="codeBlock" data-info class="language-"><code>        IF GET_VAR(&apos;PRINT_DETAILS&apos;) = 1 THEN
+            REV(V_CUR,1); 
+        ELSE
+            REV(V_CUR);
+        END IF;
+</code></pre><hr>
+<h4>2022-12-21</h4>
+<hr>
+<p>-- ARMarshall, ARM LLC 20221221 -<br>
+Status<br>
+- table VALIDATION_WARNINGS is missing,<br>
+- tables PON_APP_ROLES and PON_PROGRAM have an extra column<br>
+- table USERINSP is nowhere to be found but there is an old one we can rename and quantify.</p>
+<p>after imports, it may be necessary to recompile the KDOT_BLP schema wholesale, like this (connected with DBA privileges e.g. SYS):</p>
+<pre data-role="codeBlock" data-info class="language-"><code>            SQL&gt;CONNECT SYS/xxxxx@localhost:1521/xepdb1 as SYSDBA;  
+            SQL&gt;EXECUTE UTL_RECOMP.RECOMP_PARALLEL(4,&apos;KDOT_BLP&apos;);  
+</code></pre><h4>2022-12-27</h4>
+<hr>
+<p>Created a script to generate table <em><strong>VALIDATION_WARNING</strong></em>,</p>
+<p>Create statement  is derived from this section of the script:</p>
+<pre data-role="codeBlock" data-info class="language-"><code>            /*
+            Insert into PON_DICT (TABLE_NAME,PK,REQUIRED,COL_ORDER,COL_NAME,DATA_TYPE,LENGTH,SCALE,DEF_VALUE,ID,FORCE_DEF) values (&apos;VALIDATION_WARNING&apos;,3,1,1,&apos;VALIDATION_WARNING_GD&apos;,&apos;VARCHAR&apos;,32,null,&apos;REPLACE(NEWID(), &apos;&apos;-&apos;&apos;,&apos;&apos;&apos;&apos;)&apos;,0,1);
+            Insert into PON_DICT (TABLE_NAME,PK,REQUIRED,COL_ORDER,COL_NAME,DATA_TYPE,LENGTH,SCALE,DEF_VALUE,ID,FORCE_DEF) values (&apos;VALIDATION_WARNING&apos;,0,0,2,&apos;TABLE_NAME&apos;,&apos;VARCHAR&apos;,100,null,null,0,1);
+            Insert into PON_DICT (TABLE_NAME,PK,REQUIRED,COL_ORDER,COL_NAME,DATA_TYPE,LENGTH,SCALE,DEF_VALUE,ID,FORCE_DEF) values (&apos;VALIDATION_WARNING&apos;,0,0,3,&apos;COL_NAME&apos;,&apos;VARCHAR&apos;,100,null,null,0,1);
+            Insert into PON_DICT (TABLE_NAME,PK,REQUIRED,COL_ORDER,COL_NAME,DATA_TYPE,LENGTH,SCALE,DEF_VALUE,ID,FORCE_DEF) values (&apos;VALIDATION_WARNING&apos;,0,0,4,&apos;ROW_PK&apos;,&apos;VARCHAR&apos;,32,null,null,0,1);
+            Insert into PON_DICT (TABLE_NAME,PK,REQUIRED,COL_ORDER,COL_NAME,DATA_TYPE,LENGTH,SCALE,DEF_VALUE,ID,FORCE_DEF) values (&apos;VALIDATION_WARNING&apos;,0,0,5,&apos;INPUT_VALUE&apos;,&apos;VARCHAR&apos;,3999,null,null,0,1);
+            Insert into PON_DICT (TABLE_NAME,PK,REQUIRED,COL_ORDER,COL_NAME,DATA_TYPE,LENGTH,SCALE,DEF_VALUE,ID,FORCE_DEF) values (&apos;VALIDATION_WARNING&apos;,0,0,6,&apos;PON_APP_USERS_GD&apos;,&apos;VARCHAR&apos;,32,null,null,0,1);
+            Insert into PON_DICT (TABLE_NAME,PK,REQUIRED,COL_ORDER,COL_NAME,DATA_TYPE,LENGTH,SCALE,DEF_VALUE,ID,FORCE_DEF) values (&apos;VALIDATION_WARNING&apos;,0,0,7,&apos;VALIDATION_DATE&apos;,&apos;DATETIME&apos;,null,null,null,0,1);
+            Insert into PON_DICT (TABLE_NAME,PK,REQUIRED,COL_ORDER,COL_NAME,DATA_TYPE,LENGTH,SCALE,DEF_VALUE,ID,FORCE_DEF) values (&apos;VALIDATION_WARNING&apos;,0,0,8,&apos;VALIDATION_SOURCE_GENERIC&apos;,&apos;VARCHAR&apos;,100,null,null,0,1);
+            Insert into PON_DICT (TABLE_NAME,PK,REQUIRED,COL_ORDER,COL_NAME,DATA_TYPE,LENGTH,SCALE,DEF_VALUE,ID,FORCE_DEF) values (&apos;VALIDATION_WARNING&apos;,0,0,9,&apos;VALIDATION_SOURCE_SPECIFIC&apos;,&apos;VARCHAR&apos;,1000,null,null,0,1);
+            Insert into PON_DICT (TABLE_NAME,PK,REQUIRED,COL_ORDER,COL_NAME,DATA_TYPE,LENGTH,SCALE,DEF_VALUE,ID,FORCE_DEF) values (&apos;VALIDATION_WARNING&apos;,0,0,10,&apos;VALIDATION_MESSAGE&apos;,&apos;VARCHAR&apos;,3999,null,null,0,1);
+            */
+</code></pre><p>which translates to this:</p>
+<pre data-role="codeBlock" data-info class="language-"><code>            DROP TABLE VALIDATION_WARNING;
+
+            CREATE TABLE VALIDATION_WARNING 
+            (
+            VALIDATION_WARNING_GD VARCHAR2(32) NOT NULL,
+            TABLE_NAME VARCHAR2(100) NOT NULL,
+            COL_NAME VARCHAR2(100) NOT NULL,
+            ROW_PK VARCHAR2(32) NOT NULL,
+            INPUT_VALUE VARCHAR2(3999 CHAR) NOT NULL,
+            PON_APP_USERS_GD VARCHAR2(32) NOT NULL,
+            VALIDATION_DATE DATE NOT NULL,
+            VALIDATION_SOURCE_GENERIC VARCHAR2(100) NOT NULL,
+            VALIDATION_SOURCE_SPECIFIC VARCHAR2(1000) NOT NULL,
+            VALIDATION_MESSAGE VARCHAR2(3999 CHAR) NOT NULL);
+</code></pre><p>and these constraints on table <em><strong>VALIDATION_WARNING</strong></em> are also taken fronm the upgrade script:</p>
+<pre data-role="codeBlock" data-info class="language-"><code>            ALTER TABLE VALIDATION_WARNING ADD CONSTRAINT PK_VALIDATION_WARNING PRIMARY KEY (&quot;VALIDATION_WARNING_GD&quot;) using index tablespace PONT_TBL;
+
+            ALTER TABLE VALIDATION_WARNING ADD CONSTRAINT FK_VALIDATION_WARNING_USERS FOREIGN KEY (PON_APP_USERS_GD) REFERENCES PON_APP_USERS (PON_APP_USERS_GD) ON DELETE CASCADE;
+</code></pre><p>-- added the table PON_MOBILE_ERRORS, using these statenents from the script</p>
+<pre data-role="codeBlock" data-info class="language-"><code>            Insert into PON_DICT (TABLE_NAME,PK,REQUIRED,COL_ORDER,COL_NAME,DATA_TYPE,LENGTH,SCALE,DEF_VALUE,ID,FORCE_DEF) values (&apos;PON_MOBILE_ERRORS&apos;,3,1,1,&apos;PON_MOBILE_ERRORS_GD&apos;,&apos;VARCHAR&apos;,32,null,&apos;REPLACE(NEWID(), &apos;&apos;-&apos;&apos;,&apos;&apos;&apos;&apos;)&apos;,0,1);
+            Insert into PON_DICT (TABLE_NAME,PK,REQUIRED,COL_ORDER,COL_NAME,DATA_TYPE,LENGTH,SCALE,DEF_VALUE,ID,FORCE_DEF) values (&apos;PON_MOBILE_ERRORS&apos;,0,1,2,&apos;PON_APP_USERS_GD&apos;,&apos;VARCHAR&apos;,32,null,null,0,1);
+            Insert into PON_DICT (TABLE_NAME,PK,REQUIRED,COL_ORDER,COL_NAME,DATA_TYPE,LENGTH,SCALE,DEF_VALUE,ID,FORCE_DEF) values (&apos;PON_MOBILE_ERRORS&apos;,0,1,3,&apos;DATE_REPORTED&apos;,&apos;DATETIME&apos;,null,null,null,0,1);
+            Insert into PON_DICT (TABLE_NAME,PK,REQUIRED,COL_ORDER,COL_NAME,DATA_TYPE,LENGTH,SCALE,DEF_VALUE,ID,FORCE_DEF) values (&apos;PON_MOBILE_ERRORS&apos;,0,1,4,&apos;DATA&apos;,&apos;VARCHAR&apos;,4000,null,null,0,1);
+            Insert into PON_DICT (TABLE_NAME,PK,REQUIRED,COL_ORDER,COL_NAME,DATA_TYPE,LENGTH,SCALE,DEF_VALUE,ID,FORCE_DEF) values (&apos;PON_MOBILE_ERRORS&apos;,0,1,5,&apos;ORDER_NUM&apos;,&apos;SMALLINT&apos;,null,null,null,0,1);
+</code></pre><p>and the create statement looks like:</p>
+<pre data-role="codeBlock" data-info class="language-"><code>            CONNECT KDOT_BLP/********************@localhost:1521/xepdb1 AS NORMAL
+
+            SET SERVEROUTPUT ON
+            spool C:\git\repos\KDOT-LBIS-BRM-MIGRATION\stages\6.0\out\Create_Table_PON_MOBILE_ERRORS-20221227T1646.log
+
+            drop table PON_MOBILE_ERRORS purge;
+
+            create table PON_MOBILE_ERRORS 
+            ( PON_MOBILE_ERRORS_GD VARCHAR2(32) DEFAULT (&apos;REPLACE(NEWID(), &apos;&apos;-&apos;&apos;)&apos;)  NOT NULL,
+            PON_APP_USERS_GD VARCHAR2(32) NOT NULL ,
+            DATE_REPORTED DATE DEFAULT (SYSDATE)  NOT NULL,
+            DATA VARCHAR2(4000 CHAR),
+            ORDER_NUM INTEGER 
+            );            
+            ALTER TABLE PON_MOBILE_ERRORS ADD CONSTRAINT PK_PON_MOBILE_ERRORS PRIMARY KEY (&quot;PON_MOBILE_ERRORS_GD&quot;) using index tablespace PONT_TBL;
+</code></pre><ul>
+<li>
+<p>Added the column ACTIVE_DIRECTORY_ROLE (CHAR(1)) to PON_APP_USERS_ROLES</p>
+</li>
+<li>
+<p>Recreated USERINSP and USERBRDG and USERRWAY as</p>
+</li>
+</ul>
+<pre data-role="codeBlock" data-info class="language-"><code>      SELECT * FROM KDOTBLP_BRIDGE, KDOTBLP_INSPECTIONS, KDOTBLP_ROADWAYS,   
+</code></pre><p>this is done to ensure USERSTRUNIT had an entry for every bridge <strong>(SQL manipulation)</strong><br>
+Added KDOT agency tables KDOTBLP_BRIDGE, KDOTBLP_INSPECTIONS, KDOTBLP_ROADWAYS, KDOTBLP_LOAD_RATINGS<br>
+to the upgrade script near line</p>
+<ul>
+<li>Added a script GenUserTables to make dummy copies of USERBRGD and USER INSP so the upgrade script won&apos;t choke<br>
+Discovered some orphan records in KDOTBLP_INSPECTIONS that needed to be cleaned out</li>
+</ul>
+<pre data-role="codeBlock" data-info class="language-"><code>            -- fixup for KDOTBLP_INSPECTIONS - these FK were not being enforced as of 12/27/2022 - must be to avoid ORPHANS in KDOTBLP_INSPECTIONS when a parent INSPEVNT record is removed
+            alter table KDOTBLP_INSPECTIONS
+            drop constraint FK_KDOT_INSP_INSPEVNT_GD;
+
+            alter table KDOTBLP_INSPECTIONS
+            add constraint FK_KDOT_INSP_INSPEVNT_GD foreign key (INSPEVNT_GD)
+            references INSPEVNT (INSPEVNT_GD) on delete cascade
+            enable
+            novalidate;
+</code></pre><p>The bridges involved (and the inspections INSPKEY values along with the # of duplicates) were</p>
+<table>
+<thead>
+<tr>
+<th>BRKEY</th>
+<th style="text-align:center">INSPKEY</th>
+<th style="text-align:center">MODTIME</th>
+<th style="text-align:right">HITS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>000000000630360</td>
+<td style="text-align:center">GPIO</td>
+<td style="text-align:center">2/10/2020 12:27:00 PM</td>
+<td style="text-align:right">2</td>
+</tr>
+<tr>
+<td>000000000630370</td>
+<td style="text-align:center">VAXU</td>
+<td style="text-align:center">2/10/2020 12:27:00 PM</td>
+<td style="text-align:right">2</td>
+</tr>
+<tr>
+<td>000000000890625</td>
+<td style="text-align:center">RHOA</td>
+<td style="text-align:center">2/17/2022 08:39:42 AM</td>
+<td style="text-align:right">5</td>
+</tr>
+<tr>
+<td>414301052550076</td>
+<td style="text-align:center">CXJU</td>
+<td style="text-align:center">8/27/2021 11:49:30 AM</td>
+<td style="text-align:right">2</td>
+</tr>
+<tr>
+<td>414301052550076</td>
+<td style="text-align:center">QLEB</td>
+<td style="text-align:center">2/10/2020 12:27:00 PM</td>
+<td style="text-align:right">2</td>
+</tr>
+<tr>
+<td>427950895521H9C</td>
+<td style="text-align:center">TECQ</td>
+<td style="text-align:center">2/17/2022 10:33:42 AM</td>
+<td style="text-align:right">4</td>
+</tr>
+<tr>
+<td>42795089552D10C</td>
+<td style="text-align:center">VYOV</td>
+<td style="text-align:center">2/17/2022 10:37:16 AM</td>
+<td style="text-align:right">2</td>
+</tr>
+<tr>
+<td>430400876401010</td>
+<td style="text-align:center">BCAF</td>
+<td style="text-align:center">3/6/2020 10:55:29 AM</td>
+<td style="text-align:right">2</td>
+</tr>
+<tr>
+<td>430400876401010</td>
+<td style="text-align:center">PRRL</td>
+<td style="text-align:center">2/17/2022 09:05:49 AM</td>
+<td style="text-align:right">3</td>
+</tr>
+<tr>
+<td>530400870000098</td>
+<td style="text-align:center">RMUN</td>
+<td style="text-align:center">2/17/2022 09:44:25 AM</td>
+<td style="text-align:right">3</td>
+</tr>
+<tr>
+<td>530400870000098</td>
+<td style="text-align:center">UCPG</td>
+<td style="text-align:center">3/6/2020 01:10:21 PM</td>
+<td style="text-align:right">2</td>
+</tr>
+<tr>
+<td>5304008700MCR10</td>
+<td style="text-align:center">EBVY</td>
+<td style="text-align:center">3/6/2020 02:14:01 PM</td>
+<td style="text-align:right">2</td>
+</tr>
+<tr>
+<td>5304008700MCR10</td>
+<td style="text-align:center">EUPQ</td>
+<td style="text-align:center">6/28/2022 08:54:16 AM</td>
+<td style="text-align:right">2</td>
+</tr>
+<tr>
+<td>5304008700MCR20</td>
+<td style="text-align:center">IYUL</td>
+<td style="text-align:center">6/28/2022 09:02:01 AM</td>
+<td style="text-align:right">2</td>
+</tr>
+<tr>
+<td>5304008700MCR20</td>
+<td style="text-align:center">UATA</td>
+<td style="text-align:center">3/9/2020 12:16:44 PM</td>
+<td style="text-align:right">2</td>
+</tr>
+<tr>
+<td>5304008700MCR30</td>
+<td style="text-align:center">IMKC</td>
+<td style="text-align:center">8/16/2021 09:47:27 AM</td>
+<td style="text-align:right">3</td>
+</tr>
+<tr>
+<td>5304008700MCR40</td>
+<td style="text-align:center">NIIM</td>
+<td style="text-align:center">8/16/2021 09:48:23 AM</td>
+<td style="text-align:right">4</td>
+</tr>
+<tr>
+<td>5304008700MCR40</td>
+<td style="text-align:center">NIIM</td>
+<td style="text-align:center">8/16/2021 09:48:23 AM</td>
+<td style="text-align:right">4</td>
+</tr>
+</tbody>
+</table>
+<p>As of 20221227, there were no orphan records in USERRWAY or USERSTRUNIT</p>
+<p><em><strong>(later update work revealed that Referential Integrit Cascading Deletes betwen main tables and agency tables was hosed up by the upgrade scripts)</strong></em></p>
+<h4>2022-12-28</h4>
+<hr>
+<p>-- Made sure the BrM-specific table PON_PROGRAM has the column INCLUDE_WORK_CANDIDATES CHAR(1) DEFAULT (&apos;T&apos;) - apparently not in KDOT_BLP PRODUCTION<br>
+-- Working on script to fix INSPUSRGUID where either null or not a GUID already. WIP</p>
+<h4>2023-01-02</h4>
+<hr>
+<p>-- Added dedicated procedure to create and drop KDOTBLP Portal tables, registered in table KDOTBLP_PORTAL_TABLES, and incorporated the same proc into the upgrade script itself.<br>
+An optional setting in the upgrade script will kill these temp tables at the end of the upgrade process - the default is 0 to NOT drop them.</p>
+<p>Looks like:</p>
+<pre data-role="codeBlock" data-info class="language-"><code>                CREATE OR REPLACE PROCEDURE BACKUP_KDOTBLP_PORTAL_TABLES AS
+
+                -- THIS PROCEDURE MAKES A BACKUP WITH A UNIQUE NAME  ENDING IN _KT
+                -- FOR  ANY TABLES REGISTERED IN TABLE KDOTBLP_PORTAL_TABLES
+                -- ALSO INCORPORATED DIRECTLY IN OracleBRM6.sql
+
+                -- ARMarshall, ARM_LLC - 20230102 - created (and in OracleBRM6.sql)
+
+                TYPE R_CURSOR IS REF CURSOR;
+                CUR R_CURSOR;
+
+                V_Q      VARCHAR2(4000);
+                V_SUFFIX VARCHAR2(36) := q&apos;[_]&apos; || HEXTORAW(SYS_GUID()) || q&apos;[_KT]&apos;;
+                V_TN     VARCHAR2(128);
+
+                BEGIN
+
+                -- commented out for stand-alone
+                --IF GET_VAR(&apos;SAVEAGENCYSYSTABLES&apos;) = 1 THEN
+                OPEN CUR FOR
+                    SELECT TABLE_NAME FROM KDOTBLP_PORTAL_TABLES ORDER BY PROCESSING_ORDER;
+                LOOP
+                    FETCH CUR
+                    INTO V_TN;
+                    EXIT WHEN CUR%NOTFOUND;
+                
+                    DBMS_OUTPUT.PUT_LINE(q&apos;[Archiving KDOT Portal Table ]&apos; || V_TN ||
+                                        q&apos;[ TO ]&apos; || V_TN || V_SUFFIX || q&apos;[...]&apos;);
+                
+                    V_Q := TRIM(q&apos;[CREATE TABLE ]&apos; || TRIM(V_TN || V_SUFFIX) ||
+                                q&apos;[ AS SELECT * FROM ]&apos; || TRIM(V_TN));
+                    BEGIN
+                    EXECUTE IMMEDIATE V_Q;
+                    DBMS_OUTPUT.PUT_LINE(q&apos;[Table ]&apos; || V_TN || q&apos;[ archived OK]&apos;);
+                    EXCEPTION
+                    WHEN OTHERS THEN
+                        DBMS_OUTPUT.PUT_LINE(q&apos;[ERROR ARCHIVING TABLE: ]&apos; || V_Q ||
+                                            q&apos;[: ]&apos; || SQLERRM);
+                    END;
+                
+                END LOOP;
+                CLOSE CUR;
+                -- commented out for stand-alone 
+                -- END IF;
+                EXCEPTION
+                WHEN OTHERS THEN
+                    BEGIN
+                    RAISE_APPLICATION_ERROR(-20000, SQLERRM);
+                    END;
+                END;
+</code></pre><p>and the drop procedure looks like:</p>
+<pre data-role="codeBlock" data-info class="language-"><code>            CREATE OR REPLACE PROCEDURE DROP_KDOTBLP_BACKUP_TABLES AS
+            -- THIS PROCEDURE DROPS ANY TABLES WITH NAMES ENDING IN _KT
+            -- this proc is **_intended to be run standalone_** at any time to drop and purge (permanently remove) **_all_** tables with name extension _KT
+            -- left over from an upgrade script run
+            -- usage (from SQL*PLUS or PL/SQL Command Window):  
+            -- SQL&gt;EXEC DROP_KDOTBLP_BACKUP_TABLES;  
+            -- SQL&gt;/  
+            -- EXTRACTED FROM OracleBRM6.sql
+            -- ARMarshall, ARM_LLC - 20230102 - created (and in OracleBRM6.sql)
+            --DECLARE
+
+                v_TN1 VARCHAR2(30);
+                v_q VARCHAR2(4000 CHAR);
+                CURSOR curColData IS
+                        SELECT ut.TABLE_NAME
+                        FROM USER_TABLES ut
+                        JOIN KDOTBLP_PORTAL_TABLES kt
+                        ON  ut.TABLE_NAME LIKE kt.TABLE_NAME || &apos;%_KT&apos;
+                        ORDER BY ut.TABLE_NAME;
+            BEGIN
+                --IF  GET_VAR(&apos;KDOT_TABLE_CLEANUP&apos;) = &apos;1&apos; THEN
+                    /** H.1.1 | Start a loop through the cursor to create a dynamic drop process  **/
+                    OPEN curColData;
+                    FETCH curColData INTO v_TN1;
+                    WHILE (curColData%FOUND)
+                    LOOP
+                        BEGIN
+
+                        DBMS_OUTPUT.PUT_LINE(&apos;Cleaning up KDOTBLP PORTAL TABLES (_KT) tables -&apos; || V_TN1);
+
+                            v_q := &apos;DROP TABLE &apos; || V_TN1 || &apos; PURGEX&apos;;
+                            execute immediate v_q;
+                        EXCEPTION WHEN OTHERS THEN
+                            DBMS_OUTPUT.PUT_LINE(&apos;ERROR F1: Dropping KDOTBLP PORTAL TABLES (_KT) Table [&apos; || v_q || &apos;]; &apos; || SQLERRM);
+                        END;
+                        FETCH curColData INTO v_TN1;
+                    END LOOP;
+                    CLOSE curColData;
+            -- END IF;
+            --INSERT INTO PROFILING(PLACE, END_TIME) VALUES (&apos;DROP TEMP KDOTBLP PORTAL TABLES (_KT)&apos;,  CURRENT_TIMESTAMP);
+
+            EXCEPTION
+
+            WHEN OTHERS THEN
+                BEGIN
+                RAISE_APPLICATION_ERROR(-20000, SQLERRM);
+
+                END;
+            END;
+</code></pre><h4>2023-01-02</h4>
+<hr>
+<p>-- A very similar procedure based on DROP_KDOTBLP_BACKUP_TABLES named DROP_BRM_T_BACKUP_TABLES<br>
+was created that is <strong><em>intended to be run standalone</em></strong> to drop and purge (permanently remove) <strong><em>all</em></strong> _T tables</p>
+<pre data-role="codeBlock" data-info class="language-"><code>                /*
+                to see the tables that will be deleted:
+                SELECT ut.TABLE_NAME,pt.table_name
+                            FROM USER_TABLES ut
+                            JOIN PON_TABLE pt
+                            ON  ut.TABLE_NAME LIKE pt.TABLE_NAME || &apos;%_T&apos;
+                            ORDER BY ut.TABLE_NAME;
+                */
+
+            -- usage (from SQL*PLUS or PL/SQL Command Window):  
+            -- SQL&gt;EXEC DROP_BRM_T_BACKUP_TABLES;  
+            -- SQL&gt;/  
+</code></pre><hr>
+<p>-- Everywhere I could find it, changed Oracle Object names to 128 bytes per the new Oracle 12C object name length limit</p>
+<p><strong><em>For example</em></strong>,  <strong><em>TABLE_NAME VARCHAR2(128 BYTE)  NOT NULL</em></strong>,:</p>
+<pre data-role="codeBlock" data-info class="language-"><code>            v_q := &apos;CREATE TABLE PON_TABLE (
+            TABLE_NAME VARCHAR2(128 BYTE)  NOT NULL,
+            SHORT_NAME VARCHAR(20), 
+            RANK NUMBER(10,0)  NOT NULL,
+            CONSTRAINT PON_TABLE_PK PRIMARY KEY (TABLE_NAME))&apos;;
+</code></pre><p>and if there was a string collection variable of VARCHAR2(2000) or similar, changed to VARCHAR2(32767) which is permitted in code (not in table column sizes)<br>
+<strong><em>For example</em></strong>,</p>
+<pre data-role="codeBlock" data-info class="language-"><code>            CREATE TABLE VALIDATION_WARNING  
+            (  
+            VALIDATION_WARNING_GD VARCHAR2(32) NOT NULL,  
+            TABLE_NAME VARCHAR2(128 BYTE) NOT NULL,  
+            COL_NAME VARCHAR2(128 BYTE) NOT NULL,  
+            ROW_PK VARCHAR2(32) NOT NULL,  
+            INPUT_VALUE VARCHAR2(3999 CHAR) NOT NULL,  
+            PON_APP_USERS_GD VARCHAR2(32) NOT NULL,  
+            VALIDATION_DATE DATE NOT NULL,  
+            VALIDATION_SOURCE_GENERIC VARCHAR2(128 BYTE) NOT NULL,  
+            VALIDATION_SOURCE_SPECIFIC VARCHAR2(1000) NOT NULL,  
+            VALIDATION_MESSAGE VARCHAR2(3999 CHAR) NOT NULL);  
+</code></pre><p>-- Script modified to use procedure backup_KDOTBLP_PORTAL_TABLES to backup separately every table listed in KDOTBLP_PORTAL_TABLES with unique name and suffix _KT, added global var KDOT_TABLE_CLEANUP to kill the tables after the run, defaults to 0&apos;);<br>
+-- Fixed apparent typo IS_K1EY to IS_KEY in the inserts to DATADICT_T near line 6080&apos;);</p>
+<p>-- moved the <strong><em>prerequisite scripts</em></strong> to <strong><em>C:/git/repos/KDOT-LBIS-BRM-MIGRATION/files/scripts/</em></strong></p>
+<p>-- a bunch of calls to SUBSTR were assuming object names were limited to 30, so they used SUBSTR(TABLE_NAME, 1, 28) || &apos;_T&apos; for example<br>
+-- all of these (hopefully) were found and upgraded.  Also affected temporary tables like PON_FK and PON_TABLE where the object name lengths were 30..</p>
+<pre data-role="codeBlock" data-info class="language-"><code>            DBMS_OUTPUT.PUT_LINE(&apos;20230103 - ARMarshall, ARM LLC - EXAMPLE SNIPPET (near line 4860:&apos;); 
+            DBMS_OUTPUT.PUT_LINE(q[&apos;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; -- Oracle object name used to be 30]&apos;);
+            DBMS_OUTPUT.PUT_LINE(q[&apos;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; -- the SUBSTR function here has been changed to permit up to 126 chars  
+             of the real name to be used for the _T table ]&apos;);
+            DBMS_OUTPUT.PUT_LINE(q[&apos;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; -- given that the suffix _T takes up 2 chars.]&apos;);
+            DBMS_OUTPUT.PUT_LINE(q[&apos; WITH T(TABLE_NAME) AS (SELECT DISTINCT SUBSTR(TABLE_NAME, 1, 126) || &apos;_T&apos; FROM PON_DICT  ] etc.&apos;);
+</code></pre><ul>
+<li>table PON_NAV_CONTROL has no parent record for PON_NAV_CONTROL_GD=C01F1D4AE11B4ABFBC3A837674D30DAD , so any attempt to create a FK from  PON_APP_CONTROL_SECURITY etc. will fail.  DELETED entries in PON_APP_CONTROL_SECURITY</li>
+</ul>
+<pre data-role="codeBlock" data-info class="language-"><code>            SELECT * FROM PON_NAV_CONTROL PNC WHERE PNC.PON_NAV_CONTROL_GD=&apos;C01F1D4AE11B4ABFBC3A837674D30DAD&apos;;
+
+            DELETE PON_APP_CONTROL_SECURITY  
+            WHERE PON_NAV_CONTROLGD=&apos;C01F1D4AE11B4ABFBC3A837674D30DAD&apos;;     
+</code></pre><h4>2023-01-04</h4>
+<hr>
+<p>-- create process and procedures to shrink local database from max to workable size.<br>
+hese instructions assume you created 2 tablespaces PONT_TBL and KDOT_BLP and assigned some data files to these.</p>
+<p>To create a tablespace (your directory location will be different) - this uses 3 4M dbf files.  The names and extensions are up to you....:</p>
+<pre data-role="codeBlock" data-info class="language-"><code>create tablespace KDOT_BLP  datafile &apos;D:\oradata\orcl\df1.dbf&apos; size 4m ,  &apos;D:\oradata\orcl\df2.dbf&apos; size 4m,  &apos;D:\oradata\orcl\df3.dbf&apos; size 4m;
+</code></pre><p>To add a file to a tablespace (your directory location will be different)</p>
+<pre data-role="codeBlock" data-info class="language-"><code>        ALTER TABLESPACE  KDOT_BLP   ADD DATAFILE &apos; D:\oradata\orcl\df4.dbf&apos; SIZE 1000M
+</code></pre><p>To see what you have , run the script <strong><em>Script_Check_Tablespace_Size.pdc</em></strong> from a command window e.g. SQL*PLUS and something like this should show up, where the directory locations will probably be entirely different:</p>
+<pre data-role="codeBlock" data-info class="language-"><code>        SQL&gt;
+
+        TABLESPACE_NAME                     TOTAL  AVAILABLE       USED    PCTUSED
+
+
+        ------------------------------ ---------- ---------- ---------- ----------
+        PONT_TBL                             3072    3068.88       3.12        0.1
+
+        FILE_NAME                                                                        BYTES/1024/1024
+
+
+        -------------------------------------------------------------------------------- ---------------
+        C:\PRJ\KDOT\ORA\DATA\PONT_TBL_DATA1.DBF                                                     1024
+        C:\PRJ\KDOT\ORA\DATA\PONT_TBL_DATA2.DBF                                                     1024
+        C:\PRJ\KDOT\ORA\DATA\PONT_TBL_DATA3.DBF                                                     1024
+
+        SQL&gt;
+
+        TABLESPACE_NAME                     TOTAL  AVAILABLE       USED    PCTUSED
+        ------------------------------ ---------- ---------- ---------- ----------
+        PONT_TBL                             3072    3068.88       3.12        0.1
+
+        FILE_NAME                                                                        BYTES/1024/1024
+        -------------------------------------------------------------------------------- ---------------
+        C:\PRJ\KDOT\ORA\DATA\PONT_TBL_DATA1.DBF                                                     1024
+        C:\PRJ\KDOT\ORA\DATA\PONT_TBL_DATA2.DBF                                                     1024
+        C:\PRJ\KDOT\ORA\DATA\PONT_TBL_DATA3.DBF                                                     1024
+
+        SQL&gt;
+
+        TABLESPACE_NAME                     TOTAL  AVAILABLE       USED    PCTUSED
+        ------------------------------ ---------- ---------- ---------- ----------
+        KDOT_BLP                        8604.9375    6222.81  2382.1275      27.68
+
+        FILE_NAME                                                                        BYTES/1024/1024
+        -------------------------------------------------------------------------------- ---------------
+        C:\PRJ\KDOT\ORA\DATA\KDOT_BLP_DATA1.DBF                                                  3131.25
+        C:\PRJ\KDOT\ORA\DATA\KDOT_BLP_DATA2.DBF                                                  2807.75
+        C:\PRJ\KDOT\ORA\DATA\KDOT_BLP_DATA3.DBF                                                2665.9375
+
+        SQL&gt;
+</code></pre><p>Process to squish database:</p>
+<ol>
+<li>
+<p>) Run the sql script <strong><em>Script_Show_Total_Database_Size_GB.sql</em></strong> - it shows the total GB and other stuff</p>
+</li>
+<li>
+<p>) Delete cruft (like we discussed earlier e.g. BRIDGE_AR INSPEVNT_AR, ARC_****, *_T,  *_tmp  etc. etc.) and remember to PURGE the recycle bin after dropping the cruft.  I actually deleted all the materialized views as well to save space.</p>
+</li>
+<li>
+<p>) Run the attached script <strong><em>Script_Create_KDOTBLP_PORTAL_TABLES_Entries.sql</em></strong> to create the table   KDOTBLP_PORTAL_TABLES and add the tables that you may care about.  Add or remove table namess as you see fit - these are the ones that will be shrunk.  They will be processed in the order shown.   You only have to create this table once....</p>
+</li>
+<li>
+<p>) Create the shrink procedure by running <strong><em>Script_Create_Replace_SHRINK_KDOTBLP_TABLES.pdc</em></strong></p>
+</li>
+<li>
+<p>) Run the shrink procedure... load the file <strong><em>Script_Execute_SHRINK_KDOTBLP_TABLES.pdc</em></strong>  and run it</p>
+</li>
+<li>
+<p>) Check the work by repeating step 1.</p>
+</li>
+</ol>
+<p>and also make sure <strong><em>no objects exist in a dead tablespace</em></strong><br>
+e.g. PONT_TBL for a LOCAL development database.</p>
+<h4>2023-01-04</h4>
+<h2><strong><em>(CONTINUED)</em></strong></h2>
+<p>-- changed tablespace sizes etc. to make sure the Express db does not exceed 12G overall - it was causing script errors.<br>
+-- created mismatch check script<br>
+<strong><em>Script_Show_USERBRDG_and_USERINSP_And_USRSTRUNIT_NonMatches_Parent.sql</em></strong></p>
+<h4>2023-01-05</h4>
+<hr>
+<p>-- some code near 35960 of the BrM5.3 Oracle script is trying to enable a NOT NULL constraint when it is already set to NOT NULL and ENABLED.   <strong><em>Ignorable</em></strong></p>
+<pre data-role="codeBlock" data-info class="language-"><code>            -- Enable disabled NOT NULL constraints.
+            -- If successful this will prevent &quot;ORA-01442: column to be modified to NOT NULL is already NOT NULL&quot; when making columns required in the next block. 2.
+            -- Will fail with &quot;ORA-02293: cannot validate&quot; if there is bad data.
+            SELECT &apos;ALTER TABLE &apos; || D.TABLE_NAME || &apos; ENABLE CONSTRAINT &apos; || CONS.CONSTRAINT_NAME 
+                FROM PON_DICT D
+                JOIN USER_TAB_COLUMNS C ON C.TABLE_NAME = D.TABLE_NAME AND C.COLUMN_NAME = D.COL_NAME
+                JOIN USER_CONSTRAINTS CONS ON CONS.TABLE_NAME = D.TABLE_NAME
+                JOIN USER_CONS_COLUMNS CONS_COLS ON CONS_COLS.CONSTRAINT_NAME = CONS.CONSTRAINT_NAME AND CONS_COLS.COLUMN_NAME = D.COL_NAME
+                WHERE D.REQUIRED = 1 AND 
+                    D.PK &lt;&gt; 1 AND
+                    C.NULLABLE = &apos;Y&apos; AND
+                    D.COL_NAME NOT LIKE &apos;%CAPTION_ID&apos; AND
+                    CONS.STATUS = &apos;DISABLED&apos; AND 
+                    CONS_COLS.POSITION IS NULL AND 
+                    INSTR(F_READ_SEARCH_CONDITION(CONS.CONSTRAINT_NAME), &apos;IS NOT NULL&apos;) &gt; 0 
+                ORDER BY D.TABLE_NAME, D.COL_NAME;  
+</code></pre><p>and this</p>
+<pre data-role="codeBlock" data-info class="language-"><code>                --  Make some non PK columns required.
+                DECLARE	V_CUR SYS_REFCURSOR;
+                BEGIN
+                    DBMS_OUTPUT.PUT_LINE(&apos;Make non PK GUID columns required.&apos;);
+                    
+                    OPEN V_CUR FOR
+                    SELECT &apos;ALTER TABLE &apos; || D.TABLE_NAME || &apos; MODIFY &apos; || D.COL_NAME || &apos; &apos; || &apos; NOT NULL&apos;
+                    FROM PON_DICT D
+                    JOIN USER_TAB_COLUMNS C ON C.TABLE_NAME = D.TABLE_NAME AND C.COLUMN_NAME = D.COL_NAME
+                    WHERE D.REQUIRED = 1 AND D.PK &lt;&gt; 1 AND C.NULLABLE = &apos;Y&apos; AND D.COL_NAME NOT LIKE &apos;%CAPTION_ID&apos;
+                    ORDER BY D.TABLE_NAME, D.COL_NAME;
+                    
+                    IF GET_VAR(&apos;PRINT_DETAILS&apos;) = 1 THEN
+                            REV(V_CUR,1); 
+                        ELSE
+                            REV(V_CUR);
+                        END IF;
+                    CLOSE V_CUR;
+                        
+                END;
+                /
+
+</code></pre><p>-- 20230105 - ARMarshall,ARM LLC -added/restored NOT NULL constraint to USERRWAY.ON_UNDER and USRSTRUNIT.STRUNITKEY</p>
+<p>-- The following constraints remained disabled after a run.  All of these are GUID columns.  This is near line 35983 ...</p>
+<ul>
+<li>ALTER TABLE PON_APP_GROUPS ENABLE CONSTRAINT SYS_C0031990</li>
+<li>ALTER TABLE PON_APP_PERMISSIONS ENABLE CONSTRAINT SYS_C0031586</li>
+<li>ALTER TABLE PON_APP_ROLES_PERMISSIONS ENABLE CONSTRAINT SYS_C0031146</li>
+<li>ALTER TABLE PON_APP_ROLES_PERMISSIONS ENABLE CONSTRAINT SYS_C0031145</li>
+<li>ALTER TABLE PON_APP_USERS_GROUPS ENABLE CONSTRAINT SYS_C0031184</li>
+<li>ALTER TABLE PON_APP_USERS_GROUPS ENABLE CONSTRAINT SYS_C0031183</li>
+<li>ALTER TABLE PON_APP_USERS_ROLES ENABLE CONSTRAINT SYS_C0032018</li>
+<li>ALTER TABLE PON_APP_USERS_ROLES ENABLE CONSTRAINT SYS_C0032017</li>
+</ul>
+<p>-- 20230105 - ARMarshall,ARM LLC - removed function named &quot;f_is_active(pBridgeGroup IN VARCHAR2)&quot; - bad name.  Fixed and capitalized.  See script <strong>Script_Create_Replace_F_IS_ACTIVE_BRIDGEGROUP.fnc_</strong><br>
+-- 20230105 - ARMarshall,ARM LLC - addded post step to restore a couple missing indexes on KDOTBLP_BRIDGE -<br>
+see script <strong><em>Script_Restore_Missing_KDOT_Objects.pdc</em></strong> where all such restores are done.</p>
+<p>-- 20230105 - ARMarshall,ARM LLC - addded script to remove records with no parents and create child records for KDOTBLP_BRIDGE, KDOTBLP_INSPECTIONS, USERSTRUNIT</p>
+<h4>2023-01-07</h4>
+<hr>
+<p>The following two commands should be issued before attempting an impdb run</p>
+<pre class="language-text">            SQL&gt;connect sys@xe as sysdba;
+            SQL&lt;create or replace directory KDOT_DP_DIR as &apos;C:\temp\Ora\DataPump\KDOT&apos;; --&lt;&lt;&lt; Windows file system location &gt;&gt;&gt;
+</pre>
+<p>The connection string for IMPDP should be as sys and look like</p>
+<pre class="language-text">            SYS&gt;CONNECT sys/********@localhost:1521/xepdb1 AS SYSDBA  
+</pre>
+<p>ROLE BRMADMIN must exist in the database in advance</p>
+<p>The user KDOT_BLP should be DROPPED before first attempt to import.  Can exist afterwards.<br>
+The user KDOT_BLP can be granted SYSDBA, <strong><em>optionally</em></strong><br>
+The user KDOT_BLP may be granted  exp_full_database and imp_full_database <strong><em>optionally</em></strong>.</p>
+<h3>2023-01-09</h3>
+<hr>
+<p>Here is how the user (schema)  KDOT_BLP was set:</p>
+<pre data-role="codeBlock" data-info class="language-"><code>            -- Create the user 
+            create user KDOT_BLP
+            default tablespace KDOT_BLP
+            temporary tablespace TEMP
+            profile DEFAULT
+            password expire;
+            -- Grant/Revoke role privileges 
+            grant connect to KDOT_BLP;
+            grant plustrace to KDOT_BLP;
+            grant resource to KDOT_BLP;
+            -- Grant/Revoke system privileges 
+            grant alter session to KDOT_BLP;
+            grant create any job to KDOT_BLP;
+            grant create any materialized view to KDOT_BLP;
+            grant create any synonym to KDOT_BLP;
+            grant create database link to KDOT_BLP;
+            grant create external job to KDOT_BLP;
+            grant create job to KDOT_BLP;
+            grant create materialized view to KDOT_BLP;
+            grant create public synonym to KDOT_BLP;
+            grant create synonym to KDOT_BLP;
+            grant create table to KDOT_BLP;
+            grant create view to KDOT_BLP;
+            grant debug connect session to KDOT_BLP;
+            grant drop any synonym to KDOT_BLP;
+            grant export full database to KDOT_BLP;
+            grant import full database to KDOT_BLP;
+            grant manage scheduler to KDOT_BLP;
+            grant select any dictionary to KDOT_BLP;
+            grant unlimited tablespace to KDOT_BLP;
+</code></pre><p>-- In Visual Studio Code, you can find all statements in the output log like <strong>CREATE UNIQUE INDEX &quot;KDOT_BLP&quot;</strong>.<br>
+using a REGEX like this:</p>
+<pre data-role="codeBlock" data-info class="language-"><code>            ^(CREATE UNIQUE INDEX &quot;KDOT_BLP&quot;\.).+$
+</code></pre><p>which helps finding errors reported in the log.</p>
+<ul>
+<li>5.2 upgrade scripts   <strong><em>521_March302015_PontisOracle52.sql</em></strong> and <strong><em>BrM_5_3\521_April2015_PontisOracle52.sql</em></strong> only vary by the release id in table DBDESCRP - did not use</li>
+</ul>
+<h4>20220109</h4>
+<h2>Testing with BrM 53</h2>
+<hr>
+<pre data-role="codeBlock" data-info="html" class="language-html">Error#1:
+reference to an unknown column ORA-00904: &quot;grps_name&quot;:  when enclosed in quotes like this it is matched by case.
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token special-attr"><span class="token attr-name">style</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span><span class="token value css language-css"><span class="token property">color</span><span class="token punctuation">:</span><span class="token color">green</span><span class="token punctuation">;</span><span class="token property">font-weight</span><span class="token punctuation">:</span><span class="token number">500</span><span class="token punctuation">;</span><span class="token property">font-size</span><span class="token punctuation">:</span><span class="token number">12</span><span class="token unit">px</span><span class="token punctuation">;</span><span class="token property">font-style</span><span class="token punctuation">:</span> italic<span class="token punctuation">;</span></span><span class="token punctuation">&quot;</span></span></span><span class="token punctuation">&gt;</span></span>
+System.Web.HttpUnhandledException (0x80004005): Exception of type &apos;System.Web.HttpUnhandledException&apos; was thrown. System.Exception: BridgeRepository::GetBridgeList: Unable To Retrieve Bridge List  System.Exception: AdoRepository::ExecuteReader Error executing command: SELECT * FROM (SELECT &quot;_sd_&quot;.*, ROWNUM &quot;_#_&quot; FROM (SELECT DISTINCT(pon_bridge_grps.pon_bridge_grps_gd) AS &quot;key_&quot;, pon_bridge_grps.grps_name AS &quot;Bridge Groups&quot;, (select COUNT(DISTINCT(bridge_gd))from pon_grps_road r where r.pon_bridge_grps_gd = pon_bridge_grps.pon_bridge_grps_gd) &quot;Bridge_Count&quot;, (select COUNT(bridge_gd)from pon_grps_road r where r.pon_bridge_grps_gd = pon_bridge_grps.pon_bridge_grps_gd) &quot;Roadway_Count&quot;,pon_bridge_grps.description as &quot;Description&quot; from pon_bridge_grps left outer join pon_grps_road on pon_grps_road.pon_bridge_grps_gd = pon_bridge_grps.pon_bridge_grps_gd left outer join bridge on bridge.bridge_gd = pon_grps_road.bridge_gd WHERE 1=1 order by &quot;grps_name&quot; ASC) &quot;_sd_&quot; WHERE ROWNUM &lt;= 1) &quot;_sd2_&quot; WHERE &quot;_sd2_&quot;.&quot;_#_&quot; &gt; 0 order by ROWNUM Oracle.ManagedDataAccess.Client.OracleException: ORA-00904: &quot;grps_name&quot;: invalid identifierat OracleInternal.ServiceObjects.OracleCommandImpl.VerifyExecution(OracleConnectionImpl connectionImpl, Int32&amp; cursorId, Boolean bThrowArrayBindRelatedErrors, OracleException&amp; exceptionForArrayBindDML, Boolean&amp; hasMoreRowsInDB, Boolean bFirstIterationDone)at OracleInternal.ServiceObjects.OracleCommandImpl.ExecuteReader(String commandText, OracleParameterCollection paramColl, CommandType commandType, OracleConnectionImpl connectionImpl, OracleDataReaderImpl&amp; rdrImpl, Int32 longFetchSize, Int64 clientInitialLOBFS, OracleDependencyImpl orclDependencyImpl, Int64[] scnForExecution, Int64[]&amp; scnFromExecution, OracleParameterCollection&amp; bindByPositionParamColl, Boolean&amp; bBindParamPresent, Int64&amp; internalInitialLOBFS, OracleException&amp; exceptionForArrayBindDML, Boolean isDescribeOnly, Boolean isFromEF)at Oracle.ManagedDataAccess.Client.OracleCommand.ExecuteReader(Boolean requery, Boolean fillRequest, CommandBehavior behavior)at Oracle.ManagedDataAccess.Client.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)at BRIDGEWare.Pontis.DataAccess.Repositories.AdoRepository.ExecuteReader(String commandText, Dictionary`2 queryParameters, Nullable`1 expectedRowCountHint, List`1 columnFilter, Nullable`1 timeout, Boolean forceSemiColonStrip) in E:\Agents\PRG01\_work\33\s\DataAccess\Repositories\AdoRepository.cs:line 91 --- End of inner exception stack trace --- at BRIDGEWare.Pontis.DataAccess.Repositories.AdoRepository.ExecuteReader(String commandText, Dictionary`2 queryParameters, Nullable`1 expectedRowCountHint, List`1 columnFilter, Nullable`1 timeout, Boolean forceSemiColonStrip) in E:\Agents\PRG01\_work\33\s\DataAccess\Repositories\AdoRepository.cs:line 130at BRIDGEWare.Pontis.DataAccess.Repositories.BridgeRepository.GetBridgeList(GridSearchCriteria criteria, Int32 currentPage, Int32 rowsPerPage) in E:\Agents\PRG01\_work\33\s\DataAccess\Repositories\BridgeRepository.cs:line 136  -- End of inner exception stack trace --- at BRIDGEWare.Pontis.DataAccess.Repositories.BridgeRepository.GetBridgeList(GridSearchCriteria criteria, Int32 currentPage, Int32 rowsPerPage) in E:\Agents\PRG01\_work\33\s\DataAccess\Repositories\BridgeRepository.cs:line 155at PontisModules_Bridge_UiDTCBagGrid.get_GridList()at PontisModules_Bridge_UiDTCBagGrid.get_GridDataSource()at ContextGridControl.SetGridDataSource(String sortColumnName, Boolean filterResults, Boolean showAllWhenUnfiltered)at PontisModules_Bridge_UiDTCBagGrid.BindData()at PontisModules_Bridge_UiDTCBagGrid.Page_Load(Object sender, EventArgs e)at System.Web.UI.Control.OnLoad(EventArgs e)at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Control.LoadRecursive()at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)at System.Web.UI.Page.HandleError(Exception e)at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)at System.Web.UI.Page.ProcessRequest(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)at System.Web.UI.Page.ProcessRequest()at System.Web.UI.Page.ProcessRequest(HttpContext context)at ASP.bridges_bridgeanalysisgrplist_aspx.ProcessRequest(HttpContext context) in c:\Users\armpl\AppData\Local\Temp\Temporary ASP.NET Files\root\8d3e4b96\eea78b4\App_Web_f5frnmw3.0.cs:line 0at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">&gt;</span></span>
+</pre><pre data-role="codeBlock" data-info class="language-"><code>            SELECT *
+            FROM (SELECT &quot;_sd_&quot;.*, ROWNUM &quot;_#_&quot;
+                    FROM (SELECT DISTINCT (pon_bridge_grps.pon_bridge_grps_gd) AS &quot;key_&quot;,
+                                            pon_bridge_grps.grps_name AS &quot;Bridge Groups&quot;,
+                                            (select COUNT(DISTINCT(bridge_gd))
+                                            from pon_grps_road r
+                                            where r.pon_bridge_grps_gd =
+                                                    pon_bridge_grps.pon_bridge_grps_gd) &quot;Bridge_Count&quot;,
+                                            (select COUNT(bridge_gd)
+                                            from pon_grps_road r
+                                            where r.pon_bridge_grps_gd =
+                                                    pon_bridge_grps.pon_bridge_grps_gd) &quot;Roadway_Count&quot;,
+                                            pon_bridge_grps.description as &quot;Description&quot;
+                            from pon_bridge_grps
+                            left outer join pon_grps_road
+                                on pon_grps_road.pon_bridge_grps_gd =
+                                pon_bridge_grps.pon_bridge_grps_gd
+                            left outer join bridge
+                                on bridge.bridge_gd = pon_grps_road.bridge_gd
+                            WHERE 1 = 1
+                            order by &quot;GRPS_NAME&quot; ASC) &quot;_sd_&quot;
+                    WHERE ROWNUM &lt;= 1) &quot;_sd2_&quot;
+            WHERE &quot;_sd2_&quot;.&quot;_#_&quot; &gt; 0
+            order by ROWNUM
+</code></pre><p>-- need some aliases (synonyms)<br>
+-- these synonym names are magic strings that the portal automatically replaces in all occurrences.</p>
+<pre data-role="codeBlock" data-info class="language-"><code>                Connected to Oracle Database 21c Express Edition Release 21.0.0.0.0 
+                Connected as KDOT_BLP@localhost:1521/xepdb1
+
+                                SQL&gt; CREATE PUBLIC SYNONYM XTRNBRDGTABLE FOR KDOTBLP_BRIDGE;
+                                SQL&gt; CREATE PUBLIC SYNONYM XTRNINSPTABLE FOR KDOTBLP_INSPECTIONS;
+                                SQL&gt; CREATE PUBLIC SYNONYM XTRNRWAYTABLE FOR USERRWAY;
+                                SQL&gt; CREATE PUBLIC SYNONYM XTRNSTRUNITTABLE FOR USERSTRUNIT;
+
+                Synonym created
+</code></pre><p>-- some filter SQL needs repair e.g. in this case, the alias b was not used where it needed to be:<br>
+--  this is current layout Bridges w/ No Inspections<br>
+--  used to say ....</p>
+<pre data-role="codeBlock" data-info class="language-"><code>               ... ON inspevnt.bridge_gd = bridge.bridge_gd   
+</code></pre><p>but that makes the ADO database layer unhappy so must be consistent</p>
+<pre data-role="codeBlock" data-info class="language-"><code>              ... ON inspevnt.bridge_gd = b.bridge_gd  
+
+            SELECT DISTINCT (b.bridge_gd) &quot;key_&quot;,
+                            b.bridge_id &quot;Bridge ID&quot;,
+                            b.district &quot;District&quot;,
+                            b.county &quot;County&quot;,
+                            b.facility &quot;Facility Carried&quot;,
+                            b.featint &quot;Feature Intersected&quot;,
+                            b.owner &quot;Own&quot;,
+                            b.custodian &quot;Maint&quot;,
+                            b.yearbuilt &quot;Built&quot;,
+                            b.brkey &quot;brkey&quot;
+            from bridge b
+            left outer join (select *
+                                from roadway
+                                where roadway.ON_UNDER = &apos;1&apos;
+                                or (ROADWAY.bridge_gd not in
+                                    (select bridge_gd
+                                        from ROADWAY
+                                        where roadway.ON_UNDER = &apos;1&apos;) and
+                                    (roadway.on_under = &apos;2&apos; or roadway.on_under = &apos;A&apos;))) roadway
+                on roadway.bridge_gd = b.bridge_gd
+            left outer join XTRNBRDGTABLE
+                on XTRNBRDGTABLE.bridge_gd = b.bridge_gd
+            left outer join XTRNRWAYTABLE
+                on roadway.roadway_gd = XTRNRWAYTABLE.roadway_gd
+            left outer join (Select *
+                                from (select inspevnt.*,
+                                            row_number() over(partition by bridge_gd order by inspdate, createdatetime desc) rn
+                                        from inspevnt) inspevnt2
+                                where rn = 1) inspevnt
+                ON inspevnt.bridge_gd = b.bridge_gd
+            left outer join XTRNINSPTABLE
+                on XTRNINSPTABLE.inspevnt_gd = inspevnt.inspevnt_gd
+            left outer join structure_unit
+                on structure_unit.bridge_gd = b.bridge_gd
+            left outer join XTRNSTRUNITTABLE
+                on XTRNSTRUNITTABLE.structure_unit_gd =
+                structure_unit.structure_unit_gd
+            where b.bridge_gd not in (select i2.bridge_gd from inspevnt i2)
+</code></pre><p>and this won&apos;t work</p>
+<pre data-role="codeBlock" data-info class="language-"><code>                    SELECT &quot;sqlfilter_&quot;.*                  
+                  FROM (SELECT (b.bridge_gd) AS &quot;Key_&quot;,            
+</code></pre><p>has to be &quot;<strong>key_</strong>&quot;</p>
+<pre data-role="codeBlock" data-info class="language-"><code>                    SELECT &quot;sqlfilter_&quot;.*                  
+                  FROM (SELECT (b.bridge_gd) AS &quot;key_&quot;,            
+</code></pre><p>These difficulties necessitate minor but pervasive code changes to make every layout say</p>
+<pre data-role="codeBlock" data-info class="language-"><code>                ...bridge_gd as &quot;key_&quot;   
+</code></pre><p>and <strong><em>never make BRKEY the key</em>_</strong></p>
+<pre data-role="codeBlock" data-info class="language-"><code>                ...brkey as &quot;key_&quot;  
+</code></pre><p>and update the C# and JS throughout to use that convention.  There are definitely exceptions as of 20230109</p>
+<h4>20230110</h4>
+<hr>
+<p>BrM 5.3 can run against the database migrated to 6.0 at least as far as seeing the desktop.</p>
+<h3>20230117</h3>
+<hr>
+<h5>added script to quantify PON_FILTERS with layouts conforming to BRM requirements</h5>
+<ul>
+<li>
+<p>uses a REGEX to check the layouts for bare minimum compliance.</p>
+</li>
+<li>
+<p>created a SQL script to try and exercise every layout - check compliance and whether it returns any rows</p>
+</li>
+<li>
+<p>created this Oracle REGEX to check layouts:</p>
+</li>
+</ul>
+<pre data-role="codeBlock" data-info class="language-"><code>select pf.filterkey, pf.name ,nvl(1,0) as compliant,pf.sql_filter, pf.rowid
+  FROM PON_FILTERS pf
+ WHERE  pf.filterkey&gt;=15000 and pf.accessfilter=0 and pf.shared=1 
+and  ( regexp_like(lower(trim(pf.sql_filter)),
+                   q&apos;[^.*SELECT.*(b\.bridge_gd +as +key_).*(b\.brkey).*FROM( *| *
+* *)(bridge +b).*(ORDER +BY +(1|b\.brkey))*.*((/* *#END# *\*/)*).*\Z]&apos; ,&apos;inm&apos;)  
+);
+</code></pre><ul>
+<li>and this C# function</li>
+</ul>
+<pre data-role="codeBlock" data-info class="language-"><code>        /// &lt;summary&gt;
+        ///     Check the desktop list for obvious missing elements
+        ///     Ignores any case-sensitivity in the SQL fragments
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;sqlString&quot;&gt;&lt;/param&gt;
+        /// &lt;param name=&quot;errFatal&quot;&gt;True if the error is deemed fatal&lt;/param&gt;
+        /// &lt;param name=&quot;errsOut&quot;&gt;List of error messages generated by the validation&lt;/param&gt;
+        /// &lt;param name=&quot;throwError&quot;&gt;Raise an exception if a fatal error is encountered in validation&lt;/param&gt;
+        /// &lt;returns&gt;&lt;/returns&gt;
+        public static bool ValidateDesktopListSqlRegex(this string sqlString, out bool errFatal, out string errsOut,
+            bool throwError = false)
+        {
+            var errMsg = new StringBuilder().AppendLine(&quot;&quot;);
+            errFatal = false; // be optimistic
+
+            try
+            {
+                var regexOpts = new RegexOptions();
+
+                var errCount = 0;
+                var warnCount = 0;
+                var infoCount = 0;
+
+                regexOpts = RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.CultureInvariant;
+                //1 see if the list contains FROM BRIDGE b in any way shape or form
+                var regex = new Regex(@&quot;^.*?([ ]*FROM[ ]*BRIDGE[ ]*b[ ]*).*?$&quot;, regexOpts);
+                var result = regex.IsMatch(sqlString); // either t or f on first call
+
+                if (!result)
+                {
+                    errCount++;
+                    errMsg.AppendLine(
+                        $@&quot;Check #1 - CHECK SQL - the sql does not contain any version of {&quot;FROM BRIDGE b&quot;} - (regex: {regex}) - this SQL fragment Is usually required for all layout list SQL&quot;);
+                }
+
+                //2 - must contain SELECT b.BRIDGE_GD as key_ in some way spaces do not matter
+                // this is a BrM requirement
+                // ARMarshall, ARM_LLC - 20230111 - changed to bridge_gd from brkey
+                regex = new Regex(&quot;^(.*?)(SELECT[ ]+b\\.bridge_gd[ ]+(?:as[ ]+?)*?key_[ ]*,)(.*?)$&quot;, regexOpts);
+                result = regex.IsMatch(sqlString);
+
+                if (!result)
+                {
+                    errFatal = true;
+                    errCount++;
+                    errMsg.AppendLine(
+                        $@&quot;Check #2 - ERROR - the sql does not contain any version of {&quot;SELECT b.bridge_gd as key_&quot;} - (regex: {regex}) - this SQL fragment is required for all layout list SQL and BrM&quot;);
+                }
+
+
+                //3 - should contain b.bridge_gd, maybe with more columns before and after it..
+                regex = new Regex(&quot;^.*?[ ]*([,][ ]*?b\\.bridge_gd)[ ]*[,]*[ ]*.*?$&quot;, regexOpts);
+                result = regex.IsMatch(sqlString);
+
+                if (!result)
+                {
+                    warnCount++;
+                    errMsg.AppendLine(
+                        $@&quot;Check #3 -  CHECK SQL - the layout sql must contain the fragment {&quot;bridge_gd&quot;} - (regex: {regex}) -this column was not found in the sql string and is required for all layout list SQL.&quot;);
+                }
+
+
+                //4 - should contain b.bridge_gd, maybe with more columns before and after it..
+                regex = new Regex(&quot;^.*?[ ]*([,][ ]*?b\\.brkey)[ ]*[,]*[ ]*.*?$&quot;, regexOpts);
+                result = regex.IsMatch(sqlString);
+
+                if (!result)
+                {
+                    warnCount++;
+                    errMsg.AppendLine(
+                        $@&quot;Check #4 -  CHECK SQL - the layout sql must contain the fragment {&quot;b.brkey&quot;} - (regex: {regex}) -this column was not found in the sql string and is required for all layout list SQL.&quot;);
+                }
+
+
+                // log this before throwing the exception
+                if (!result) // something bad happened
+                {
+                    if (errFatal)
+                        Logger.Instance.Error(errMsg);
+                    else
+                        Logger.Instance.Warn(errMsg);
+                }
+
+                if (errCount &gt; 0 || warnCount &gt; 0 || infoCount &gt; 0)
+                {
+                    errMsg.AppendLine(&quot;&quot;);
+                    errMsg.AppendLine(
+                        $&quot;Summary: {errCount} errors, {warnCount} warnings, and {infoCount} info messages&quot;);
+                }
+
+                errsOut = errCount &gt; 0 || warnCount &gt; 0 ? errMsg.ToString() : Empty;
+
+                if (throwError &amp;&amp; errFatal)
+                    throw new ArgumentException(
+                        $&quot;Desktop list sql: {sqlString.FormatSqlString()} {Environment.NewLine} Errors:{Environment.NewLine}{errMsg}&quot;);
+
+                //  possibly passed, or it failed so there are &gt;0 errors in the errCount
+                return errCount == 0;
+            }
+            catch (RegexMatchTimeoutException rte)
+            {
+                rte.Log(rte.GatherExceptionData());
+                throw;
+            }
+            catch (Exception ex)
+            {
+                errMsg.AppendLine(&quot;&quot;);
+                errMsg.AppendLine(&quot;Layout Sql:&quot;);
+                errMsg.Append($&quot;{sqlString.FormatSqlString()}&quot;);
+                errMsg.AppendLine(&quot;&quot;);
+                errMsg.Append(ex.GatherExceptionData());
+                errMsg.AppendLine(&quot;&quot;);
+
+                ex.Log(errMsg.ToString());
+
+                throw;
+            }
+        }
+
+
+</code></pre><p>where the first regex is:</p>
+<pre data-role="codeBlock" data-info class="language-"><code>^.*?([ ]*FROM[ ]*BRIDGE[ ]*b[ ]*).*?$
+</code></pre><p>which verifies that the filter SQL contains the <strong>FROM</strong> clause:</p>
+<pre data-role="codeBlock" data-info class="language-"><code>FROM BRIDGE b
+</code></pre><p>and the second regex is:</p>
+<pre data-role="codeBlock" data-info class="language-"><code>^(.*?)(SELECT[ ]+b\\.bridge_gd[ ]+(?:as[ ]+?)*?key_[ ]*,)(.*?)$
+</code></pre><p>which verifies that the SQL contains the expression:</p>
+<pre data-role="codeBlock" data-info class="language-"><code> b.bridge_gd as key_  
+</code></pre><h3>20230118</h3>
+<hr>
+<p><strong>Updated BrM code throughout to assume BRIDGE_GD as KEY_ convention (see above)</strong></p>
+<h3>20230123</h3>
+<hr>
+<p><strong>Added 2 functions to ESOADEV</strong></p>
+<ul>
+<li>FUNCTION <strong>F_IS_ACTIVE_BRIDGEGROUP</strong>(pBridgeGroup IN VARCHAR2)</li>
+<li>FUNCTION <strong>f_Get_Pon_App_Users_Gd_For_Userkey</strong>(The_Userkey Pon_App_Users.Userkey%TYPE)</li>
+</ul>
+<p><strong>replaced 3 views (updated)</strong></p>
+<ul>
+<li><strong>V_BRIDGES_WITH_FC_INSPECTIONS</strong></li>
+<li><strong>V_BRIDGES_WITH_UW_INSPECTIONS</strong></li>
+<li><strong>V_BRIDGES_WITH_OS_INSPECTIONS</strong></li>
+</ul>
+<p><strong>added tables to ESOADEV</strong></p>
+<ul>
+<li>added <strong>KDOTBLP_PORTAL_TABLES</strong> to itemize tables that the upgrade script should backup before doing anything else</li>
+<li>added table <strong>VALIDATION_WARNINGS</strong> to create a table missing from upgrade scripts but apparently required by BrM</li>
+<li>added table <strong>PON_MOBILE_ERRORS</strong> to create a table missing from upgrade scripts but apparently required by BrM</li>
+</ul>
+<h3>20230125</h3>
+<hr>
+<p>Ran the upgrade script against ESOADEV.  Minor twiddles and it finished successfully.<br>
+Found duplicate KDOTBLP_INSPECTIONS records - same BRKEY/INSPKEY - created scripts to find and remove these</p>
+<h3>20230125</h3>
+<hr>
+<p><strong>Ran script to clean orphaned KDOTBLP_INSPECTIONS with no parent INSPEVNT record</strong><br>
+<strong>Ran script to clean duplicate KDOTBLP_INSPECTIONS</strong><br>
+<strong>(Re)-Ran the upgrade script against ESOADEV.</strong></p>
+<ul>
+<li>Minor twiddles and it finished successfully.<br>
+<strong>Testing</strong></li>
+<li>My testing with BrM 5.3 and 6.0 has been <strong><em>very cursory</em></strong>, but I can connect to them, run validation, calculate sufficiency rating, select / unselect etc. etc.&#xA0; No attempts at formulating a future bridge program for the BLP as yet (!!!)</li>
+<li>I do have some apparently bad news.&#xA0; BrM uses Telerik (apparently) and uses the old version that we have determined is vulnerable.&#xA0; &#xA0;<strong><em>The dependency on Telerik may not exist in future versions - don&apos;t know yet.</em></strong></li>
+<li>Also, there is cruft lying around in the web.config which suggests that they did not<br>
+thoroughly&#xA0;check it between 5.3 and 6.0 but I suspect the differences are not profound.</li>
+<li>I ran into a problem trying to tweak <strong>PARAMTRS</strong> table&#xA0;entries for the KDOTBLP_INSPECTIONS special inspection type SPINSPTYPE.&#xA0; I have reported it to Mayvue.  It is issue #BRMSD-6826 <a href="https://bridgeware.atlassian.net/servicedesk/customer/portal/1/BRMSD-6826">https://bridgeware.atlassian.net/servicedesk/customer/portal/1/BRMSD-6826</a></li>
+</ul>
+<p><strong>Augmented and ran script Fixup_Missing_INSPEVNT_User_Identifiers.pdc to fix inspevnt records where user identifiers are null e.g. USERKEY</strong><br>
+<strong>Updated .gitignore to exclude unwanted files fro version control</strong><br>
+<strong>Reset web.config for both BrM 5.3 and 6.0 to use the file names BrM5_3.log and BrM6_0.log respectively for the log4net log files</strong></p>
+<h3>20230126</h3>
+<hr>
+<p><strong>Ran Oracle 6.1 upgrade script after patching the BrM exe.</strong></p>
+<ul>
+<li>It has an error near line 212 - extraneous space before the slash at the end of the ISNUMERIC create script</li>
+</ul>
+<pre data-role="codeBlock" data-info class="language-"><code>-- ARMarshall, ARM_LLC -20230126 - removed extraneous space before the command slash at the bottom of the create script for this function ISNUMERIC
+--Above function (IS_INTEGER) returns false for 0, so creating a new one that actually treats it as a number
+CREATE OR REPLACE FUNCTION ISNUMERIC(p_string IN VARCHAR2)
+   RETURN INT
+IS
+   v_new_num NUMBER;
+BEGIN
+   v_new_num := TO_NUMBER(p_string);
+   RETURN 1;
+EXCEPTION
+WHEN VALUE_ERROR THEN
+   RETURN 0;
+END ISNUMERIC;
+/
+-- ARMarshall, ARM_LLC -20230126 - fixed the slash above to remove space
+</code></pre><ul>
+<li>Validation and sufficiency rating worked after upgrade</li>
+<li>About box does not show the right version though - review of DLL properties shows</li>
+</ul>
+<pre data-role="codeBlock" data-info class="language-"><code>BRIDGEWare.Pontis.www, Version=6.1.0.0, Culture=neutral, PublicKeyToken=null
+</code></pre><p><strong>Ran scripts for 6.2, 6.3, 6.4, 6.5, 6.6 - BrM and Portal both work with the rudimentary testing I performed</strong></p>
+<ul>
+<li>It is important to note the the Portal BrM DLLs are from BrM 5.3, and were NOT updated.  This is <strong><em>presumably OK</em></strong>, given that we want the Portal to behave as it always has.</li>
+<li>Several weird things happening attempting to run BrM 6.4 where MULTIMEDIA was added to the application.  There seeems to be a configuration error and maybe MULTIMEDIA directory permissions issues as well.</li>
+</ul>
+<p><strong>BrM through release 6.5 apparently uses an internal browser tool/control that is essentially an ancient version of Internet Explorer.  This browser control  does not support mapping, so the mapping does not work</strong></p>
+<p><strong>BrM6.6 does not permit logging in as pontis/pontis.  I can login as amyjcoon with her password fine.  That is amazing.</strong></p>
+<h3>20230130</h3>
+<hr>
+<ul>
+<li>the upgrade script destroyed some KDOTBLP foreign key references from KDOTBLP_BRIDGE to BRIDGE and KDOTBLP_INSPECTIONS to INSPEVNT.</li>
+</ul>
+<pre data-role="codeBlock" data-info class="language-"><code>-- Create/Recreate primary, unique and foreign key constraints 
+alter table KDOTBLP_BRIDGE
+  add constraint FK_KDOT_BRIDGE_TO_BRIDGE foreign key (BRIDGE_GD)
+  references bridge (BRIDGE_GD) on delete cascade;
+</code></pre><p>and</p>
+<pre data-role="codeBlock" data-info class="language-"><code>-- Create/Recreate primary, unique and foreign key constraints 
+alter table KDOTBLP_INSPECTIONS
+  add constraint FK_KDOBTLP_INSPS_TO_INSPEVNT foreign key (INSPEVNT_GD)
+  references inspevnt (INSPEVNT_GD) on delete cascade;
+
+</code></pre>
+
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    </body></html>

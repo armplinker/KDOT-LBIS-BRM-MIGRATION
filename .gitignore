@@ -41,3 +41,4 @@
 # exclude specific obsolete interim log files
 /stages/6.0/log/OracleBRM6-20230108T1231.log
 /stages/6.0/log/OracleBRM6-20230109T1252.log
+/docs/MAYVUE JIRA PWD etc.md
