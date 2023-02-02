@@ -1,0 +1,97 @@
+DROP MATERIALIZED VIEW "KDOT_BLP"."MV_NUM_04_NBI41_B";
+
+CREATE MATERIALIZED VIEW "KDOT_BLP"."MV_NUM_04_NBI41_B" 
+ON PREBUILT TABLE
+  USING INDEX 
+  REFRESH FORCE ON DEMAND
+  AS SELECT b1.brkey as BRIDGE_NUMBER,
+       b1.strucname as LPA_BRIDGE_ID,
+       f_get_nbilabel_fromcolumn('bridge.county',b1.county) as NBI_03_COUNTY,
+       b1.bridgegroup as BRIDGE_OWNER,
+       b1.facility as FACILITY_CARRIED,
+       b1.featint as FEAT_INTERSECTED,
+       i1.inspname as INSPECTOR_NAME,
+       DECODE(i1.inspdate,TO_DATE('01/01/1901', 'DD/MM/YYYY'),'01/01/1901',TO_CHAR(i1.inspdate, 'MM/DD/YYYY')) as RECORD_DATE,
+       i1.inspkey as INSPKEY,
+       DECODE(i1.lastinsp,TO_DATE('01/01/1901', 'DD/MM/YYYY'),'01/01/1901',TO_CHAR(i1.lastinsp, 'MM/DD/YYYY')) as NBI_90_LAST_ROUTINE,
+CASE i1.oppostcl
+     WHEN '_' THEN NULL
+     WHEN 'A' THEN 'A - Open, no restriction'
+     WHEN 'B' THEN 'B - Posting Recommended'
+     WHEN 'D' THEN 'D - Open, temp shored'
+     WHEN 'E' THEN 'E - Open, temp structure'
+     WHEN 'G' THEN 'G - New-Not Yet Open'
+     WHEN 'K' THEN 'K - Closed to all traffic'
+     WHEN 'P' THEN 'P - Posted for load'
+     WHEN 'R' THEN 'R - Posted for Non-Load'
+     ELSE 'NA'
+END as NBI_41_OPEN_POSTED_CLOSED,
+CASE
+    WHEN b1.posting = '5' THEN b1.posting || ' - ' || 'NO POSTING REQUIRED'
+    ELSE b1.posting || ' - ' || 'POSTING REQUIRED'
+END as NBI_70_BRIDGE_POSTING,
+CASE
+     WHEN b1.orload > 0 THEN ROUND(b1.orload /** 1.10231131*/, 2) -- ARmarshall ARM LLC -20190501 - removed conversion
+     WHEN b1.orload = 0 THEN 0.0
+     ELSE NULL
+END AS NBI_64_OPER_LOAD_RATING_ET,
+CASE
+     WHEN b1.irload > 0 THEN ROUND(b1.irload /** 1.10231131*/, 2) -- ARmarshall ARM LLC -20190501 - removed conversion
+     WHEN b1.irload = 0 THEN 0.0
+     ELSE NULL
+END AS NBI_66_INV_LOAD_RATING_ET,
+CASE b1.designload
+     WHEN '_' THEN NULL
+     WHEN '0' THEN 'Other or Unknown'
+     WHEN '1' THEN 'H 10'
+     WHEN '2' THEN 'H 15'
+     WHEN '3' THEN 'HS 15'
+     WHEN '4' THEN 'H 20'
+     WHEN '5' THEN 'HS 20'
+     WHEN '6' THEN 'HS20 + mod'
+     WHEN '7' THEN 'Pedestrian'
+     WHEN '8' THEN 'Railroad'
+     WHEN '9' THEN 'HS 25'
+     ELSE 'NA'
+END as NBI_31_DESIGN_LOAD,
+    b1.notes as BRIDGE_NOTES,
+    i1.notes as INSPECTION_NOTES
+    ,b1.bridge_Gd
+    ,mv.Inspevnt_Gd
+from bridge b1
+inner join mv_latest_inspection mv
+on b1.Bridge_Gd=mv.Bridge_Gd
+inner join inspevnt i1
+on mv.inspevnt_gd=i1.inspevnt_gd
+where /*mv.brkey = b1.brkey and
+      i1.inspdate = mv.inspdate and
+      mv.inspkey = i1.inspkey  and
+      i1.brkey = mv.brkey and*/
+     b1.bridgegroup <> 'Removed'
+      and i1.oppostcl = 'B';
+  ALTER TABLE "KDOT_BLP"."MV_NUM_04_NBI41_B" MODIFY ("BRIDGE_GD" NOT NULL ENABLE);
+  ALTER TABLE "KDOT_BLP"."MV_NUM_04_NBI41_B" MODIFY ("INSPEVNT_GD" NOT NULL ENABLE);
+  
+  
+  COMMENT ON MATERIALIZED VIEW "KDOT_BLP"."MV_NUM_04_NBI41_B"  IS 'snapshot KDOT_BLP.MV_NUM_04_NBI41_B';
+  
+  GRANT SELECT ON "KDOT_BLP"."MV_NUM_04_NBI41_B" TO "BRMREADONLY_ROLE";
+  GRANT SELECT ON "KDOT_BLP"."MV_NUM_04_NBI41_B" TO "PONTISWEBADMINISTRATOR";
+  GRANT SELECT ON "KDOT_BLP"."MV_NUM_04_NBI41_B" TO "BLP_LOCAL_AGENCY_REVIEW";
+  GRANT SELECT ON "KDOT_BLP"."MV_NUM_04_NBI41_B" TO "KDOT_BLP_SELECT";
+  GRANT SELECT ON "KDOT_BLP"."MV_NUM_04_NBI41_B" TO "PONTISUSER";
+  GRANT SELECT ON "KDOT_BLP"."MV_NUM_04_NBI41_B" TO "PONTISWEBINSPECTIONSUPERVISOR";
+  GRANT SELECT ON "KDOT_BLP"."MV_NUM_04_NBI41_B" TO "BLP_PORTAL_ADMINISTRATOR";
+  GRANT SELECT ON "KDOT_BLP"."MV_NUM_04_NBI41_B" TO "PONTISWEBINSPECTOR";
+  GRANT SELECT ON "KDOT_BLP"."MV_NUM_04_NBI41_B" TO "PWEBODBCLOGIN";
+  GRANT SELECT ON "KDOT_BLP"."MV_NUM_04_NBI41_B" TO "PWEBLOGINID";
+  GRANT SELECT ON "KDOT_BLP"."MV_NUM_04_NBI41_B" TO "KDOT_BLP_ISU";
+  GRANT SELECT ON "KDOT_BLP"."MV_NUM_04_NBI41_B" TO "BLP_BROWSER";
+  GRANT SELECT ON "KDOT_BLP"."MV_NUM_04_NBI41_B" TO "BLP_LOAD_RATER";
+  GRANT SELECT ON "KDOT_BLP"."MV_NUM_04_NBI41_B" TO "BLP_INSPECTOR";
+  GRANT SELECT ON "KDOT_BLP"."MV_NUM_04_NBI41_B" TO "BLP_TEAM_LEADER";
+  GRANT SELECT ON "KDOT_BLP"."MV_NUM_04_NBI41_B" TO "PONTISWEBBROWSER";
+  GRANT SELECT ON "KDOT_BLP"."MV_NUM_04_NBI41_B" TO "BRMADMIN_ROLE";
+  GRANT DELETE ON "KDOT_BLP"."MV_NUM_04_NBI41_B" TO "BRMADMIN_ROLE";
+  GRANT INSERT ON "KDOT_BLP"."MV_NUM_04_NBI41_B" TO "BRMADMIN_ROLE";
+  GRANT UPDATE ON "KDOT_BLP"."MV_NUM_04_NBI41_B" TO "BRMADMIN_ROLE";

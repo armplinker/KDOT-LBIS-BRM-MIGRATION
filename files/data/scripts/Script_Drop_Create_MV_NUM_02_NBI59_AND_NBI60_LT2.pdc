@@ -1,0 +1,101 @@
+DROP MATERIALIZED VIEW "KDOT_BLP"."MV_NUM_02_NBI59_AND_NBI60_LT2";
+
+CREATE MATERIALIZED VIEW "KDOT_BLP"."MV_NUM_02_NBI59_AND_NBI60_LT2"
+ON PREBUILT TABLE
+  USING INDEX 
+  REFRESH FORCE ON DEMAND 
+  AS SELECT b.Brkey AS Bridge_Number
+      ,b.Strucname AS Lpa_Bridge_Id
+      ,f_Get_Nbilabel_Fromcolumn('bridge.county', b.County) AS Nbi_03_County
+      ,b.Bridgegroup AS Bridge_Owner
+      ,b.Facility AS Facility_Carried
+      ,b.Featint AS Feat_Intersected
+      ,i.Inspname Inspector_Name
+      ,Decode(i.Inspdate
+             ,To_Date('01/01/1901', 'DD/MM/YYYY')
+             ,'01/01/1901'
+             ,To_Char(i.Inspdate, 'MM/DD/YYYY')) AS Record_Date
+      ,i.Inspkey AS Inspkey
+      ,Decode(i.Lastinsp
+             ,To_Date('01/01/1901', 'DD/MM/YYYY')
+             ,'01/01/1901'
+             ,To_Char(i.Lastinsp, 'MM/DD/YYYY')) AS Nbi_90_Last_Routine
+      ,CASE i.Oppostcl
+           WHEN '_' THEN
+            NULL
+           WHEN 'A' THEN
+            'A - Open, no restriction'
+           WHEN 'B' THEN
+            'B - Posting Recommended'
+           WHEN 'D' THEN
+            'D - Open, temp shored'
+           WHEN 'E' THEN
+            'E - Open, temp structure'
+           WHEN 'G' THEN
+            'G - New-Not Yet Open'
+           WHEN 'K' THEN
+            'K - Closed to all traffic'
+           WHEN 'P' THEN
+            'P - Posted for load'
+           WHEN 'R' THEN
+            'R - Posted for Non-Load'
+           ELSE
+            'NA'
+       END AS Nbi_41_Open_Posted_Closed
+      ,CASE
+           WHEN b.Posting = '5' THEN
+            b.Posting || ' - ' || 'NO POSTING REQUIRED'
+           WHEN b.Posting = '_' THEN
+            b.Posting || ' - ' || 'DEFAULT VALUE (Please assign a value)'
+           ELSE
+            b.Posting || ' - ' || 'POSTING REQUIRED'
+       END AS Nbi_70_Bridge_Posting
+      ,b.Tempstruc AS Nbi_103_Temp_Struct
+      ,i.Suprating Nbi_59_Superstructure_Rating
+      ,i.Subrating Nbi_60_Substrcuture_Rating
+      ,b.bridge_GD
+      ,i.inspevnt_GD
+FROM Bridge b
+INNER JOIN Mv_Latest_Inspection mv
+ON b.bridge_GD = mv.bridge_GD
+INNER JOIN Inspevnt i
+ON mv.inspevnt_GD = i.inspevnt_GD
+--roadway r
+WHERE /*mv.brkey = b.brkey and
+      i.inspdate = mv.inspdate and
+      mv.inspkey = i.inspkey and
+      i.brkey = mv.brkey and
+      r.brkey = mv.brkey and
+      r.brkey = i.brkey and*/
+ i.Oppostcl IN ('A', 'B', 'D', 'P', 'R') /*= 'K'*/
+ AND b.Tempstruc <> 'T'
+ AND
+/* 3 different scenarios to check for:  Switch ratings to ( < and < ), ( < and >= ), and ( >= and < )*/
+ i.Suprating < '2'
+ AND i.Subrating < '2'
+ AND Lower(TRIM(b.Bridgegroup)) NOT IN ('transferred', 'removed')
+ AND b.Owner NOT IN ('27', '26')
+;
+  ALTER TABLE "KDOT_BLP"."MV_NUM_02_NBI59_AND_NBI60_LT2" MODIFY ("BRIDGE_GD" NOT NULL ENABLE);
+  ALTER TABLE "KDOT_BLP"."MV_NUM_02_NBI59_AND_NBI60_LT2" MODIFY ("INSPEVNT_GD" NOT NULL ENABLE);
+   COMMENT ON MATERIALIZED VIEW "KDOT_BLP"."MV_NUM_02_NBI59_AND_NBI60_LT2"  IS 'snapshot table for snapshot KDOT_BLP.MV_NUM_02_NBI59_AND_NBI60_LT2';
+  GRANT UPDATE ON "KDOT_BLP"."MV_NUM_02_NBI59_AND_NBI60_LT2" TO "BRMADMIN_ROLE";
+  GRANT INSERT ON "KDOT_BLP"."MV_NUM_02_NBI59_AND_NBI60_LT2" TO "BRMADMIN_ROLE";
+  GRANT DELETE ON "KDOT_BLP"."MV_NUM_02_NBI59_AND_NBI60_LT2" TO "BRMADMIN_ROLE";
+  GRANT SELECT ON "KDOT_BLP"."MV_NUM_02_NBI59_AND_NBI60_LT2" TO "BRMADMIN_ROLE";
+  GRANT SELECT ON "KDOT_BLP"."MV_NUM_02_NBI59_AND_NBI60_LT2" TO "PONTISWEBBROWSER";
+  GRANT SELECT ON "KDOT_BLP"."MV_NUM_02_NBI59_AND_NBI60_LT2" TO "BLP_TEAM_LEADER";
+  GRANT SELECT ON "KDOT_BLP"."MV_NUM_02_NBI59_AND_NBI60_LT2" TO "BLP_INSPECTOR";
+  GRANT SELECT ON "KDOT_BLP"."MV_NUM_02_NBI59_AND_NBI60_LT2" TO "BLP_LOAD_RATER";
+  GRANT SELECT ON "KDOT_BLP"."MV_NUM_02_NBI59_AND_NBI60_LT2" TO "BLP_BROWSER";
+  GRANT SELECT ON "KDOT_BLP"."MV_NUM_02_NBI59_AND_NBI60_LT2" TO "KDOT_BLP_ISU";
+  GRANT SELECT ON "KDOT_BLP"."MV_NUM_02_NBI59_AND_NBI60_LT2" TO "PWEBLOGINID";
+  GRANT SELECT ON "KDOT_BLP"."MV_NUM_02_NBI59_AND_NBI60_LT2" TO "PWEBODBCLOGIN";
+  GRANT SELECT ON "KDOT_BLP"."MV_NUM_02_NBI59_AND_NBI60_LT2" TO "PONTISWEBINSPECTOR";
+  GRANT SELECT ON "KDOT_BLP"."MV_NUM_02_NBI59_AND_NBI60_LT2" TO "BLP_PORTAL_ADMINISTRATOR";
+  GRANT SELECT ON "KDOT_BLP"."MV_NUM_02_NBI59_AND_NBI60_LT2" TO "PONTISWEBINSPECTIONSUPERVISOR";
+  GRANT SELECT ON "KDOT_BLP"."MV_NUM_02_NBI59_AND_NBI60_LT2" TO "PONTISUSER";
+  GRANT SELECT ON "KDOT_BLP"."MV_NUM_02_NBI59_AND_NBI60_LT2" TO "KDOT_BLP_SELECT";
+  GRANT SELECT ON "KDOT_BLP"."MV_NUM_02_NBI59_AND_NBI60_LT2" TO "BLP_LOCAL_AGENCY_REVIEW";
+  GRANT SELECT ON "KDOT_BLP"."MV_NUM_02_NBI59_AND_NBI60_LT2" TO "PONTISWEBADMINISTRATOR";
+  GRANT SELECT ON "KDOT_BLP"."MV_NUM_02_NBI59_AND_NBI60_LT2" TO "BRMREADONLY_ROLE";

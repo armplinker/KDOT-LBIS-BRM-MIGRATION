@@ -1,0 +1,81 @@
+
+SET SERVEROUTPUT ON SIZE UNLIMITED
+
+SPOOL "Script_Build_All_MV_PREBUILT_TABLES_AND_MVS.log"
+
+--SET ECHO ON
+
+WHENEVER SQLERROR CONTINUE
+
+-- Create all the prebuilt backing tables for the MVs
+
+@"Script_Drop_Create_PREBUILT_TABLE_MV_DATABASE_EXPORT_EXCELSHEET.pdc"
+@"Script_Drop_Create_PREBUILT_TABLE_MV_DATABASE_EXPORT_EXCELSHEET_ENGLISH.pdc"
+@"Script_Drop_Create_PREBUILT_TABLE_MV_DATABASE_EXPORT_EXCELSHEET_METRIC.pdc"
+@"Script_Drop_Create_PREBUILT_TABLE_MV_INSP_DATES_FIX.pdc"
+@"Script_Drop_Create_PREBUILT_TABLE_MV_KS_SW_SCOURCRIT_DETAIL.pdc"
+@"Script_Drop_Create_PREBUILT_TABLE_MV_LATEST_ELEMENT_INSPECTION.pdc"
+@"Script_Drop_Create_PREBUILT_TABLE_MV_LATEST_INSPECTION.pdc"
+@"Script_Drop_Create_PREBUILT_TABLE_MV_LATEST_INSPECTION_ANY_INSPTYPE.pdc"
+@"Script_Drop_Create_PREBUILT_TABLE_MV_LATEST_INSPECTION_AR.pdc"
+@"Script_Drop_Create_PREBUILT_TABLE_MV_LATEST_INSPECTION_QAQC.pdc"
+@"Script_Drop_Create_PREBUILT_TABLE_MV_LATEST_LR_INSPECTION.pdc"
+@"Script_Drop_Create_PREBUILT_TABLE_MV_LATEST_NBI_INSPECTION.pdc"
+@"Script_Drop_Create_PREBUILT_TABLE_MV_LATEST_PH_INSPECTION.pdc"
+@"Script_Drop_Create_PREBUILT_TABLE_MV_LATEST_SP_INSPECTION.pdc"
+@"Script_Drop_Create_PREBUILT_TABLE_MV_COMBINED_INSPECTION.pdc"
+@"Script_Drop_Create_PREBUILT_TABLE_MV_NBI_EXPORT_EXCELSHEET.pdc"
+@"Script_Drop_Create_PREBUILT_TABLE_MV_NBI_EXPORT_EXCELSHEET_ENGLISH.pdc"
+@"Script_Drop_Create_PREBUILT_TABLE_MV_NBI_EXPORT_EXCELSHEET_METRIC.pdc"
+@"Script_Drop_Create_PREBUILT_TABLE_MV_NBI_EXPORT_EXCELSHEET_NEW.pdc"
+@"Script_Drop_Create_PREBUILT_TABLE_MV_NUM_01_NBI64_LT_3T.pdc"
+@"Script_Drop_Create_PREBUILT_TABLE_MV_NUM_02_NBI59_AND_NBI60_LT2.pdc"
+@"Script_Drop_Create_PREBUILT_TABLE_MV_NUM_03_NBI64_GT_3_LT_21_T.pdc"
+@"Script_Drop_Create_PREBUILT_TABLE_MV_NUM_04_NBI41_B.pdc"
+@"Script_Drop_Create_PREBUILT_TABLE_MV_OFF_SYSTEM_BRIDGES.pdc"
+@"Script_Drop_Create_PREBUILT_TABLE_MV_OFF_SYSTEM_BRIDGES_NEW.pdc"
+@"Script_Drop_Create_PREBUILT_TABLE_MV_REMOVED_EXPORT_EXCELSHEET.pdc"
+@"Script_Drop_Create_PREBUILT_TABLE_DW_PONTIS_NST_BRDG_MV.pdc"
+
+
+-- Part 2 - create the actual MVs that use these tables
+
+-- these 3 first - others rely on them.
+-- views
+@"Script_Create_Or_Replace_V_Excluded_Bridges_Match_List.pdc"
+@"Script_Create_Or_Replace_V_INSPS_W_FIXED_INSPTYPE.pdc"
+@"Script_Create_Or_Replace_V_BASE_MV_COMBINED_INSPECTION.pdc"
+@"Script_Create_Or_Replace_V_BRIDGES_WITH_SP_INSPECTIONS.pdc"
+@"Script_Create_Or_Replace_V_BRIDGES_WITH_UW_INSPECTIONS.pdc"
+-- mvs referenced by others
+@"Script_Drop_Create_MV_LATEST_INSPECTION.pdc"
+
+-- then the others
+@"Script_Drop_Create_MV_LATEST_INSPECTION_ANY_INSPTYPE.pdc"
+@"Script_Drop_Create_MV_DATABASE_EXPORT_EXCELSHEET.pdc"
+@"Script_Drop_Create_MV_DATABASE_EXPORT_EXCELSHEET_ENGLISH.pdc"
+@"Script_Drop_Create_MV_DATABASE_EXPORT_EXCELSHEET_METRIC.pdc"
+@"Script_Drop_Create_MV_INSP_DATES_FIX.pdc"
+@"Script_Drop_Create_MV_KS_SW_SCOURCRIT_DETAIL.pdc"
+@"Script_Drop_Create_MV_LATEST_ELEMENT_INSPECTION.pdc"
+@"Script_Drop_Create_MV_LATEST_INSPECTION_AR.pdc"
+@"Script_Drop_Create_MV_LATEST_INSPECTION_QAQC.pdc"
+@"Script_Drop_Create_MV_LATEST_LR_INSPECTION.pdc"
+@"Script_Drop_Create_MV_LATEST_NBI_INSPECTION.pdc"
+@"Script_Drop_Create_MV_LATEST_PH_INSPECTION.pdc"
+@"Script_Drop_Create_MV_LATEST_SP_INSPECTION.pdc"
+@"Script_Drop_Create_MV_COMBINED_INSPECTION.pdc"
+@"Script_Drop_Create_MV_NBI_EXPORT_EXCELSHEET.pdc"
+@"Script_Drop_Create_MV_NBI_EXPORT_EXCELSHEET_ENGLISH.pdc"
+@"Script_Drop_Create_MV_NBI_EXPORT_EXCELSHEET_METRIC.pdc"
+@"Script_Drop_Create_MV_NBI_EXPORT_EXCELSHEET_NEW.pdc"
+@"Script_Drop_Create_MV_NUM_01_NBI64_LT_3T.pdc"
+@"Script_Drop_Create_MV_NUM_02_NBI59_AND_NBI60_LT2.pdc"
+@"Script_Drop_Create_MV_NUM_03_NBI64_GT_3_LT_21_T.pdc"
+@"Script_Drop_Create_MV_NUM_04_NBI41_B.pdc"
+@"Script_Drop_Create_MV_OFF_SYSTEM_BRIDGES.pdc"
+@"Script_Drop_Create_MV_OFF_SYSTEM_BRIDGES_NEW.pdc"
+@"Script_Drop_Create_MV_REMOVED_EXPORT_EXCELSHEET.pdc"
+@"Script_Drop_Create_DW_PONTIS_NST_BRDG_MV.pdc"
+
+spool off

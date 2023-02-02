@@ -1,0 +1,52 @@
+
+CREATE OR REPLACE FORCE EDITIONABLE VIEW "KDOT_BLP"."V_INSPS_W_FIXED_INSPTYPE" ("BRKEY", "BRIDGE_GD", "INSPEVNT_GD", "INSPKEY", "INSPTYPE", "NEW_INSPTYPE", "INSPDATE", "LASTINSP", "FCINSPDONE", "FCINSPREQ", "FCINSPFREQ", "FCLASTINSP", "FCINSPTYPE", "UWINSPDONE", "UWINSPREQ", "UWINSPFREQ", "UWLASTINSP", "UWINSPTYPE", "OSINSPDONE", "OSINSPREQ", "OSINSPFREQ", "OSLASTINSP", "SPINSPTYPE") AS 
+  SELECT b.brkey
+        ,b.bridge_gd
+        ,i.Inspevnt_gd
+        ,i.inspkey
+        ,i.Insptype
+        ,'I' As New_INSPTYPE
+        ,i.inspdate
+        ,i.lastinsp
+        ,i.Fcinspdone
+        ,i.Fcinspreq
+        ,i.Fcinspfreq
+        ,i.Fclastinsp
+        ,ki.Fcinsptype
+        ,i.Uwinspdone
+        ,i.Uwinspreq
+        ,i.Uwinspfreq
+        ,i.Uwlastinsp
+        ,ki.Uwinsptype
+        ,i.Osinspdone
+        ,i.Osinspreq
+        ,i.Osinspfreq
+        ,i. Oslastinsp
+        ,ki.spinsptype
+    FROM BRIDGE B Inner Join Inspevnt i
+    On b.BRIDGE_GD=i.BRIDGE_GD
+    LEFT OUTER JOIN Kdotblp_Inspections Ki
+      ON i.Inspevnt_Gd = Ki.Inspevnt_Gd
+   WHERE i.Insptype = 'A'
+     AND Nvl(i.Fcinspdone, '0') = '0'
+     AND Nvl(i.Uwinspdone, '0') = '0'
+     AND Nvl(i.Osinspdone, '0') = '0'
+     AND Nvl(i.Fcinspreq, 'N') = 'N'
+     AND Nvl(i.Uwinspreq, 'N') = 'N'
+     AND Nvl(i.Osinspreq, 'N') = 'N'
+     AND Nvl(i.Fcinspfreq, -1) < 0
+     AND Nvl(i.Uwinspfreq, -1) < 0
+     AND Nvl(i.Osinspfreq, -1) < 0
+     AND Nvl(i.Fclastinsp, To_Date('1901-01-01', 'yyyy-mm-dd')) <=
+         To_Date('1901-01-01', 'yyyy-mm-dd')
+     AND Nvl(i.Uwlastinsp, To_Date('1901-01-01', 'yyyy-mm-dd')) <=
+         To_Date('1901-01-01', 'yyyy-mm-dd')
+     AND Nvl(i.Oslastinsp, To_Date('1901-01-01', 'yyyy-mm-dd')) <=
+         To_Date('1901-01-01', 'yyyy-mm-dd')
+     AND Nvl(Ki.Fcinsptype, -1) <= 0
+     AND Nvl(Ki.Uwinsptype, -1) <= 0
+     AND Nvl(Ki.spinsptype, -1) <= 0
+Order By brkey, inspdate Desc;
+
+GRANT SELECT ON "KDOT_BLP"."V_INSPS_W_FIXED_INSPTYPE" TO "BRMADMIN_ROLE";
+GRANT SELECT ON "KDOT_BLP"."V_INSPS_W_FIXED_INSPTYPE" TO "BRMREADONLY_ROLE";

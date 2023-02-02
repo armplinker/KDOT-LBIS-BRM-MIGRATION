@@ -1,0 +1,101 @@
+DROP MATERIALIZED VIEW  "KDOT_BLP"."MV_LATEST_INSPECTION_ANY_INSPTYPE" ;
+
+/*
+-- "BRIDGE_GD", "INSPEVNT_GD", "BRKEY", "INSPKEY", "INSPDATE",
+-- "INSPTYPE", "FCINSPTYPE", "FCINSPDONE", "FCLASTINSP", "FCINSPREQ", "FCINSPFREQ", 
+-- "UWINSPTYPE", "UWINSPDONE", "UWLASTINSP", "UWINSPREQ", "UWINSPFREQ", 
+-- "SPINSPTYPE", "SPINSPDATE", "OSINSPDONE", "OSLASTINSP", "OSINSPREQ", "OSINSPFREQ",
+-- "LASTINSP", "DATE_ENTERED", "ENTERED_BY_GD", "USERID")  
+*/  
+
+CREATE MATERIALIZED VIEW "KDOT_BLP"."MV_LATEST_INSPECTION_ANY_INSPTYPE" 
+  ON PREBUILT TABLE 
+  USING INDEX 
+  REFRESH FORCE ON DEMAND   
+  AS WITH Cte AS
+ (SELECT cast(b.Brkey as VARCHAR2(15) ) AS BRKEY
+        ,cast(b.Bridge_Gd as VARCHAR2(32)) AS BRIDGE_GD
+        ,cast(I1.Inspkey as VARCHAR2(4)) AS INSPKEY
+        ,cast(i1.Inspevnt_Gd AS VARCHAR2(32)) AS INSPEVNT_GD
+        ,cast(I1.Inspdate AS DATE) AS INSPDATE
+        ,I1.Insptype
+        ,CAST(Ki.Fcinsptype AS NUMBER) AS Fcinsptype
+        ,I1.Fcinspdone
+        ,I1.Fclastinsp
+        ,I1.Fcinspreq
+        ,CAST(I1.Fcinspfreq AS NUMBER) AS Fcinspfreq
+        ,CAST(Ki.Uwinsptype AS NUMBER) AS Uwinsptype
+        ,I1.Uwinspdone
+        ,I1.Uwlastinsp
+        ,I1.Uwinspreq
+        ,CAST(I1.Uwinspfreq AS NUMBER) AS Uwinspfreq
+        ,CAST(Ki.spinsptype AS NUMBER) AS spinsptype
+        ,CAST(ki.SPINSPDATE AS DATE) as SPINSPDATE
+        ,I1.Osinspdone
+        ,I1.Oslastinsp
+        ,I1.Osinspreq
+        ,CAST(I1.Osinspfreq AS NUMBER) AS Osinspfreq
+        ,I1.Lastinsp
+        ,cast(I1.Date_Entered AS DATE) AS DATE_ENTERED
+        ,cast(I1.ENTERED_BY_GD AS VARCHAR2(32)) AS ENTERED_BY_GD
+        ,cast(NVL(pau.USERID,'???') AS VARCHAR2(128)) AS USERID
+         /*  ,f_Nextrinsp_Date(b.Brkey) AS Nextrinsp_Calc
+         ,f_Nextfcinsp_Date(b.Brkey) AS Nextfcinsp_Calc
+         ,f_Nextosinsp_Date(b.Brkey) AS Nextosinsp_Calc*/
+        ,Row_Number() Over(PARTITION BY I1.Bridge_Gd ORDER BY I1.Inspdate DESC, I1.Createdatetime DESC) Rn
+    FROM Inspevnt I1
+    LEFT OUTER JOIN PON_APP_USERS pau on i1.Entered_By_Gd=pau.Pon_App_Users_Gd
+    LEFT OUTER JOIN Kdotblp_Inspections Ki
+      ON (I1.Inspevnt_Gd = Ki.Inspevnt_Gd)
+   INNER JOIN Bridge b
+      ON (I1.Bridge_Gd = b.Bridge_Gd))
+SELECT Cte.Brkey
+      ,Cte.Bridge_Gd
+      ,Cte.Inspkey
+      ,Cte.Inspevnt_Gd
+      ,Cte.Inspdate
+      ,Cte.Insptype
+      ,Cte.Fcinsptype
+      ,Cte.Fcinspdone
+      ,Cte.Fclastinsp
+      ,Cte.Fcinspreq
+      ,Cte.Fcinspfreq
+      ,Cte.Uwinsptype
+      ,Cte.Uwinspdone
+      ,Cte.Uwlastinsp
+      ,Cte.Uwinspreq
+      ,Cte.Uwinspfreq
+      ,Cte.spinsptype
+      ,Cte.spinspdate
+      ,Cte.Osinspdone
+      ,Cte.Oslastinsp
+      ,Cte.Osinspreq
+      ,Cte.Osinspfreq
+      ,Cte.Lastinsp
+      ,Cte.Date_Entered
+      ,Cte.Entered_By_Gd
+      ,Cte.UserId
+  FROM Cte
+ WHERE Cte.Rn = 1;
+  
+   COMMENT ON MATERIALIZED VIEW "KDOT_BLP"."MV_LATEST_INSPECTION_ANY_INSPTYPE"  IS 'Pre-built table for materialized view MV_LATEST_INSPECTION_ANY_INSPTYPE - latest inspection of any type - adjust DDL code in create script if the MV changes';
+  GRANT SELECT ON "KDOT_BLP"."MV_LATEST_INSPECTION_ANY_INSPTYPE" TO "BLP_BROWSER";
+  GRANT SELECT ON "KDOT_BLP"."MV_LATEST_INSPECTION_ANY_INSPTYPE" TO "BLP_INSPECTOR";
+  GRANT SELECT ON "KDOT_BLP"."MV_LATEST_INSPECTION_ANY_INSPTYPE" TO "BLP_LOAD_RATER";
+  GRANT SELECT ON "KDOT_BLP"."MV_LATEST_INSPECTION_ANY_INSPTYPE" TO "BLP_LOCAL_AGENCY_REVIEW";
+  GRANT SELECT ON "KDOT_BLP"."MV_LATEST_INSPECTION_ANY_INSPTYPE" TO "BLP_PORTAL_ADMINISTRATOR";
+  GRANT SELECT ON "KDOT_BLP"."MV_LATEST_INSPECTION_ANY_INSPTYPE" TO "BLP_TEAM_LEADER";
+  GRANT SELECT ON "KDOT_BLP"."MV_LATEST_INSPECTION_ANY_INSPTYPE" TO "BRMADMIN_ROLE";
+  GRANT SELECT ON "KDOT_BLP"."MV_LATEST_INSPECTION_ANY_INSPTYPE" TO "KDOT_BLP_ISU";
+  GRANT SELECT ON "KDOT_BLP"."MV_LATEST_INSPECTION_ANY_INSPTYPE" TO "KDOT_BLP_SELECT";
+  GRANT SELECT ON "KDOT_BLP"."MV_LATEST_INSPECTION_ANY_INSPTYPE" TO "PONTISUSER";
+  GRANT SELECT ON "KDOT_BLP"."MV_LATEST_INSPECTION_ANY_INSPTYPE" TO "PONTISWEBADMINISTRATOR";
+  GRANT SELECT ON "KDOT_BLP"."MV_LATEST_INSPECTION_ANY_INSPTYPE" TO "PONTISWEBBROWSER";
+  GRANT SELECT ON "KDOT_BLP"."MV_LATEST_INSPECTION_ANY_INSPTYPE" TO "PONTISWEBINSPECTIONSUPERVISOR";
+  GRANT SELECT ON "KDOT_BLP"."MV_LATEST_INSPECTION_ANY_INSPTYPE" TO "PONTISWEBINSPECTOR";
+  GRANT SELECT ON "KDOT_BLP"."MV_LATEST_INSPECTION_ANY_INSPTYPE" TO "PWEBLOGINID";
+  GRANT SELECT ON "KDOT_BLP"."MV_LATEST_INSPECTION_ANY_INSPTYPE" TO "PWEBODBCLOGIN";
+  GRANT DELETE ON "KDOT_BLP"."MV_LATEST_INSPECTION_ANY_INSPTYPE" TO "BRMADMIN_ROLE";
+  GRANT INSERT ON "KDOT_BLP"."MV_LATEST_INSPECTION_ANY_INSPTYPE" TO "BRMADMIN_ROLE";
+  GRANT UPDATE ON "KDOT_BLP"."MV_LATEST_INSPECTION_ANY_INSPTYPE" TO "BRMADMIN_ROLE";
+  GRANT SELECT ON "KDOT_BLP"."MV_LATEST_INSPECTION_ANY_INSPTYPE" TO "BRMREADONLY_ROLE";

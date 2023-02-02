@@ -1,0 +1,688 @@
+DROP MATERIALIZED VIEW  "KDOT_BLP"."MV_DATABASE_EXPORT_EXCELSHEET_METRIC";
+
+CREATE MATERIALIZED VIEW "KDOT_BLP"."MV_DATABASE_EXPORT_EXCELSHEET_METRIC"
+/*
+("BRKEY", "LPA_BRIDGE_ID", "NBI_01_STATE_CODE", "NBI_04_PLACE_CODE", "NBI_03_COUNTY", "BRIDGEGROUP", "NBI_05A_ROUTE_ON_UNDER", "HPB_FUNDING_ELIGIBILITY",
+"NBI_05B_ROUTE_TYPE", "NBI_05C_SERVICE_TYPE1", "NBI_5D_ROUTE_NUMBER", "NBI_05E_SUFFIX", "NBI_06A_FEAT_INT", "NBI_09_LOCATION", "NBI_16_LATITUDE", "NBI_17_LONGITUDE",
+"NBI_02_HWY_AGENCY_DISTRICT", "NBI_98A_BORDER_BRIDGE_STATE", "NBI_98B_BORDER_BRIDGE_RESP", "NBI_99_BORDER_BRIDGE_STRUCNUM", "NBI_07_FACILITY_CARRIED", "NBI_26_FUNCT_CLASSIFICATION",
+"NBI_104_NHS_DESIGNATION", "NBI_100_STRAHNET_DESIGNATION", "NBI_100_NATIONAL_TRUCK_NET", "NBI_12_BASE_HWY_NET", "NBI_13A_LRS_INV_ROUTE", "NBI_13B_LRS_SUBRTE_NUM",
+"NBI_11_MILE_POST", "NBI_105_FED_LANDS_HWY", "NBI_20_TOLL", "NBI_21_MAINTENANCE_RESP", "NBI_22_OWNER", "NBI_37_HIST_SIGNIFICANCE", "NBI_101_PARALLEL_STRUCT", 
+"NBI_103_TEMP_STRUCTURE", "NBI_29_AVERAGE_DAILY_TRAF", "NBI_109_AVG_DAILY_TRUCK_TRAF", "NBI_30_YEAR_OF_ADT", "NBI_27_YEAR_BUILT", "NBI_106_YEAR_REHABILITATED", 
+"NBI_102_ONEWAY_OR_TWOWAY_TRAF", "NBI_42A_SERVICE_ON_BRIDGE", "NBI_42B_SERVICE_UNDER_BRIDGE", "NBI_28A_LANES_ON_ROUTE", "NBI_28B_LANES_UNDER_ROUTE", "NBI_19_DETOUR_LENGTH",
+"NBI_66_INVENTORY_LOAD_RTG_MT", "NBI_66_INVENTORY_LOAD_RATING", "NBI_64_OPERATING_LOAD_RATING", "NBI_31_DESIGN_LOAD", "NBI_65_INV_LOAD_RATE_METHOD", "NBI_63_OPER_LOAD_RATE_METHOD",
+"NBI_70_POSTING_REQUIREMENTS", "NBI_41_POSTING_STATUS", "INSPKEY", "RECORD_DATE", "NBI_INSP_DONE", "NBI_91_ROUTINE_INSP_FREQ", "NBI_90_LAST_ROUTINE_INSP",
+"NEXT_ROUTINE_INSP", "FC_INSP_DONE", "NBI_92AA_FC_INSP_REQUIRED", "NBI_92AB_FC_INSP_FREQUENCY", "FC_LAST_DATE", "FC_NEXT_DATE", "UW_INSP_DONE", "NBI_92BA_UW_INSP_REQUIRED", 
+"NBI_92BB_UW_INSP_FREQUENCY", "UW_LAST_DATE", "UW_NEXT_DATE", "OS_INSP_DONE", "NBI_92CA_OS_INSP_REQUIRED", "NBI_92CB_OS_INSP_FREQUENCY", "OS_LAST_DATE",
+"OS_NEXT_DATE", "ELEMENT_INSP_DONE", "ELEMENT_INSP_FREQUENCY", "ELEMENT_INSP_DATE", "ELEMENT_NEXT_DATE", "NBI_75_TYPE_OF_WORK", "NBI_75B_WORK_BY",
+"NBI_76_IMPROVEMENT_LENGTH", "NBI_94_BRIDGE_COST", "NBI_95_ROADWAY_COST", "NBI_96_TOTAL_COST", "NBI_97_YR_OF_IMP_COST_EST", "NBI_114_FUTURE_ADT", 
+"NBI_115_FUTURE_ADT_YEAR", "NBI_112_NBIS_BRIDGE_LENGTH", "NBI_49_STRUCTURE_LENGTH", "NBI_48_MAX_SPAN_LENGTH", "NBI_32_ROUTE_WIDTH_", "NBI_51_BRIDGE_RDWY_WIDTH", 
+"NBI_52_DK_WIDTH_OUT_TO_OUT", "NBI_50A_LT_CURB_WIDTH", "NBI_50B_RT_CURB_WIDTH_ENG", "NBI_34_SKEW2", "NBI_47_ROUTE_HORIZ_CLEARANCE", "NBI_10_MIN_VERT_CLEAR_OVER_RTE",
+"NBI_53_MIN_VERT_CLEAR_OVER_BR", "NBI_33_BRIDGE_MEDIAN", "NBI_35_STRUCTURE_FLARED", "NBI_54A_MIN_VERT_UNRCLR_REF", "NBI_54B_MIN_VERT_UNRCLR", 
+"NBI_55A_MIN_LAT_UNDRCLR_REF_RT", "NBI_55B_MIN_LAT_UNDRCLR_RT", "NBI_56_MIN_LAT_UNDRCLR_LT", "NBI_45_NUMBER_OF_MAIN_SPANS2", "NBI_43B_MAIN_SPAN_DES_TYPE",
+"NBI_43A_MAIN_SPAN_MAT_TYPE", "KDOT_MAIN_MATLDESIGN_CODE", "KDOT_MAIN_MATDSN_LABEL", "KDOT_APPR_MATLDESIGN_CODE", "KDOT_APPR_MATDSN_LABEL", "NBI_107_DECK_TYPE",
+"NBI_108A_DECK_SURFACE", "NBI_108B_MEMBRANE", "NBI_108C_DECK_PROTECTION", "NBI_46_NUMBER_OF_APP_SPANS", "NBI_44B_APP_SPANS_DESIGN_TYPE", 
+"NBI_44A_APP_SPANS_MAT_TYPE", "NBI_58_DECK_CONDITION", "NBI_59_SUPERSTRUCT_CONDITION", "NBI_60_SUBSTRUCT_CONDITION", "NBI_62_CULVERT_CONDITION", 
+"NBI_61_CHANNEL_CONDITION", "NBI_RATING_SD_FO_NE", "NBI_72_BRIDGE_ROUTE_ALIGN", "NBI_71_WATERWAY_ADEQUACY", "NBI_113_SCOUR_VULNERABILITY", 
+"NBI_67_STRUCTURAL_EVALUATION", "NBI_68_DECK_GEOMETRY", "NBI_69_HORIZ_UNDRCLR_APPRAISAL", "SUFFICIENCY_RATING", "NBI_36A_BRIDGE_RAILS", 
+"NBI_36B_RAIL_TRANSITIONS", "NBI_36C_APPROACH_GUARDRAILS", "NBI_36D_APP_GUARDRAIL_ENDS", "NBI_38_NAVIGABLE_WATERWAY", "NBI_39_NAV_VERT_CLEARANCE",
+"NBI_40_NAV_HORIZ_CLEARANCE", "NBI_111_SUBSTRUCT_NAV_PROT", "NBI_116_MIN_NAV_VERT_CLEAR", "BRIDGE_NOTES", "ROADWAY_NOTES", "INSPEVNT_NOTES", "QAQC Status", "DMS_LATITUDE",
+"DMS_LONGITUDE", "BRIDGE_GD", "ROADWAY_GD", "INSPEVNT_GD")
+*/
+ ON PREBUILT TABLE 
+  USING INDEX 
+  REFRESH FORCE ON DEMAND
+  AS SELECT bridge.brkey,
+       bridge.strucname LPA_Bridge_ID,
+       f_get_nbilabel_fromcolumn('bridge.fips_state', bridge.fips_state) as NBI_01_STATE_CODE,
+       f_get_nbilabel_fromcolumn('bridge.placecode', bridge.placecode) as NBI_04_PLACE_CODE,
+       f_get_nbilabel_fromcolumn('bridge.county', bridge.county) as NBI_03_COUNTY,
+       bridge.bridgegroup BRIDGEGROUP,
+       f_get_nbilabel_fromcolumn('roadway.on_under', Roadway.on_under) as NBI_05A_ROUTE_ON_UNDER,
+       --
+       CASE
+         WHEN Inspevnt.nbi_rating IN ('0', 'N') OR
+              Inspevnt.suff_rate >= 80.0 THEN
+          'Not Eligible'
+         WHEN Inspevnt.nbi_rating NOT IN ('0', 'N') AND
+              Inspevnt.suff_rate >= 50.0 AND Inspevnt.suff_rate < 80.0 THEN
+          'Rehabilitation'
+         WHEN Inspevnt.nbi_rating NOT IN ('0', 'N') AND
+              Inspevnt.suff_rate >= 0.0 AND Inspevnt.suff_rate < 50.0 THEN
+          'Replacement'
+         ELSE
+          'Missing SR'
+       END as HPB_FUNDING_ELIGIBILITY,
+       --
+       f_get_nbilabel_fromcolumn('roadway.kind_hwy', Roadway.kind_hwy) as NBI_05B_ROUTE_TYPE,
+       f_get_nbilabel_fromcolumn('roadway.levl_srvc', Roadway.levl_srvc) as NBI_05C_SERVICE_TYPE1,
+       Roadway.routenum NBI_5D_ROUTE_NUMBER,
+       f_get_nbilabel_fromcolumn('roadway.dirsuffix', Roadway.dirsuffix) as NBI_05E_SUFFIX,
+       bridge.featint NBI_06A_FEAT_INT,
+       bridge.location NBI_09_LOCATION,
+       bridge.latitude NBI_16_LATITUDE,
+       bridge.longitude NBI_17_LONGITUDE,
+       --f_dms_to_decimal_degrees('bridge.latitude', bridge.latitude) as DMS_LATITUDE,
+       --f_dms_to_decimal_degrees('bridge.longitude', bridge.longitude) as DMS_LONGITUDE,
+       f_get_nbilabel_fromcolumn('bridge.district', bridge.district) as NBI_02_HWY_AGENCY_DISTRICT,
+       f_get_nbilabel_fromcolumn('bridge.nstatecode', bridge.nstatecode) as NBI_98A_BORDER_BRIDGE_STATE,
+       --f_get_nbilabel_fromcolumn('bridge.bb_pct, NBI_98B_PERCENT_RESPONSIBILITY,
+       TO_NUMBER(DECODE(bridge.bb_pct,
+                        -1,
+                        NULL,
+                        -2,
+                        NULL,
+                        0,
+                        NULL,
+                        bridge.bb_pct)) as NBI_98B_BORDER_BRIDGE_RESP,
+       DECODE(bridge.bb_brdgeid,
+              '-1',
+              null,
+              '-2',
+              null,
+              '0',
+              null,
+              bridge.bb_brdgeid) as NBI_99_BORDER_BRIDGE_STRUCNUM,
+       bridge.facility as NBI_07_FACILITY_CARRIED,
+       f_get_nbilabel_fromcolumn('roadway.funcclass', Roadway.funcclass) as NBI_26_FUNCT_CLASSIFICATION,
+       f_get_nbilabel_fromcolumn('roadway.nhs_ind', Roadway.nhs_ind) as NBI_104_NHS_DESIGNATION,
+       f_get_nbilabel_fromcolumn('roadway.defhwy', Roadway.defhwy) as NBI_100_STRAHNET_DESIGNATION,
+       f_get_nbilabel_fromcolumn('roadway.trucknet', Roadway.trucknet) as NBI_100_NATIONAL_TRUCK_NET,
+       f_get_nbilabel_fromcolumn('roadway.onbasenet', Roadway.onbasenet) as NBI_12_BASE_HWY_NET,
+       DECODE(Roadway.lrsinvrt, '-1', NULL, '-2', NULL, Roadway.lrsinvrt) as NBI_13A_LRS_INV_ROUTE,
+       DECODE(Roadway.subrtnum, '-1', NULL, '-2', NULL, Roadway.subrtnum) as NBI_13B_LRS_SUBRTE_NUM,
+       --
+       CASE
+         WHEN Roadway.kmpost <= 0 THEN
+          NULL
+         WHEN Roadway.kmpost > 0 THEN
+          ROUND(Roadway.kmpost * 1.609344, 1)
+       END as NBI_11_MILE_POST,
+       --
+       f_get_nbilabel_fromcolumn('roadway.fedlandhwy', Roadway.fedlandhwy) as NBI_105_FED_LANDS_HWY,
+       f_get_nbilabel_fromcolumn('roadway.tollfac', Roadway.tollfac) as NBI_20_TOLL,
+       f_get_nbilabel_fromcolumn('bridge.custodian', bridge.custodian) as NBI_21_MAINTENANCE_RESP,
+       f_get_nbilabel_fromcolumn('bridge.owner', bridge.owner) as NBI_22_OWNER,
+       f_get_nbilabel_fromcolumn('bridge.histsign', bridge.histsign) as NBI_37_HIST_SIGNIFICANCE,
+       --
+       CASE bridge.paralstruc
+         WHEN 'L' THEN
+          'Left of || bridge'
+         WHEN 'N' THEN
+          'No || bridge exists'
+         WHEN 'R' THEN
+          'Right of || bridge'
+         ELSE
+          NULL
+       END as NBI_101_PARALLEL_STRUCT,
+       --
+       f_get_nbilabel_fromcolumn('bridge.tempstruc', bridge.tempstruc) as NBI_103_TEMP_STRUCTURE,
+       Roadway.adttotal NBI_29_AVERAGE_DAILY_TRAF,
+       Roadway.truckpct NBI_109_AVG_DAILY_TRUCK_TRAF,
+       Roadway.adtyear NBI_30_YEAR_OF_ADT,
+       bridge.yearbuilt NBI_27_YEAR_BUILT,
+       DECODE(bridge.yearrecon, NULL, '', -1, '', -2, '', bridge.yearrecon) as NBI_106_YEAR_REHABILITATED,
+       f_get_nbilabel_fromcolumn('roadway.trafficdir', Roadway.trafficdir) as NBI_102_ONEWAY_OR_TWOWAY_TRAF,
+       f_get_nbilabel_fromcolumn('bridge.servtypon', bridge.servtypon) as NBI_42A_SERVICE_ON_BRIDGE,
+       f_get_nbilabel_fromcolumn('bridge.servtypund', bridge.servtypund) as NBI_42B_SERVICE_UNDER_BRIDGE,
+       Roadway.lanes NBI_28A_LANES_ON_ROUTE,
+       bridge.sumlanes NBI_28B_LANES_UNDER_ROUTE,
+       --     ROUND (Roadway.bypasslen / 1.609344 , 2)as NBI_19_DETOUR_LENGTH_ENG,
+       CASE
+         WHEN Roadway.bypasslen > 0 THEN
+          ROUND(Roadway.bypasslen * 1.609344, 3)
+         WHEN Roadway.bypasslen = 0 THEN
+          0.0
+         ELSE
+          NULL
+       END AS NBI_19_DETOUR_LENGTH,
+       --
+       CASE
+         WHEN bridge.irload > 0 THEN
+          ROUND(bridge.irload * 1.10231131, 3)
+         WHEN bridge.irload = 0 THEN
+          0.0
+         ELSE
+          NULL
+       END AS NBI_66_INVENTORY_LOAD_RTG_MT,
+       --
+       CASE
+         WHEN bridge.irload > 0 THEN
+          ROUND(bridge.irload * 1.10231131, 3)
+         WHEN bridge.irload = 0 THEN
+          0.0
+         ELSE
+          NULL
+       END AS NBI_66_INVENTORY_LOAD_RATING,
+       --
+       CASE
+         WHEN bridge.orload > 0 THEN
+          ROUND(bridge.orload * 1.10231131, 3)
+         WHEN bridge.orload = 0 THEN
+          0.0
+         ELSE
+          NULL
+       END AS NBI_64_OPERATING_LOAD_RATING,
+       --
+       --     bridge.irload NBI_66_INVENTORY_LOAD_RATING,
+       --     bridge.orload NBI_64_OPERATING_LOAD_RATING,
+       f_get_nbilabel_fromcolumn('bridge.designload', bridge.designload) as NBI_31_DESIGN_LOAD,
+       f_get_nbilabel_fromcolumn('bridge.irtype', bridge.irtype) as NBI_65_INV_LOAD_RATE_METHOD,
+       f_get_nbilabel_fromcolumn('bridge.ortype', bridge.ortype) as NBI_63_OPER_LOAD_RATE_METHOD,
+       f_get_nbilabel_fromcolumn('bridge.posting', bridge.posting) as NBI_70_POSTING_REQUIREMENTS,
+       f_get_nbilabel_fromcolumn('inspevnt.oppostcl', Inspevnt.oppostcl) as NBI_41_POSTING_STATUS,
+       Inspevnt.inspkey as INSPKEY,
+       DECODE(Inspevnt.date_entered,
+              TO_DATE('01/01/1901', 'DD/MM/YYYY'),
+              '01/01/1901',
+              TO_CHAR(Inspevnt.date_entered, 'MM/DD/YYYY')) as RECORD_DATE,
+       --
+       CASE Inspevnt.nbinspdone
+         WHEN '1' THEN
+          'Y'
+         WHEN '0' THEN
+          'N'
+         ELSE
+          Inspevnt.nbinspdone
+       END AS NBI_INSP_DONE,
+       --
+       Inspevnt.brinspfreq NBI_91_ROUTINE_INSP_FREQ,
+       DECODE(Inspevnt.inspdate,
+              TO_DATE('01/01/1901', 'DD/MM/YYYY'),
+              '01/01/1901',
+              TO_CHAR(Inspevnt.inspdate, 'MM/DD/YYYY')) as NBI_90_LAST_ROUTINE_INSP,
+       DECODE(Inspevnt.nextinsp,
+              TO_DATE('01/01/1901', 'DD/MM/YYYY'),
+              '01/01/1901',
+              TO_CHAR(Inspevnt.nextinsp, 'MM/DD/YYYY')) as NEXT_ROUTINE_INSP,
+       --
+       CASE Inspevnt.fcinspdone
+         WHEN '1' THEN
+          'Y'
+         WHEN '0' THEN
+          'N'
+         WHEN '-' THEN
+          NULL
+         ELSE
+          Inspevnt.fcinspdone
+       END AS FC_INSP_DONE,
+       --
+       DECODE(Inspevnt.fcinspreq,
+              null,
+              'N',
+              '0',
+              'N',
+              '1',
+              'Y',
+              Inspevnt.fcinspreq) as NBI_92AA_FC_INSP_REQUIRED,
+       DECODE(Inspevnt.fcinspfreq, '-1', '', 'N', 'N', Inspevnt.fcinspfreq) as NBI_92AB_FC_INSP_FREQUENCY,
+       DECODE(Inspevnt.fclastinsp,
+              NULL,
+              '',
+              TO_DATE('01/01/1901', 'DD/MM/YYYY'),
+              '01/01/1901',
+              TO_CHAR(Inspevnt.fclastinsp, 'MM/DD/YYYY')) as FC_LAST_DATE,
+       DECODE(Inspevnt.fcnextdate,
+              NULL,
+              '',
+              TO_DATE('01/01/1901', 'DD/MM/YYYY'),
+              '01/01/1901',
+              TO_CHAR(Inspevnt.fcnextdate, 'MM/DD/YYYY')) as FC_NEXT_DATE,
+       --
+       CASE Inspevnt.uwinspdone
+         WHEN '1' THEN
+          'Y'
+         WHEN '0' THEN
+          'N'
+         WHEN '-' THEN
+          NULL
+         ELSE
+          Inspevnt.uwinspdone
+       END AS UW_INSP_DONE,
+       --
+       DECODE(Inspevnt.uwinspreq,
+              null,
+              'N',
+              '0',
+              'N',
+              '1',
+              'Y',
+              Inspevnt.uwinspreq) as NBI_92BA_UW_INSP_REQUIRED,
+       DECODE(Inspevnt.uwinspfreq, '-1', '', 'N', 'N', Inspevnt.uwinspfreq) as NBI_92BB_UW_INSP_FREQUENCY,
+       DECODE(Inspevnt.uwlastinsp,
+              NULL,
+              '',
+              TO_DATE('01/01/1901', 'DD/MM/YYYY'),
+              '01/01/1901',
+              TO_CHAR(Inspevnt.uwlastinsp, 'MM/DD/YYYY')) as UW_LAST_DATE,
+       DECODE(Inspevnt.uwnextdate,
+              NULL,
+              '',
+              TO_DATE('01/01/1901', 'DD/MM/YYYY'),
+              '01/01/1901',
+              TO_CHAR(Inspevnt.uwnextdate, 'MM/DD/YYYY')) as UW_NEXT_DATE,
+       --
+       CASE Inspevnt.osinspdone
+         WHEN '1' THEN
+          'Y'
+         WHEN '0' THEN
+          'N'
+         WHEN '-' THEN
+          NULL
+         ELSE
+          Inspevnt.osinspdone
+       END AS OS_INSP_DONE,
+       --
+       DECODE(Inspevnt.osinspreq,
+              null,
+              'N',
+              '0',
+              'N',
+              '1',
+              'Y',
+              Inspevnt.osinspreq) as NBI_92CA_OS_INSP_REQUIRED,
+       DECODE(Inspevnt.osinspfreq, '-1', '', 'N', 'N', Inspevnt.osinspfreq) as NBI_92CB_OS_INSP_FREQUENCY,
+       DECODE(Inspevnt.oslastinsp,
+              NULL,
+              '',
+              TO_DATE('01/01/1901', 'DD/MM/YYYY'),
+              '01/01/1901',
+              TO_CHAR(Inspevnt.oslastinsp, 'MM/DD/YYYY')) as OS_LAST_DATE,
+       DECODE(Inspevnt.osnextdate,
+              NULL,
+              '',
+              TO_DATE('01/01/1901', 'DD/MM/YYYY'),
+              '01/01/1901',
+              TO_CHAR(Inspevnt.osnextdate, 'MM/DD/YYYY')) as OS_NEXT_DATE,
+       --
+       CASE Inspevnt.elinspdone
+         WHEN '1' THEN
+          'Y'
+         WHEN '0' THEN
+          'N'
+         WHEN '-' THEN
+          NULL
+         ELSE
+          Inspevnt.elinspdone
+       END AS ELEMENT_INSP_DONE,
+       --
+       DECODE(Inspevnt.elinspfreq, '-1', '', 'N', 'N', Inspevnt.elinspfreq) as ELEMENT_INSP_FREQUENCY,
+       DECODE(Inspevnt.elinspdate,
+              NULL,
+              '',
+              TO_DATE('01/01/1901', 'DD/MM/YYYY'),
+              '01/01/1901',
+              TO_CHAR(Inspevnt.elinspdate, 'MM/DD/YYYY')) as ELEMENT_INSP_DATE,
+       DECODE(Inspevnt.elnextdate,
+              NULL,
+              '',
+              TO_DATE('01/01/1901', 'DD/MM/YYYY'),
+              '01/01/1901',
+              TO_CHAR(Inspevnt.elnextdate, 'MM/DD/YYYY')) as ELEMENT_NEXT_DATE,
+       f_get_nbilabel_fromcolumn('bridge.propwork', bridge.propwork) as NBI_75_TYPE_OF_WORK,
+       f_get_nbilabel_fromcolumn('bridge.workby', bridge.workby) as NBI_75B_WORK_BY,
+       --
+       CASE
+         WHEN bridge.implen > 0 THEN
+          ROUND(bridge.implen * 0.3048, 1)
+         WHEN bridge.implen = 0 THEN
+          0.0
+         ELSE
+          NULL
+       END AS NBI_76_IMPROVEMENT_LENGTH,
+       --
+       TO_NUMBER(DECODE(bridge.nbiimpcost,
+                        -1,
+                        NULL,
+                        -2,
+                        NULL,
+                        0,
+                        0,
+                        bridge.nbiimpcost)) as NBI_94_BRIDGE_COST,
+       TO_NUMBER(DECODE(bridge.nbirwcost,
+                        -1,
+                        NULL,
+                        -2,
+                        NULL,
+                        0,
+                        0,
+                        bridge.nbirwcost)) as NBI_95_ROADWAY_COST,
+       TO_NUMBER(DECODE(bridge.nbitotcost,
+                        -1,
+                        NULL,
+                        -2,
+                        NULL,
+                        0,
+                        0,
+                        bridge.NBITOTCOST)) as NBI_96_TOTAL_COST,
+       --
+       CASE
+         WHEN TO_CHAR(bridge.nbiyrcost) <= 0 THEN
+          NULL
+         WHEN TO_CHAR(bridge.nbiyrcost) = '1901' THEN
+          NULL
+         WHEN bridge.nbiyrcost > 0 THEN
+          bridge.nbiyrcost
+       END AS NBI_97_YR_OF_IMP_COST_EST,
+       --
+       TO_NUMBER(DECODE(Roadway.adtfuture,
+                        -1,
+                        null,
+                        -2,
+                        null,
+                        0,
+                        0,
+                        Roadway.adtfuture)) as NBI_114_FUTURE_ADT,
+       Roadway.adtfutyear NBI_115_FUTURE_ADT_YEAR,
+       f_get_nbilabel_fromcolumn('bridge.nbislen', bridge.nbislen) as NBI_112_NBIS_BRIDGE_LENGTH,
+       --
+       CASE
+         WHEN bridge.LENGTH = -1 THEN
+          NULL
+         WHEN bridge.LENGTH = -2 THEN
+          NULL
+         WHEN bridge.length = 0 THEN
+          0
+         WHEN bridge.length < 0 THEN
+          bridge.length
+         WHEN bridge.length > 0 THEN
+          ROUND(bridge.length * 0.3048, 2)
+         ELSE
+          NULL
+       END as NBI_49_STRUCTURE_LENGTH,
+       --
+       CASE
+         WHEN bridge.maxspan = -1 THEN
+          NULL
+         WHEN bridge.maxspan = -2 THEN
+          NULL
+         WHEN bridge.maxspan = 0 THEN
+          0
+         WHEN bridge.maxspan < 0 THEN
+          bridge.maxspan
+         WHEN bridge.maxspan > 0 THEN
+          ROUND(bridge.maxspan * 0.3048, 2)
+         ELSE
+          NULL
+       END as NBI_48_MAX_SPAN_LENGTH,
+       --
+       CASE
+         WHEN Roadway.aroadwidth = 0 THEN
+          0
+         WHEN Roadway.aroadwidth < 0 THEN
+          Roadway.aroadwidth
+         WHEN Roadway.aroadwidth > 0 THEN
+          ROUND(Roadway.aroadwidth * 0.3048, 2)
+         ELSE
+          NULL
+       END as NBI_32_ROUTE_WIDTH_,
+       --
+       CASE
+       /*WHEN Roadway.roadwidth = -1 THEN NULL
+       WHEN Roadway.roadwidth = -2 THEN NULL*/
+         WHEN Roadway.roadwidth = 0 THEN
+          0
+         WHEN Roadway.roadwidth < 0 THEN
+          Roadway.roadwidth
+         WHEN Roadway.roadwidth > 0 THEN
+          ROUND(Roadway.roadwidth * 0.3048, 2)
+         ELSE
+          NULL
+       END as NBI_51_BRIDGE_RDWY_WIDTH,
+       --
+       CASE
+         WHEN bridge.deckwidth = 0 THEN
+          0
+         WHEN bridge.deckwidth < 0 THEN
+          bridge.deckwidth
+         WHEN bridge.deckwidth > 0 THEN
+          ROUND(bridge.deckwidth * 0.3048, 2)
+         ELSE
+          NULL
+       END as NBI_52_DK_WIDTH_OUT_TO_OUT,
+       --
+       CASE
+       /*    WHEN bridge.lftcurbsw = -1 THEN NULL
+       WHEN bridge.lftcurbsw = -2 THEN NULL*/
+         WHEN bridge.lftcurbsw = 0 THEN
+          0
+         WHEN bridge.lftcurbsw < 0 THEN
+          bridge.lftcurbsw
+         WHEN bridge.lftcurbsw > 0 THEN
+          ROUND(bridge.lftcurbsw * 0.3048, 2)
+         ELSE
+          NULL
+       END as NBI_50A_LT_CURB_WIDTH,
+       --
+       CASE
+         WHEN bridge.rtcurbsw = 0 THEN
+          0
+       /*    WHEN bridge.rtcurbsw = -1 THEN NULL
+       WHEN bridge.rtcurbsw = -2 THEN NULL*/
+         WHEN bridge.rtcurbsw < 0 THEN
+          bridge.rtcurbsw
+         WHEN bridge.rtcurbsw > 0 THEN
+          ROUND(bridge.rtcurbsw * 0.3048, 2)
+         ELSE
+          NULL
+       END as NBI_50B_RT_CURB_WIDTH_ENG,
+       --
+       TO_NUMBER(DECODE(bridge.skew, -1, NULL, -2, NULL, bridge.skew)) as NBI_34_SKEW2,
+       --
+       CASE
+         WHEN Roadway.hclrinv = 99.99 THEN
+          99.99
+         WHEN Roadway.hclrinv = 0 THEN
+          0
+         WHEN Roadway.hclrinv < 0 THEN
+          Roadway.hclrinv
+         WHEN Roadway.hclrinv > 0 THEN
+          ROUND(Roadway.hclrinv * 0.3048, 2)
+         ELSE
+          NULL
+       END as NBI_47_ROUTE_HORIZ_CLEARANCE,
+       --
+       CASE
+         WHEN Roadway.vclrinv = 99.99 THEN
+          99.99
+         WHEN Roadway.vclrinv = 0 THEN
+          0
+         WHEN Roadway.vclrinv < 0 THEN
+          Roadway.vclrinv
+         WHEN Roadway.vclrinv > 0 THEN
+          ROUND(Roadway.vclrinv * 0.3048, 2)
+         ELSE
+          NULL
+       END as NBI_10_MIN_VERT_CLEAR_OVER_RTE,
+       --
+       CASE
+         WHEN round(bridge.vclrover, 1) = 99.9 THEN
+          99.9
+         WHEN round(bridge.vclrover, 2) = 99.99 THEN
+          99.99
+         WHEN bridge.vclrover = 0 THEN
+          0
+         WHEN bridge.vclrover < 0 THEN
+          bridge.vclrover
+         WHEN bridge.vclrover > 0 THEN
+          ROUND(bridge.vclrover * 0.3048, 2)
+         ELSE
+          NULL
+       END as NBI_53_MIN_VERT_CLEAR_OVER_BR,
+       --
+       f_get_nbilabel_fromcolumn('bridge.bridgemed', bridge.bridgemed) as NBI_33_BRIDGE_MEDIAN,
+       f_get_nbilabel_fromcolumn('bridge.strflared', bridge.strflared) as NBI_35_STRUCTURE_FLARED,
+       f_get_nbilabel_fromcolumn('bridge.refvuc', bridge.refvuc) as NBI_54A_MIN_VERT_UNRCLR_REF,
+       --
+       CASE
+         WHEN round(bridge.vclrunder, 1) = 99.9 THEN
+          99.9
+         WHEN round(bridge.vclrunder, 2) = 99.99 THEN
+          99.99
+         WHEN bridge.vclrunder = 0 THEN
+          0
+         WHEN bridge.vclrunder < 0 THEN
+          bridge.vclrunder
+         WHEN bridge.vclrunder > 0 THEN
+          ROUND(bridge.vclrunder * 0.3048, 2)
+         ELSE
+          NULL
+       END as NBI_54B_MIN_VERT_UNRCLR,
+       --
+       f_get_nbilabel_fromcolumn('bridge.refhuc', bridge.refhuc) as NBI_55A_MIN_LAT_UNDRCLR_REF_RT,
+       --
+       CASE
+         WHEN round(bridge.hclrurt, 1) = 99.9 THEN
+          99.9
+         WHEN bridge.hclrurt = 0 THEN
+          0
+         WHEN bridge.hclrurt < 0 THEN
+          bridge.hclrurt
+         WHEN bridge.hclrurt > 0 THEN
+          ROUND(bridge.hclrurt * 0.3048, 2)
+         ELSE
+          NULL
+       END as NBI_55B_MIN_LAT_UNDRCLR_RT,
+       --
+       CASE
+         WHEN round(bridge.hclrult, 1) = 99.9 THEN
+          99.9
+         WHEN bridge.hclrult = 0 THEN
+          0
+         WHEN bridge.hclrult < 0 THEN
+          bridge.hclrult
+         WHEN bridge.hclrult > 0 THEN
+          ROUND(bridge.hclrult * 0.3048, 2)
+         ELSE
+          NULL
+       END as NBI_56_MIN_LAT_UNDRCLR_LT,
+       --
+       TO_NUMBER(DECODE(bridge.mainspans,
+                        -1,
+                        NULL,
+                        -2,
+                        NULL,
+                        bridge.mainspans)) as NBI_45_NUMBER_OF_MAIN_SPANS2,
+       f_get_nbilabel_fromcolumn('bridge.designmain', bridge.designmain) as NBI_43B_MAIN_SPAN_DES_TYPE,
+       f_get_nbilabel_fromcolumn('bridge.materialmain', bridge.materialmain) as NBI_43A_MAIN_SPAN_MAT_TYPE,
+       NVL(bridge.userkey1, '1001') as kdot_main_matldesign_code, -- LBIS7, LBIS8 - ARMarshall 05/12/2016 - set this to show 1001 instead of UNK when IS NULL
+       f_get_kdot_md_lbl_fr_codes(NVL(bridge.userkey1, '1001'),
+                                  bridge.materialmain,
+                                  bridge.designmain) as kdot_main_matdsn_label, -- LBIS7,LBIS8- ARM updated default code value from invalid number UNK to 1001 here 05/18/2016
+       NVL(bridge.userkey2, '1001') as kdot_appr_matldesign_code, -- LBIS7, LBIS8 - ARMarshall 05/12/2016 - set this to show 1001 instead of UNK when IS NULL
+       f_get_kdot_md_lbl_fr_codes(NVL(bridge.userkey2, '1001'),
+                                  bridge.materialappr,
+                                  bridge.designappr) as kdot_appr_matdsn_label, -- LBIS7,LBIS8- ARM updated default code value from invalid number UNK to 1001 here 05/18/2016
+       f_get_nbilabel_fromcolumn('bridge.dkstructyp', bridge.dkstructyp) as NBI_107_DECK_TYPE,
+       f_get_nbilabel_fromcolumn('bridge.dksurftype', bridge.dksurftype) as NBI_108A_DECK_SURFACE,
+       f_get_nbilabel_fromcolumn('bridge.dkmembtype', bridge.dkmembtype) as NBI_108B_MEMBRANE,
+       f_get_nbilabel_fromcolumn('bridge.dkprotect', bridge.dkprotect) as NBI_108C_DECK_PROTECTION,
+       TO_NUMBER(DECODE(bridge.appspans,
+                        -1,
+                        NULL,
+                        -2,
+                        NULL,
+                        bridge.appspans)) as NBI_46_NUMBER_OF_APP_SPANS,
+       f_get_nbilabel_fromcolumn('bridge.designappr', bridge.designappr) as NBI_44B_APP_SPANS_DESIGN_TYPE,
+       f_get_nbilabel_fromcolumn('bridge.materialappr', bridge.materialappr) as NBI_44A_APP_SPANS_MAT_TYPE,
+       DECODE(Inspevnt.dkrating, '_', '_', '!', '!', Inspevnt.dkrating) as NBI_58_DECK_CONDITION,
+       DECODE(Inspevnt.suprating, '_', '_', '!', '!', Inspevnt.suprating) as NBI_59_SUPERSTRUCT_CONDITION,
+       DECODE(Inspevnt.subrating, '_', '_', '!', '!', Inspevnt.subrating) as NBI_60_SUBSTRUCT_CONDITION,
+       DECODE(Inspevnt.culvrating, '_', '_', '!', '!', Inspevnt.culvrating) as NBI_62_CULVERT_CONDITION,
+       DECODE(Inspevnt.chanrating, '_', '_', '!', '!', Inspevnt.chanrating) as NBI_61_CHANNEL_CONDITION,
+       --
+       CASE Inspevnt.nbi_rating
+         WHEN '1' THEN
+          'Structurally Deficient'
+         WHEN '2' THEN
+          'Functionally Obsolete'
+         ELSE
+          'Not Deficient'
+       END as NBI_RATING_SD_FO_NE,
+       --
+       Inspevnt.appralign as NBI_72_BRIDGE_ROUTE_ALIGN,
+       Inspevnt.wateradeq as NBI_71_WATERWAY_ADEQUACY,
+       Inspevnt.scourcrit as NBI_113_SCOUR_VULNERABILITY,
+       Inspevnt.strrating as NBI_67_STRUCTURAL_EVALUATION,
+       Inspevnt.deckgeom as NBI_68_DECK_GEOMETRY,
+       Inspevnt.underclr as NBI_69_HORIZ_UNDRCLR_APPRAISAL,
+       Inspevnt.suff_rate as SUFFICIENCY_RATING,
+       Inspevnt.railrating as NBI_36A_BRIDGE_RAILS,
+       Inspevnt.transratin as NBI_36B_RAIL_TRANSITIONS,
+       Inspevnt.arailratin as NBI_36C_APPROACH_GUARDRAILS,
+       Inspevnt.aendrating as NBI_36D_APP_GUARDRAIL_ENDS,
+       f_get_nbilabel_fromcolumn('bridge.navcntrol', bridge.navcntrol) as NBI_38_NAVIGABLE_WATERWAY,
+       --
+       CASE
+       /*     WHEN bridge.navvc = -1 THEN NULL
+       WHEN bridge.navvc = -2 THEN NULL*/
+         WHEN bridge.navvc = 0 THEN
+          NULL
+         WHEN bridge.navvc > 0 THEN
+          ROUND(bridge.navvc * 0.3048, 1)
+         ELSE
+          NULL
+       END as NBI_39_NAV_VERT_CLEARANCE,
+       CASE
+       /*     WHEN bridge.navhc = -1 THEN NULL
+       WHEN bridge.navhc = -2 THEN NULL*/
+         WHEN bridge.navhc = 0 THEN
+          NULL
+         WHEN bridge.navhc > 0 THEN
+          ROUND(bridge.navhc * 0.3048, 1)
+         ELSE
+          NULL
+       END as NBI_40_NAV_HORIZ_CLEARANCE,
+       --
+       f_get_nbilabel_fromcolumn('inspevnt.pierprot', Inspevnt.pierprot) as NBI_111_SUBSTRUCT_NAV_PROT,
+       CASE
+         WHEN bridge.lftbrnavcl = -1 THEN
+          NULL
+         WHEN bridge.lftbrnavcl = -2 THEN
+          NULL
+         WHEN bridge.lftbrnavcl = 0 THEN
+          NULL
+         WHEN bridge.lftbrnavcl > 0 THEN
+          ROUND(bridge.lftbrnavcl * 0.3048, 2)
+         ELSE
+          NULL
+       END as NBI_116_MIN_NAV_VERT_CLEAR,
+       --
+       Bridge.notes AS BRIDGE_NOTES,
+       Roadway.notes AS ROADWAY_NOTES,
+       Inspevnt.notes AS INSPEVNT_NOTES,
+       f_get_nbilabel_fromcolumn('bridge.userkey3', bridge.userkey3) as "QAQC Status",
+       f_dms_to_decimal_degrees(bridge.latitude) as DMS_LATITUDE,
+       f_dms_to_decimal_degrees((bridge.longitude) * -1) as DMS_LONGITUDE,
+       Bridge.bridge_gd,
+       Roadway.roadway_gd,
+       inspevnt.inspevnt_gd
+  FROM bridge
+ inner join roadway
+    on bridge.bridge_gd = roadway.bridge_gd
+ inner join mv_latest_inspection
+    on bridge.bridge_gd = mv_latest_inspection.bridge_gd
+ inner join inspevnt
+    on mv_latest_inspection.inspevnt_gd = inspevnt.inspevnt_gd;
+
+
+COMMENT ON MATERIALIZED VIEW "KDOT_BLP"."MV_DATABASE_EXPORT_EXCELSHEET_METRIC"  IS 'snapshot table for snapshot KDOT_BLP.MV_DATABASE_EXPORT_EXCELSHEET_METRIC';
+GRANT DELETE ON "KDOT_BLP"."MV_DATABASE_EXPORT_EXCELSHEET_METRIC" TO "BRMADMIN_ROLE";
+GRANT INSERT ON "KDOT_BLP"."MV_DATABASE_EXPORT_EXCELSHEET_METRIC" TO "BRMADMIN_ROLE";
+GRANT SELECT ON "KDOT_BLP"."MV_DATABASE_EXPORT_EXCELSHEET_METRIC" TO "BRMADMIN_ROLE";
+GRANT UPDATE ON "KDOT_BLP"."MV_DATABASE_EXPORT_EXCELSHEET_METRIC" TO "BRMADMIN_ROLE";
+GRANT SELECT ON "KDOT_BLP"."MV_DATABASE_EXPORT_EXCELSHEET_METRIC" TO "BRMREADONLY_ROLE";
+GRANT SELECT ON "KDOT_BLP"."MV_DATABASE_EXPORT_EXCELSHEET_METRIC" TO "KDOT_BLP_ISU";
+GRANT SELECT ON "KDOT_BLP"."MV_DATABASE_EXPORT_EXCELSHEET_METRIC" TO "KDOT_BLP_SELECT";
+GRANT SELECT ON "KDOT_BLP"."MV_DATABASE_EXPORT_EXCELSHEET_METRIC" TO "PONTISUSER";
+GRANT SELECT ON "KDOT_BLP"."MV_DATABASE_EXPORT_EXCELSHEET_METRIC" TO "PONTISWEBADMINISTRATOR";
+GRANT SELECT ON "KDOT_BLP"."MV_DATABASE_EXPORT_EXCELSHEET_METRIC" TO "PONTISWEBBROWSER";
+GRANT SELECT ON "KDOT_BLP"."MV_DATABASE_EXPORT_EXCELSHEET_METRIC" TO "PONTISWEBINSPECTIONSUPERVISOR";
+GRANT SELECT ON "KDOT_BLP"."MV_DATABASE_EXPORT_EXCELSHEET_METRIC" TO "PONTISWEBINSPECTOR";
+GRANT SELECT ON "KDOT_BLP"."MV_DATABASE_EXPORT_EXCELSHEET_METRIC" TO "PWEBLOGINID";
+GRANT SELECT ON "KDOT_BLP"."MV_DATABASE_EXPORT_EXCELSHEET_METRIC" TO "PWEBODBCLOGIN";
+GRANT SELECT ON "KDOT_BLP"."MV_DATABASE_EXPORT_EXCELSHEET_METRIC" TO "BLP_BROWSER";
+GRANT SELECT ON "KDOT_BLP"."MV_DATABASE_EXPORT_EXCELSHEET_METRIC" TO "BLP_PORTAL_ADMINISTRATOR";
+GRANT SELECT ON "KDOT_BLP"."MV_DATABASE_EXPORT_EXCELSHEET_METRIC" TO "BLP_TEAM_LEADER";
+GRANT SELECT ON "KDOT_BLP"."MV_DATABASE_EXPORT_EXCELSHEET_METRIC" TO "BLP_INSPECTOR";
+GRANT SELECT ON "KDOT_BLP"."MV_DATABASE_EXPORT_EXCELSHEET_METRIC" TO "BLP_LOAD_RATER";
+GRANT SELECT ON "KDOT_BLP"."MV_DATABASE_EXPORT_EXCELSHEET_METRIC" TO "BLP_LOCAL_AGENCY_REVIEW";

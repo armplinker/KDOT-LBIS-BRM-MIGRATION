@@ -1,0 +1,316 @@
+DROP MATERIALIZED VIEW  "KDOT_BLP"."MV_NBI_EXPORT_EXCELSHEET_ENGLISH" ;
+
+CREATE MATERIALIZED VIEW "KDOT_BLP"."MV_NBI_EXPORT_EXCELSHEET_ENGLISH" 
+  ON PREBUILT TABLE 
+  USING INDEX 
+  REFRESH FORCE ON DEMAND 
+  AS SELECT B1.Brkey,        
+        cast(B1.BRIDGE_GD AS VARCHAR2(32) ) as BRIDGE_GD,
+        B1.Bridge_Id,
+        B1.Struct_Num,
+        B1.Strucname,
+        I1.Suff_Rate,
+        f_Get_Nbilabel_Fromcolumn('bridge.fips_state', B1.Fips_State) AS Fips_State,
+        B1.Facility,
+        B1.Location,
+        f_Get_Nbilabel_Fromcolumn('roadway.on_under', R1.On_Under) AS On_Under,
+        cast(R1.ROADWAY_GD AS VARCHAR2(32) ) AS ROADWAY_GD,
+        f_Get_Nbilabel_Fromcolumn('roadway.kind_hwy', R1.Kind_Hwy) AS Kind_Hwy,
+        f_Get_Nbilabel_Fromcolumn('roadway.levl_srvc', R1.Levl_Srvc) AS Levl_Srvc,
+        R1.Routenum,
+        f_Get_Nbilabel_Fromcolumn('roadway.dirsuffix', R1.Dirsuffix) AS Dirsuffix,
+        B1.Bb_Pct,
+        f_Get_Nbilabel_Fromcolumn('bridge.district', B1.District) AS District,
+        f_Get_Nbilabel_Fromcolumn('bridge.county', B1.County) AS County,
+        f_Get_Nbilabel_Fromcolumn('bridge.placecode', B1.Placecode) AS Placecode,
+        R1.Kmpost /*  / 1.609344  */ AS Milepost,
+        B1.Featint,
+        B1.Latitude,
+        B1.Longitude,
+        f_Get_Nbilabel_Fromcolumn('bridge.nstatecode', B1.Nstatecode) AS Nstatecode,
+        B1.Bb_Brdgeid,
+        B1.Appspans,
+        B1.Mainspans,
+        f_Get_Nbilabel_Fromcolumn('bridge.materialmain', B1.Materialmain) AS Materialmain,
+        f_Get_Nbilabel_Fromcolumn('bridge.designmain', B1.Designmain) AS Designmain,
+        f_Get_Nbilabel_Fromcolumn('bridge.materialappr', B1.Materialappr) AS Materialappr,
+        f_Get_Nbilabel_Fromcolumn('bridge.designappr', B1.Designappr) AS Designappr,
+        Nvl(B1.Userkey1, '1001') AS Kdot_Main_Matldesign_Code, -- LBIS7, LBIS8 - ARMarshall 05/12/2016 - set this to show 1001 instead of UNK when IS NULL
+        f_Get_Kdot_Md_Lbl_Fr_Codes(Nvl(B1.Userkey1, '1001')
+                                  ,B1.Materialmain
+                                  ,B1.Designmain) AS Kdot_Main_Matdsn_Label, -- LBIS7,LBIS8- ARM updated default code value from invalid number UNK to 1001 here 05/18/2016
+        Nvl(B1.Userkey2, '1001') AS Kdot_Appr_Matldesign_Code, -- LBIS7, LBIS8 - ARMarshall 05/12/2016 - set this to show 1001 instead of UNK when IS NULL
+        f_Get_Kdot_Md_Lbl_Fr_Codes(Nvl(B1.Userkey2, '1001')
+                                  ,B1.Materialappr
+                                  ,B1.Designappr) AS Kdot_Appr_Matdsn_Label, -- LBIS7,LBIS8- ARM updated default code value from invalid number UNK to 1001 here 05/18/2016
+        f_Get_Nbilabel_Fromcolumn('bridge.dkstructyp', B1.Dkstructyp) AS Dkstructype,
+        f_Get_Nbilabel_Fromcolumn('bridge.dksurftype', B1.Dksurftype) AS Dksurftype,
+        f_Get_Nbilabel_Fromcolumn('bridge.dkmembtype', B1.Dkmembtype) AS Dkmembtype,
+        f_Get_Nbilabel_Fromcolumn('bridge.dkprotect', B1.Dkprotect) AS Dkprotect,
+        B1.Yearbuilt,
+        f_Get_Nbilabel_Fromcolumn('bridge.yearrecon', B1.Yearrecon) AS Yearrecon,
+        f_Get_Nbilabel_Fromcolumn('bridge.servtypon', B1.Servtypon) AS Servtypon,
+        f_Get_Nbilabel_Fromcolumn('bridge.servtypund', B1.Servtypund) AS Servtypund,
+        R1.Lanes,
+        B1.Sumlanes,
+        R1.Bypasslen /* / 1.609344 */ AS Bypasslen,
+        R1.Adttotal,
+        --        r1.truckpct,
+        CASE
+          WHEN R1.Adttotal < 100 THEN
+           NULL
+          WHEN R1.Adttotal > 100 THEN
+           R1.Truckpct
+        END AS Truckpct,
+        R1.Adtyear,
+        B1.Maxspan /* / 0.3048 */ AS Maxspan,
+        B1.Length /* / 0.3048 */ AS Length,
+        B1.Lftcurbsw /* / 0.3048 */ AS Lftcurbsw,
+        B1.Rtcurbsw /* / 0.3048 */ AS Rtcurbsw,
+        R1.Roadwidth /* / 0.3048 */ AS Roadwidth,
+        B1.Deckwidth /* / 0.3048 */ AS Deckwidth,
+        R1.Aroadwidth /* / 0.3048 */ AS Aroadwidth,
+        f_Get_Nbilabel_Fromcolumn('bridge.bridgemed', B1.Bridgemed) AS Bridgemed,
+        B1.Deck_Area /*/ 0.09290304*/ AS Deck_Area,
+        B1.Skew,
+        f_Get_Nbilabel_Fromcolumn('bridge.strflared', B1.Strflared) AS Strflared,
+        B1.Vclrover /* / 0.3048 */ AS Vclrover,
+        f_Get_Nbilabel_Fromcolumn('bridge.refvuc', B1.Refvuc) AS Refvuc,
+        B1.Vclrunder /* / 0.3048 */ AS Vclrunder,
+        f_Get_Nbilabel_Fromcolumn('bridge.refhuc', B1.Refhuc) AS Refhuc,
+        B1.Hclrurt /* / 0.3048 */ AS Hclrurt,
+        B1.Hclrult /* / 0.3048 */ AS Hclrult,
+        I1.Inspkey,
+        cast(I1.INSPEVNT_GD AS VARCHAR2(32)) AS INSPEVNT_GD,
+        I1.Inspdate,
+        CASE I1.Nbinspdone
+          WHEN '1' THEN
+           'Y'
+          WHEN '0' THEN
+           'N'
+          ELSE
+           I1.Nbinspdone
+        END AS Nbinspdone,
+        I1.Brinspfreq,
+        I1.Lastinsp,
+        I1.Nextinsp,
+        --         i1.fcinspdone,
+        CASE I1.Fcinspdone
+          WHEN '1' THEN
+           'Y'
+          WHEN '0' THEN
+           'N'
+          WHEN '-' THEN
+           NULL
+          ELSE
+           I1.Fcinspdone
+        END AS Fcinspdone,
+        --         i1.fcinspfreq,
+        CASE I1.Fcinspfreq
+          WHEN -1 THEN
+           NULL
+          WHEN 0 THEN
+           NULL
+          ELSE
+           To_Char(I1.Fcinspfreq)
+        END AS Fcinspfreq,
+        --         i1.fcinspreq,
+        CASE I1.Fcinspreq
+          WHEN '1' THEN
+           'Y'
+          WHEN '0' THEN
+           'N'
+          WHEN '-1' THEN
+           NULL
+          ELSE
+           I1.Fcinspreq
+        END AS Fcinspreq,
+        I1.Fcnextdate,
+        I1.Fclastinsp,
+        --        i1.uwinspdone,
+        CASE I1.Uwinspdone
+          WHEN '1' THEN
+           'Y'
+          WHEN '0' THEN
+           'N'
+          WHEN '-' THEN
+           NULL
+          ELSE
+           I1.Uwinspdone
+        END AS Uwinspdone,
+        --         i1.uwinspreq,
+        CASE I1.Uwinspreq
+          WHEN '1' THEN
+           'Y'
+          WHEN '0' THEN
+           'N'
+          WHEN '-1' THEN
+           NULL
+          ELSE
+           I1.Uwinspreq
+        END AS Uwinspreq,
+        --         i1.uwinspfreq,
+        CASE I1.Uwinspfreq
+          WHEN -1 THEN
+           NULL
+          WHEN 0 THEN
+           NULL
+          ELSE
+           To_Char(I1.Uwinspfreq)
+        END AS Uwinspfreq,
+        I1.Uwlastinsp,
+        I1.Uwnextdate,
+        --         i1.osinspdone,
+        CASE I1.Osinspdone
+          WHEN '1' THEN
+           'Y'
+          WHEN '0' THEN
+           'N'
+          WHEN '-' THEN
+           NULL
+          ELSE
+           I1.Osinspdone
+        END AS Osinspdone,
+        --         i1.osinspreq,
+        CASE I1.Osinspreq
+          WHEN '1' THEN
+           'Y'
+          WHEN '0' THEN
+           'N'
+          WHEN '-1' THEN
+           NULL
+          ELSE
+           I1.Osinspreq
+        END AS Osinspreq,
+        --         i1.osinspfreq,
+        CASE I1.Osinspfreq
+          WHEN -1 THEN
+           NULL
+          WHEN 0 THEN
+           NULL
+          ELSE
+           To_Char(I1.Osinspfreq)
+        END AS Osinspfreq,
+        I1.Oslastinsp,
+        I1.Osnextdate,
+        --         i1.elinspdone,
+        CASE I1.Elinspdone
+          WHEN '1' THEN
+           'Y'
+          WHEN '0' THEN
+           'N'
+          WHEN '-' THEN
+           NULL
+          ELSE
+           I1.Elinspdone
+        END AS Elinspdone,
+        --         i1.elinspfreq,
+        CASE I1.Elinspfreq
+          WHEN -1 THEN
+           NULL
+          WHEN 0 THEN
+           NULL
+          ELSE
+           To_Char(I1.Elinspfreq)
+        END AS Elinspfreq,
+        I1.Elinspdate,
+        I1.Elnextdate,
+        f_Get_Nbilabel_Fromcolumn('roadway.defhwy', R1.Defhwy) AS Defhwy,
+        f_Get_Nbilabel_Fromcolumn('bridge.paralstruc', B1.Paralstruc) AS Paralstruc,
+        f_Get_Nbilabel_Fromcolumn('roadway.trafficdir', R1.Trafficdir) AS Trafficdir,
+        f_Get_Nbilabel_Fromcolumn('bridge.tempstruc', B1.Tempstruc) AS Tempstruc,
+        f_Get_Nbilabel_Fromcolumn('roadway.nhs_ind', R1.Nhs_Ind) AS Nhs_Ind,
+        f_Get_Nbilabel_Fromcolumn('bridge.nbislen', B1.Nbislen) AS Nbislen,
+        f_Get_Nbilabel_Fromcolumn('roadway.tollfac', R1.Tollfac) AS Tollfac,
+        f_Get_Nbilabel_Fromcolumn('roadway.funcclass', R1.Funcclass) AS Funclass,
+        f_Get_Nbilabel_Fromcolumn('bridge.histsign', B1.Histsign) AS Histsign,
+        f_Get_Nbilabel_Fromcolumn('bridge.owner', B1.Owner) AS Owner,
+        f_Get_Nbilabel_Fromcolumn('bridge.custodian', B1.Custodian) AS Custodian,
+        f_Get_Nbilabel_Fromcolumn('inspevnt.dkrating', I1.Dkrating) AS Dkrating,
+        f_Get_Nbilabel_Fromcolumn('inspevnt.suprating', I1.Suprating) AS Suprating,
+        f_Get_Nbilabel_Fromcolumn('inspevnt.subrating', I1.Subrating) AS Subrating,
+        f_Get_Nbilabel_Fromcolumn('inspevnt.culvrating', I1.Culvrating) AS Culvrating,
+        f_Get_Nbilabel_Fromcolumn('inspevnt.chanrating', I1.Chanrating) AS Chanrating,
+        f_Get_Nbilabel_Fromcolumn('bridge.irtype', B1.Irtype) AS Irtype,
+        f_Get_Nbilabel_Fromcolumn('bridge.ortype', B1.Ortype) AS Ortype,
+        B1.Irload,
+        B1.Orload,
+        f_Get_Nbilabel_Fromcolumn('bridge.designload', B1.Designload) AS Designload,
+        f_Get_Nbilabel_Fromcolumn('bridge.posting', B1.Posting) AS Posting,
+        f_Get_Nbilabel_Fromcolumn('inspevnt.oppostcl', I1.Oppostcl) AS Oppostcl,
+        f_Get_Nbilabel_Fromcolumn('inspevnt.railrating', I1.Railrating) AS Railrating,
+        f_Get_Nbilabel_Fromcolumn('inspevnt.arailratin', I1.Arailratin) AS Arailrating,
+        f_Get_Nbilabel_Fromcolumn('inspevnt.transratin', I1.Transratin) AS Transratin,
+        f_Get_Nbilabel_Fromcolumn('inspevnt.aendrating', I1.Aendrating) AS Aendrating,
+        f_Get_Nbilabel_Fromcolumn('inspevnt.strrating', I1.Strrating) AS Strrating,
+        f_Get_Nbilabel_Fromcolumn('inspevnt.deckgeom', I1.Deckgeom) AS Deckgeom,
+        I1.Underclr,
+        f_Get_Nbilabel_Fromcolumn('inspevnt.wateradeq', I1.Wateradeq) AS Wateradeq,
+        f_Get_Nbilabel_Fromcolumn('inspevnt.appralign', I1.Appralign) AS Appralign,
+        f_Get_Nbilabel_Fromcolumn('inspevnt.scourcrit', I1.Scourcrit) AS Scourcrit,
+        B1.Nbiimpcost,
+        f_Get_Nbilabel_Fromcolumn('bridge.propwork', B1.Propwork) AS Propwork,
+        --         b1.nbirwcost,
+        CASE
+          WHEN B1.Nbirwcost <= 0 THEN
+           NULL
+          WHEN B1.Nbirwcost > 0 THEN
+           B1.Nbirwcost
+          ELSE
+           NULL
+        END AS Nbirwcost,
+        B1.Implen /* / 0.3048 */ AS Implen,
+        --         b1.nbitotcost,
+        CASE
+          WHEN B1.Nbitotcost <= 0 THEN
+           NULL
+          WHEN B1.Nbitotcost > 0 THEN
+           B1.Nbitotcost
+        END AS Nbitotcost,
+        R1.Adtfuture,
+        --         b1.nbiyrcost,
+        CASE
+          WHEN B1.Nbiyrcost <= 0 THEN
+           NULL
+          WHEN B1.Nbiyrcost > 0 THEN
+           B1.Nbiyrcost
+        END AS Nbiyrcost,
+        R1.Adtfutyear,
+        f_Get_Nbilabel_Fromcolumn('bridge.navcntrol', B1.Navcntrol) AS Navcntrol,
+        B1.Navvc /* / 0.3048 */ AS Navvc,
+        B1.Navhc /* / 0.3048 */ AS Navhc,
+        f_Get_Nbilabel_Fromcolumn('inspevnt.pierprot', I1.Pierprot) AS Pierprot,
+        B1.Lftbrnavcl /* / 0.3048 */ AS Lftbrnavcl,
+        f_Get_Nbilabel_Fromcolumn('inspevnt.nbi_rating', I1.Nbi_Rating) AS Nbi_Rating,
+        B1.Notes AS Bridge_Notes,
+        R1.Notes AS Roadway_Notes,
+        I1.Notes AS Inspevnt_Notes         
+   FROM Bridge B1
+   inner join Roadway R1
+   on R1.Bridge_Gd = B1.Bridge_Gd
+   inner join Mv_Latest_Inspection Mv
+   on Mv.Bridge_Gd = B1.Bridge_Gd
+   inner join
+    Inspevnt I1
+    on mv.inspevnt_gd=I1.Inspevnt_Gd;
+          
+  GRANT UPDATE ON "KDOT_BLP"."MV_NBI_EXPORT_EXCELSHEET_ENGLISH" TO "BRMADMIN_ROLE";
+  GRANT INSERT ON "KDOT_BLP"."MV_NBI_EXPORT_EXCELSHEET_ENGLISH" TO "BRMADMIN_ROLE";
+  GRANT DELETE ON "KDOT_BLP"."MV_NBI_EXPORT_EXCELSHEET_ENGLISH" TO "BRMADMIN_ROLE";
+  GRANT SELECT ON "KDOT_BLP"."MV_NBI_EXPORT_EXCELSHEET_ENGLISH" TO "BRMADMIN_ROLE";
+  GRANT SELECT ON "KDOT_BLP"."MV_NBI_EXPORT_EXCELSHEET_ENGLISH" TO "KDOT_BLP_ISU";
+  GRANT SELECT ON "KDOT_BLP"."MV_NBI_EXPORT_EXCELSHEET_ENGLISH" TO "KDOT_BLP_SELECT";
+  GRANT SELECT ON "KDOT_BLP"."MV_NBI_EXPORT_EXCELSHEET_ENGLISH" TO "BLP_TEAM_LEADER";
+  GRANT SELECT ON "KDOT_BLP"."MV_NBI_EXPORT_EXCELSHEET_ENGLISH" TO "BLP_PORTAL_ADMINISTRATOR";
+  GRANT SELECT ON "KDOT_BLP"."MV_NBI_EXPORT_EXCELSHEET_ENGLISH" TO "BLP_LOCAL_AGENCY_REVIEW";
+  GRANT SELECT ON "KDOT_BLP"."MV_NBI_EXPORT_EXCELSHEET_ENGLISH" TO "BLP_LOAD_RATER";
+  GRANT SELECT ON "KDOT_BLP"."MV_NBI_EXPORT_EXCELSHEET_ENGLISH" TO "BLP_INSPECTOR";
+  GRANT SELECT ON "KDOT_BLP"."MV_NBI_EXPORT_EXCELSHEET_ENGLISH" TO "BLP_BROWSER";
+  GRANT SELECT ON "KDOT_BLP"."MV_NBI_EXPORT_EXCELSHEET_ENGLISH" TO "PWEBODBCLOGIN";
+  GRANT SELECT ON "KDOT_BLP"."MV_NBI_EXPORT_EXCELSHEET_ENGLISH" TO "PWEBLOGINID";
+  GRANT SELECT ON "KDOT_BLP"."MV_NBI_EXPORT_EXCELSHEET_ENGLISH" TO "PONTISWEBINSPECTOR";
+  GRANT SELECT ON "KDOT_BLP"."MV_NBI_EXPORT_EXCELSHEET_ENGLISH" TO "PONTISWEBINSPECTIONSUPERVISOR";
+  GRANT SELECT ON "KDOT_BLP"."MV_NBI_EXPORT_EXCELSHEET_ENGLISH" TO "PONTISWEBBROWSER";
+  GRANT SELECT ON "KDOT_BLP"."MV_NBI_EXPORT_EXCELSHEET_ENGLISH" TO "PONTISWEBADMINISTRATOR";
+  GRANT SELECT ON "KDOT_BLP"."MV_NBI_EXPORT_EXCELSHEET_ENGLISH" TO "PONTISUSER";
+  GRANT SELECT ON "KDOT_BLP"."MV_NBI_EXPORT_EXCELSHEET_ENGLISH" TO "BRMREADONLY_ROLE";

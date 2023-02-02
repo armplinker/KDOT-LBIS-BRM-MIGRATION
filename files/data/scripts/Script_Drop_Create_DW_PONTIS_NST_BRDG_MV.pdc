@@ -1,0 +1,1109 @@
+DROP MATERIALIZED VIEW "KDOT_BLP"."DW_PONTIS_NST_BRDG_MV";
+
+CREATE MATERIALIZED VIEW "KDOT_BLP"."DW_PONTIS_NST_BRDG_MV" 
+/*
+("BRKEY", "BRIDGE_ID", "STRUCT_NUM", "SUFF_RATE", "FIPS_STATE", "FIPS_STATE_CASE", "FACILITY", "LOCATION", "ON_UNDER",
+"ON_UNDER_CASE", "KIND_HWY", "KIND_HWY_CASE", "LEVL_SRVC", "LEVL_SRVC_CASE", "ROUTENUM", "DIRSUFFIX", "DIRSUFFIX_CASE",
+"BB_PCT", "BRIDGEGROUP", "DISTRICT", "DISTRICT_CASE", "COUNTY", "COUNTY_CASE", "PLACECODE", "PLACECODE_CASE", "MILEPOST",
+"FEATINT", "LATITUDE", "LONGITUDE", "NSTATECODE", "NSTATECODE_CASE", "BB_BRDGEID", "BB_BRDGEID_CASE", "APPSPANS", "APPSPANS_CASE", "MAINSPANS",
+"MATERIALMAIN", "MATERIALMAIN_CASE", "DESIGNMAIN", "DESIGNMAIN_CASE", "MATERIALAPPR", "MATERIALAPPR_CASE", "DESIGNAPPR", "DESIGNAPPR_CASE", 
+"DKSTRUCTYP", "DKSTRUCTYP_CASE", "DKSURFTYPE", "DKSURFTYPE_CASE", "DKMEMBTYPE", "DKMEMBTYPE_CASE", "DKPROTECT", "DKPROTECT_CASE", "YEARBUILT", 
+"YEARRECON", "YEARRECON_CASE", "SERVTYPON", "SERVTYPON_CASE", "SERVTYPUND", "SERVTYPUND_CASE", "LANES", "SUMLANES", "BYPASSLEN_ENG", "ADTTOTAL", 
+"TRUCKPCT", "ADTYEAR", "MAXSPAN_ENG", "LENGTH_ENG", "LFTCURBSW_ENG", "RTCURBSW_ENG", "ROADWIDTH_ENG", "DECKWIDTH_ENG", "AROADWIDTH_ENG", "BRIDGEMED",
+"BRIDGEMED_CASE", "DECK_AREA_ENG", "SKEW", "STRFLARED", "STRFLARED_CASE", "VCLROVER_ENG", "REFVUC", "REFVUC_CASE",
+"VCLRUNDER_ENG", "REFHUC", "REFHUC_CASE", "HCLRURT_ENG", "HCLRULT_ENG", "INSPKEY", "INSPDATE", "NBINSPDONE", "NBINSPDONE_CASE",
+"BRINSPFREQ", "LASTINSP", "NEXTINSP", "FCINSPDONE", "FCINSPDONE_CASE", "FCINSPREQ", "FCINSPREQ_CASE", "FCINSPFREQ", "FCINSPFREQ_CASE"
+, "FCNEXTDATE", "FCLASTINSP", "UWINSPDONE", "UWINSPDONE_CASE", "UWINSPREQ", "UWINSPREQ_CASE", "UWINSPFREQ", "UWINSPFREQ_CASE", "UWLASTINSP",
+"UWNEXTDATE", "OSINSPDONE", "OSINSPDONE_CASE", "OSINSPREQ", "OSINSPREQ_CASE", "OSINSPFREQ", "OSINSPFREQ_CASE", "OSLASTINSP", "OSNEXTDATE",
+"ELINSPDONE", "ELINSPDONE_CASE", "ELINSPFREQ", "ELINSPFREQ_CASE", "ELINSPDATE", "ELNEXTDATE", "DEFHWY", "DEFHWY_CASE", "PARALSTRUC", 
+"PARALSTRUC_CASE", "TRAFFICDIR", "TRAFFICDIR_CASE", "TEMPSTRUC", "TEMPSTRUC_CASE", "NHS_IND", "NHS_IND_CASE", "NBISLEN", "NBISLEN_CASE", "TOLLFAC",
+"FUNCCLASS", "FUNCCLASS_CASE", "HISTSIGN", "HISTSIGN_CASE", "OWNER", "OWNER_CASE", "CUSTODIAN", "CUSTODIAN_CASE", "DKRATING", "DKRATING_CASE", "SUPRATING",
+"SUPRATING_CASE", "SUBRATING", "SUBRATING_CASE", "CULVRATING", "CULVRATING_CASE", "CHANRATING", "CHANRATING_CASE", "IRTYPE", "IRTYPE_CASE",
+"ORTYPE", "ORTYPE_CASE", "IRLOAD", "ORLOAD", "DESIGNLOAD", "DESIGNLOAD_CASE", "POSTING", "POSTING_CASE", "OPPOSTCL", "OPPOSTCL_CASE", "RAILRATING",
+"RAILRATING_CASE", "ARAILRATIN", "ARAILRATIN_CASE", "TRANSRATIN", "TRANSRATIN_CASE", "AENDRATING", "AENDRATING_CASE", "STRRATING", "STRRATING_CASE",
+"DECKGEOM", "DECKGEOM_CASE", "UNDERCLR", "WATERADEQ", "WATERADEQ_CASE", "APPRALIGN", "APPRALIGN_CASE", "SCOURCRIT", "SCOURCRIT_CASE", "NBIIMPCOST",
+"PROPWORK", "PROPWORK_CASE", "NBIRWCOST", "IMPLEN_ENG", "NBITOTCOST", "ADTFUTURE", "NBIYRCOST", "ADTFUTYEAR", "NAVCNTROL", "NAVCNTROL_CASE",
+"NAVVC_ENG", "NAVHC_ENG", "PIERPROT", "PIERPROT_CASE", "LFTBRNAVCL_ENG", "NBI_RATING", "NBI_RATING_CASE", "BRIDGE_GD", "ROADWAY_GD", "INSPEVNT_GD")
+ */
+  ON PREBUILT TABLE 
+  USING INDEX 
+  REFRESH FORCE ON DEMAND
+  AS SELECT br.brkey,
+       br.bridge_id,
+       br.struct_num,
+       i1.suff_rate,
+       br.fips_state,
+CASE br.fips_state
+    WHEN '08' THEN 'COLORADO'
+    WHEN '29' THEN 'MISSOURI'
+    WHEN '31' THEN 'NEBRASKA'
+    WHEN '40' THEN 'OKLAHOMA'
+    WHEN '20' THEN 'KANSAS'
+    ELSE 'KANSAS'
+END as fips_state_case,
+       br.facility,
+       br.location,
+       r1.on_under,
+CASE r1.on_under
+    WHEN '1' THEN 'Route On Structure'
+    WHEN '2' THEN 'One Route Under'
+    WHEN 'A' THEN '1st Route Under'
+    WHEN 'B' THEN '2nd Route Under'
+    WHEN 'C' THEN '3rd Route Under'
+    WHEN 'D' THEN '4th Route Under'
+    WHEN 'E' THEN '5th Route Under'
+    WHEN 'F' THEN '6th Route Under'
+    WHEN 'G' THEN '7th Route Under'
+    WHEN 'H' THEN '8th Route Under'
+    WHEN 'I' THEN '9th Route Under'
+    WHEN 'J' THEN '10th Route Under'
+    WHEN 'K' THEN '11th Route Under'
+    WHEN 'L' THEN '12th Route Under'
+    WHEN 'M' THEN '13th Route Under'
+    WHEN 'N' THEN '14th Route Under'
+    WHEN 'O' THEN '15th Route Under'
+    WHEN 'P' THEN '16th Route Under'
+    WHEN 'Q' THEN '17th Route Under'
+    WHEN 'R' THEN '18th Route Under'
+    WHEN 'S' THEN '19th Route Under'
+    WHEN 'T' THEN '20th Route Under'
+    WHEN 'U' THEN '21st Route Under'
+    WHEN 'V' THEN '22nd Route Under'
+    WHEN 'W' THEN '23rd Route Under'
+    WHEN 'X' THEN '24th Route Under'
+    WHEN 'Y' THEN '25th Route Under'
+    WHEN 'Z' THEN '26th Route Under'
+    ELSE 'UKNOWN'
+END on_under_case,
+       r1.kind_hwy,
+CASE r1.kind_hwy
+     WHEN '!' THEN 'Not Applicable (P)'
+     WHEN '1' THEN 'Interstate Hwy'
+     WHEN '2' THEN 'U.S. Numbered Hwy'
+     WHEN '3' THEN 'State Hwy'
+     WHEN '4' THEN 'County Hwy'
+     WHEN '5' THEN 'City Street'
+     WHEN '6' THEN 'Federal Lands Road'
+     WHEN '7' THEN 'State Lands Road'
+     WHEN '8' THEN 'Other (incl toll rds)'
+     ELSE 'UKNOWN'
+END as kind_hwy_case,
+       r1.levl_srvc,
+CASE r1.levl_srvc
+     WHEN '0' THEN 'None of the Below'
+     WHEN '1' THEN 'Mainline'
+     WHEN '2' THEN 'Alternate'
+     WHEN '3' THEN 'Bypass'
+     WHEN '4' THEN 'Spur'
+     WHEN '6' THEN 'Business'
+     WHEN '7' THEN 'Ramp'
+     WHEN '8' THEN 'Service Road'
+     ELSE NULL
+END as levl_srvc_case,
+       r1.routenum,
+       r1.dirsuffix,
+CASE r1.dirsuffix
+    WHEN '1' THEN 'North'
+    WHEN '2' THEN 'East'
+    WHEN '3' THEN 'South'
+    WHEN '4' THEN 'West'
+    ELSE 'Not Applicable'
+END as dirsuffix_case,
+       br.bb_pct,
+       br.bridgegroup,
+       br.district,
+CASE br.district
+    WHEN '-1' THEN 'Not Applicable'
+    WHEN '-2' THEN 'Not Applicable'
+    WHEN '01' THEN 'Topeka'
+    WHEN '02' THEN 'Salina'
+    WHEN '03' THEN 'Norton'
+    WHEN '04' THEN 'Chanute'
+    WHEN '05' THEN 'Hutchinson'
+    WHEN '06' THEN 'Garden City'
+    ELSE 'ERROR'
+END as district_case,
+       br.county,
+CASE br.county
+    WHEN '-1' THEN ''
+    WHEN '-2' THEN 'Not Applicable'
+    WHEN '001' THEN 'Allen'
+    WHEN '003' THEN 'Anderson'
+    WHEN '005' THEN 'Atchison'
+    WHEN '007' THEN 'Barber'
+    WHEN '009' THEN 'Barton'
+    WHEN '011' THEN 'Bourbon'
+    WHEN '013' THEN 'Brown'
+    WHEN '015' THEN 'Butler'
+    WHEN '017' THEN 'Chase'
+    WHEN '019' THEN 'Chautauqua'
+    WHEN '021' THEN 'Cherokee'
+    WHEN '023' THEN 'Cheyenne'
+    WHEN '025' THEN 'Clark'
+    WHEN '027' THEN 'Clay'
+    WHEN '029' THEN 'Cloud'
+    WHEN '031' THEN 'Coffey'
+    WHEN '033' THEN 'Comanche'
+    WHEN '035' THEN 'Cowley'
+    WHEN '037' THEN 'Crawford'
+    WHEN '039' THEN 'Decatur'
+    WHEN '041' THEN 'Dickinson'
+    WHEN '043' THEN 'Doniphan'
+    WHEN '045' THEN 'Douglas'
+    WHEN '047' THEN 'Edwards'
+    WHEN '049' THEN 'Elk'
+    WHEN '051' THEN 'Ellis'
+    WHEN '053' THEN 'Ellsworth'
+    WHEN '055' THEN 'Finney'
+    WHEN '057' THEN 'Ford'
+    WHEN '059' THEN 'Franklin'
+    WHEN '061' THEN 'Geary'
+    WHEN '063' THEN 'Gove'
+    WHEN '065' THEN 'Graham'
+    WHEN '067' THEN 'Grant'
+    WHEN '069' THEN 'Gray'
+    WHEN '071' THEN 'Greeley'
+    WHEN '073' THEN 'Greenwood'
+    WHEN '075' THEN 'Hamilton'
+    WHEN '077' THEN 'Harper'
+    WHEN '079' THEN 'Harvey'
+    WHEN '081' THEN 'Haskell'
+    WHEN '083' THEN 'Hodgeman'
+    WHEN '085' THEN 'Jackson'
+    WHEN '087' THEN 'Jefferson'
+    WHEN '089' THEN 'Jewell'
+    WHEN '091' THEN 'Johnson'
+    WHEN '093' THEN 'Kearny'
+    WHEN '095' THEN 'Kingman'
+    WHEN '097' THEN 'Kiowa'
+    WHEN '099' THEN 'Labette'
+    WHEN '101' THEN 'Lane'
+    WHEN '103' THEN 'Leavenworth'
+    WHEN '105' THEN 'Lincoln'
+    WHEN '107' THEN 'Linn'
+    WHEN '109' THEN 'Logan'
+    WHEN '111' THEN 'Lyon'
+    WHEN '113' THEN 'McPherson'
+    WHEN '115' THEN 'Marion'
+    WHEN '117' THEN 'Marshall'
+    WHEN '119' THEN 'Meade'
+    WHEN '121' THEN 'Miami'
+    WHEN '123' THEN 'Mitchell'
+    WHEN '125' THEN 'Montgomery'
+    WHEN '127' THEN 'Morris'
+    WHEN '129' THEN 'Morton'
+    WHEN '131' THEN 'Nemaha'
+    WHEN '133' THEN 'Neosho'
+    WHEN '135' THEN 'Ness'
+    WHEN '137' THEN 'Norton'
+    WHEN '139' THEN 'Osage'
+    WHEN '141' THEN 'Osborne'
+    WHEN '143' THEN 'Ottawa'
+    WHEN '145' THEN 'Pawnee'
+    WHEN '147' THEN 'Phillips'
+    WHEN '149' THEN 'Pottawatomie'
+    WHEN '151' THEN 'Pratt'
+    WHEN '153' THEN 'Rawlins'
+    WHEN '155' THEN 'Reno'
+    WHEN '157' THEN 'Republic'
+    WHEN '159' THEN 'Rice'
+    WHEN '161' THEN 'Riley'
+    WHEN '163' THEN 'Rooks'
+    WHEN '165' THEN 'Rush'
+    WHEN '167' THEN 'Russell'
+    WHEN '169' THEN 'Saline'
+    WHEN '171' THEN 'Scott'
+    WHEN '173' THEN 'Sedgwick'
+    WHEN '175' THEN 'Seward'
+    WHEN '177' THEN 'Shawnee'
+    WHEN '179' THEN 'Sheridan'
+    WHEN '181' THEN 'Sherman'
+    WHEN '183' THEN 'Smith'
+    WHEN '185' THEN 'Stafford'
+    WHEN '187' THEN 'Stanton'
+    WHEN '189' THEN 'Stevens'
+    WHEN '191' THEN 'Sumner'
+    WHEN '193' THEN 'Thomas'
+    WHEN '195' THEN 'Trego'
+    WHEN '197' THEN 'Wabaunsee'
+    WHEN '199' THEN 'Wallace'
+    WHEN '201' THEN 'Washington'
+    WHEN '203' THEN 'Wichita'
+    WHEN '205' THEN 'Wilson'
+    WHEN '207' THEN 'Woodson'
+    WHEN '209' THEN 'Wyandotte'
+    ELSE 'Unknown'
+END AS county_case,
+        br.placecode,
+CASE br.placecode
+    WHEN 'O1100000' THEN 'PARKS AND WILDLIFE'
+    WHEN '00000' THEN 'Rural'
+    WHEN '00125' THEN 'Abilene City'
+    WHEN '02300' THEN 'Arkansas City'
+    WHEN '02900' THEN 'Atchison'
+    WHEN '04400' THEN 'Basehor'
+    WHEN '04625' THEN 'Baxter Springs'
+    WHEN '05600' THEN 'Belleville'
+    WHEN '07975' THEN 'Bonner Springs'
+    WHEN '09400' THEN 'Burlington'
+    WHEN '12500' THEN 'Chanute'
+    WHEN '13625' THEN 'Clay Center'
+    WHEN '14600' THEN 'Coffeyville'
+    WHEN '14650' THEN 'Colby'
+    WHEN '15075' THEN 'Columbus'
+    WHEN '17800' THEN 'Derby'
+    WHEN '17850' THEN 'De Soto'
+    WHEN '18250' THEN 'Dodge'
+    WHEN '20000' THEN 'Edwardsville'
+    WHEN '20075' THEN 'El Dorado'
+    WHEN '21275' THEN 'Emporia'
+    WHEN '21500' THEN 'Erie'
+    WHEN '21675' THEN 'Eudora'
+    WHEN '22700' THEN 'Fairway'
+    WHEN '24000' THEN 'Fort Scott'
+    WHEN '24575' THEN 'Fredonia'
+    WHEN '25100' THEN 'Galena'
+    WHEN '25325' THEN 'Garden City'
+    WHEN '25425' THEN 'Gardner'
+    WHEN '28300' THEN 'Great Bend'
+    WHEN '28675' THEN 'Greensburg'
+    WHEN '31100' THEN 'Hays'
+    WHEN '31400' THEN 'Herington'
+    WHEN '33200' THEN 'Horton'
+    WHEN '33625' THEN 'Hutchinson'
+    WHEN '33875' THEN 'Independence'
+    WHEN '34300' THEN 'Iola'
+    WHEN '35750' THEN 'Junction City'
+    WHEN '36000' THEN 'Kansas City'
+    WHEN '36950' THEN 'Kingman'
+    WHEN '37075' THEN 'Kinsley'
+    WHEN '38650' THEN 'Lansing'
+    WHEN '38700' THEN 'Larned'
+    WHEN '38900' THEN 'Lawrence'
+    WHEN '39000' THEN 'Leavenworth'
+    WHEN '39075' THEN 'Leawood'
+    WHEN '39350' THEN 'Lenexa'
+    WHEN '42875' THEN 'Louisburg'
+    WHEN '43950' THEN 'McPhersen'
+    WHEN '44200' THEN 'Maize'
+    WHEN '44250' THEN 'Manhattan'
+    WHEN '45500' THEN 'Medicine Lodge'
+    WHEN '46000' THEN 'Merriam'
+    WHEN '47225' THEN 'Mission'
+    WHEN '47350' THEN 'Mission Hills'
+    WHEN '48800' THEN 'Moundridge'
+    WHEN '50475' THEN 'Newton'
+    WHEN '51500' THEN 'Norton'
+    WHEN '52000' THEN 'Oberlin'
+    WHEN '52575' THEN 'Olathe'
+    WHEN '52875' THEN 'Onaga'
+    WHEN '53550' THEN 'Ottawa'
+    WHEN '53775' THEN 'Overland Park'
+    WHEN '54450' THEN 'Park City'
+    WHEN '54675' THEN 'Parsons'
+    WHEN '56025' THEN 'Pittsburg'
+    WHEN '57575' THEN 'Prairie Village'
+    WHEN '57625' THEN 'Pratt'
+    WHEN '61825' THEN 'Russell'
+    WHEN '62700' THEN 'Salina'
+    WHEN '64500' THEN 'Shawnee'
+    WHEN '66750' THEN 'South Hutchinson'
+    WHEN '70800' THEN 'Tonganoxie'
+    WHEN '71000' THEN 'Topeka'
+    WHEN '73250' THEN 'Valley Center'
+    WHEN '75325' THEN 'Wamego'
+    WHEN '76050' THEN 'Waverly'
+    WHEN '76475' THEN 'Wellington'
+    WHEN '79000' THEN 'Wichita'
+    WHEN '79950' THEN 'Winfield'
+    ELSE 'ERROR'
+END as placecode_case,
+--        r1.kmpost,
+CASE
+     WHEN r1.kmpost <= 0 THEN NULL
+     WHEN r1.kmpost > 0 THEN ROUND ( r1.kmpost / 1.609344, 1)
+END as milepost,
+         br.featint,
+         br.latitude,
+         br.longitude,
+         br.nstatecode,
+CASE br.nstatecode
+    WHEN '-1' THEN 'Not Applicable'
+    WHEN '-2' THEN 'Not Applicable'
+    WHEN '08' THEN 'COLORADO'
+    WHEN '29' THEN 'MISSOURI'
+    WHEN '31' THEN 'NEBRASKA'
+    WHEN '40' THEN 'OKLAHOMA'
+    ELSE 'KANSAS'
+END as nstatecode_case,
+       br.bb_brdgeid,
+CASE
+     WHEN br.bb_brdgeid = '_' THEN NULL
+     WHEN br.bb_brdgeid != '_' THEN br.bb_brdgeid
+END as bb_brdgeid_case,
+       br.appspans,
+CASE
+    WHEN br.appspans = '-1' THEN NULL
+    WHEN br.appspans = '0' THEN NULL
+    ELSE br.appspans
+END AS appspans_case,
+         br.mainspans,
+         br.materialmain,
+CASE br.materialmain
+    WHEN '_' THEN NULL
+    WHEN '1' THEN 'Concrete'
+    WHEN '2' THEN 'Concrete Continuous'
+    WHEN '3' THEN 'Steel'
+    WHEN '4' THEN 'Steel Continuous'
+    WHEN '5' THEN 'Prestressed Concrete'
+    WHEN '6' THEN 'P/S Conc. Continuous'
+    WHEN '7' THEN 'Wood or Timber'
+    WHEN '8' THEN 'Masonry'
+    WHEN '9' THEN 'Aluminum or Iron'
+    WHEN '0' THEN 'Other'
+    Else 'Not Applicable'
+END as materialmain_case,
+       br.designmain,
+CASE br.designmain
+    WHEN '-1' THEN 'Not Applicable'
+    WHEN '-2' THEN 'Not Applicable'
+    WHEN '00' THEN 'Other'
+    WHEN '01' THEN 'Slab'
+    WHEN '02' THEN 'Stringer/Girder'
+    WHEN '03' THEN 'Girder-Floorbeam'
+    WHEN '04' THEN 'Tee Beam'
+    WHEN '05' THEN 'Multiple Box Beam'
+    WHEN '06' THEN 'Single/Spread Box'
+    WHEN '07' THEN 'Frame'
+    WHEN '08' THEN 'Orthotropic'
+    WHEN '09' THEN 'Truss-Deck'
+    WHEN '10' THEN 'Truss-Thru'
+    WHEN '11' THEN 'Arch-Deck'
+    WHEN '12' THEN 'Arch-Thru'
+    WHEN '19' THEN 'Culvert'
+    WHEN '21' THEN 'Segmental Box Girder'
+    WHEN '22' THEN 'Channel Beam'
+    ELSE NULL
+END as designmain_case,
+       br.materialappr,
+CASE br.materialappr
+    WHEN '0' THEN 'Other'
+    WHEN '1' THEN 'Concrete'
+    WHEN '2' THEN 'Concrete Continuous'
+    WHEN '3' THEN 'Steel'
+    WHEN '4' THEN 'Steel Continuous'
+    WHEN '5' THEN 'Prestressed Concrete'
+    WHEN '6' THEN 'P/S Conc Continuous'
+    WHEN '7' THEN 'Wood or Timber'
+    WHEN '8' THEN 'Masonry'
+    WHEN '9' THEN 'Aluminum or Iron'
+    WHEN '_' THEN NULL
+    ELSE 'Not Applicable'
+END as materialappr_case,
+       br.designappr,
+CASE br.designappr
+    WHEN '-1' THEN 'Not Applicable'
+    WHEN '-2' THEN 'Not Applicable'
+    WHEN '00' THEN 'Other'
+    WHEN '01' THEN 'Slab'
+    WHEN '02' THEN 'Stringer/Girder'
+    WHEN '03' THEN 'Girder-Floorbeam'
+    WHEN '04' THEN 'Tee Beam'
+    WHEN '05' THEN 'Multiple Box Beam'
+    WHEN '06' THEN 'Single/Spread Box'
+    WHEN '07' THEN 'Frame'
+    WHEN '08' THEN 'Orthotropic'
+    WHEN '09' THEN 'Truss-Deck'
+    WHEN '10' THEN 'Truss-Thru'
+    WHEN '11' THEN 'Arch-Deck'
+    WHEN '12' THEN 'Arch-Thru'
+    WHEN '19' THEN 'Culvert'
+    WHEN '20' THEN 'Mixed Types'
+    WHEN '21' THEN 'Segmental Box Girder'
+    WHEN '22' THEN 'Channel Beam'
+    ELSE NULL
+END as designappr_case,
+       br.dkstructyp,
+CASE br.dkstructyp
+    WHEN '1' THEN 'Concrete Cast-in-Place'
+    WHEN '2' THEN 'Concrete Precast Panels'
+    WHEN '3' THEN 'Open Grating'
+    WHEN '4' THEN 'Closed Grating'
+    WHEN '5' THEN 'Steel Plate (includes orthotropic)'
+    WHEN '6' THEN 'Corrugated Steel'
+    WHEN '7' THEN 'Aluminum'
+    WHEN '8' THEN 'Wood or Timber'
+    WHEN '9' THEN 'Other'
+    WHEN 'N' THEN 'Not Applicable'
+    ELSE NULL
+END as dkstructyp_case,
+       br.dksurftype,
+CASE br.dksurftype
+    WHEN '0' THEN 'None'
+    WHEN '1' THEN 'Monolithic Concrete'
+    WHEN '2' THEN 'Integral Concrete'
+    WHEN '3' THEN 'Latex Concrete or Similar Additive'
+    WHEN '4' THEN 'Low Slump Concrete'
+    WHEN '5' THEN 'Epoxy Overlay'
+    WHEN '6' THEN 'Bituminous'
+    WHEN '7' THEN 'Wood or Timber'
+    WHEN '8' THEN 'Gravel'
+    WHEN '9' THEN 'Other'
+    WHEN 'N' THEN 'Not Applicable'
+    ELSE NULL
+END as dksurftype_case,
+       br.dkmembtype,
+CASE br.dkmembtype
+    WHEN '0' THEN 'None'
+    WHEN '1' THEN 'Built-up'
+    WHEN '2' THEN 'Preformed Fabric'
+    WHEN '3' THEN 'Epoxy'
+    WHEN '8' THEN 'Unknown'
+    WHEN '9' THEN 'Other'
+    WHEN 'N' THEN 'N/A (no deck (NBI))'
+    ELSE NULL
+END as dkmembtype_case,
+       br.dkprotect,
+CASE br.dkprotect
+    WHEN '0' THEN 'None'
+    WHEN '1' THEN 'Epoxy Coated Reinforcing'
+    WHEN '2' THEN 'Galvanized Reinforcing'
+    WHEN '3' THEN 'Other Coated Reinforcing'
+    WHEN '4' THEN 'Cathodic Protection'
+    WHEN '6' THEN 'Polymer Impregnated'
+    WHEN '7' THEN 'Internally Sealed'
+    WHEN '8' THEN 'Unknown'
+    WHEN '9' THEN 'Other'
+    WHEN 'N' THEN 'N/A (no deck (NBI))'
+    ELSE NULL
+END as dkprotect_case,
+        br.yearbuilt,
+        br.yearrecon,
+CASE
+    WHEN br.yearrecon = '-1' THEN NULL
+    WHEN br.yearrecon = '0' THEN NULL
+    ELSE br.yearrecon
+END AS yearrecon_case,
+       br.servtypon,
+CASE br.servtypon
+    WHEN '0' THEN 'Other'
+    WHEN '1' THEN 'Highway'
+    WHEN '2' THEN 'Railroad'
+    WHEN '3' THEN 'Pedestrian-bicycle'
+    WHEN '4' THEN 'Highway-railroad'
+    WHEN '5' THEN 'Highway-pedestrian'
+    WHEN '6' THEN '2d Level interchg'
+    WHEN '7' THEN '3d Level interchg'
+    WHEN '8' THEN '4th Level interchg'
+    WHEN '9' THEN 'Building or plaza'
+    WHEN '_' THEN NULL
+    ELSE NULL
+END as servtypon_case,
+       br.servtypund,
+CASE br.servtypund
+    WHEN '0' THEN 'Other'
+    WHEN '1' THEN 'Highway'
+    WHEN '2' THEN 'Railroad'
+    WHEN '3' THEN 'Pedestrian-bicycle'
+    WHEN '4' THEN 'Highway-railroad'
+    WHEN '5' THEN 'Waterway'
+    WHEN '6' THEN 'Highway - Waterway'
+    WHEN '7' THEN 'Railroad - Waterway'
+    WHEN '8' THEN 'Highway - Waterway - Railroad'
+    WHEN '9' THEN 'Relief for Waterway'
+    WHEN '_' THEN NULL
+    ELSE NULL
+END as servtypund_case,
+         r1.lanes,
+         br.sumlanes,
+     ROUND ( r1.bypasslen   , 2)as bypasslen_eng,
+         r1.adttotal,
+--         r1.truckpct,
+CASE
+    WHEN r1.adttotal < 100 THEN NULL
+    WHEN r1.adttotal > 100 THEN r1.truckpct
+END AS truckpct,
+         r1.adtyear,
+     ROUND ( br.maxspan , 2) as maxspan_eng,
+     ROUND ( br.length , 2) as length_eng,
+    ROUND ( br.lftcurbsw , 2) as lftcurbsw_eng,
+    ROUND ( br.rtcurbsw , 2) as rtcurbsw_eng,
+    ROUND ( r1.roadwidth , 2) as roadwidth_eng,
+    ROUND ( br.deckwidth , 2) as deckwidth_eng,
+    ROUND ( r1.aroadwidth , 2) as aroadwidth_eng,
+       br.bridgemed,
+CASE br.bridgemed
+    WHEN '0' THEN 'No Median'
+    WHEN '1' THEN 'Open Median'
+    WHEN '2' THEN 'Closed Med w/o Barrier'
+    WHEN '3' THEN 'Closed Med with Barriers'
+    WHEN '_' THEN NULL
+    ELSE NULL
+END as bridgemed_case,
+     ROUND ( br.deck_area , 2) as deck_area_eng,
+         br.skew,
+         br.strflared,
+CASE br.strflared
+    WHEN '0' THEN 'No Flare'
+    WHEN '1' THEN 'Yes, Flared'
+    WHEN '_' THEN NULL
+    ELSE NULL
+END as strflared_case,
+    ROUND ( br.vclrover , 2) as vclrover_eng,
+        br.refvuc,
+CASE br.refvuc
+    WHEN 'H' THEN 'Hwy beneath structure'
+    WHEN 'N' THEN 'Feature not hwy or RR'
+    WHEN 'R' THEN 'Railroad beneath structure'
+    WHEN '_' THEN NULL
+    ELSE 'Unknown'
+END as refvuc_case,
+    ROUND ( br.vclrunder , 2) as vclrunder_eng,
+       br.refhuc,
+CASE br.refhuc
+    WHEN 'H' THEN 'Hwy beneath structure'
+    WHEN 'N' THEN 'Feature not hwy or RR'
+    WHEN 'R' THEN 'Railroad beneath structure'
+    WHEN '_' THEN NULL
+    ELSE 'Unknown'
+END as refhuc_case,
+     ROUND ( br.hclrurt , 2) as hclrurt_eng,
+     ROUND ( br.hclrult , 2) as hclrult_eng,
+         i1.inspkey,
+         i1.inspdate,
+         i1.nbinspdone,
+CASE i1.nbinspdone
+     WHEN '1' THEN 'Y'
+     WHEN '0' THEN 'N'
+     ELSE i1.nbinspdone
+END AS nbinspdone_case,
+         i1.brinspfreq,
+         i1.lastinsp,
+         i1.nextinsp,
+         i1.fcinspdone,
+CASE i1.fcinspdone
+     WHEN '1' THEN 'Y'
+     WHEN '0' THEN 'N'
+     WHEN '-' THEN NULL
+     ELSE i1.fcinspdone
+END AS fcinspdone_case,
+       i1.fcinspreq,
+CASE i1.fcinspreq
+     WHEN '1' THEN 'Y'
+     WHEN '0' THEN 'N'
+     WHEN '-1' THEN NULL
+     ELSE i1.fcinspreq
+END AS fcinspreq_case,
+       i1.fcinspfreq,
+CASE i1.fcinspfreq
+     WHEN -1 THEN NULL
+     WHEN 0 THEN NULL
+     ELSE TO_CHAR( i1.fcinspfreq)
+END AS fcinspfreq_case,
+         i1.fcnextdate,
+         i1.fclastinsp,
+         i1.uwinspdone,
+CASE i1.uwinspdone
+     WHEN '1' THEN 'Y'
+     WHEN '0' THEN 'N'
+     WHEN '-' THEN NULL
+     ELSE i1.uwinspdone
+END AS uwinspdone_case,
+        i1.uwinspreq,
+CASE i1.uwinspreq
+     WHEN '1' THEN 'Y'
+     WHEN '0' THEN 'N'
+     WHEN '-1' THEN NULL
+     ELSE i1.uwinspreq
+END AS uwinspreq_case,
+         i1.uwinspfreq,
+CASE i1.uwinspfreq
+     WHEN -1 THEN NULL
+     WHEN 0 THEN NULL
+     ELSE TO_CHAR( i1.uwinspfreq)
+END AS uwinspfreq_case,
+         i1.uwlastinsp,
+         i1.uwnextdate,
+         i1.osinspdone,
+CASE i1.osinspdone
+     WHEN '1' THEN 'Y'
+     WHEN '0' THEN 'N'
+     WHEN '-' THEN NULL
+     ELSE i1.osinspdone
+END AS osinspdone_case,
+         i1.osinspreq,
+CASE i1.osinspreq
+     WHEN '1' THEN 'Y'
+     WHEN '0' THEN 'N'
+     WHEN '-1' THEN NULL
+     ELSE i1.osinspreq
+END AS osinspreq_case,
+         i1.osinspfreq,
+CASE i1.osinspfreq
+     WHEN -1 THEN NULL
+     WHEN 0 THEN NULL
+     ELSE TO_CHAR( i1.osinspfreq)
+END AS osinspfreq_case,
+         i1.oslastinsp,
+         i1.osnextdate,
+         i1.elinspdone,
+CASE i1.elinspdone
+     WHEN '1' THEN 'Y'
+     WHEN '0' THEN 'N'
+     WHEN '-' THEN NULL
+     ELSE i1.elinspdone
+END AS elinspdone_case,
+         i1.elinspfreq,
+CASE i1.elinspfreq
+     WHEN -1 THEN NULL
+     WHEN 0 THEN NULL
+     ELSE TO_CHAR( i1.elinspfreq)
+END AS elinspfreq_case,
+         i1.elinspdate,
+         i1.elnextdate,
+       r1.defhwy,
+CASE r1.defhwy
+     WHEN '0' THEN 'Not a STRAHNET Hwy'
+     WHEN '1' THEN 'On Interstate STRAHNET'
+     WHEN '2' THEN 'On Non-Interstate STRAHNET'
+     WHEN '3' THEN 'On STRAHNET'
+     ELSE NULL
+END as defhwy_case,
+        br.paralstruc,
+CASE br.paralstruc
+     WHEN 'L' THEN 'Left of || bridge'
+     WHEN 'N' THEN 'No || bridge exists'
+     WHEN 'R' THEN 'Right of || bridge'
+     ELSE NULL
+END as paralstruc_case,
+       r1.trafficdir,
+CASE r1.trafficdir
+     WHEN '0' THEN 'Hwy traffic not carried'
+     WHEN '1' THEN '1-way traffic'
+     WHEN '2' THEN '2-way traffic'
+     WHEN '3' THEN '1-lane Br for 2-way'
+     ELSE NULL
+END as trafficdir_case,
+       br.tempstruc,
+CASE br.tempstruc
+     WHEN 'T' THEN 'Temporary'
+     ELSE NULL
+END as tempstruc_case,
+       r1.nhs_ind,
+CASE r1.nhs_ind
+     WHEN '0' THEN 'Not on NHS'
+     WHEN '1' THEN 'On the NHS'
+     ELSE NULL
+END as nhs_ind_case,
+        br.nbislen,
+CASE br.nbislen
+     WHEN 'N' THEN 'Too Short'
+     WHEN 'Y' THEN 'Long Enough'
+     ELSE NULL
+END as nbislen_case,
+--         r1.tollfac,
+CASE r1.tollfac
+     WHEN '0' THEN 'Toll Free'
+     WHEN '1' THEN 'Toll Brdg/Hwy'
+     WHEN '2' THEN 'Toll Bridge'
+     WHEN '3' THEN 'Rdwy Agreement'
+     WHEN '4' THEN 'Brdg Agreement'
+     WHEN '_' THEN NULL
+     ELSE NULL
+END as tollfac,
+        r1.funcclass,
+CASE r1.funcclass
+     WHEN '-1' THEN NULL
+     WHEN '-2' THEN 'NA'
+     WHEN '01' THEN 'Rural Interstate'
+     WHEN '02' THEN 'Rural Other Principal'
+     WHEN '06' THEN 'Rural Minor Arterial'
+     WHEN '07' THEN 'Rural Major Collector'
+     WHEN '08' THEN 'Rural Minor Collector'
+     WHEN '09' THEN 'Rural Local'
+     WHEN '11' THEN 'Urban Interstate'
+     WHEN '12' THEN 'Urban Freeway/Expressways'
+     WHEN '14' THEN 'Urban Other Principal'
+     WHEN '16' THEn 'Urban Minor Arterial'
+     WHEN '17' THEN 'Urban Collector'
+     WHEN '19' THEN 'Urban Local'
+     ELSE NULL
+END as funcclass_case,
+        br.histsign,
+CASE br.histsign
+     WHEN '1' THEN 'Br on Natl Reg Hist Place'
+     WHEN '2' THEN 'Br eligible for NRHP'
+     WHEN '3' THEN 'Possibly eligible for'
+     WHEN '4' THEN 'Hist sign not determined'
+     WHEN '5' THEN 'Not eligible for NRHP'
+     WHEN '_' THEN NULL
+     ELSE NULL
+END as histsign_case,
+        br.owner,
+CASE br.owner
+     WHEN '-1' THEN NULL
+     WHEN '-2' THEN 'NA'
+     WHEN '01' THEN 'Kansas DOT'
+     WHEN '02' THEN 'County Hwy Agency'
+     WHEN '04' THEN 'City/Municipal Hwy Agency'
+     WHEN '11' THEN 'Wildlife & Parks'
+     WHEN '12' THEN 'Local Pk/Frst/Reserve'
+     WHEN '21' THEN 'Other State Agencies'
+     WHEN '26' THEN 'Private(Other than RR)'
+     WHEN '27' THEN 'Railroad'
+     WHEN '32' THEN 'Local Toll Authority'
+     WHEN '80' THEn 'Unknown (NBI)'
+     ELSE NULL
+END as owner_case,
+        br.custodian,
+CASE br.custodian
+     WHEN '-1' THEN NULL
+     WHEN '-2' THEN 'NA'
+     WHEN '01' THEN 'Kansas DOT'
+     WHEN '02' THEN 'County Hwy Agency'
+     WHEN '04' THEN 'City/Municipal Hwy Agency'
+     WHEN '11' THEN 'Wildlife & Parks'
+     WHEN '12' THEN 'Local Pk/Frst/Reserve'
+     WHEN '21' THEN 'Other State Agencies'
+     WHEN '26' THEN 'Private(Other than RR)'
+     WHEN '27' THEN 'Railroad'
+     WHEN '32' THEN 'Local Toll Authority'
+     WHEN '80' THEN 'Unknown (NBI)'
+     ELSE NULL
+END as custodian_case,
+        i1.dkrating,
+CASE i1.dkrating
+     WHEN 'N' THEN 'NA'
+     WHEN '0' THEN '0 - Failed'
+     WHEN '1' THEN '1 - Imminent Failure'
+     WHEN '2' THEN '2 - Critical'
+     WHEN '3' THEN '3 - Serious'
+     WHEN '4' THEN '4 - Poor'
+     WHEN '5' THEN '5 - Fair'
+     WHEN '6' THEN '6 - Satisfactory'
+     WHEN '7' THEN '7 - Good'
+     WHEN '8' THEN '8 - Very Good'
+     WHEN '9' THEN '9 - Excellent'
+     ELSE 'Unknown (NBI)'
+END as dkrating_case,
+       i1.suprating,
+CASE i1.suprating
+     WHEN 'N' THEN 'NA'
+     WHEN '0' THEN '0 - Failed'
+     WHEN '1' THEN '1 - Imminent Failure'
+     WHEN '2' THEN '2 - Critical'
+     WHEN '3' THEN '3 - Serious'
+     WHEN '4' THEN '4 - Poor'
+     WHEN '5' THEN '5 - Fair'
+     WHEN '6' THEN '6 - Satisfactory'
+     WHEN '7' THEN '7 - Good'
+     WHEN '8' THEN '8 - Very Good'
+     WHEN '9' THEN '9 - Excellent'
+     ELSE 'Unknown (NBI)'
+END as suprating_case,
+        i1.subrating,
+CASE i1.subrating
+     WHEN 'N' THEN 'NA'
+     WHEN '0' THEN '0 - Failed'
+     WHEN '1' THEN '1 - Imminent Failure'
+     WHEN '2' THEN '2 - Critical'
+     WHEN '3' THEN '3 - Serious'
+     WHEN '4' THEN '4 - Poor'
+     WHEN '5' THEN '5 - Fair'
+     WHEN '6' THEN '6 - Satisfactory'
+     WHEN '7' THEN '7 - Good'
+     WHEN '8' THEN '8 - Very Good'
+     WHEN '9' THEN '9 - Excellent'
+     ELSE 'Unknown (NBI)'
+END as subrating_case,
+        i1.culvrating,
+CASE i1.culvrating
+     WHEN 'N' THEN 'NA'
+     WHEN '0' THEN '0 - Br Closed, Replace'
+     WHEN '1' THEN '1 - Br Closed, Correct'
+     WHEN '2' THEN '2 - Severe Settlement'
+     WHEN '3' THEN '3 - Excessive Damage'
+     WHEN '4' THEN '4 - Considerable Damage'
+     WHEN '5' THEN '5 - Moderate Damage'
+     WHEN '6' THEN '6 - Deterioration'
+     WHEN '7' THEN '7 - Minor Deterioration'
+     WHEN '8' THEN '8 - No Major Problem'
+     WHEN '9' THEN '9 - No Deficiency'
+     ELSE 'Unknown (NBI)'
+END as culvrating_case,
+        i1.chanrating,
+CASE i1.chanrating
+     WHEN 'N' THEN 'NA'
+     WHEN '0' THEN '0 - Br Closed, Replace'
+     WHEN '1' THEN '1 - Br Closed, Correct'
+     WHEN '2' THEN '2 - Bridge Threatened'
+     WHEN '3' THEN '3 - Bank Protection Failed'
+     WHEN '4' THEN '4 - Protection Undermined'
+     WHEN '5' THEN '5 - Bank Protection Eroded'
+     WHEN '6' THEN '6 - Bank Slumping'
+     WHEN '7' THEN '7 - Minor Damage'
+     WHEN '8' THEN '8 - Protected'
+     WHEN '9' THEN '9 - No Deficiencies'
+     ELSE 'Unknown (NBI)'
+END as chanrating_case,
+        br.irtype,
+CASE br.irtype
+     WHEN '_' THEN NULL
+     WHEN '1' THEN 'Load Factor (LF)'
+     WHEN '2' THEN 'Allowable Stress (AS)'
+     WHEN '3' THEN 'Load and Res. Factor (LRFR)'
+     WHEN '4' THEN 'Load Testing'
+     WHEN '5' THEN 'No Rating'
+     ELSE 'NA'
+END as irtype_case,
+        br.ortype,
+CASE br.ortype
+     WHEN '_' THEN NULL
+     WHEN '1' THEN 'Load Factor (LF)'
+     WHEN '2' THEN 'Allowable Stress (AS)'
+     WHEN '3' THEN 'Load and Res. Factor (LRFR)'
+     WHEN '4' THEN 'Load Testing'
+     WHEN '5' THEN 'No Rating'
+     ELSE 'NA'
+END as ortype_case,
+         br.irload,
+         br.orload,
+       br.designload,
+CASE br.designload
+     WHEN '_' THEN NULL
+     WHEN '0' THEN 'Other or Unknown'
+     WHEN '1' THEN 'M 9 (H 10)'
+     WHEN '2' THEN 'M 13.5 (H 15)'
+     WHEN '3' THEN 'MS 13.5 (HS 15)'
+     WHEN '4' THEN 'M 18 (H 20)'
+     WHEN '5' THEN 'MS 18 (HS 20)'
+     WHEN '6' THEN 'MS18(HS20)+mod'
+     WHEN '7' THEN 'Pedestrian'
+     WHEN '8' THEN 'Railroad'
+     WHEN '9' THEN 'MS 22.5 (HS 25)'
+     ELSE 'NA'
+END as designload_case,
+        br.posting,
+CASE br.posting
+     WHEN '_' THEN NULL
+     WHEN '0' THEN '> 39.9% below'
+     WHEN '1' THEN '30.0-39.9% below'
+     WHEN '2' THEN '20.0-29.9% below'
+     WHEN '3' THEN '10.0-19.9% below'
+     WHEN '4' THEN '0.1-9.9% below'
+     WHEN '5' THEN 'At/Above Legal Loads'
+     ELSE 'NA'
+END as posting_case,
+        i1.oppostcl,
+CASE i1.oppostcl
+     WHEN '_' THEN NULL
+     WHEN 'A' THEN 'Open, no restriction'
+     WHEN 'B' THEN 'Posting Recommended'
+     WHEN 'D' THEN 'Open, temp shored'
+     WHEN 'E' THEN 'Open, temp structure'
+     WHEN 'G' THEN 'New-Not Yet Open'
+     WHEN 'K' THEN 'Closed to all traffic'
+     WHEN 'P' THEN 'Posted for load'
+     WHEN 'R' THEN 'Posted for Non-Load'
+     ELSE 'NA'
+END as oppostcl_case,
+        i1.railrating,
+CASE i1.railrating
+     WHEN '_' THEN NULL
+     WHEN '1' THEN 'Meets Standards'
+     WHEN '0' THEN 'Substandard'
+     WHEN 'N' THEN 'N/A or not required'
+     ELSE 'Unknown (NBI)'
+END as railrating_case,
+        i1.arailratin,
+CASE i1.arailratin
+     WHEN '_' THEN NULL
+     WHEN '1' THEN 'Meets Standards'
+     WHEN '0' THEN 'Substandard'
+     WHEN 'N' THEN 'N/A or not required'
+     ELSE 'Unknown (NBI)'
+END as arailratin_case,
+        i1.transratin,
+CASE i1.transratin
+     WHEN '_' THEN NULL
+     WHEN '1' THEN 'Meets Standards'
+     WHEN '0' THEN 'Substandard'
+     WHEN 'N' THEN 'N/A or not required'
+     ELSE 'Unknown (NBI)'
+END as transratin_case,
+        i1.aendrating,
+CASE i1.aendrating
+     WHEN '_' THEN NULL
+     WHEN '1' THEN 'Meets Standards'
+     WHEN '0' THEN 'Substandard'
+     WHEN 'N' THEN 'N/A or not required'
+     ELSE 'Unknown (NBI)'
+END as aendrating_case,
+        i1.strrating,
+CASE i1.strrating
+    WHEN '0' THEN 'Bridge Closed'
+    WHEN '1' THEN 'Rating Not Used'
+    WHEN '2' THEN 'Intolerable - Replace'
+    WHEN '3' THEN 'Intolerable - Correct'
+    WHEN '4' THEN 'Minimum Tolerable'
+    WHEN '5' THEN 'Above Tolerable'
+    WHEN '6' THEN 'Equal Min. Criteria'
+    WHEN '7' THEN 'Above Min. Criteria'
+    WHEN '8' THEN 'Equal Desirable Criteria'
+    WHEN '9' THEN 'Above Desirable Criteria'
+    ELSE 'Unknown (NBI)'
+END as strrating_case,
+       i1.deckgeom,
+CASE i1.deckgeom
+    WHEN '0' THEN 'Bridge Closed'
+    WHEN '1' THEN 'Rating Not Used'
+    WHEN '2' THEN 'Intolerable - Replace'
+    WHEN '3' THEN 'Intolerable - Correct'
+    WHEN '4' THEN 'Minimum Tolerable'
+    WHEN '5' THEN 'Above Tolerable'
+    WHEN '6' THEN 'Equal Min. Criteria'
+    WHEN '7' THEN 'Above Min. Criteria'
+    WHEN '8' THEN 'Equal Desirable Criteria'
+    WHEN '9' THEN 'Above Desirable Criteria'
+    ELSE 'Unknown (NBI)'
+END as deckgeom_case,
+         i1.underclr,
+       i1.wateradeq,
+CASE i1.wateradeq
+    WHEN '0' THEN 'Bridge Closed'
+    WHEN '1' THEN 'Rating Not Used'
+    WHEN '2' THEN 'Intolerable - Replace'
+    WHEN '3' THEN 'Intolerable - Correct'
+    WHEN '4' THEN 'Minimum Tolerable'
+    WHEN '5' THEN 'Above Tolerable'
+    WHEN '6' THEN 'Equal Min. Criteria'
+    WHEN '7' THEN 'Above Min. Criteria'
+    WHEN '8' THEN 'Equal Desirable Criteria'
+    WHEN '9' THEN 'Above Desirable Criteria'
+    ELSE 'Unknown (NBI)'
+END as wateradeq_case,
+        i1.appralign,
+CASE i1.appralign
+    WHEN '0' THEN 'Bridge Closed'
+    WHEN '1' THEN 'Rating Not Used'
+    WHEN '2' THEN 'Intolerable - Replace'
+    WHEN '3' THEN 'Intolerable - Correct'
+    WHEN '4' THEN 'Minimum Tolerable'
+    WHEN '5' THEN 'Above Tolerable'
+    WHEN '6' THEN 'Equal Min. Criteria'
+    WHEN '7' THEN 'Above Min. Criteria'
+    WHEN '8' THEN 'Equal Desirable Criteria'
+    WHEN '9' THEN 'Above Desirable Criteria'
+    ELSE 'Unknown (NBI)'
+END as appralign_case,
+        i1.scourcrit,
+CASE i1.scourcrit
+    WHEN '0' THEN 'Bridge Failed'
+    WHEN '1' THEN 'SC - Fail Imminent'
+    WHEN '2' THEN 'SC - Extensive Scour'
+    WHEN '3' THEN 'SC - Unstable'
+    WHEN '4' THEN 'Stable, Needs Action'
+    WHEN '5' THEN 'Stable w/in Footing'
+    WHEN '6' THEN 'Calcs not made'
+    WHEN '7' THEN 'Countermeasures'
+    WHEN '8' THEN 'Stable Above Footing'
+    WHEN '9' THEN 'On Dry Land'
+    WHEN 'N' THEN 'Bridge not over waterway'
+    WHEN 'U' THEN 'Uknown Bridge Foundation'
+    WHEN 'T' THEN 'Bridge over Tidal Waters'
+    ELSE 'Unknown (NBI)'
+END as scourcrit_case,
+         br.nbiimpcost,
+        br.propwork,
+CASE br.propwork
+    WHEN '-1' THEN NULL
+    WHEN '-2' THEN 'N/A'
+    WHEN '31' THEN 'Repl-Load Capacity'
+    WHEN '32' THEN 'Repl-Relocate Road'
+    WHEN '33' THEN 'Widen w/o Deck Rehab'
+    WHEN '34' THEN 'Widen with Deck Rehab'
+    WHEN '35' THEN 'Rehabilitate-gen.'
+    WHEN '36' THEN 'Rehab Deck'
+    WHEN '37' THEN 'Replace Deck'
+    WHEN '38' THEN 'Other Structural'
+    ELSE 'Unknown (NBI)'
+END as propwork_case,
+--         br.nbirwcost,
+CASE
+     WHEN br.nbirwcost <= 0 THEN NULL
+     WHEN br.nbirwcost > 0 THEN br.nbirwcost
+     ELSE NULL
+END AS nbirwcost,
+    ROUND ( br.implen , 2) as implen_eng,
+--         br.nbitotcost,
+CASE
+     WHEN br.nbitotcost <= 0 THEN NULL
+     WHEN br.nbitotcost > 0 THEN br.nbitotcost
+END AS nbitotcost,
+         r1.adtfuture,
+--         br.nbiyrcost,
+CASE
+     WHEN br.nbiyrcost <= 0 THEN NULL
+     WHEN br.nbiyrcost > 0 THEN br.nbiyrcost
+END AS nbiyrcost,
+         r1.adtfutyear,
+         br.navcntrol,
+CASE br.navcntrol
+     WHEN '_' THEN NULL
+     WHEN '0' THEN 'Permit Not Required'
+     WHEN '1' THEN 'Permit Required'
+     WHEN 'N' THEN 'N/A - No Waterway'
+     ELSE 'Uknown'
+END as navcntrol_case,
+    ROUND ( br.navvc , 2) as navvc_eng,
+    ROUND ( br.navhc , 2) as navhc_eng,
+       i1.pierprot,
+CASE i1.pierprot
+     WHEN '_' THEN NULL
+     WHEN '1' THEN 'Not Required'
+     WHEN '2' THEN 'In-Place, Functioning'
+     WHEN '3' THEN 'In-Place, Deteriorated'
+     WHEN '4' THEN 'In-Place, Re-Evaluate'
+     WHEN '5' THEN 'None, Re-Evaluate'
+     ELSE 'N/A'
+END as pierprot_case,
+    ROUND ( br.lftbrnavcl , 2) as lftbrnavcl_eng,
+       i1.nbi_rating,
+CASE i1.nbi_rating
+    WHEN '1' THEN 'Structurally Deficient'
+    WHEN '2' THEN 'Functionally Obsolete'
+    ELSE 'Not Eligible'
+END as nbi_rating_case,
+br.bridge_gd,
+r1.roadway_gd,
+mv.inspevnt_gd
+FROM bridge br inner join roadway r1
+ on br.bridge_Gd=r1.bridge_gd
+ inner join mv_latest_inspection mv
+  on br.bridge_Gd=mv.bridge_gd
+ inner join inspevnt i1
+on mv.inspevnt_gd=i1.inspevnt_gd
+WHERE
+lower(trim(br.bridgegroup)) not in ('removed', 'transferred', 'closed', 'too short', 'railroad', 'private', 'pedestrian', 'reserved');
+   
+  COMMENT ON MATERIALIZED VIEW "KDOT_BLP"."DW_PONTIS_NST_BRDG_MV"  IS 'snapshot KDOT_BLP.DW_PONTIS_NST_BRDG_MV';
+  GRANT SELECT ON "KDOT_BLP"."DW_PONTIS_NST_BRDG_MV" TO "BRMREADONLY_ROLE";
+  GRANT SELECT ON "KDOT_BLP"."DW_PONTIS_NST_BRDG_MV" TO "PONTISWEBADMINISTRATOR";
+  GRANT SELECT ON "KDOT_BLP"."DW_PONTIS_NST_BRDG_MV" TO "BLP_LOCAL_AGENCY_REVIEW";
+  GRANT SELECT ON "KDOT_BLP"."DW_PONTIS_NST_BRDG_MV" TO "KDOT_BLP_SELECT";
+  GRANT SELECT ON "KDOT_BLP"."DW_PONTIS_NST_BRDG_MV" TO "PONTISUSER";
+  GRANT SELECT ON "KDOT_BLP"."DW_PONTIS_NST_BRDG_MV" TO "PONTISWEBINSPECTIONSUPERVISOR";
+  GRANT SELECT ON "KDOT_BLP"."DW_PONTIS_NST_BRDG_MV" TO "BLP_PORTAL_ADMINISTRATOR";
+  GRANT SELECT ON "KDOT_BLP"."DW_PONTIS_NST_BRDG_MV" TO "PONTISWEBINSPECTOR";
+  GRANT SELECT ON "KDOT_BLP"."DW_PONTIS_NST_BRDG_MV" TO "PWEBODBCLOGIN";
+  GRANT SELECT ON "KDOT_BLP"."DW_PONTIS_NST_BRDG_MV" TO "PWEBLOGINID";
+  GRANT SELECT ON "KDOT_BLP"."DW_PONTIS_NST_BRDG_MV" TO "KDOT_BLP_ISU";
+  GRANT SELECT ON "KDOT_BLP"."DW_PONTIS_NST_BRDG_MV" TO "BLP_BROWSER";
+  GRANT SELECT ON "KDOT_BLP"."DW_PONTIS_NST_BRDG_MV" TO "BLP_LOAD_RATER";
+  GRANT SELECT ON "KDOT_BLP"."DW_PONTIS_NST_BRDG_MV" TO "BLP_INSPECTOR";
+  GRANT SELECT ON "KDOT_BLP"."DW_PONTIS_NST_BRDG_MV" TO "BLP_TEAM_LEADER";
+  GRANT SELECT ON "KDOT_BLP"."DW_PONTIS_NST_BRDG_MV" TO "PONTISWEBBROWSER";
+  GRANT SELECT ON "KDOT_BLP"."DW_PONTIS_NST_BRDG_MV" TO "BRMADMIN_ROLE";
+  GRANT DELETE ON "KDOT_BLP"."DW_PONTIS_NST_BRDG_MV" TO "BRMADMIN_ROLE";
+  GRANT INSERT ON "KDOT_BLP"."DW_PONTIS_NST_BRDG_MV" TO "BRMADMIN_ROLE";
+  GRANT UPDATE ON "KDOT_BLP"."DW_PONTIS_NST_BRDG_MV" TO "BRMADMIN_ROLE";

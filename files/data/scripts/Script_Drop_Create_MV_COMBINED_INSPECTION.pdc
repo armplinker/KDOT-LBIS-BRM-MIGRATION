@@ -1,0 +1,497 @@
+DROP MATERIALIZED VIEW "KDOT_BLP"."MV_COMBINED_INSPECTION";
+
+CREATE MATERIALIZED VIEW "KDOT_BLP"."MV_COMBINED_INSPECTION" 
+/*("BRIDGE_GD", "INSPEVNT_GD", "POSTING_STATUS", "BRKEY", "BRIDGEGROUP", "INSPKEY", "INSPTYPE", "INSPDATE", "INSPREQ", "INSPFREQ", "LASTINSP", "UWCONTRACT", "FCCONTRACT", "PHCONTRACT", "INSPCAT", "NEXTINSPCALC", "DAYSDUE")*/
+ON PREBUILT TABLE
+  USING INDEX 
+  REFRESH FORCE ON DEMAND
+  AS 
+  SELECT * FROM V_BASE_MV_COMBINED_INSPECTION;
+-- this next SQL was moved to view V_BASE_MV_COMBINED_INSPECTION
+/*--Routine Inspection
+        Bridge_Gd
+        ,Inspevnt_Gd
+        ,Posting_Status
+        ,Brkey
+        ,bridgegroup
+        ,Inspkey
+        ,Insptype
+        ,Inspdate
+        ,INSPREQ
+        ,INSPFREQ
+        ,LastINSP
+        ,UWCONTRACT
+        ,FCCONTRACT
+        ,PHCONTRACT
+        ,INSPCAT
+        ,NEXTINSPCALC
+        ,Case
+  when
+                      (-150 > 0 and (to_date(sysdate)- NEXTINSPCALC) >= -150  and
+                      ((to_date(sysdate)- NEXTINSPCALC) < -150  + CAST(to_char(LAST_DAY(sysdate),'dd') AS INT) or -150  = 90))
+                              or (-150  < 0 and (to_date(sysdate)- NEXTINSPCALC) <= -150  and
+                       (to_date(sysdate)- NEXTINSPCALC) > -150  - CAST(to_char(LAST_DAY(sysdate),'dd') AS INT))
+
+          Then 'Due in 6 Months'
+
+       when
+                      (-30 > 0 and (to_date(sysdate)- NEXTINSPCALC) >= -30  and
+                      ((to_date(sysdate)- NEXTINSPCALC) < -30  + CAST(to_char(LAST_DAY(sysdate),'dd') AS INT) or -30  = 90))
+                              or (-30  < 0 and (to_date(sysdate)- NEXTINSPCALC) <= -30  and
+                       (to_date(sysdate)- NEXTINSPCALC) > -30  - CAST(to_char(LAST_DAY(sysdate),'dd') AS INT))
+
+          Then  'Due in 1-2 Months'
+
+        when
+                      (1 > 0 and (to_date(sysdate)- NEXTINSPCALC) >= 1  and
+                      ((to_date(sysdate)- NEXTINSPCALC) <1  + CAST(to_char(LAST_DAY(sysdate),'dd') AS INT) or 1  = 90))
+                              or (1  < 0 and (to_date(sysdate)- NEXTINSPCALC) <= 1  and
+                       (to_date(sysdate)- NEXTINSPCALC) > 1  - CAST(to_char(LAST_DAY(sysdate),'dd') AS INT))
+
+          Then  '1-30 Days OverDue'
+
+        when
+                      (50 > 0 and (to_date(sysdate)- NEXTINSPCALC) >= 50  and
+                      ((to_date(sysdate)- NEXTINSPCALC) < 50  + CAST(to_char(LAST_DAY(sysdate),'dd') AS INT) or 50  = 90))
+                              or (50  < 0 and (to_date(sysdate)- NEXTINSPCALC) <= 50  and
+                       (to_date(sysdate)- NEXTINSPCALC) > 50  - CAST(to_char(LAST_DAY(sysdate),'dd') AS INT))
+
+          Then '60-90 Days OverDue'
+
+         when
+                      (90 > 0 and (to_date(sysdate)- NEXTINSPCALC) >= 90  and
+                      ((to_date(sysdate)- NEXTINSPCALC) < 90  + CAST(to_char(LAST_DAY(sysdate),'dd') AS INT) or 90  = 90))
+                              or (90  < 0 and (to_date(sysdate)- NEXTINSPCALC) <= 90  and
+                       (to_date(sysdate)- NEXTINSPCALC) > 90  - CAST(to_char(LAST_DAY(sysdate),'dd') AS INT))
+
+          Then '90+ Days Overdue'
+
+else 'Not Due' end as DaysDUE
+from
+(SELECT b.Bridge_Gd
+        ,I1.Inspevnt_Gd
+        ,I1.Oppostcl as Posting_Status
+        ,b.Brkey
+        ,b.bridgegroup
+        ,I1.Inspkey
+        ,I1.Insptype
+        ,I1.Inspdate
+        ,'Y' as INSPREQ
+        ,Cast(I1.BrInspFreq As Number) As INSPFREQ
+        ,I1.Lastinsp as LastINSP
+        ,'0' as UWCONTRACT
+        ,'0' as FCCONTRACT
+        ,'0' as PHCONTRACT
+        ,'R' as INSPCAT
+        ,add_months(I1.Inspdate,Cast(I1.BrInspFreq As Number)) NEXTINSPCALC
+        ,Row_Number() Over(PARTITION BY I1.Bridge_Gd ORDER BY I1.Inspdate DESC, I1.CREATEDATETIME Desc) Rn
+        ,b.owner
+        ,b.custodian
+    FROM Inspevnt I1
+    INNER JOIN Kdotblp_Inspections Ki
+      ON (I1.Inspevnt_Gd = Ki.Inspevnt_Gd)
+   INNER JOIN Bridge b
+      ON (I1.Bridge_Gd = b.Bridge_Gd)
+      WHERE
+      Insptype = 'I'
+         )
+     Where rn=1
+      and Posting_Status <> 'K' -- No Closed Bridges
+       and bridgegroup not in ('Closed','perm closed','Perm Closed','Pedestrian','Private','Railroad','Removed','Reserved','Too Short','Transferred','Border Bridges') -- only active bridges
+       and owner not in ('-1','-2','26','27')
+       and custodian not in ('-1','-2','26','27')
+Union ALL
+  --Fracture Critical Inspections --Matches
+Select
+        Bridge_Gd
+        ,Inspevnt_Gd
+        ,Posting_Status
+        ,Brkey
+        ,bridgegroup
+        ,Inspkey
+        ,Insptype
+        ,Inspdate
+        ,INSPREQ
+        ,INSPFREQ
+        ,LastINSP
+        ,UWCONTRACT
+        ,FCCONTRACT
+        ,PHCONTRACT
+        ,INSPCAT
+        ,NEXTINSPCALC
+        ,Case
+  when
+                      (-180 > 0 and (to_date(sysdate)- NEXTINSPCALC) >= -180  and
+                      ((to_date(sysdate)- NEXTINSPCALC) < -180  + CAST(to_char(LAST_DAY(sysdate),'dd') AS INT) or -180  = 90))
+                              or (-180  < 0 and (to_date(sysdate)- NEXTINSPCALC) <= -180  and
+                       (to_date(sysdate)- NEXTINSPCALC) > -180  - CAST(to_char(LAST_DAY(sysdate),'dd') AS INT))
+
+          Then 'Due in 6 Months'
+
+       when
+                      (-30 > 0 and (to_date(sysdate)- NEXTINSPCALC) >= -30  and
+                      ((to_date(sysdate)- NEXTINSPCALC) < -30  + CAST(to_char(LAST_DAY(sysdate),'dd') AS INT) or -30  = 90))
+                              or (-30  < 0 and (to_date(sysdate)- NEXTINSPCALC) <= -30  and
+                       (to_date(sysdate)- NEXTINSPCALC) > -30  - CAST(to_char(LAST_DAY(sysdate),'dd') AS INT))
+
+          Then  'Due in 1-2 Months'
+
+        when
+                      (1 > 0 and (to_date(sysdate)- NEXTINSPCALC) >= 1  and
+                      ((to_date(sysdate)- NEXTINSPCALC) <1  + CAST(to_char(LAST_DAY(sysdate),'dd') AS INT) or 1  = 90))
+                              or (1  < 0 and (to_date(sysdate)- NEXTINSPCALC) <= 1  and
+                       (to_date(sysdate)- NEXTINSPCALC) > 1  - CAST(to_char(LAST_DAY(sysdate),'dd') AS INT))
+
+          Then  '1-30 Days OverDue'
+
+        when
+                      (50 > 0 and (to_date(sysdate)- NEXTINSPCALC) >= 50  and
+                      ((to_date(sysdate)- NEXTINSPCALC) < 50  + CAST(to_char(LAST_DAY(sysdate),'dd') AS INT) or 50  = 90))
+                              or (50  < 0 and (to_date(sysdate)- NEXTINSPCALC) <= 50  and
+                       (to_date(sysdate)- NEXTINSPCALC) > 50  - CAST(to_char(LAST_DAY(sysdate),'dd') AS INT))
+
+          Then '60-90 Days OverDue'
+
+         when
+                      (90 > 0 and (to_date(sysdate)- NEXTINSPCALC) >= 90  and
+                      ((to_date(sysdate)- NEXTINSPCALC) < 90  + CAST(to_char(LAST_DAY(sysdate),'dd') AS INT) or 90  = 90))
+                              or (90  < 0 and (to_date(sysdate)- NEXTINSPCALC) <= 90  and
+                       (to_date(sysdate)- NEXTINSPCALC) > 90  - CAST(to_char(LAST_DAY(sysdate),'dd') AS INT))
+
+          Then '90+ Days Overdue'
+
+else 'Not Due' end as DaysDUE
+
+ from
+(
+SELECT
+        b.Bridge_Gd
+        ,I1.Inspevnt_Gd
+        ,I1.Oppostcl as Posting_Status
+        ,b.Brkey
+        ,b.bridgegroup
+        ,I1.Inspkey
+        ,I1.Insptype
+        ,I1.Inspdate
+        ,Fcinspreq as INSPREQ
+        ,Cast(I1.fcInspFreq As Number) As INSPFREQ
+        ,I1.fcLastinsp as LastINSP
+       ,'0' as UWCONTRACT
+        ,b.userkey4 as FCCONTRACT  --1== Off Contract,0 = On Contract
+        ,'0' as PHCONTRACT
+        ,'FC' as INSPCAT
+        ,add_months(I1.fcLastinsp,Cast(I1.fcInspFreq As Number)) NEXTINSPCALC
+        ,Row_Number() Over(PARTITION BY I1.Bridge_Gd ORDER BY I1.Inspdate DESC, I1.CREATEDATETIME Desc) Rn
+    FROM Inspevnt I1
+    INNER JOIN Kdotblp_Inspections Ki
+      ON (I1.Inspevnt_Gd = Ki.Inspevnt_Gd) 
+   INNER JOIN Bridge b
+      ON (I1.Bridge_Gd = b.Bridge_Gd)
+   )
+    Where rn=1
+      and INSPREQ = 'Y' --Y equals required
+      and Posting_Status <> 'K' -- No Closed Bridges
+       and bridgegroup not in ('Closed','perm closed','Perm Closed','Pedestrian','Private','Railroad','Removed','Reserved','Too Short','Transferred','Border Bridges') -- only active bridge
+       and brkey not in ('000221055003345','000501033107020','000501033007020','000570833005487','000920661803300')
+Union ALL
+--PH Inspection --Matches
+Select
+        Bridge_Gd
+        ,Inspevnt_Gd
+        ,Posting_Status
+        ,Brkey
+        ,bridgegroup
+        ,Inspkey
+        ,Insptype
+        ,Inspdate
+        ,INSPREQ
+        ,INSPFREQ
+        ,LastINSP
+        ,UWCONTRACT
+        ,FCCONTRACT
+        ,PHCONTRACT
+        ,INSPCAT
+        ,NEXTINSPCALC
+        ,Case
+  when
+                      (-180 > 0 and (to_date(sysdate)- NEXTINSPCALC) >= -180  and
+                      ((to_date(sysdate)- NEXTINSPCALC) < -180  + CAST(to_char(LAST_DAY(sysdate),'dd') AS INT) or -180  = 90))
+                              or (-180  < 0 and (to_date(sysdate)- NEXTINSPCALC) <= -180  and
+                       (to_date(sysdate)- NEXTINSPCALC) > -180  - CAST(to_char(LAST_DAY(sysdate),'dd') AS INT))
+
+          Then 'Due in 6 Months'
+
+       when
+                      (-30 > 0 and (to_date(sysdate)- NEXTINSPCALC) >= -30  and
+                      ((to_date(sysdate)- NEXTINSPCALC) < -30  + CAST(to_char(LAST_DAY(sysdate),'dd') AS INT) or -30  = 90))
+                              or (-30  < 0 and (to_date(sysdate)- NEXTINSPCALC) <= -30  and
+                       (to_date(sysdate)- NEXTINSPCALC) > -30  - CAST(to_char(LAST_DAY(sysdate),'dd') AS INT))
+
+          Then  'Due in 1-2 Months'
+
+        when
+                      (1 > 0 and (to_date(sysdate)- NEXTINSPCALC) >= 1  and
+                      ((to_date(sysdate)- NEXTINSPCALC) <1  + CAST(to_char(LAST_DAY(sysdate),'dd') AS INT) or 1  = 90))
+                              or (1  < 0 and (to_date(sysdate)- NEXTINSPCALC) <= 1  and
+                       (to_date(sysdate)- NEXTINSPCALC) > 1  - CAST(to_char(LAST_DAY(sysdate),'dd') AS INT))
+
+          Then  '1-30 Days OverDue'
+
+        when
+                      (50 > 0 and (to_date(sysdate)- NEXTINSPCALC) >= 50  and
+                      ((to_date(sysdate)- NEXTINSPCALC) < 50  + CAST(to_char(LAST_DAY(sysdate),'dd') AS INT) or 50  = 90))
+                              or (50  < 0 and (to_date(sysdate)- NEXTINSPCALC) <= 50  and
+                       (to_date(sysdate)- NEXTINSPCALC) > 50  - CAST(to_char(LAST_DAY(sysdate),'dd') AS INT))
+
+          Then '60-90 Days OverDue'
+
+         when
+                      (90 > 0 and (to_date(sysdate)- NEXTINSPCALC) >= 90  and
+                      ((to_date(sysdate)- NEXTINSPCALC) < 90  + CAST(to_char(LAST_DAY(sysdate),'dd') AS INT) or 90  = 90))
+                              or (90  < 0 and (to_date(sysdate)- NEXTINSPCALC) <= 90  and
+                       (to_date(sysdate)- NEXTINSPCALC) > 90  - CAST(to_char(LAST_DAY(sysdate),'dd') AS INT))
+
+          Then '90+ Days Overdue'
+
+else 'Not Due' end as DaysDUE
+from
+(SELECT b.Bridge_Gd
+        ,I1.Inspevnt_Gd
+        ,I1.Oppostcl as Posting_Status
+        ,b.Brkey
+        ,b.bridgegroup
+        ,I1.Inspkey
+        ,I1.Insptype
+        ,I1.Inspdate
+        ,osinspreq as INSPREQ
+        ,Cast(I1.OSInspFreq As Number) As INSPFREQ
+        ,I1.OSLastinsp as LastINSP
+        ,'0' as UWCONTRACT
+        ,'0' as FCCONTRACT
+        ,b.userkey6 as PHCONTRACT  --1== Off Contract,0 = On Contract
+        ,'PH' as INSPCAT
+        ,add_months(I1.OSLastinsp,Cast(I1.OSInspFreq As Number)) NEXTINSPCALC
+        ,Row_Number() Over(PARTITION BY I1.Bridge_Gd ORDER BY I1.Inspdate DESC, I1.CREATEDATETIME Desc) Rn
+    FROM Inspevnt I1
+    INNER JOIN Kdotblp_Inspections Ki
+      ON (I1.Inspevnt_Gd = Ki.Inspevnt_Gd)
+   INNER JOIN Bridge b
+      ON (I1.Bridge_Gd = b.Bridge_Gd)
+   WHERE-- I1.Osinspdone = '1' -- 1 equals done
+      I1.Insptype = 'A' -- Special Inspection
+     AND Ki.spinsptype = 3010
+    )
+     Where rn=1
+      and inspreq = 'Y' --Y equals required
+      and Posting_Status <> 'K' -- No Closed Bridges
+       and bridgegroup not in ('Closed','perm closed','Perm Closed','Pedestrian','Private','Railroad','Removed','Reserved','Too Short','Transferred','Border Bridges') -- only active bridge
+
+
+UNION ALL
+--Underwater Inspections --Matches
+Select
+
+        Bridge_Gd
+        ,Inspevnt_Gd
+        ,Posting_Status
+        ,Brkey
+        ,bridgegroup
+        ,Inspkey
+        ,Insptype
+        ,Inspdate
+        ,INSPREQ
+        ,INSPFREQ
+        ,LastINSP
+        ,UWCONTRACT
+        ,FCCONTRACT
+        ,PHCONTRACT
+        ,INSPCAT
+        ,NEXTINSPCALC
+        ,Case
+  when
+                      (-180 > 0 and (to_date(sysdate)- NEXTINSPCALC) >= -180  and
+                      ((to_date(sysdate)- NEXTINSPCALC) < -180  + CAST(to_char(LAST_DAY(sysdate),'dd') AS INT) or -180  = 90))
+                              or (-180  < 0 and (to_date(sysdate)- NEXTINSPCALC) <= -180  and
+                       (to_date(sysdate)- NEXTINSPCALC) > -180  - CAST(to_char(LAST_DAY(sysdate),'dd') AS INT))
+
+          Then 'Due in 6 Months'
+
+       when
+                      (-30 > 0 and (to_date(sysdate)- NEXTINSPCALC) >= -30  and
+                      ((to_date(sysdate)- NEXTINSPCALC) < -30  + CAST(to_char(LAST_DAY(sysdate),'dd') AS INT) or -30  = 90))
+                              or (-30  < 0 and (to_date(sysdate)- NEXTINSPCALC) <= -30  and
+                       (to_date(sysdate)- NEXTINSPCALC) > -30  - CAST(to_char(LAST_DAY(sysdate),'dd') AS INT))
+
+          Then  'Due in 1-2 Months'
+
+        when
+                      (1 > 0 and (to_date(sysdate)- NEXTINSPCALC) >= 1  and
+                      ((to_date(sysdate)- NEXTINSPCALC) <1  + CAST(to_char(LAST_DAY(sysdate),'dd') AS INT) or 1  = 90))
+                              or (1  < 0 and (to_date(sysdate)- NEXTINSPCALC) <= 1  and
+                       (to_date(sysdate)- NEXTINSPCALC) > 1  - CAST(to_char(LAST_DAY(sysdate),'dd') AS INT))
+
+          Then  '1-30 Days OverDue'
+
+        when
+                      (50 > 0 and (to_date(sysdate)- NEXTINSPCALC) >= 50  and
+                      ((to_date(sysdate)- NEXTINSPCALC) < 50  + CAST(to_char(LAST_DAY(sysdate),'dd') AS INT) or 50  = 90))
+                              or (50  < 0 and (to_date(sysdate)- NEXTINSPCALC) <= 50  and
+                       (to_date(sysdate)- NEXTINSPCALC) > 50  - CAST(to_char(LAST_DAY(sysdate),'dd') AS INT))
+
+          Then '60-90 Days OverDue'
+
+         when
+                      (90 > 0 and (to_date(sysdate)- NEXTINSPCALC) >= 90  and
+                      ((to_date(sysdate)- NEXTINSPCALC) < 90  + CAST(to_char(LAST_DAY(sysdate),'dd') AS INT) or 90  = 90))
+                              or (90  < 0 and (to_date(sysdate)- NEXTINSPCALC) <= 90  and
+                       (to_date(sysdate)- NEXTINSPCALC) > 90  - CAST(to_char(LAST_DAY(sysdate),'dd') AS INT))
+
+          Then '90+ Days Overdue'
+
+else 'Not Due' end as DaysDUE
+
+from
+(SELECT b.Bridge_Gd
+        ,I1.Inspevnt_Gd
+        ,I1.Oppostcl as Posting_Status
+        ,b.Brkey
+        ,b.bridgegroup
+        ,I1.Inspkey
+        ,I1.Insptype
+        ,I1.Inspdate
+        ,uwinspreq as INSPREQ
+        ,Cast(I1.uwInspFreq As Number) As INSPFREQ
+        ,I1.uwLastinsp as LastINSP
+        ,b.userkey5 as UWCONTRACT  --1== Off Contract,0 = On Contract
+        ,'0' as FCCONTRACT
+        ,'0' as PHCONTRACT
+        ,'UW' as INSPCAT
+        ,add_months(I1.uwLastinsp,Cast(I1.uwInspFreq As Number)) NEXTINSPCALC
+        ,Row_Number() Over(PARTITION BY I1.Bridge_Gd ORDER BY I1.Inspdate DESC, I1.CREATEDATETIME Desc) Rn
+    FROM Inspevnt I1
+    INNER JOIN Kdotblp_Inspections Ki
+      ON (I1.Inspevnt_Gd = Ki.Inspevnt_Gd)
+   INNER JOIN Bridge b
+      ON (I1.Bridge_Gd = b.Bridge_Gd)
+          )
+
+     Where rn=1
+      and inspreq = 'Y' --Y equals required
+       and Posting_Status <> 'K' -- No Closed Bridges
+       and bridgegroup not in ('Closed','perm closed','Perm Closed','Pedestrian','Private','Railroad','Removed','Reserved','Too Short','Transferred','Border Bridges') -- only active bridge
+Union ALL
+--OS Inspections --Other Special
+Select
+
+        Bridge_Gd
+        ,Inspevnt_Gd
+        ,Posting_Status
+        ,Brkey
+        ,bridgegroup
+        ,Inspkey
+        ,Insptype
+        ,Inspdate
+        ,INSPREQ
+        ,INSPFREQ
+        ,LastINSP
+        ,UWCONTRACT
+        ,FCCONTRACT
+        ,PHCONTRACT
+        ,INSPCAT
+        ,NEXTINSPCALC
+        ,Case
+  when
+                      (-180 > 0 and (to_date(sysdate)- NEXTINSPCALC) >= -180  and
+                      ((to_date(sysdate)- NEXTINSPCALC) < -180  + CAST(to_char(LAST_DAY(sysdate),'dd') AS INT) or -180  = 90))
+                              or (-180  < 0 and (to_date(sysdate)- NEXTINSPCALC) <= -180  and
+                       (to_date(sysdate)- NEXTINSPCALC) > -180  - CAST(to_char(LAST_DAY(sysdate),'dd') AS INT))
+
+          Then 'Due in 6 Months'
+
+       when
+                      (-30 > 0 and (to_date(sysdate)- NEXTINSPCALC) >= -30  and
+                      ((to_date(sysdate)- NEXTINSPCALC) < -30  + CAST(to_char(LAST_DAY(sysdate),'dd') AS INT) or -30  = 90))
+                              or (-30  < 0 and (to_date(sysdate)- NEXTINSPCALC) <= -30  and
+                       (to_date(sysdate)- NEXTINSPCALC) > -30  - CAST(to_char(LAST_DAY(sysdate),'dd') AS INT))
+
+          Then  'Due in 1-2 Months'
+
+        when
+                      (1 > 0 and (to_date(sysdate)- NEXTINSPCALC) >= 1  and
+                      ((to_date(sysdate)- NEXTINSPCALC) <1  + CAST(to_char(LAST_DAY(sysdate),'dd') AS INT) or 1  = 90))
+                              or (1  < 0 and (to_date(sysdate)- NEXTINSPCALC) <= 1  and
+                       (to_date(sysdate)- NEXTINSPCALC) > 1  - CAST(to_char(LAST_DAY(sysdate),'dd') AS INT))
+
+          Then  '1-30 Days OverDue'
+
+        when
+                      (50 > 0 and (to_date(sysdate)- NEXTINSPCALC) >= 50  and
+                      ((to_date(sysdate)- NEXTINSPCALC) < 50  + CAST(to_char(LAST_DAY(sysdate),'dd') AS INT) or 50  = 90))
+                              or (50  < 0 and (to_date(sysdate)- NEXTINSPCALC) <= 50  and
+                       (to_date(sysdate)- NEXTINSPCALC) > 50  - CAST(to_char(LAST_DAY(sysdate),'dd') AS INT))
+
+          Then '60-90 Days OverDue'
+
+         when
+                      (90 > 0 and (to_date(sysdate)- NEXTINSPCALC) >= 90  and
+                      ((to_date(sysdate)- NEXTINSPCALC) < 90  + CAST(to_char(LAST_DAY(sysdate),'dd') AS INT) or 90  = 90))
+                              or (90  < 0 and (to_date(sysdate)- NEXTINSPCALC) <= 90  and
+                       (to_date(sysdate)- NEXTINSPCALC) > 90  - CAST(to_char(LAST_DAY(sysdate),'dd') AS INT))
+
+          Then '90+ Days Overdue'
+
+else 'Not Due' end as DaysDUE
+
+from
+
+(SELECT b.Bridge_Gd
+        ,I1.Inspevnt_Gd
+        ,I1.Oppostcl as Posting_Status
+        ,b.Brkey
+        ,b.bridgegroup
+        ,I1.Inspkey
+        ,I1.Insptype
+        ,I1.Inspdate
+        ,osinspreq as INSPREQ
+        ,Cast(I1.OSInspFreq As Number) As INSPFREQ
+        ,I1.OSLastinsp as LastINSP
+        ,'0' as UWCONTRACT
+        ,'0' as FCCONTRACT
+        ,'0' as PHCONTRACT
+        ,'OS' as INSPCAT
+        ,add_months(I1.OSLastinsp,Cast(I1.OSInspFreq As Number)) NEXTINSPCALC
+        ,Row_Number() Over(PARTITION BY I1.Bridge_Gd ORDER BY I1.Inspdate DESC, I1.CREATEDATETIME Desc) Rn
+    FROM Inspevnt I1
+      INNER JOIN Kdotblp_Inspections Ki
+      ON (I1.Inspevnt_Gd = Ki.Inspevnt_Gd)
+   INNER JOIN Bridge b
+      ON (I1.Bridge_Gd = b.Bridge_Gd)
+   WHERE
+      I1.Insptype = 'A' -- Special Inspection
+     AND Ki.spinsptype IN (3000, 3020, 3050, 3500)
+       )
+     Where rn=1
+     and inspreq = 'Y' --Y equals required
+     and Posting_status <> 'K' -- No Closed Bridges
+     and bridgegroup not in ('Closed','perm closed','Perm Closed','Pedestrian','Private','Railroad','Removed','Reserved','Too Short','Transferred','Border Bridges');*/
+  COMMENT ON MATERIALIZED VIEW "KDOT_BLP"."MV_COMBINED_INSPECTION"  IS 'snapshot table for snapshot KDOT_BLP.MV_COMBINED_INSPECTION';
+  GRANT SELECT ON "KDOT_BLP"."MV_COMBINED_INSPECTION" TO "PONTISWEBBROWSER";
+  GRANT SELECT ON "KDOT_BLP"."MV_COMBINED_INSPECTION" TO "PONTISWEBINSPECTIONSUPERVISOR";
+  GRANT SELECT ON "KDOT_BLP"."MV_COMBINED_INSPECTION" TO "PONTISWEBINSPECTOR";
+  GRANT SELECT ON "KDOT_BLP"."MV_COMBINED_INSPECTION" TO "PWEBLOGINID";
+  GRANT SELECT ON "KDOT_BLP"."MV_COMBINED_INSPECTION" TO "PWEBODBCLOGIN";
+  GRANT SELECT ON "KDOT_BLP"."MV_COMBINED_INSPECTION" TO "BLP_BROWSER";
+  GRANT SELECT ON "KDOT_BLP"."MV_COMBINED_INSPECTION" TO "BLP_INSPECTOR";
+  GRANT SELECT ON "KDOT_BLP"."MV_COMBINED_INSPECTION" TO "BLP_LOAD_RATER";
+  GRANT SELECT ON "KDOT_BLP"."MV_COMBINED_INSPECTION" TO "BLP_LOCAL_AGENCY_REVIEW";
+  GRANT SELECT ON "KDOT_BLP"."MV_COMBINED_INSPECTION" TO "BLP_PORTAL_ADMINISTRATOR";
+  GRANT SELECT ON "KDOT_BLP"."MV_COMBINED_INSPECTION" TO "BLP_TEAM_LEADER";
+  GRANT DELETE ON "KDOT_BLP"."MV_COMBINED_INSPECTION" TO "BRMADMIN_ROLE";
+  GRANT INSERT ON "KDOT_BLP"."MV_COMBINED_INSPECTION" TO "BRMADMIN_ROLE";
+  GRANT SELECT ON "KDOT_BLP"."MV_COMBINED_INSPECTION" TO "BRMADMIN_ROLE";
+  GRANT UPDATE ON "KDOT_BLP"."MV_COMBINED_INSPECTION" TO "BRMADMIN_ROLE";
+  GRANT SELECT ON "KDOT_BLP"."MV_COMBINED_INSPECTION" TO "BRMREADONLY_ROLE";
+  GRANT SELECT ON "KDOT_BLP"."MV_COMBINED_INSPECTION" TO "KDOT_BLP_ISU";
+  GRANT SELECT ON "KDOT_BLP"."MV_COMBINED_INSPECTION" TO "KDOT_BLP_SELECT";
+  GRANT SELECT ON "KDOT_BLP"."MV_COMBINED_INSPECTION" TO "PONTISUSER";
+  GRANT SELECT ON "KDOT_BLP"."MV_COMBINED_INSPECTION" TO "PONTISWEBADMINISTRATOR";

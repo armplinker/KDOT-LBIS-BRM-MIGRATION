@@ -1,0 +1,25 @@
+CREATE OR REPLACE VIEW V_EXCLUDED_BRIDGES_MATCH_LIST AS
+
+with bgrows as
+ (select TRIM(REPLACE(q'['border bridges',
+'border_bridges',
+'borderbridges',
+'closed',
+'pedestrian',
+'perm closed',
+'perm_closed',
+'permclosed',
+'private',
+'railroad',
+'removed',
+'reserved',
+'too short',
+'too_short',
+'tooshort',
+'transferred']',
+                       q'[']')) str
+    FROM DUAL -- only active bridgesSelect
+  )
+SELECT * FROM (SELECT value as excluded_bg FROM (select regexp_substr(str, '[^,]+', 1, level) value --, rownum
+  from bgrows
+connect by level <= length(str) - length(replace(str, ',')) + 1)) EXCLUDED
