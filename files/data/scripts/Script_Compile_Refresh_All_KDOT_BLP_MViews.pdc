@@ -1,5 +1,7 @@
 SET SERVEROUTPUT ON SIZE UNLIMITED
 
+SPOOL "Script_Compile_Refresh_All_KDOT_BLP_MViews.log"
+
 SET ECHO OFF
 SET TERMOUT OFF
 
@@ -96,7 +98,6 @@ END IF;
      DBMS_OUTPUT.PUT_LINE(q'[VALID MV Names: ]' || v_MVN1 );
     -- refresh them all right now
      dbms_MVIEW.refresh(list=> v_MVN1 , atomic_refresh=>  false, parallelism=> 4, method=> '?');
-
     END;
     FETCH curMVValidNames
       INTO v_MVN1;
@@ -106,4 +107,4 @@ END IF;
 
 END;
 /
- 
+spool off

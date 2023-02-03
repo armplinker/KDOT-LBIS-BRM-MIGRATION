@@ -23,12 +23,12 @@ WITH Cte AS
          I1.Date_Entered,
          i1.Entered_By_Gd,
          NVL(pau.USERID, '???') AS USERID,
-         Row_Number() Over(PARTITION BY I1.Bridge_Gd ORDER BY I1.Inspdate DESC, I1.CreateDateTime Desc) Rn
+         Row_Number() Over(PARTITION BY b.Bridge_Gd ORDER BY I1.Inspdate DESC,  NVL(i1.MODTIME,I1.CreateDateTime) Desc, i1.INSPKEY ) Rn
     FROM Inspevnt I1
     LEFT OUTER JOIN PON_APP_USERS pau
       ON (i1.ENTERED_BY_GD = pau.PON_APP_USERS_GD)
    INNER JOIN Bridge b
-      On (I1.Bridge_Gd = b.Bridge_Gd))
+      On (b.Bridge_Gd = I1.Bridge_Gd))
 SELECT Cte.Brkey,
        Cte.Bridge_Gd,
        Cte.Inspkey,
@@ -61,4 +61,4 @@ GRANT SELECT ON "KDOT_BLP"."MV_LATEST_INSPECTION" TO "PONTISWEBINSPECTIONSUPERVI
 GRANT SELECT ON "KDOT_BLP"."MV_LATEST_INSPECTION" TO "PONTISWEBINSPECTOR";
 GRANT SELECT ON "KDOT_BLP"."MV_LATEST_INSPECTION" TO "PWEBLOGINID";
 GRANT SELECT ON "KDOT_BLP"."MV_LATEST_INSPECTION" TO "PWEBODBCLOGIN";
-/
+
