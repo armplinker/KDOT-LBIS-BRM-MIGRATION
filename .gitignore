@@ -44,3 +44,5 @@
 /docs/MAYVUE JIRA PWD etc.md
 docs/~$ESOADEV-Tables-Listing-20230131.xlsx
 /files/data/scripts/ddl/*
+/files/data/scripts/Restore_Missing_AR_Tables.sql
+/files/data/scripts/Restore_Missing_ROADWAY_AR_And_USERXXXX_Tables.sql

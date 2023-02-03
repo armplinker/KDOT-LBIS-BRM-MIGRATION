@@ -125,5 +125,11 @@ create index NRM_KDOTBLP_POSTING_TYPE on KDOTBLP_BRIDGE (POSTING_TYPE)
     maxextents unlimited
   )
   nologging;
-
   
+-- added GUID PK column KDOTBLP_QAQC_REVIEW_FINDINGS_GD on table KDOTBLP_QAQC_REVIEW_FINDINGS
+alter table KDOTBLP_QAQC_REVIEW_FINDINGS add (kdotblp_qaqc_review_findings_gd VARCHAR2(32) DEFAULT RAWTOHEX(SYS_GUID()));
+
+-- quantified
+
+update KDOTBLP_QAQC_REVIEW_FINDINGS qa set qa.kdotblp_qaqc_review_findings_gd = RAWTOHEX(SYS_GUID());  
+commit work;

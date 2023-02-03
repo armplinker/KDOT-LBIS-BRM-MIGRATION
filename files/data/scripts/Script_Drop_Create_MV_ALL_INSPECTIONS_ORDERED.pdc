@@ -1,0 +1,171 @@
+DROP MATERIALIZED VIEW "KDOT_BLP"."MV_ALL_INSPECTIONS_ORDERED";
+
+CREATE MATERIALIZED VIEW "KDOT_BLP"."MV_ALL_INSPECTIONS_ORDERED" 
+/*
+("BRKEY", "BRIDGE_GD", "INSPKEY", "INSPEVNT_GD", "INSPDATE", "LASTINSP", "NEXTINSP", "DATE_ENTERED", "INSPTYPE", "NEW_INSPTYPE", "CREATEDATETIME",
+ "MODTIME", "ORIG_INSPTYPE", "ORIG_CREATEDATETIME", "ORIG_MODTIME", "ORIG_FCLASTINSP", "ORIG_UWLASTINSP", "ORIG_OSLASTINSP", "RN", "NEXT_BRIDGE_GD",
+  "NEXT_INSPDATE", "NEXT_INSPKEY", "NEXT_INSPEVNT_GD", "LAST_BRIDGE_GD", "LAST_INSPDATE", "LAST_INSPKEY", "LAST_INSPEVNT_GD", "HAS_ANY_SPECIALS")
+*/
+  ON PREBUILT TABLE
+  USING INDEX 
+  REFRESH FORCE ON DEMAND 
+  AS 
+ SELECT i.Brkey,
+               i.Bridge_Gd,
+               i.Inspkey,
+               i.Inspevnt_Gd,
+               i.Inspdate,
+               i.Lastinsp,
+               i.Nextinsp,
+               i.Date_Entered,
+               i.Insptype,
+               CASE
+                 WHEN Ft.Inspevnt_Gd IS NOT NULL THEN
+                  'I'
+                 ELSE
+                  i.Insptype
+               END AS New_Insptype,
+               i.Createdatetime,
+               i.Modtime,
+               Row_Number() Over(PARTITION BY i.Bridge_Gd ORDER BY i.Inspdate DESC, i.Createdatetime DESC, i.inspkey) AS Rn,
+               i.INSPTYPE As Orig_Insptype -- Original INSPTYPE artifact
+              ,
+               i.Createdatetime AS Orig_Createdatetime --Original CreateDateTime Date artifact
+              ,
+               i.Modtime AS Orig_Modtime --Original ModTime date artifact
+              ,
+               i.Fclastinsp AS Orig_Fclastinsp --Original FC date artifact
+              ,
+               i.Uwlastinsp AS Orig_Uwlastinsp --Original  UW date artifact
+              ,
+               i.Oslastinsp AS Orig_Oslastinsp -- Original OS Date artifact              
+              ,
+               Case -- NEXT BRIDGE_GD - ignore if next is not the same bridge
+                 WHEN Lag(i.Bridge_Gd, 1, NULL)
+                  Over(ORDER BY i.Bridge_Gd,
+                           i.Inspdate DESC,
+                           Createdatetime DESC) <> i.Bridge_Gd THEN
+                  NULL
+                 ELSE
+                  Lag(i.Bridge_Gd, 1, NULL)
+                  Over(ORDER BY i.Bridge_Gd,
+                       i.Inspdate DESC,
+                       i.Createdatetime DESC)
+               END AS Next_Bridge_Gd,
+               Case -- NEXT INSPDATE - SET TO NULL/ignore if next is not the same bridge
+                 WHEN Lag(i.Bridge_Gd, 1, NULL)
+                  Over(ORDER BY i.Bridge_Gd,
+                           i.Inspdate DESC,
+                           i.Createdatetime DESC) <> i.Bridge_Gd THEN
+                  NULL
+                 ELSE
+                  Lag(i.Inspdate, 1, NULL)
+                  Over(ORDER BY i.Bridge_Gd,
+                       i.Inspdate DESC,
+                       Createdatetime DESC)
+               END AS Next_Inspdate,
+               Case -- NEXT INSPKEY   - SET TO NULL/ignore if next is not the same bridge
+                 WHEN Lag(i.Bridge_Gd, 1, NULL)
+                  Over(ORDER BY i.Bridge_Gd,
+                           i.Inspdate DESC,
+                           Createdatetime DESC) <> i.Bridge_Gd THEN
+                  NULL
+                 ELSE
+                  Lag(i.Inspkey, 1, NULL)
+                  Over(ORDER BY i.Bridge_Gd,
+                       i.Inspdate DESC,
+                       Createdatetime DESC)
+               END AS Next_Inspkey,
+               Case -- NEXT INSPEVNT_GD - SET TO NULL/ignore if next is not the same bridge
+                 WHEN Lag(i.Bridge_Gd, 1, NULL)
+                  Over(ORDER BY i.Bridge_Gd,
+                           i.Inspdate DESC,
+                           Createdatetime DESC) <> i.Bridge_Gd THEN
+                  NULL
+                 ELSE
+                  Lag(i.Inspevnt_Gd, 1, NULL)
+                  Over(ORDER BY i.Bridge_Gd,
+                       i.Inspdate DESC,
+                       i.Createdatetime DESC)
+               END AS Next_Inspevnt_Gd,
+               Case -- PRIOR (LAST) BRIDGE_GD  - SET TO NULL/ignore if prior is not the same bridge
+                 WHEN Lead(i.Bridge_Gd, 1, NULL)
+                  Over(ORDER BY i.Bridge_Gd,
+                           i.Inspdate DESC,
+                           i.Createdatetime DESC) <> i.Bridge_Gd THEN
+                  NULL
+                 ELSE
+                  Lead(i.Bridge_Gd, 1, NULL)
+                  Over(ORDER BY i.Bridge_Gd,
+                       i.Inspdate DESC,
+                       i.Createdatetime DESC)
+               END AS Last_Bridge_Gd,
+               Case -- PRIOR (LAST) RAW INSPDATE  - SET TO NULL/ignore if prior is not the same bridge
+                 WHEN Lead(i.Bridge_Gd, 1, NULL)
+                  Over(ORDER BY i.Bridge_Gd,
+                           i.Inspdate DESC,
+                           i.Createdatetime DESC) <> i.Bridge_Gd THEN
+                  NULL
+                 ELSE
+                  Lead(i.Inspdate, 1, NULL)
+                  Over(ORDER BY i.Bridge_Gd,
+                       i.Inspdate DESC,
+                       i.Createdatetime DESC)
+               END AS Last_Inspdate,
+               Case -- PRIOR (LAST) INSPKEY  - SET TO NULL/ignore if prior is not the same bridge
+                 WHEN Lead(i.Bridge_Gd, 1, NULL)
+                  Over(ORDER BY i.Bridge_Gd,
+                           i.Inspdate DESC,
+                           i.Createdatetime DESC) <> i.Bridge_Gd THEN
+                  NULL
+                 ELSE
+                  Lead(i.Inspkey, 1, NULL)
+                  Over(ORDER BY i.Bridge_Gd,
+                       i.Inspdate DESC,
+                       i.Createdatetime DESC)
+               END AS Last_Inspkey,
+               Case -- PRIOR (LAST) INSPEVNT_GD  - SET TO NULL/ignore if prior is not the same bridge
+                 WHEN Lead(i.Bridge_Gd, 1, NULL)
+                  Over(ORDER BY i.Bridge_Gd,
+                           i.Inspdate DESC,
+                           i.Createdatetime DESC) <> i.Bridge_Gd THEN
+                  NULL
+                 ELSE
+                  Lead(i.Inspevnt_Gd, 1, NULL)
+                  Over(ORDER BY i.Bridge_Gd,
+                       i.Inspdate DESC,
+                       i.Createdatetime DESC)
+               END AS Last_Inspevnt_Gd,
+               mix.HAS_ANY_SPECIALS
+        /* -- the view v_Bridges _Insptype_Mix now calculates this flag HAS_ANY_SPECIALS  directly - insptypes is just a string label
+        ,Case -- MARK (Y) TO INDICATE THE BRIDGE HAS ANY SPECIALS AT ANY POINT (DENORMAL ACROSS THE BRIDGE)
+            WHEN mix.Insptypes = 'ONLY_I' THEN
+             'N'
+            ELSE
+             'Y'
+          END AS Has_Any_Specials
+        */
+          FROM INSPEVNT i
+          LEFT OUTER JOIN V_INSPS_W_FIXED_INSPTYPE Ft
+            ON (i.Inspevnt_Gd = Ft.Inspevnt_Gd)
+         INNER JOIN V_BRIDGES_X_INSPTYPE_MIX mix -- returns HAS_ANY_SPECIALS =Y TO INDICATE THE BRIDGE HAS ANY SPECIALS AT ANY POINT (DENORMAL ACROSS THE BRIDGE)
+            ON i.Bridge_Gd = mix.Bridge_Gd
+            ; 
+GRANT SELECT ON "KDOT_BLP"."MV_ALL_INSPECTIONS_ORDERED" TO "PONTISWEBBROWSER";
+GRANT SELECT ON "KDOT_BLP"."MV_ALL_INSPECTIONS_ORDERED" TO "PONTISWEBINSPECTIONSUPERVISOR";
+GRANT SELECT ON "KDOT_BLP"."MV_ALL_INSPECTIONS_ORDERED" TO "PONTISWEBINSPECTOR";
+GRANT SELECT ON "KDOT_BLP"."MV_ALL_INSPECTIONS_ORDERED" TO "PWEBLOGINID";
+GRANT SELECT ON "KDOT_BLP"."MV_ALL_INSPECTIONS_ORDERED" TO "PWEBODBCLOGIN";
+GRANT SELECT ON "KDOT_BLP"."MV_ALL_INSPECTIONS_ORDERED" TO "BLP_BROWSER";
+GRANT SELECT ON "KDOT_BLP"."MV_ALL_INSPECTIONS_ORDERED" TO "BLP_INSPECTOR";
+GRANT SELECT ON "KDOT_BLP"."MV_ALL_INSPECTIONS_ORDERED" TO "BLP_LOAD_RATER";
+GRANT SELECT ON "KDOT_BLP"."MV_ALL_INSPECTIONS_ORDERED" TO "BLP_LOCAL_AGENCY_REVIEW";
+GRANT SELECT ON "KDOT_BLP"."MV_ALL_INSPECTIONS_ORDERED" TO "BLP_PORTAL_ADMINISTRATOR";
+GRANT SELECT ON "KDOT_BLP"."MV_ALL_INSPECTIONS_ORDERED" TO "BLP_TEAM_LEADER";
+GRANT SELECT ON "KDOT_BLP"."MV_ALL_INSPECTIONS_ORDERED" TO "BRMADMIN_ROLE";
+GRANT SELECT ON "KDOT_BLP"."MV_ALL_INSPECTIONS_ORDERED" TO "BRMREADONLY_ROLE";
+GRANT SELECT ON "KDOT_BLP"."MV_ALL_INSPECTIONS_ORDERED" TO "KDOT_BLP_ISU";
+GRANT SELECT ON "KDOT_BLP"."MV_ALL_INSPECTIONS_ORDERED" TO "KDOT_BLP_SELECT";
+GRANT SELECT ON "KDOT_BLP"."MV_ALL_INSPECTIONS_ORDERED" TO "PONTISUSER";
+GRANT SELECT ON "KDOT_BLP"."MV_ALL_INSPECTIONS_ORDERED" TO "PONTISWEBADMINISTRATOR";
+/
