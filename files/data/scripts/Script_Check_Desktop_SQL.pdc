@@ -1,3 +1,10 @@
+/*
+Use  the script Script_Check_Desktop_SQL.pdc to exercise every filter and show the # of records expected (no user access filter applied)
+Any records returning 0 rows may have SQL errors.
+ARMarshall, ARM LLC - 20230205
+run from SQL*PLUS or equivalent
+
+*/
 DECLARE
   ls_hits    PLS_INTEGER := 0;
   ls_execSQL VARCHAR2(32767);
