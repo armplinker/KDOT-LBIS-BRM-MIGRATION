@@ -1,0 +1,511 @@
+﻿SET TERMOUT ON
+WHENEVER SQLERROR CONTINUE
+DECLARE
+  ls_TN1           USER_TAB_COLS.TABLE_NAME%TYPE; -- VARCHAR2(128)
+  ls_execSQL       VARCHAR2(32767); -- this is the limit inside a procedure, NOT for SQL
+  ls_mergeFragment VARCHAR2(32767);
+  CURSOR curBrkeyTables is
+WITH CTE AS
+ (SELECT DISTINCT TABLE_NAME
+    from USER_TAB_COLS utc
+   INNER JOIN USER_OBJECTS uo
+      ON (utc.TABLE_NAME = uo.OBJECT_NAME)
+   where utc.COLUMN_NAME = 'BRKEY'
+     AND utc.TABLE_NAME <> 'BRIDGE'
+     and uo.OBJECT_TYPE = 'TABLE'
+  INTERSECT
+  SELECT DISTINCT TABLE_NAME
+    from USER_TAB_COLS utc
+   INNER JOIN USER_OBJECTS uo
+      ON (utc.TABLE_NAME = uo.OBJECT_NAME)
+   where utc.COLUMN_NAME = 'BRIDGE_GD'
+     AND utc.TABLE_NAME <> 'BRIDGE'
+     and uo.OBJECT_TYPE = 'TABLE'
+  MINUS
+  -- exclude materialized views that may have PREBUILT tables.
+  SELECT DISTINCT utc.TABLE_NAME
+    from USER_TAB_COLS utc
+   INNER JOIN USER_OBJECTS uo
+      ON (utc.TABLE_NAME = uo.OBJECT_NAME and uo.OBJECT_TYPE = 'TABLE')
+   INNER JOIN ALL_MVIEWS amv
+      ON utc.TABLE_NAME = amv.MVIEW_NAME)
+SELECT DISTINCT cte.TABLE_NAME
+  FROM CTE
+-- lots of exclusions for transitional stuff in Portal database
+ WHERE cte.TABLE_NAME NOT LIKE 'MV_%'
+   AND cte.TABLE_NAME NOT LIKE '%_MV'
+   AND cte.TABLE_NAME NOT LIKE '%_BAK'
+   AND cte.TABLE_NAME NOT LIKE '%_BKU'
+   AND cte.TABLE_NAME NOT LIKE '%_TEMP'
+   AND cte.TABLE_NAME NOT LIKE '%_TMP'
+   AND cte.TABLE_NAME NOT LIKE '%_T'
+   AND cte.TABLE_NAME NOT LIKE '%_KT'
+   AND cte.TABLE_NAME NOT LIKE 'ARC_%'
+   AND cte.TABLE_NAME NOT LIKE '%_AR'
+   AND cte.TABLE_NAME NOT LIKE '%_BACKUP'
+   AND cte.TABLE_NAME NOT LIKE '%_NEW_%'
+   AND cte.TABLE_NAME NOT LIKE '%_NEW'
+   AND cte.TABLE_NAME NOT LIKE '%_RENAMED'
+   AND cte.TABLE_NAME NOT LIKE '%_RENAMED%'
+   AND cte.TABLE_NAME NOT LIKE '%_TRANSFORM'
+   AND cte.TABLE_NAME NOT LIKE '%_202%'
+ group by cte.TABLE_NAME
+UNION
+SELECT 'USERSTRUNIT' AS TABLE_NAME FROM DUAL
+ORDER BY 1;
+
+  -- INSPEVNT source to update tables with INSPKEY column
+  CURSOR curInspkeyTables IS
+ WITH CTE AS
+  (SELECT DISTINCT TABLE_NAME
+     from USER_TAB_COLS utc
+    INNER JOIN USER_OBJECTS uo
+       ON (utc.TABLE_NAME = uo.OBJECT_NAME)
+    where utc.COLUMN_NAME = 'INSPKEY'
+      AND utc.TABLE_NAME <> 'INSPEVNT'
+      and uo.OBJECT_TYPE = 'TABLE'
+   INTERSECT
+   SELECT DISTINCT TABLE_NAME
+     from USER_TAB_COLS utc
+    INNER JOIN USER_OBJECTS uo
+       ON (utc.TABLE_NAME = uo.OBJECT_NAME)
+    where utc.COLUMN_NAME = 'INSPEVNT_GD'
+      AND utc.TABLE_NAME <> 'INSPEVNT'
+      and uo.OBJECT_TYPE = 'TABLE'
+   MINUS
+   -- exclude materialized views that may have PREBUILT tables.
+   SELECT DISTINCT utc.TABLE_NAME
+     from USER_TAB_COLS utc
+    INNER JOIN USER_OBJECTS uo
+       ON (utc.TABLE_NAME = uo.OBJECT_NAME and uo.OBJECT_TYPE = 'TABLE')
+    INNER JOIN ALL_MVIEWS amv
+       ON utc.TABLE_NAME = amv.MVIEW_NAME)
+ SELECT DISTINCT cte.TABLE_NAME
+   FROM CTE
+ -- lots of exclusions for transitional stuff in Portal database
+  WHERE cte.TABLE_NAME NOT LIKE 'MV_%'
+    AND cte.TABLE_NAME NOT LIKE '%_MV'
+    AND cte.TABLE_NAME NOT LIKE '%_BAK'
+    AND cte.TABLE_NAME NOT LIKE '%_BKU'
+    AND cte.TABLE_NAME NOT LIKE '%_TEMP'
+    AND cte.TABLE_NAME NOT LIKE '%_TMP'
+    AND cte.TABLE_NAME NOT LIKE '%_T'
+    AND cte.TABLE_NAME NOT LIKE '%_KT'
+    AND cte.TABLE_NAME NOT LIKE 'ARC_%'
+    AND cte.TABLE_NAME NOT LIKE '%_AR'
+    AND cte.TABLE_NAME NOT LIKE '%_BACKUP'
+    AND cte.TABLE_NAME NOT LIKE '%_NEW_%'
+    AND cte.TABLE_NAME NOT LIKE '%_NEW'
+    AND cte.TABLE_NAME NOT LIKE '%_RENAMED'
+    AND cte.TABLE_NAME NOT LIKE '%_RENAMED%'
+    AND cte.TABLE_NAME NOT LIKE '%_TRANSFORM'
+    AND cte.TABLE_NAME NOT LIKE '%_202%'
+  group by cte.TABLE_NAME
+  ORDER BY 1;
+
+
+  -- STRUCTURE_UNIT
+  CURSOR curStrUnitkeyTables IS
+WITH CTE AS
+ (SELECT DISTINCT TABLE_NAME
+    from USER_TAB_COLS utc
+   INNER JOIN USER_OBJECTS uo
+      ON (utc.TABLE_NAME = uo.OBJECT_NAME)
+   where utc.COLUMN_NAME = 'STRUNITKEY'
+     AND utc.TABLE_NAME <> 'STRUCTURE_UNIT'
+     and uo.OBJECT_TYPE = 'TABLE'
+  INTERSECT
+  SELECT DISTINCT TABLE_NAME
+    from USER_TAB_COLS utc
+   INNER JOIN USER_OBJECTS uo
+      ON (utc.TABLE_NAME = uo.OBJECT_NAME)
+   where utc.COLUMN_NAME = 'STRUCTURE_UNIT_GD'
+     AND utc.TABLE_NAME <> 'STRUCTURE_UNIT'
+     and uo.OBJECT_TYPE = 'TABLE'
+  MINUS
+  -- exclude materialized views that may have PREBUILT tables.
+  SELECT DISTINCT utc.TABLE_NAME
+    from USER_TAB_COLS utc
+   INNER JOIN USER_OBJECTS uo
+      ON (utc.TABLE_NAME = uo.OBJECT_NAME and uo.OBJECT_TYPE = 'TABLE')
+   INNER JOIN ALL_MVIEWS amv
+      ON utc.TABLE_NAME = amv.MVIEW_NAME)
+SELECT DISTINCT cte.TABLE_NAME
+  FROM CTE
+ WHERE cte.TABLE_NAME NOT LIKE 'MV_%'
+   AND cte.TABLE_NAME NOT LIKE '%_MV'
+   AND cte.TABLE_NAME NOT LIKE '%_BAK'
+   AND cte.TABLE_NAME NOT LIKE '%_BKU'
+   AND cte.TABLE_NAME NOT LIKE '%_TEMP'
+   AND cte.TABLE_NAME NOT LIKE '%_TMP'
+   AND cte.TABLE_NAME NOT LIKE '%_T'
+   AND cte.TABLE_NAME NOT LIKE '%_KT'
+   AND cte.TABLE_NAME NOT LIKE 'ARC_%'
+   AND cte.TABLE_NAME NOT LIKE '%_AR'
+   AND cte.TABLE_NAME NOT LIKE '%_BACKUP'
+   AND cte.TABLE_NAME NOT LIKE '%_NEW_%'
+   AND cte.TABLE_NAME NOT LIKE '%_NEW'
+   AND cte.TABLE_NAME NOT LIKE '%_RENAMED'
+   AND cte.TABLE_NAME NOT LIKE '%_RENAMED%'
+   AND cte.TABLE_NAME NOT LIKE '%_TRANSFORM'
+   AND cte.TABLE_NAME NOT LIKE '%_202%'
+   group by cte.TABLE_NAME
+UNION
+SELECT 'USERSTRUNIT' AS TABLE_NAME FROM DUAL
+ORDER BY 1;
+
+  -- and  ON_UNDER
+CURSOR curOn_UnderTables IS
+  WITH CTE AS
+   (SELECT DISTINCT TABLE_NAME
+      from USER_TAB_COLS utc
+     INNER JOIN USER_OBJECTS uo
+        ON (utc.TABLE_NAME = uo.OBJECT_NAME)
+     where utc.COLUMN_NAME = 'ON_UNDER'
+       AND utc.TABLE_NAME <> 'ROADWAY'
+       and uo.OBJECT_TYPE = 'TABLE'
+    INTERSECT
+    SELECT DISTINCT TABLE_NAME
+      from USER_TAB_COLS utc
+     INNER JOIN USER_OBJECTS uo
+        ON (utc.TABLE_NAME = uo.OBJECT_NAME)
+     where utc.COLUMN_NAME = 'ROADWAY_GD'
+       AND utc.TABLE_NAME <> 'ROADWAY'
+       and uo.OBJECT_TYPE = 'TABLE'
+    MINUS
+    -- exclude materialized views that may have PREBUILT tables.
+    SELECT DISTINCT utc.TABLE_NAME
+      from USER_TAB_COLS utc
+     INNER JOIN USER_OBJECTS uo
+        ON (utc.TABLE_NAME = uo.OBJECT_NAME and uo.OBJECT_TYPE = 'TABLE')
+     INNER JOIN ALL_MVIEWS amv
+        ON utc.TABLE_NAME = amv.MVIEW_NAME)
+  SELECT DISTINCT cte.TABLE_NAME
+    FROM CTE
+   WHERE cte.TABLE_NAME NOT LIKE 'MV_%'
+   AND cte.TABLE_NAME NOT LIKE '%_MV'
+   AND cte.TABLE_NAME NOT LIKE '%_BAK'
+   AND cte.TABLE_NAME NOT LIKE '%_BKU'
+   AND cte.TABLE_NAME NOT LIKE '%_TEMP'
+   AND cte.TABLE_NAME NOT LIKE '%_TMP'
+   AND cte.TABLE_NAME NOT LIKE '%_T'
+   AND cte.TABLE_NAME NOT LIKE '%_KT'
+   AND cte.TABLE_NAME NOT LIKE 'ARC_%'
+   AND cte.TABLE_NAME NOT LIKE '%_AR'
+   AND cte.TABLE_NAME NOT LIKE '%_BACKUP'
+   AND cte.TABLE_NAME NOT LIKE '%_NEW_%'
+   AND cte.TABLE_NAME NOT LIKE '%_NEW'
+   AND cte.TABLE_NAME NOT LIKE '%_RENAMED'
+   AND cte.TABLE_NAME NOT LIKE '%_RENAMED%'
+   AND cte.TABLE_NAME NOT LIKE '%_TRANSFORM'
+   AND cte.TABLE_NAME NOT LIKE '%_202%'
+   group by cte.TABLE_NAME
+   ORDER BY 1;
+
+BEGIN
+  -- fix the BRKEY values
+  ls_mergeFragment := q'[ ( SELECT b.BRKEY, b.BRIDGE_GD FROM BRIDGE b ) src
+                      ON ( tgt.BRIDGE_GD = src.BRIDGE_GD )
+                        WHEN MATCHED THEN
+                        UPDATE SET tgt.BRKEY=src.BRKEY ]';
+  OPEN curBrkeyTables;
+  FETCH curBrkeyTables
+    INTO ls_TN1;
+  IF (ls_TN1 IS NOT NULL) THEN
+    WHILE (curBrkeyTables%FOUND) LOOP
+      BEGIN
+        -- Execute immediate MERGE statement:
+        ls_execSQL := q'[MERGE INTO ]' || q'[ ]' || ls_tn1 || q'[ ]' ||
+                      q'[ tgt
+                      USING ]' || ls_mergeFragment;
+        DBMS_OUTPUT.PUT_LINE(q'[COMMAND: ]' || ls_execSQL);
+        execute immediate ls_ExecSQL;
+      EXCEPTION
+        WHEN OTHERS THEN
+          BEGIN
+            DBMS_OUTPUT.PUT_LINE(q'[COMMAND FAILED: ]' || ls_execSQL ||
+                                 q'[ < ]' || SQLCODE || q'[ ]' || SQLERRM ||
+                                 q'[ > ]');
+            FETCH curBrkeyTables
+              INTO ls_TN1;
+            CONTINUE; -- just keep going and resolve problems later.
+          END;
+      END;
+      FETCH curBrkeyTables
+        INTO ls_TN1;
+    END LOOP;
+  END IF;
+  CLOSE curBrkeyTables;
+  -- fix the INSPKEY values;
+  ls_mergeFragment := q'[ ( SELECT i.INSPKEY,  i.INSPEVNT_GD FROM INSPEVNT i ) src
+                      ON ( tgt.INSPEVNT_GD = src.INSPEVNT_GD )    WHEN MATCHED THEN
+                        UPDATE SET tgt.INSPKEY=src.INSPKEY ]';
+  OPEN curInspkeyTables;
+  FETCH curInspkeyTables
+    INTO ls_TN1;
+  IF (ls_TN1 IS NOT NULL) THEN
+    WHILE (curInspkeyTables%FOUND) LOOP
+      BEGIN
+        -- Execute immediate MERGE statement:
+        ls_execSQL := q'[MERGE INTO ]' || q'[ ]' || ls_tn1 || q'[ ]' ||
+                      q'[ tgt
+                      USING ]' || ls_mergeFragment;
+        DBMS_OUTPUT.PUT_LINE(q'[COMMAND: ]' || ls_execSQL);
+        execute immediate ls_ExecSQL;
+      EXCEPTION
+        WHEN OTHERS THEN
+          BEGIN
+            DBMS_OUTPUT.PUT_LINE(q'[COMMAND FAILED: ]' || ls_execSQL ||
+                                 q'[ < ]' || SQLCODE || q'[ ]' || SQLERRM ||
+                                 q'[ > ]');
+            FETCH curInspkeyTables
+              INTO ls_TN1;
+            CONTINUE; -- just keep going and resolve problems later.
+          END;
+      END;
+      FETCH curInspkeyTables
+        INTO ls_TN1;
+    END LOOP;
+  END IF;
+  CLOSE curInspkeyTables;
+
+  -- fix the STRUNITKEY values;
+  ls_mergeFragment := q'[ ( SELECT su.STRUNITKEY, su.STRUCTURE_UNIT_GD FROM STRUCTURE_UNIT su ) src
+                      ON ( tgt.STRUCTURE_UNIT_GD  = src.STRUCTURE_UNIT_GD )    WHEN MATCHED THEN
+                        UPDATE SET tgt.STRUNITKEY = src.STRUNITKEY ]';
+  OPEN curStrunitKeyTables;
+  FETCH curStrunitKeyTables
+    INTO ls_TN1;
+  IF (ls_TN1 IS NOT NULL) THEN
+    WHILE (curStrunitKeyTables%FOUND) LOOP
+      BEGIN
+        -- Execute immediate MERGE statement:
+        ls_execSQL := q'[MERGE INTO ]' || q'[ ]' || ls_tn1 || q'[ ]' ||
+                      q'[ tgt
+                      USING ]' || ls_mergeFragment;
+        DBMS_OUTPUT.PUT_LINE(q'[COMMAND: ]' || ls_execSQL);
+        execute immediate ls_ExecSQL;
+      EXCEPTION
+        WHEN OTHERS THEN
+          BEGIN
+            DBMS_OUTPUT.PUT_LINE(q'[COMMAND FAILED: ]' || ls_execSQL ||
+                                 q'[ < ]' || SQLCODE || q'[ ]' || SQLERRM ||
+                                 q'[ > ]');
+            FETCH curStrunitKeyTables
+              INTO ls_TN1;
+            CONTINUE; -- just keep going and resolve problems later.
+          END;
+      END;
+      FETCH curStrunitKeyTables
+        INTO ls_TN1;
+    END LOOP;
+  END IF;
+  CLOSE curStrunitKeyTables;
+  -- fix the ON_UNDER values;
+  ls_mergeFragment := q'[ ( SELECT rw.ON_UNDER, rw.ROADWAY_GD FROM ROADWAY rw ) src
+                      ON ( tgt.ROADWAY_GD  = src.ROADWAY_GD )    WHEN MATCHED THEN
+                        UPDATE SET tgt.ON_UNDER = src.ON_UNDER ]';
+  OPEN curOn_UnderTables;
+  FETCH curOn_UnderTables
+    INTO ls_TN1;
+  IF (ls_TN1 IS NOT NULL) THEN
+    WHILE (curOn_UnderTables%FOUND) LOOP
+      BEGIN
+        -- Execute immediate MERGE statement:
+        ls_execSQL := q'[MERGE INTO ]' || q'[ ]' || ls_tn1 || q'[ ]' ||
+                      q'[ tgt
+                      USING ]' || ls_mergeFragment;
+        DBMS_OUTPUT.PUT_LINE(q'[COMMAND: ]' || ls_execSQL);
+        execute immediate ls_ExecSQL;
+      EXCEPTION
+        WHEN OTHERS THEN
+          BEGIN
+            DBMS_OUTPUT.PUT_LINE(q'[COMMAND FAILED: ]' || ls_execSQL ||
+                                 q'[ < ]' || SQLCODE || q'[ ]' || SQLERRM ||
+                                 q'[ > ]');
+            FETCH curOn_UnderTables
+              INTO ls_TN1;
+            CONTINUE; -- just keep going and resolve problems later.
+          END;
+      END;
+      FETCH curOn_UnderTables
+        INTO ls_TN1;
+    END LOOP;
+  END IF;
+  CLOSE curOn_UnderTables;
+
+
+  COMMIT; -- for all of the work.  This could be done column-by-column
+
+
+EXCEPTION
+  WHEN OTHERS THEN
+    BEGIN
+      ROLLBACK; -- rollback all of the work.  This could be done column-by-column
+      RAISE_APPLICATION_ERROR(-20999,
+                              q'[ ERROR: ]' || SQLCODE || q'[ ]' || SQLERRM);
+    END;
+END;
+/
+COMMAND: MERGE INTO  CICOCNTL  tgt
+                      USING  ( SELECT b.BRKEY, b.BRIDGE_GD FROM BRIDGE b ) src
+                      ON ( tgt.BRIDGE_GD = src.BRIDGE_GD )
+                        WHEN MATCHED THEN
+                        UPDATE SET tgt.BRKEY=src.BRKEY 
+COMMAND: MERGE INTO  EDITCHECK_SESSION  tgt
+                      USING  ( SELECT b.BRKEY, b.BRIDGE_GD FROM BRIDGE b ) src
+                      ON ( tgt.BRIDGE_GD = src.BRIDGE_GD )
+                        WHEN MATCHED THEN
+                        UPDATE SET tgt.BRKEY=src.BRKEY 
+COMMAND: MERGE INTO  EXTERNAL_AGENCY_BRIDGES  tgt
+                      USING  ( SELECT b.BRKEY, b.BRIDGE_GD FROM BRIDGE b ) src
+                      ON ( tgt.BRIDGE_GD = src.BRIDGE_GD )
+                        WHEN MATCHED THEN
+                        UPDATE SET tgt.BRKEY=src.BRKEY 
+COMMAND: MERGE INTO  KDOTBLP_BRIDGE  tgt
+                      USING  ( SELECT b.BRKEY, b.BRIDGE_GD FROM BRIDGE b ) src
+                      ON ( tgt.BRIDGE_GD = src.BRIDGE_GD )
+                        WHEN MATCHED THEN
+                        UPDATE SET tgt.BRKEY=src.BRKEY 
+COMMAND: MERGE INTO  KDOTBLP_DOCUMENTS  tgt
+                      USING  ( SELECT b.BRKEY, b.BRIDGE_GD FROM BRIDGE b ) src
+                      ON ( tgt.BRIDGE_GD = src.BRIDGE_GD )
+                        WHEN MATCHED THEN
+                        UPDATE SET tgt.BRKEY=src.BRKEY 
+COMMAND: MERGE INTO  KDOTBLP_EXCLUDED_STRUCTURES  tgt
+                      USING  ( SELECT b.BRKEY, b.BRIDGE_GD FROM BRIDGE b ) src
+                      ON ( tgt.BRIDGE_GD = src.BRIDGE_GD )
+                        WHEN MATCHED THEN
+                        UPDATE SET tgt.BRKEY=src.BRKEY 
+COMMAND: MERGE INTO  KDOTBLP_INSPECTIONS  tgt
+                      USING  ( SELECT b.BRKEY, b.BRIDGE_GD FROM BRIDGE b ) src
+                      ON ( tgt.BRIDGE_GD = src.BRIDGE_GD )
+                        WHEN MATCHED THEN
+                        UPDATE SET tgt.BRKEY=src.BRKEY 
+COMMAND: MERGE INTO  KDOTBLP_LOAD_RATINGS  tgt
+                      USING  ( SELECT b.BRKEY, b.BRIDGE_GD FROM BRIDGE b ) src
+                      ON ( tgt.BRIDGE_GD = src.BRIDGE_GD )
+                        WHEN MATCHED THEN
+                        UPDATE SET tgt.BRKEY=src.BRKEY 
+COMMAND: MERGE INTO  KDOTBLP_QAQC_REVIEW_FINDINGS  tgt
+                      USING  ( SELECT b.BRKEY, b.BRIDGE_GD FROM BRIDGE b ) src
+                      ON ( tgt.BRIDGE_GD = src.BRIDGE_GD )
+                        WHEN MATCHED THEN
+                        UPDATE SET tgt.BRKEY=src.BRKEY 
+COMMAND: MERGE INTO  KDOTBLP_QAQC_REVIEW_FLAGS  tgt
+                      USING  ( SELECT b.BRKEY, b.BRIDGE_GD FROM BRIDGE b ) src
+                      ON ( tgt.BRIDGE_GD = src.BRIDGE_GD )
+                        WHEN MATCHED THEN
+                        UPDATE SET tgt.BRKEY=src.BRKEY 
+COMMAND: MERGE INTO  PON_BATCH_BRKEYS  tgt
+                      USING  ( SELECT b.BRKEY, b.BRIDGE_GD FROM BRIDGE b ) src
+                      ON ( tgt.BRIDGE_GD = src.BRIDGE_GD )
+                        WHEN MATCHED THEN
+                        UPDATE SET tgt.BRKEY=src.BRKEY 
+COMMAND: MERGE INTO  PON_ELEM_INSP  tgt
+                      USING  ( SELECT b.BRKEY, b.BRIDGE_GD FROM BRIDGE b ) src
+                      ON ( tgt.BRIDGE_GD = src.BRIDGE_GD )
+                        WHEN MATCHED THEN
+                        UPDATE SET tgt.BRKEY=src.BRKEY 
+COMMAND: MERGE INTO  PON_GRPS_ROAD  tgt
+                      USING  ( SELECT b.BRKEY, b.BRIDGE_GD FROM BRIDGE b ) src
+                      ON ( tgt.BRIDGE_GD = src.BRIDGE_GD )
+                        WHEN MATCHED THEN
+                        UPDATE SET tgt.BRKEY=src.BRKEY 
+COMMAND: MERGE INTO  PON_INSP_WORKCAND  tgt
+                      USING  ( SELECT b.BRKEY, b.BRIDGE_GD FROM BRIDGE b ) src
+                      ON ( tgt.BRIDGE_GD = src.BRIDGE_GD )
+                        WHEN MATCHED THEN
+                        UPDATE SET tgt.BRKEY=src.BRKEY 
+COMMAND: MERGE INTO  ROADWAY  tgt
+                      USING  ( SELECT b.BRKEY, b.BRIDGE_GD FROM BRIDGE b ) src
+                      ON ( tgt.BRIDGE_GD = src.BRIDGE_GD )
+                        WHEN MATCHED THEN
+                        UPDATE SET tgt.BRKEY=src.BRKEY 
+COMMAND: MERGE INTO  USERBRDG  tgt
+                      USING  ( SELECT b.BRKEY, b.BRIDGE_GD FROM BRIDGE b ) src
+                      ON ( tgt.BRIDGE_GD = src.BRIDGE_GD )
+                        WHEN MATCHED THEN
+                        UPDATE SET tgt.BRKEY=src.BRKEY 
+COMMAND: MERGE INTO  USERINSP  tgt
+                      USING  ( SELECT b.BRKEY, b.BRIDGE_GD FROM BRIDGE b ) src
+                      ON ( tgt.BRIDGE_GD = src.BRIDGE_GD )
+                        WHEN MATCHED THEN
+                        UPDATE SET tgt.BRKEY=src.BRKEY 
+COMMAND: MERGE INTO  USERRWAY  tgt
+                      USING  ( SELECT b.BRKEY, b.BRIDGE_GD FROM BRIDGE b ) src
+                      ON ( tgt.BRIDGE_GD = src.BRIDGE_GD )
+                        WHEN MATCHED THEN
+                        UPDATE SET tgt.BRKEY=src.BRKEY 
+COMMAND: MERGE INTO  USERSTRUNIT  tgt
+                      USING  ( SELECT b.BRKEY, b.BRIDGE_GD FROM BRIDGE b ) src
+                      ON ( tgt.BRIDGE_GD = src.BRIDGE_GD )
+                        WHEN MATCHED THEN
+                        UPDATE SET tgt.BRKEY=src.BRKEY 
+COMMAND: MERGE INTO  EDITCHECK_SESSION  tgt
+                      USING  ( SELECT i.INSPKEY,  i.INSPEVNT_GD FROM INSPEVNT i ) src
+                      ON ( tgt.INSPEVNT_GD = src.INSPEVNT_GD )    WHEN MATCHED THEN
+                        UPDATE SET tgt.INSPKEY=src.INSPKEY 
+COMMAND: MERGE INTO  KDOTBLP_DOCUMENTS  tgt
+                      USING  ( SELECT i.INSPKEY,  i.INSPEVNT_GD FROM INSPEVNT i ) src
+                      ON ( tgt.INSPEVNT_GD = src.INSPEVNT_GD )    WHEN MATCHED THEN
+                        UPDATE SET tgt.INSPKEY=src.INSPKEY 
+COMMAND: MERGE INTO  KDOTBLP_INSPECTIONS  tgt
+                      USING  ( SELECT i.INSPKEY,  i.INSPEVNT_GD FROM INSPEVNT i ) src
+                      ON ( tgt.INSPEVNT_GD = src.INSPEVNT_GD )    WHEN MATCHED THEN
+                        UPDATE SET tgt.INSPKEY=src.INSPKEY 
+COMMAND: MERGE INTO  KDOTBLP_LOAD_RATINGS  tgt
+                      USING  ( SELECT i.INSPKEY,  i.INSPEVNT_GD FROM INSPEVNT i ) src
+                      ON ( tgt.INSPEVNT_GD = src.INSPEVNT_GD )    WHEN MATCHED THEN
+                        UPDATE SET tgt.INSPKEY=src.INSPKEY 
+COMMAND: MERGE INTO  KDOTBLP_QAQC_REVIEW_FINDINGS  tgt
+                      USING  ( SELECT i.INSPKEY,  i.INSPEVNT_GD FROM INSPEVNT i ) src
+                      ON ( tgt.INSPEVNT_GD = src.INSPEVNT_GD )    WHEN MATCHED THEN
+                        UPDATE SET tgt.INSPKEY=src.INSPKEY 
+COMMAND: MERGE INTO  KDOTBLP_QAQC_REVIEW_FLAGS  tgt
+                      USING  ( SELECT i.INSPKEY,  i.INSPEVNT_GD FROM INSPEVNT i ) src
+                      ON ( tgt.INSPEVNT_GD = src.INSPEVNT_GD )    WHEN MATCHED THEN
+                        UPDATE SET tgt.INSPKEY=src.INSPKEY 
+COMMAND: MERGE INTO  PON_ELEM_INSP  tgt
+                      USING  ( SELECT i.INSPKEY,  i.INSPEVNT_GD FROM INSPEVNT i ) src
+                      ON ( tgt.INSPEVNT_GD = src.INSPEVNT_GD )    WHEN MATCHED THEN
+                        UPDATE SET tgt.INSPKEY=src.INSPKEY 
+COMMAND: MERGE INTO  PON_INSP_STATUS_LOG  tgt
+                      USING  ( SELECT i.INSPKEY,  i.INSPEVNT_GD FROM INSPEVNT i ) src
+                      ON ( tgt.INSPEVNT_GD = src.INSPEVNT_GD )    WHEN MATCHED THEN
+                        UPDATE SET tgt.INSPKEY=src.INSPKEY 
+COMMAND: MERGE INTO  PON_INSP_WORKCAND  tgt
+                      USING  ( SELECT i.INSPKEY,  i.INSPEVNT_GD FROM INSPEVNT i ) src
+                      ON ( tgt.INSPEVNT_GD = src.INSPEVNT_GD )    WHEN MATCHED THEN
+                        UPDATE SET tgt.INSPKEY=src.INSPKEY 
+COMMAND: MERGE INTO  USERINSP  tgt
+                      USING  ( SELECT i.INSPKEY,  i.INSPEVNT_GD FROM INSPEVNT i ) src
+                      ON ( tgt.INSPEVNT_GD = src.INSPEVNT_GD )    WHEN MATCHED THEN
+                        UPDATE SET tgt.INSPKEY=src.INSPKEY 
+COMMAND: MERGE INTO  PON_ELEM_INSP  tgt
+                      USING  ( SELECT su.STRUNITKEY, su.STRUCTURE_UNIT_GD FROM STRUCTURE_UNIT su ) src
+                      ON ( tgt.STRUCTURE_UNIT_GD  = src.STRUCTURE_UNIT_GD )    WHEN MATCHED THEN
+                        UPDATE SET tgt.STRUNITKEY = src.STRUNITKEY 
+COMMAND: MERGE INTO  PON_INSP_WORKCAND  tgt
+                      USING  ( SELECT su.STRUNITKEY, su.STRUCTURE_UNIT_GD FROM STRUCTURE_UNIT su ) src
+                      ON ( tgt.STRUCTURE_UNIT_GD  = src.STRUCTURE_UNIT_GD )    WHEN MATCHED THEN
+                        UPDATE SET tgt.STRUNITKEY = src.STRUNITKEY 
+COMMAND: MERGE INTO  PON_MAINT_ACTIVITY  tgt
+                      USING  ( SELECT su.STRUNITKEY, su.STRUCTURE_UNIT_GD FROM STRUCTURE_UNIT su ) src
+                      ON ( tgt.STRUCTURE_UNIT_GD  = src.STRUCTURE_UNIT_GD )    WHEN MATCHED THEN
+                        UPDATE SET tgt.STRUNITKEY = src.STRUNITKEY 
+COMMAND: MERGE INTO  USERSTRUNIT  tgt
+                      USING  ( SELECT su.STRUNITKEY, su.STRUCTURE_UNIT_GD FROM STRUCTURE_UNIT su ) src
+                      ON ( tgt.STRUCTURE_UNIT_GD  = src.STRUCTURE_UNIT_GD )    WHEN MATCHED THEN
+                        UPDATE SET tgt.STRUNITKEY = src.STRUNITKEY 
+COMMAND: MERGE INTO  PON_GRPS_ROAD  tgt
+                      USING  ( SELECT rw.ON_UNDER, rw.ROADWAY_GD FROM ROADWAY rw ) src
+                      ON ( tgt.ROADWAY_GD  = src.ROADWAY_GD )    WHEN MATCHED THEN
+                        UPDATE SET tgt.ON_UNDER = src.ON_UNDER 
+COMMAND: MERGE INTO  USERRWAY  tgt
+                      USING  ( SELECT rw.ON_UNDER, rw.ROADWAY_GD FROM ROADWAY rw ) src
+                      ON ( tgt.ROADWAY_GD  = src.ROADWAY_GD )    WHEN MATCHED THEN
+                        UPDATE SET tgt.ON_UNDER = src.ON_UNDER 
+
+PL/SQL procedure successfully completed
+

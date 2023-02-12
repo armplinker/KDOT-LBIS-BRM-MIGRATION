@@ -11,6 +11,11 @@ EXEC DBMS_OUTPUT.PUT_LINE('Executing main upgrade script OracleBRM662.sql');
 @"D:\git\repos\KDOT-LBIS-BRM-MIGRATION\stages\6.6\in\OracleBRM662.sql";
 /
 
+-- view supports DELETE BRIDGE by BRIDGE_GD in the Portal DELETE STRUCTURE tool
+EXEC DBMS_OUTPUT.PUT_LINE('Executing  Script_Create_Or_Replace_V_BRIDGE_RELATED_TABLES_DELETE_TARGETS.pdc');
+@"D:\git\repos\KDOT-LBIS-BRM-MIGRATION\files\scripts\Script_Create_Or_Replace_V_BRIDGE_RELATED_TABLES_DELETE_TARGETS.pdc";
+
+
 -- END SCRIPTS
 
 -- SHUTDOWN 

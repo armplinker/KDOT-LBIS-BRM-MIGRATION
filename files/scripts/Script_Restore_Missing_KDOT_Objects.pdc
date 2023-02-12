@@ -1,6 +1,7 @@
 -- Script_Restore_Missing_KDOT_Objects
 -- ARMarshall, ARM_LLC, 20230105 - created
 
+
 -- Oracle6.sql hoses   FK references and cascading delete settings from main tables - restore
 DELETE FROM INSPEVNT i
  WHERE NOT EXISTS (SELECT 1 FROM BRIDGE b WHERE b.BRIDGE_GD = i.BRIDGE_GD);
@@ -133,3 +134,5 @@ alter table KDOTBLP_QAQC_REVIEW_FINDINGS add (kdotblp_qaqc_review_findings_gd VA
 
 update KDOTBLP_QAQC_REVIEW_FINDINGS qa set qa.kdotblp_qaqc_review_findings_gd = RAWTOHEX(SYS_GUID());  
 commit work;
+
+
