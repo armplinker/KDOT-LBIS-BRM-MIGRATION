@@ -1,0 +1,3869 @@
+﻿
+Function created
+
+
+DROP MATERIALIZED VIEW "KDOT_BLP"."MV_DATABASE_EXPORT_EXCELSHEET"
+
+ORA-12003: materialized view or zonemap "KDOT_BLP"."MV_DATABASE_EXPORT_EXCELSHEET" does not exist
+
+Table dropped
+
+
+Table created
+
+
+Comment added
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+DROP MATERIALIZED VIEW "KDOT_BLP"."MV_DATABASE_EXPORT_EXCELSHEET_ENGLISH"
+
+ORA-12003: materialized view or zonemap "KDOT_BLP"."MV_DATABASE_EXPORT_EXCELSHEET_ENGLISH" does not exist
+
+Table dropped
+
+
+Table created
+
+
+Comment added
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+DROP MATERIALIZED VIEW  "KDOT_BLP"."MV_DATABASE_EXPORT_EXCELSHEET_METRIC"
+
+ORA-12003: materialized view or zonemap "KDOT_BLP"."MV_DATABASE_EXPORT_EXCELSHEET_METRIC" does not exist
+
+Table dropped
+
+
+Table created
+
+
+Comment added
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+DROP MATERIALIZED VIEW "KDOT_BLP"."MV_INSP_DATES_FIX"
+
+ORA-12003: materialized view or zonemap "KDOT_BLP"."MV_INSP_DATES_FIX" does not exist
+
+Table dropped
+
+
+Table created
+
+
+Table altered
+
+
+Index created
+
+
+Index created
+
+
+Index created
+
+
+Index created
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+DROP MATERIALIZED VIEW "KDOT_BLP"."MV_KS_SW_SCOURCRIT_DETAIL"
+
+ORA-12003: materialized view or zonemap "KDOT_BLP"."MV_KS_SW_SCOURCRIT_DETAIL" does not exist
+
+Table dropped
+
+
+Table created
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Materialized view dropped
+
+
+Table dropped
+
+
+Table created
+
+
+Table altered
+
+
+Index created
+
+
+Index created
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Materialized view dropped
+
+
+Table dropped
+
+
+Table created
+
+
+Table altered
+
+
+Table altered
+
+
+Table altered
+
+
+Table altered
+
+
+Table altered
+
+
+Comment added
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Materialized view dropped
+
+
+Table dropped
+
+
+Table created
+
+
+Table altered
+
+
+Table altered
+
+
+Table altered
+
+
+Table altered
+
+
+Comment added
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Materialized view dropped
+
+
+Table dropped
+
+
+Table created
+
+
+Comment added
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Materialized view dropped
+
+
+Table dropped
+
+
+Table created
+
+
+Comment added
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Materialized view dropped
+
+
+Table dropped
+
+
+Table created
+
+
+Comment added
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Materialized view dropped
+
+
+Table dropped
+
+
+Table created
+
+
+Comment added
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Materialized view dropped
+
+
+Table dropped
+
+
+Table created
+
+
+Table altered
+
+
+Table altered
+
+
+Table altered
+
+
+Table altered
+
+
+Table altered
+
+
+Comment added
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Materialized view dropped
+
+
+Table dropped
+
+
+Table created
+
+
+Comment added
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+DROP MATERIALIZED VIEW MV_ALL_INSPECTIONS_ORDERED
+
+ORA-12003: materialized view or zonemap "KDOT_BLP"."MV_ALL_INSPECTIONS_ORDERED" does not exist
+
+Table dropped
+
+
+Table created
+
+
+Index created
+
+
+Index created
+
+
+Index created
+
+
+Index created
+
+
+Index created
+
+
+Index created
+
+
+Table altered
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Materialized view dropped
+
+
+Table dropped
+
+
+Table created
+
+
+Comment added
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Materialized view dropped
+
+
+Table dropped
+
+
+Table created
+
+
+Index created
+
+
+Index created
+
+
+Index created
+
+
+Index created
+
+
+Index created
+
+
+Table altered
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Materialized view dropped
+
+
+Table dropped
+
+
+Table created
+
+
+Index created
+
+
+Index created
+
+
+Index created
+
+
+Index created
+
+
+Index created
+
+
+Table altered
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Materialized view dropped
+
+
+Table dropped
+
+
+Table created
+
+
+Index created
+
+
+Index created
+
+
+Index created
+
+
+Index created
+
+
+Index created
+
+
+Table altered
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Materialized view dropped
+
+
+Table dropped
+
+
+Table created
+
+
+Comment added
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Materialized view dropped
+
+
+Table dropped
+
+
+Table created
+
+
+ALTER TABLE "KDOT_BLP"."MV_NUM_02_NBI59_AND_NBI60_LT2" MODIFY ("BRIDGE_GD" NOT NULL ENABLE)
+
+ORA-01442: column to be modified to NOT NULL is already NOT NULL
+
+ALTER TABLE "KDOT_BLP"."MV_NUM_02_NBI59_AND_NBI60_LT2" MODIFY ("INSPEVNT_GD" NOT NULL ENABLE)
+
+ORA-01442: column to be modified to NOT NULL is already NOT NULL
+
+Comment added
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Materialized view dropped
+
+
+Table dropped
+
+
+Table created
+
+
+Comment added
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Materialized view dropped
+
+
+Table dropped
+
+
+Table created
+
+
+Comment added
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Materialized view dropped
+
+
+Table dropped
+
+
+Table created
+
+
+Comment added
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Materialized view dropped
+
+
+Table dropped
+
+
+Table created
+
+
+Comment added
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Materialized view dropped
+
+
+Table dropped
+
+
+Table created
+
+
+Comment added
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Materialized view dropped
+
+
+Table dropped
+
+
+Table created
+
+
+Comment added
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Materialized view dropped
+
+
+Table dropped
+
+
+Table created
+
+
+Index created
+
+
+Materialized view dropped
+
+
+Table dropped
+
+
+Table created
+
+
+Index created
+
+
+Index created
+
+
+Index created
+
+
+Index created
+
+
+Table truncated
+
+
+DROP MATERIALIZED VIEW  "KDOT_BLP"."MV_LATEST_INSPECTION_ANY_INSPTYPE"
+
+ORA-12003: materialized view or zonemap "KDOT_BLP"."MV_LATEST_INSPECTION_ANY_INSPTYPE" does not exist
+
+Materialized view created
+
+
+Comment added
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+DROP MATERIALIZED VIEW "KDOT_BLP"."MV_DATABASE_EXPORT_EXCELSHEET"
+
+ORA-12003: materialized view or zonemap "KDOT_BLP"."MV_DATABASE_EXPORT_EXCELSHEET" does not exist
+
+Materialized view created
+
+
+Comment added
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+DROP MATERIALIZED VIEW  "KDOT_BLP"."MV_DATABASE_EXPORT_EXCELSHEET_ENGLISH"
+
+ORA-12003: materialized view or zonemap "KDOT_BLP"."MV_DATABASE_EXPORT_EXCELSHEET_ENGLISH" does not exist
+
+Materialized view created
+
+
+Comment added
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+DROP MATERIALIZED VIEW  "KDOT_BLP"."MV_DATABASE_EXPORT_EXCELSHEET_METRIC"
+
+ORA-12003: materialized view or zonemap "KDOT_BLP"."MV_DATABASE_EXPORT_EXCELSHEET_METRIC" does not exist
+
+Materialized view created
+
+
+Comment added
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+DROP MATERIALIZED VIEW "KDOT_BLP"."MV_INSP_DATES_FIX"
+
+ORA-12003: materialized view or zonemap "KDOT_BLP"."MV_INSP_DATES_FIX" does not exist
+
+Materialized view created
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+DROP MATERIALIZED VIEW "KDOT_BLP"."MV_KS_SW_SCOURCRIT_DETAIL"
+
+ORA-12003: materialized view or zonemap "KDOT_BLP"."MV_KS_SW_SCOURCRIT_DETAIL" does not exist
+
+Materialized view created
+
+
+Comment added
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+DROP MATERIALIZED VIEW "KDOT_BLP"."MV_LATEST_ELEMENT_INSPECTION"
+
+ORA-12003: materialized view or zonemap "KDOT_BLP"."MV_LATEST_ELEMENT_INSPECTION" does not exist
+
+Materialized view created
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+DROP MATERIALIZED VIEW "KDOT_BLP"."MV_LATEST_INSPECTION_QAQC"
+
+ORA-12003: materialized view or zonemap "KDOT_BLP"."MV_LATEST_INSPECTION_QAQC" does not exist
+
+Materialized view created
+
+
+Comment added
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+DROP MATERIALIZED VIEW  "KDOT_BLP"."MV_LATEST_LR_INSPECTION"
+
+ORA-12003: materialized view or zonemap "KDOT_BLP"."MV_LATEST_LR_INSPECTION" does not exist
+
+Materialized view created
+
+
+Comment added
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+DROP MATERIALIZED VIEW "KDOT_BLP"."MV_LATEST_NBI_INSPECTION"
+
+ORA-12003: materialized view or zonemap "KDOT_BLP"."MV_LATEST_NBI_INSPECTION" does not exist
+
+Materialized view created
+
+
+Comment added
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+DROP  MATERIALIZED VIEW "KDOT_BLP"."MV_LATEST_PH_INSPECTION"
+
+ORA-12003: materialized view or zonemap "KDOT_BLP"."MV_LATEST_PH_INSPECTION" does not exist
+
+Materialized view created
+
+
+Comment added
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+DROP MATERIALIZED VIEW "KDOT_BLP"."MV_LATEST_OS_INSPECTION"
+
+ORA-12003: materialized view or zonemap "KDOT_BLP"."MV_LATEST_OS_INSPECTION" does not exist
+
+DROP MATERIALIZED VIEW "KDOT_BLP"."MV_LATEST_SP_INSPECTION"
+
+ORA-12003: materialized view or zonemap "KDOT_BLP"."MV_LATEST_SP_INSPECTION" does not exist
+
+Materialized view created
+
+
+Comment added
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+DROP MATERIALIZED VIEW "KDOT_BLP"."MV_COMBINED_INSPECTION"
+
+ORA-12003: materialized view or zonemap "KDOT_BLP"."MV_COMBINED_INSPECTION" does not exist
+
+Materialized view created
+
+
+Comment added
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+DROP MATERIALIZED VIEW "KDOT_BLP"."MV_ALL_INSPECTIONS_ORDERED"
+
+ORA-12003: materialized view or zonemap "KDOT_BLP"."MV_ALL_INSPECTIONS_ORDERED" does not exist
+
+CREATE MATERIALIZED VIEW "KDOT_BLP"."MV_ALL_INSPECTIONS_ORDERED"
+/*
+("BRKEY", "BRIDGE_GD", "INSPKEY", "INSPEVNT_GD", "INSPDATE", "LASTINSP", "NEXTINSP", "DATE_ENTERED", "INSPTYPE", "NEW_INSPTYPE", "CREATEDATETIME",
+ "MODTIME", "ORIG_INSPTYPE", "ORIG_CREATEDATETIME", "ORIG_MODTIME", "ORIG_FCLASTINSP", "ORIG_UWLASTINSP", "ORIG_OSLASTINSP", "RN", "NEXT_BRIDGE_GD",
+  "NEXT_INSPDATE", "NEXT_INSPKEY", "NEXT_INSPEVNT_GD", "LAST_BRIDGE_GD", "LAST_INSPDATE", "LAST_INSPKEY", "LAST_INSPEVNT_GD", "HAS_ANY_SPECIALS")
+*/
+  ON PREBUILT TABLE
+  USING INDEX
+  REFRESH FORCE ON DEMAND
+  AS
+ SELECT i.Brkey,
+               i.Bridge_Gd,
+               i.Inspkey,
+               i.Inspevnt_Gd,
+               i.Inspdate,
+               i.Lastinsp,
+               i.Nextinsp,
+               i.Date_Entered,
+               i.Insptype,
+               CASE
+                 WHEN Ft.Inspevnt_Gd IS NOT NULL THEN
+                  'I'
+                 ELSE
+                  i.Insptype
+               END AS New_Insptype,
+               i.Createdatetime,
+               i.Modtime,
+               Row_Number() Over(PARTITION BY i.Bridge_Gd ORDER BY i.Inspdate DESC, i.Createdatetime DESC, i.inspkey) AS Rn,
+               i.INSPTYPE As Orig_Insptype -- Original INSPTYPE artifact
+              ,
+               i.Createdatetime AS Orig_Createdatetime --Original CreateDateTime Date artifact
+              ,
+               i.Modtime AS Orig_Modtime --Original ModTime date artifact
+              ,
+               i.Fclastinsp AS Orig_Fclastinsp --Original FC date artifact
+              ,
+               i.Uwlastinsp AS Orig_Uwlastinsp --Original  UW date artifact
+              ,
+               i.Oslastinsp AS Orig_Oslastinsp -- Original OS Date artifact
+              ,
+               Case -- NEXT BRIDGE_GD - ignore if next is not the same bridge
+                 WHEN Lag(i.Bridge_Gd, 1, NULL)
+                  Over(ORDER BY i.Bridge_Gd,
+                           i.Inspdate DESC,
+                           Createdatetime DESC) <> i.Bridge_Gd THEN
+                  NULL
+                 ELSE
+                  Lag(i.Bridge_Gd, 1, NULL)
+                  Over(ORDER BY i.Bridge_Gd,
+                       i.Inspdate DESC,
+                       i.Createdatetime DESC)
+               END AS Next_Bridge_Gd,
+               Case -- NEXT INSPDATE - SET TO NULL/ignore if next is not the same bridge
+                 WHEN Lag(i.Bridge_Gd, 1, NULL)
+                  Over(ORDER BY i.Bridge_Gd,
+                           i.Inspdate DESC,
+                           i.Createdatetime DESC) <> i.Bridge_Gd THEN
+                  NULL
+                 ELSE
+                  Lag(i.Inspdate, 1, NULL)
+                  Over(ORDER BY i.Bridge_Gd,
+                       i.Inspdate DESC,
+                       Createdatetime DESC)
+               END AS Next_Inspdate,
+               Case -- NEXT INSPKEY   - SET TO NULL/ignore if next is not the same bridge
+                 WHEN Lag(i.Bridge_Gd, 1, NULL)
+                  Over(ORDER BY i.Bridge_Gd,
+                           i.Inspdate DESC,
+                           Createdatetime DESC) <> i.Bridge_Gd THEN
+                  NULL
+                 ELSE
+                  Lag(i.Inspkey, 1, NULL)
+                  Over(ORDER BY i.Bridge_Gd,
+                       i.Inspdate DESC,
+                       Createdatetime DESC)
+               END AS Next_Inspkey,
+               Case -- NEXT INSPEVNT_GD - SET TO NULL/ignore if next is not the same bridge
+                 WHEN Lag(i.Bridge_Gd, 1, NULL)
+                  Over(ORDER BY i.Bridge_Gd,
+                           i.Inspdate DESC,
+                           Createdatetime DESC) <> i.Bridge_Gd THEN
+                  NULL
+                 ELSE
+                  Lag(i.Inspevnt_Gd, 1, NULL)
+                  Over(ORDER BY i.Bridge_Gd,
+                       i.Inspdate DESC,
+                       i.Createdatetime DESC)
+               END AS Next_Inspevnt_Gd,
+               Case -- PRIOR (LAST) BRIDGE_GD  - SET TO NULL/ignore if prior is not the same bridge
+                 WHEN Lead(i.Bridge_Gd, 1, NULL)
+                  Over(ORDER BY i.Bridge_Gd,
+                           i.Inspdate DESC,
+                           i.Createdatetime DESC) <> i.Bridge_Gd THEN
+                  NULL
+                 ELSE
+                  Lead(i.Bridge_Gd, 1, NULL)
+                  Over(ORDER BY i.Bridge_Gd,
+                       i.Inspdate DESC,
+                       i.Createdatetime DESC)
+               END AS Last_Bridge_Gd,
+               Case -- PRIOR (LAST) RAW INSPDATE  - SET TO NULL/ignore if prior is not the same bridge
+                 WHEN Lead(i.Bridge_Gd, 1, NULL)
+                  Over(ORDER BY i.Bridge_Gd,
+                           i.Inspdate DESC,
+                           i.Createdatetime DESC) <> i.Bridge_Gd THEN
+                  NULL
+                 ELSE
+                  Lead(i.Inspdate, 1, NULL)
+                  Over(ORDER BY i.Bridge_Gd,
+                       i.Inspdate DESC,
+                       i.Createdatetime DESC)
+               END AS Last_Inspdate,
+               Case -- PRIOR (LAST) INSPKEY  - SET TO NULL/ignore if prior is not the same bridge
+                 WHEN Lead(i.Bridge_Gd, 1, NULL)
+                  Over(ORDER BY i.Bridge_Gd,
+                           i.Inspdate DESC,
+                           i.Createdatetime DESC) <> i.Bridge_Gd THEN
+                  NULL
+                 ELSE
+                  Lead(i.Inspkey, 1, NULL)
+                  Over(ORDER BY i.Bridge_Gd,
+                       i.Inspdate DESC,
+                       i.Createdatetime DESC)
+               END AS Last_Inspkey,
+               Case -- PRIOR (LAST) INSPEVNT_GD  - SET TO NULL/ignore if prior is not the same bridge
+                 WHEN Lead(i.Bridge_Gd, 1, NULL)
+                  Over(ORDER BY i.Bridge_Gd,
+                           i.Inspdate DESC,
+                           i.Createdatetime DESC) <> i.Bridge_Gd THEN
+                  NULL
+                 ELSE
+                  Lead(i.Inspevnt_Gd, 1, NULL)
+                  Over(ORDER BY i.Bridge_Gd,
+                       i.Inspdate DESC,
+                       i.Createdatetime DESC)
+               END AS Last_Inspevnt_Gd,
+               mix.HAS_ANY_SPECIALS
+        /* -- the view v_Bridges _Insptype_Mix now calculates this flag HAS_ANY_SPECIALS  directly - insptypes is just a string label
+        ,Case -- MARK (Y) TO INDICATE THE BRIDGE HAS ANY SPECIALS AT ANY POINT (DENORMAL ACROSS THE BRIDGE)
+            WHEN mix.Insptypes = 'ONLY_I' THEN
+             'N'
+            ELSE
+             'Y'
+          END AS Has_Any_Specials
+        */
+          FROM INSPEVNT i
+          LEFT OUTER JOIN V_INSPS_W_FIXED_INSPTYPE Ft
+            ON (i.Inspevnt_Gd = Ft.Inspevnt_Gd)
+         INNER JOIN V_BRIDGES_X_INSPTYPE_MIX mix -- returns HAS_ANY_SPECIALS =Y TO INDICATE THE BRIDGE HAS ANY SPECIALS AT ANY POINT (DENORMAL ACROSS THE BRIDGE)
+            ON i.Bridge_Gd = mix.Bridge_Gd
+
+ORA-32334: cannot create prebuilt materialized view on a table already referenced by a MV
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+DROP MATERIALIZED VIEW "KDOT_BLP"."MV_NBI_EXPORT_EXCELSHEET"
+
+ORA-12003: materialized view or zonemap "KDOT_BLP"."MV_NBI_EXPORT_EXCELSHEET" does not exist
+
+Materialized view created
+
+
+Comment added
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+DROP MATERIALIZED VIEW  "KDOT_BLP"."MV_NBI_EXPORT_EXCELSHEET_ENGLISH"
+
+ORA-12003: materialized view or zonemap "KDOT_BLP"."MV_NBI_EXPORT_EXCELSHEET_ENGLISH" does not exist
+
+Materialized view created
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+DROP MATERIALIZED VIEW  "KDOT_BLP"."MV_NBI_EXPORT_EXCELSHEET_METRIC"
+
+ORA-12003: materialized view or zonemap "KDOT_BLP"."MV_NBI_EXPORT_EXCELSHEET_METRIC" does not exist
+
+Materialized view created
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+DROP MATERIALIZED VIEW "KDOT_BLP"."MV_NBI_EXPORT_EXCELSHEET_NEW"
+
+ORA-12003: materialized view or zonemap "KDOT_BLP"."MV_NBI_EXPORT_EXCELSHEET_NEW" does not exist
+
+Materialized view created
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+DROP MATERIALIZED VIEW "KDOT_BLP"."MV_NUM_01_NBI64_LT_3T"
+
+ORA-12003: materialized view or zonemap "KDOT_BLP"."MV_NUM_01_NBI64_LT_3T" does not exist
+
+Materialized view created
+
+
+Comment added
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+DROP MATERIALIZED VIEW "KDOT_BLP"."MV_NUM_02_NBI59_AND_NBI60_LT2"
+
+ORA-12003: materialized view or zonemap "KDOT_BLP"."MV_NUM_02_NBI59_AND_NBI60_LT2" does not exist
+
+Materialized view created
+
+
+ALTER TABLE "KDOT_BLP"."MV_NUM_02_NBI59_AND_NBI60_LT2" MODIFY ("BRIDGE_GD" NOT NULL ENABLE)
+
+ORA-01442: column to be modified to NOT NULL is already NOT NULL
+
+ALTER TABLE "KDOT_BLP"."MV_NUM_02_NBI59_AND_NBI60_LT2" MODIFY ("INSPEVNT_GD" NOT NULL ENABLE)
+
+ORA-01442: column to be modified to NOT NULL is already NOT NULL
+
+Comment added
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+DROP MATERIALIZED VIEW  "KDOT_BLP"."MV_NUM_03_NBI64_GT_3_LT_21_T"
+
+ORA-12003: materialized view or zonemap "KDOT_BLP"."MV_NUM_03_NBI64_GT_3_LT_21_T" does not exist
+
+Materialized view created
+
+
+Comment added
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+DROP MATERIALIZED VIEW "KDOT_BLP"."MV_NUM_04_NBI41_B"
+
+ORA-12003: materialized view or zonemap "KDOT_BLP"."MV_NUM_04_NBI41_B" does not exist
+
+Materialized view created
+
+
+ALTER TABLE "KDOT_BLP"."MV_NUM_04_NBI41_B" MODIFY ("BRIDGE_GD" NOT NULL ENABLE)
+
+ORA-01442: column to be modified to NOT NULL is already NOT NULL
+
+ALTER TABLE "KDOT_BLP"."MV_NUM_04_NBI41_B" MODIFY ("INSPEVNT_GD" NOT NULL ENABLE)
+
+ORA-01442: column to be modified to NOT NULL is already NOT NULL
+
+Comment added
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+DROP MATERIALIZED VIEW  "KDOT_BLP"."MV_OFF_SYSTEM_BRIDGES"
+
+ORA-12003: materialized view or zonemap "KDOT_BLP"."MV_OFF_SYSTEM_BRIDGES" does not exist
+
+Materialized view created
+
+
+Comment added
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+DROP MATERIALIZED VIEW "KDOT_BLP"."MV_OFF_SYSTEM_BRIDGES_NEW"
+
+ORA-12003: materialized view or zonemap "KDOT_BLP"."MV_OFF_SYSTEM_BRIDGES_NEW" does not exist
+
+Materialized view created
+
+
+Comment added
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+DROP MATERIALIZED VIEW "KDOT_BLP"."MV_REMOVED_EXPORT_EXCELSHEET"
+
+ORA-12003: materialized view or zonemap "KDOT_BLP"."MV_REMOVED_EXPORT_EXCELSHEET" does not exist
+
+Materialized view created
+
+
+Comment added
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+DROP MATERIALIZED VIEW "KDOT_BLP"."DW_PONTIS_NST_BRDG_MV"
+
+ORA-12003: materialized view or zonemap "KDOT_BLP"."DW_PONTIS_NST_BRDG_MV" does not exist
+
+Materialized view created
+
+
+Comment added
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+Grant succeeded
+
+
+DROP MATERIALIZED VIEW "KDOT_BLP"."MV_PORTAL_DOTNET_COLUMN_DEFS"
+
+ORA-12003: materialized view or zonemap "KDOT_BLP"."MV_PORTAL_DOTNET_COLUMN_DEFS" does not exist
+
+Materialized view created
+
+
+DROP MATERIALIZED VIEW MV_PORTAL_DATA_DICTIONARY_CACHE
+
+ORA-12003: materialized view or zonemap "KDOT_BLP"."MV_PORTAL_DATA_DICTIONARY_CACHE" does not exist
+
+Materialized view created
+
+
+Materialized view altered
+

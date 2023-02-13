@@ -1,0 +1,123 @@
+DROP MATERIALIZED VIEW "KDOT_BLP"."MV_PORTAL_DOTNET_COLUMN_DEFS";
+
+CREATE MATERIALIZED VIEW "KDOT_BLP"."MV_PORTAL_DOTNET_COLUMN_DEFS" 
+ON PREBUILT TABLE 
+ USING INDEX 
+  REFRESH FORCE ON DEMAND 
+AS
+SELECT CAST(Utc.Table_Name AS VARCHAR2(128))AS Table_Name,
+       CAST(Lower(Utc.Column_Name) AS VARCHAR2(128)) AS ColumnName,
+       CASE
+         WHEN Utc.Data_Type = 'VARCHAR2' THEN
+          'string'
+         ELSE
+          CASE
+            WHEN Utc.Data_Type = 'CHAR' THEN
+             'string'
+            ELSE
+             CASE
+               WHEN Utc.Data_Type = 'INTEGER' THEN
+                'decimal'
+               ELSE
+                CASE
+                  WHEN Utc.Data_Type = 'NUMBER' AND Nvl(Utc.Data_Scale, 0) = 0 THEN
+                   'int32'
+                  ELSE
+                   CASE
+                     WHEN Utc.Data_Type = 'NUMBER' THEN
+                      CASE
+                        WHEN Data_Precision IS NOT NULL AND Nvl(Data_Scale, 0) > 0 THEN
+                         'decimal'
+                        ELSE
+                         CASE
+                           WHEN Utc.Data_Precision IS NULL AND Utc.Data_Scale IS NULL THEN
+                            'int32'
+                         END
+                      END
+                     ELSE
+                      CASE
+                        WHEN Utc.Data_Type = 'DATE' THEN
+                         'datetime'
+                        ELSE
+                         CASE
+                           WHEN Utc.Data_Type LIKE 'TIMESTAMP%' THEN
+                            'datetime'
+                           ELSE
+                            CASE
+                              WHEN Utc.Data_Type = 'RAW' THEN
+                               'byte[]'
+                              ELSE
+                               CASE
+                                 WHEN Utc.Data_Type = 'FLOAT' THEN
+                                  'decimal'
+                                 ELSE
+                                  CASE
+                                    WHEN Utc.Data_Type = 'DOUBLE' THEN
+                                     'double'
+                                    ELSE
+                                     'string'
+                                  END
+                               END
+                            END
+                         END
+                      END
+                   END
+                END
+             END
+          END
+       END AS Datatype,
+       CASE
+         WHEN Utc.Data_Type = 'VARCHAR2' THEN /* MAXLENGTH for .NET columns only applies to VARCHAR or CHAR data (string) but we also use it in the app to make sure all decimal values are no greater than maxlength */
+          To_Char(Utc.Data_Length)
+         ELSE
+          CASE
+            WHEN Utc.Data_Type = 'CHAR' THEN
+             Nvl(To_Char(Data_Length), '1')
+            ELSE
+             CASE
+               WHEN (Utc.Data_Type = 'NUMBER' AND Utc.Data_Scale IS NOT NULL AND
+                    Utc.Data_Scale = 0) THEN
+                To_Char(Data_Precision)
+               ELSE
+                To_Char(Utc.Data_Length)
+             END
+          END
+       END AS Maxlength,
+       CASE
+         WHEN Utc.Nullable = 'Y' THEN
+          q'[True]'
+         ELSE
+          q'[False]'
+       END AS Allowdbnull,
+       Utc.Table_Name || q'[.]' || Utc.Column_Name AS Caption,
+       CAST(Utc.Column_Id AS INTEGER) AS Column_Id,
+       Utc.Data_Type,
+       CAST(Utc.Data_Length AS INTEGER) AS Data_Length,
+       CAST(Utc.Data_Scale AS INTEGER) AS Data_Scale,
+       CAST(Utc.Data_Precision AS INTEGER) AS Data_Precision
+  FROM User_Tab_Cols Utc
+  LEFT OUTER JOIN (SELECT i.Table_Name, c.Column_Name
+                     FROM User_Indexes i, User_Ind_Columns c
+                    WHERE i.Table_Name IN
+                          (SELECT DISTINCT UPPER(kad.Table_Name)
+                             FROM Kdotblp_Attribute_Descriptor kad
+                            GROUP BY UPPER(kad.Table_Name))
+                      AND i.Uniqueness = 'UNIQUE'
+                      AND i.Table_Name = c.Table_Name
+                      AND i.Index_Name = c.Index_Name
+                    GROUP BY i.Table_Name, c.Column_Name
+                    ORDER BY i.Table_Name, c.Column_Name) i
+    ON Utc.Table_Name = i.Table_Name
+   AND Utc.Column_Name = i.Column_Name
+ WHERE Utc.Column_Name NOT LIKE 'SYS_%'
+   AND UPPER(Utc.Table_Name) IN
+       ('BRIDGE',
+        'ROADWAY',
+        'INSPEVNT',
+        'STRUCTURE_UNIT',
+        'KDOTBLP_BRIDGE',
+        'KDOTBLP_INSPECTIONS',
+        'USERRWAY',
+        'USERSTRUNIT',
+        'KDOTBLP_QAQC_REVIEW_FINDINGS',
+        'KDOTBLP_LOAD_RATINGS');

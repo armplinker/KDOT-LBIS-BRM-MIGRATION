@@ -2,26 +2,26 @@
 CONNECT KDOT_BLP/***********r@dt00en60.ksdot.org:1521/ESOADEV.WORLD
 --whenever sqlerror exit sql.sqlcode;
 SET SERVEROUTPUT ON SIZE UNLIMITED
-SPOOL "..\log\OracleBRM6-20230206.log";
+SPOOL "..\log\OracleBRM6-20230213.log";
 
 -- BEGIN SCRIPTS 
 EXEC DBMS_OUTPUT.PUT_LINE('Running all upgrade scripts...');
 EXEC DBMS_OUTPUT.PUT_LINE('Executing Fixup_Missing_INSPEVNT_User_Identifiers.pdc...');
-@"..\files\scripts\Fixup_Missing_INSPEVNT_User_Identifiers.pdc";
+@"..\..\..\files\scripts\Fixup_Missing_INSPEVNT_User_Identifiers.pdc";
 /
 EXEC DBMS_OUTPUT.PUT_LINE('Executing Cleaning Orphan KDOTBLP_INSPECTIONS...');
-@"..\files\scripts\Script_Clean_KDOTBLP_INSPECTIONS_Table_Orphans.pdc";
+@"..\..\..\files\scripts\Script_Clean_KDOTBLP_INSPECTIONS_Table_Orphans.pdc";
 /
 EXEC DBMS_OUTPUT.PUT_LINE('Executing Drop_Create_Table_PON_MOBILE_ERRORS...');
-@"..\files\scripts\Drop_Create_Table_PON_MOBILE_ERRORS.pdc";
+@"..\..\..\files\scripts\Drop_Create_Table_PON_MOBILE_ERRORS.pdc";
 /
 
 EXEC DBMS_OUTPUT.PUT_LINE('Executing Drop_Create_Table_VALIDATION_WARNING...');
-@"..\files\scripts\Drop_Create_Table_VALIDATION_WARNING.pdc";
+@"..\..\..\files\scripts\Drop_Create_Table_VALIDATION_WARNING.pdc";
 /
 
 EXEC DBMS_OUTPUT.PUT_LINE('Executing Drop_Create_Dummy_UserTables...');
-@"..\files\scripts\Drop_Create_Dummy_UserTables.pdc";
+@"..\..\..\files\scripts\Drop_Create_Dummy_UserTables.pdc";
 /
 
 EXEC DBMS_OUTPUT.PUT_LINE('Executing main upgrade script OracleBRM6.sql');
@@ -29,7 +29,7 @@ EXEC DBMS_OUTPUT.PUT_LINE('Executing main upgrade script OracleBRM6.sql');
 /
 
 EXEC DBMS_OUTPUT.PUT_LINE('Executing (POST-UPGRADE) Script_Restore_Missing_KDOT_Objects.pdc...');
-@"..\files\scripts\Script_Restore_Missing_KDOT_Objects.pdc";
+@"..\..\..\files\scripts\Script_Restore_Missing_KDOT_Objects.pdc";
 /
 -- END SCRIPTS
 

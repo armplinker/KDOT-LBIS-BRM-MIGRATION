@@ -7,15 +7,20 @@ SET TERMOUT OFF
 
 WHENEVER SQLERROR CONTINUE
 
+-- we need this function in an MV
+@"Script_Create_Replace_Function_F_IS_PRIMARYKEY_COL.fnc"
+
 -- Create all the prebuilt backing tables for the MVs
+
+@"Script_Drop_Create_PREBUILT_TABLE_MV_LATEST_INSPECTION.pdc"
 
 @"Script_Drop_Create_PREBUILT_TABLE_MV_DATABASE_EXPORT_EXCELSHEET.pdc"
 @"Script_Drop_Create_PREBUILT_TABLE_MV_DATABASE_EXPORT_EXCELSHEET_ENGLISH.pdc"
 @"Script_Drop_Create_PREBUILT_TABLE_MV_DATABASE_EXPORT_EXCELSHEET_METRIC.pdc"
 @"Script_Drop_Create_PREBUILT_TABLE_MV_INSP_DATES_FIX.pdc"
 @"Script_Drop_Create_PREBUILT_TABLE_MV_KS_SW_SCOURCRIT_DETAIL.pdc"
+
 @"Script_Drop_Create_PREBUILT_TABLE_MV_LATEST_ELEMENT_INSPECTION.pdc"
-@"Script_Drop_Create_PREBUILT_TABLE_MV_LATEST_INSPECTION.pdc"
 @"Script_Drop_Create_PREBUILT_TABLE_MV_LATEST_INSPECTION_ANY_INSPTYPE.pdc"
 --@"Script_Drop_Create_PREBUILT_TABLE_MV_LATEST_INSPECTION_AR.pdc"
 @"Script_Drop_Create_PREBUILT_TABLE_MV_LATEST_INSPECTION_QAQC.pdc"
@@ -37,7 +42,8 @@ WHENEVER SQLERROR CONTINUE
 @"Script_Drop_Create_PREBUILT_TABLE_MV_OFF_SYSTEM_BRIDGES_NEW.pdc"
 @"Script_Drop_Create_PREBUILT_TABLE_MV_REMOVED_EXPORT_EXCELSHEET.pdc"
 @"Script_Drop_Create_PREBUILT_TABLE_DW_PONTIS_NST_BRDG_MV.pdc"
-
+@"Script_Drop_Create_PREBUILT_TABLE_MV_PORTAL_DOTNET_COLUMN_DEFS.pdc"
+@"Script_Drop_Create_PREBUIILT_TABLE_MV_PORTAL_DATA_DICTIONARY_CACHE.pdc"
 
 -- Part 2 - create the actual MVs that use these tables
 
@@ -48,6 +54,7 @@ WHENEVER SQLERROR CONTINUE
 @"Script_Create_Or_Replace_V_BASE_MV_COMBINED_INSPECTION.pdc"
 @"Script_Create_Or_Replace_V_BRIDGES_WITH_SP_INSPECTIONS.pdc"
 @"Script_Create_Or_Replace_V_BRIDGES_WITH_UW_INSPECTIONS.pdc"
+
 -- mvs referenced by others
 @"Script_Drop_Create_MV_LATEST_INSPECTION.pdc"
 
@@ -79,5 +86,7 @@ WHENEVER SQLERROR CONTINUE
 @"Script_Drop_Create_MV_OFF_SYSTEM_BRIDGES_NEW.pdc"
 @"Script_Drop_Create_MV_REMOVED_EXPORT_EXCELSHEET.pdc"
 @"Script_Drop_Create_DW_PONTIS_NST_BRDG_MV.pdc"
+@"Script_Drop_Create_MV_PORTAL_DOTNET_COLUMN_DEFS.pdc"
+@"Script_Drop_Create_MV_PORTAL_DATA_DICTIONARY_CACHE.pdc"
 
 spool off

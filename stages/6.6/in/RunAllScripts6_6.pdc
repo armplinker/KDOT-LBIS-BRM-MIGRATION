@@ -1,5 +1,5 @@
 -- CONNECT AND START SESSION
-CONNECT KDOT_BLP/eis3nh0wer@dt00en60.ksdot.org:1521/ESOADEV.WORLD
+CONNECT KDOT_BLP/************@dt00en60.ksdot.org:1521/ESOADEV.WORLD
 --whenever sqlerror exit sql.sqlcode;
 SET SERVEROUTPUT ON SIZE UNLIMITED
 SPOOL "D:\git\repos\KDOT-LBIS-BRM-MIGRATION\stages\6.6\log\OracleBRM6_62-20230131.log";
@@ -7,15 +7,18 @@ SPOOL "D:\git\repos\KDOT-LBIS-BRM-MIGRATION\stages\6.6\log\OracleBRM6_62-2023013
 -- BEGIN SCRIPTS 
  
 
-EXEC DBMS_OUTPUT.PUT_LINE('Executing main upgrade script OracleBRM662.sql');
-@"D:\git\repos\KDOT-LBIS-BRM-MIGRATION\stages\6.6\in\OracleBRM662.sql";
+EXEC DBMS_OUTPUT.PUT_LINE('Executing main upgrade script OracleBRM66.sql -- BASIC SCRIPT');
+@"OracleBRM66.sql";
 /
 
--- view supports DELETE BRIDGE by BRIDGE_GD in the Portal DELETE STRUCTURE tool
-EXEC DBMS_OUTPUT.PUT_LINE('Executing  Script_Create_Or_Replace_V_BRIDGE_RELATED_TABLES_DELETE_TARGETS.pdc');
-@"D:\git\repos\KDOT-LBIS-BRM-MIGRATION\files\scripts\Script_Create_Or_Replace_V_BRIDGE_RELATED_TABLES_DELETE_TARGETS.pdc";
+EXEC DBMS_OUTPUT.PUT_LINE('Executing main upgrade script OracleBRM662.sql -- 6.6.2 PATCH SCRIPT');
+@"OracleBRM662.sql";
+/
 
 
+EXEC DBMS_OUTPUT.PUT_LINE('Executing (POST-UPGRADE) Script_Restore_Missing_KDOT_Objects.pdc...');
+@"..\..\..\files\scripts\Script_Restore_Missing_KDOT_Objects.pdc";
+/
 -- END SCRIPTS
 
 -- SHUTDOWN 

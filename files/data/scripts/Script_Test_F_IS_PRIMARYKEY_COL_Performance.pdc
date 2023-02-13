@@ -1,0 +1,57 @@
+CLEAR
+
+SET SERVEROUTPUT ON SIZE UNLIMITED
+SET TERMOUT ON
+SET ECHO ON
+
+WHENEVER SQLERROR CONTINUE 
+ 
+DECLARE
+
+lts_start  TIMESTAMP;
+
+intvl_elapsed_time INTERVAL DAY TO SECOND := null;
+
+intvl_total_time INTERVAL DAY TO SECOND := null;
+
+ls_user VARCHAR2(128) := USER;
+
+li_is_PrimaryKeyCol PLS_INTEGER := 0;
+
+begin
+
+
+DBMS_OUTPUT.PUT_LINE('Start time (SYSDATE) : ' || TO_CHAR(SYSDATE, 'MM-DD-YYYY HH24:MI:SS.SS'));
+
+SELECT SYSTIMESTAMP INTO lts_start FROM DUAL;
+ 
+  for testRec in 
+    (select utc.table_name, utc.column_name, utc.column_id
+            from user_tab_cols utc
+            where utc.table_name in ( 'BRIDGE',
+                                      'INSPEVNT',
+                                      'ROADWAY',
+                                      'STRUCTURE_UNIT',
+                                      'KDOTBLP_BRIDGE',
+                                      'KDOTBLP_INSPECTIONS',
+                                      'USERRWAY',
+                                      'USERSTRUNIT', 
+                                      'KDOTBLP_ATTRIBUTE_DESCRIPTOR')
+            ORDER BY 1, 3 ) LOOP       
+     li_is_PrimaryKeyCol :=  TO_CHAR( f_is_primarykey_col(testRec.table_name, testRec.column_name, ls_user) )  ;
+     intvl_elapsed_time:= ( systimestamp - lts_Start );
+     
+    DBMS_OUTPUT.PUT_LINE('Column ID: '|| to_Char(testRec.Column_id, 'fm0000' ) ||
+     ' --- Table: ' || LPAD(testRec.TABLE_NAME,30,' ') ||
+     ' --- Column: ' || LPAD(testRec.COLUMN_NAME,30,' ') ||
+     ' --- Primary key: ' || 
+       case when  li_is_PrimaryKeyCol >0 then 'T'|| ' ' || TO_CHAR(li_is_PrimaryKeyCol, 'fm0000') ELSE RPAD('F',6,' ') END  ||
+     ' --- Elapsed Time: ' ||  LPAD(EXTRACT(MINUTE FROM  intvl_elapsed_time), 2, '0')||':'|| LPAD(EXTRACT(SECOND FROM  intvl_elapsed_time), 7, '0'));
+    
+    END LOOP;
+
+SELECT SYSTIMESTAMP - lts_start INTO intvl_total_time FROM DUAL;
+
+DBMS_OUTPUT.PUT_LINE('Total Runtime : ' || LPAD(EXTRACT(MINUTE FROM intvl_total_time), 2, '0')||':'|| LPAD(EXTRACT(SECOND FROM intvl_total_time), 7, '0'));     
+end;
+/
